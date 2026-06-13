@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mounika's Daily Tablet Schedule</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --rose:     #E8927C;
+    --rose-lt:  #F9EAE6;
+    --sage:     #7BAE8E;
+    --sage-lt:  #EAF3EE;
+    --gold:     #C9A84C;
+    --gold-lt:  #FBF4E3;
+    --lavender: #9B89C4;
+    --lav-lt:   #F0EDF9;
+    --ink:      #2B2B3A;
+    --mist:     #F7F5F2;
+    --white:    #FFFFFF;
+    --border:   #E8E4DF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--mist);
+    color: var(--ink);
+    min-height: 100vh;
+    padding: 0 0 48px;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #E8927C 0%, #C9A84C 100%);
+    padding: 36px 24px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '🌸';
+    position: absolute;
+    font-size: 120px;
+    opacity: 0.08;
+    top: -20px; right: -20px;
+  }
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: white;
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+  }
+  header p {
+    color: rgba(255,255,255,0.85);
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .week-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 10px;
+    backdrop-filter: blur(4px);
+  }
+
+  /* IMPORTANT NOTE */
+  .note-banner {
+    margin: 16px 16px 0;
+    background: var(--lav-lt);
+    border-left: 4px solid var(--lavender);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #5a4e8c;
+    line-height: 1.5;
+  }
+  .note-banner strong { font-weight: 600; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #999;
+    padding: 24px 16px 8px;
+  }
+
+  /* TIME BLOCK */
+  .time-block {
+    margin: 0 16px 12px;
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .time-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .time-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .time-info h2 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .time-info span {
+    font-size: 12px;
+    color: #888;
+  }
+
+  /* MEDICINE ROW */
+  .med-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  .med-row:last-child { border-bottom: none; }
+  .med-row:active { background: var(--mist); }
+
+  .med-check {
+    width: 24px; height: 24px;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    background: white;
+  }
+  .med-check.checked {
+    background: var(--sage);
+    border-color: var(--sage);
+  }
+  .med-check.checked::after {
+    content: '✓';
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .med-info { flex: 1; }
+  .med-name {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .med-desc {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.4;
+  }
+  .med-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-top: 4px;
+    letter-spacing: 0.3px;
+  }
+  .tag-critical { background: #FFE8E4; color: #C0392B; }
+  .tag-progesterone { background: var(--lav-lt); color: #6B52AE; }
+  .tag-nutrition { background: var(--sage-lt); color: #2E7D52; }
+  .tag-calcium { background: var(--gold-lt); color: #8B6914; }
+  .tag-topical { background: #F0F0F0; color: #555; }
+
+  /* PROGRESS BAR */
+  .progress-wrap {
+    margin: 16px 16px 0;
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .progress-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .progress-top span:first-child {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .progress-count {
+    font-size: 13px;
+    color: var(--sage);
+    font-weight: 600;
+  }
+  .progress-bar-bg {
+    background: var(--border);
+    border-radius: 99px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--sage), var(--rose));
+    border-radius: 99px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* RESET BUTTON */
+  .reset-btn {
+    display: block;
+    width: calc(100% - 32px);
+    margin: 16px auto 0;
+    padding: 14px;
+    background: var(--rose);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: opacity 0.2s;
+  }
+  .reset-btn:active { opacity: 0.85; }
+
+  /* IMPORTANT REMINDERS */
+  .reminder-card {
+    margin: 0 16px 10px;
+    background: white;
+    border-radius: 14px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .reminder-icon { font-size: 22px; flex-shrink: 0; }
+  .reminder-text { font-size: 13px; line-height: 1.5; color: #444; }
+  .reminder-text strong { font-weight: 600; color: var(--ink); }
+
+  /* COMPLETION MESSAGE */
+  .completion-msg {
+    display: none;
+    margin: 16px;
+    background: linear-gradient(135deg, var(--sage-lt), var(--rose-lt));
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+  }
+  .completion-msg.show { display: block; }
+  .completion-msg h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    margin: 8px 0 4px;
+  }
+  .completion-msg p { font-size: 13px; color: #666; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Mounika's Daily Schedule</h1>
+  <p>Pregnancy Tablet Tracker</p>
+  <div class="week-badge">🤱 17 Weeks • EDD: 21 Nov 2026</div>
+</header>
+
+<div class="note-banner">
+  <strong>⚠️ Important:</strong> Thyronorm must be taken on empty stomach first. Wait 30 mins before eating. Confirm with doctor whether to continue Zuviston alongside Womiren.
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-top">
+    <span>Today's Progress</span>
+    <span class="progress-count" id="progressCount">0 / 8 done</span>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressFill"></div>
+  </div>
+</div>
+
+<!-- MORNING EMPTY STOMACH -->
+<div class="section-label">Morning — Empty Stomach</div>
+<div class="time-block">
+  <div class="time-header">
+    <div class="time-icon" style="background:#FFF3E0;">🌅</div>
+    <div class="time-info">
+      <h2>5:30 – 6:30 AM</h2>
+      <span>Before eating anything</span>
+    </div>
+  </div>
+  <div class="med-row">
+    <div class="med-check" onclick="toggle(this)" id="check-0"></div>
+    <div class="med-info">
+      <div class="med-name">Thyronorm 50mcg</div>
+      <div class="med-desc">Take with a small sip of water (50ml milk if nauseous). Wait 30–45 mins before any food or other tablets.</div>
+      <span class="med-tag tag-critical">🔴 Critical — Daily</span>
+    </div>
+  </div>
+  <div class="med-row">
+    <div class="med-check" onclick="toggle(this)" id="check-1"></div>
+    <div class="med-info">
+      <div class="med-name">Tab. Dydrogest 10</div>
+      <div class="med-desc">Progesterone tablet — take after Thyronorm gap, with light food or milk.</div>
+      <span class="med-tag tag-progesterone">💜 Preterm Prevention</span>
+    </div>
+  </div>
+</div>
+
+<!-- BREAKFAST -->
+<div class="section-label">After Breakfast</div>
+<div class="time-block">
+  <div class="time-header">
+    <div class="time-icon" style="background:#E8F5E9;">🍽️</div>
+    <div class="time-info">
+      <h2>8:00 – 9:00 AM</h2>
+      <span>After proper breakfast</span>
+    </div>
+  </div>
+  <div class="med-row">
+    <div class="med-check" onclick="toggle(this)" id="check-2"></div>
+    <div class="med-info">
+      <div class="med-name">Folic Acid</div>
+      <div class="med-desc">Essential for baby's neural development. Do NOT skip.</div>
+      <span class="med-tag tag-nutrition">🟢 Essential</span>
+    </div>
+  </div>
+  <div class="med-row">
+    <div class="med-check" onclick="toggle(this)" id="check-3"></div>
+    <div class="med-info">
+      <div class="med-name">Pro-Cas DF Powder</div>
+      <div class="med-desc">Mix with milk or water. Protein + DHA for baby's brain development and Mounika's nutrition.</div>
+      <span class="med-tag tag-nutrition">🟢 Protein Support</span>
+    </div>
+  </div>
+</div>
+
+<!-- AFTERNOON -->
+<div class="section-label">Afternoon</div>
+<div class="time-block">
+  <div class="time-header">
+    <div class="time-icon" style="background:#FFF8E1;">☀️</div>
+    <div class="time-info">
+      <h2>1:00 – 2:00 PM</h2>
+      <span>After lunch</span>
+    </div>
+  </div>
+  <div class="med-row">
+    <div class="med-check" onclick="toggle(this)" id="check-4"></div>
+    <div class="med-info">
+      <div class="med-name">Tab. Magnocal</div>
+      <div class="med-desc">Calcium + Magnesium. Keep away from iron tablets (Womiren) — take at separate times.</div>
+      <span class="med-tag tag-calcium">🟡 Calcium & Bone</span>
+    </div>
+  </div>
+  <div class="med-row">
+    <div class="med-check" onclick="toggle(this)" id="check-5"></div>
+    <div class="med-info">
+      <div class="med-name">Tab. Sustener 200</div>
+      <div class="med-desc">Progesterone support. May cause mild drowsiness — afternoon timing is ideal.</div>
+      <span class="med-tag tag-progesterone">💜 Preterm Prevention</span>
+    </div>
+  </div>
+</div>
+
+<!-- NIGHT -->
+<div class="section-label">Night</div>
+<div class="time-block">
+  <div class="time-header">
+    <div class="time-icon" style="background:#EDE7F6;">🌙</div>
+    <div class="time-info">
+      <h2>9:00 – 10:00 PM</h2>
+      <span>After dinner</span>
+    </div>
+  </div>
+  <div class="med-row">
+    <div class="med-check" onclick="toggle(this)" id="check-6"></div>
+    <div class="med-info">
+      <div class="med-name">Tab. Womiren</div>
+      <div class="med-desc">Iron + Folic Acid. Best absorbed at night, away from calcium. May cause dark stools — normal.</div>
+      <span class="med-tag tag-nutrition">🟢 Iron & Folic Acid</span>
+    </div>
+  </div>
+  <div class="med-row">
+    <div class="med-check" onclick="toggle(this)" id="check-7"></div>
+    <div class="med-info">
+      <div class="med-name">Tab. Dydrogest 10</div>
+      <div class="med-desc">Second dose of progesterone tablet. Take after dinner.</div>
+      <span class="med-tag tag-progesterone">💜 Preterm Prevention</span>
+    </div>
+  </div>
+</div>
+
+<!-- BEDTIME -->
+<div class="section-label">Bedtime</div>
+<div class="time-block">
+  <div class="time-header">
+    <div class="time-icon" style="background:#FCE4EC;">🌛</div>
+    <div class="time-info">
+      <h2>Before Sleep</h2>
+      <span>Topical application</span>
+    </div>
+  </div>
+  <div class="med-row">
+    <div class="med-check" onclick="toggle(this)" id="check-8"></div>
+    <div class="med-info">
+      <div class="med-name">Stovient Cream</div>
+      <div class="med-desc">Apply gently on belly, hips and thighs. Stretch mark prevention. 1 application at night.</div>
+      <span class="med-tag tag-topical">⚪ Topical</span>
+    </div>
+  </div>
+</div>
+
+<!-- COMPLETION MESSAGE -->
+<div class="completion-msg" id="completionMsg">
+  <div style="font-size:40px;">🎉</div>
+  <h3>All done for today!</h3>
+  <p>Great job Mounika. Baby is getting everything needed today. 💙</p>
+</div>
+
+<!-- RESET -->
+<button class="reset-btn" onclick="resetAll()">🔄 Reset for New Day</button>
+
+<!-- REMINDERS -->
+<div class="section-label">Important Reminders</div>
+
+<div class="reminder-card">
+  <div class="reminder-icon">⏰</div>
+  <div class="reminder-text"><strong>Thyronorm timing:</strong> Always first in the morning. 30–45 min gap before food. Never with calcium or iron.</div>
+</div>
+
+<div class="reminder-card">
+  <div class="reminder-icon">🚫</div>
+  <div class="reminder-text"><strong>Iron + Calcium gap:</strong> Womiren (night) and Magnocal (afternoon) must not be taken together — they cancel each other out.</div>
+</div>
+
+<div class="reminder-card">
+  <div class="reminder-icon">🛏️</div>
+  <div class="reminder-text"><strong>Bed rest:</strong> 3 weeks complete bed rest post cerclage (15 June onwards). Walk only to bathroom. No cooking, no lifting.</div>
+</div>
+
+<div class="reminder-card">
+  <div class="reminder-icon">📅</div>
+  <div class="reminder-text"><strong>Next scan:</strong> TIFFA Level 2 scan on <strong>14 July 2026</strong> (~21 weeks).</div>
+</div>
+
+<div class="reminder-card">
+  <div class="reminder-icon">🩸</div>
+  <div class="reminder-text"><strong>TSH retest:</strong> Due late July 2026. Keep taking Thyronorm daily without fail.</div>
+</div>
+
+<div class="reminder-card">
+  <div class="reminder-icon">💊</div>
+  <div class="reminder-text"><strong>Zuviston:</strong> Confirm with Dr. Bharathi Ramesh (90367 86686) whether to continue alongside Womiren.</div>
+</div>
+
+<script>
+  const TOTAL = 9; // 0 to 8
+
+  function toggle(el) {
+    el.classList.toggle('checked');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const checked = document.querySelectorAll('.med-check.checked').length;
+    const pct = Math.round((checked / TOTAL) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressCount').textContent = checked + ' / ' + TOTAL + ' done';
+
+    const msg = document.getElementById('completionMsg');
+    if (checked === TOTAL) {
+      msg.classList.add('show');
+    } else {
+      msg.classList.remove('show');
+    }
+  }
+
+  function resetAll() {
+    if (!confirm('Reset all checkboxes for a new day?')) return;
+    document.querySelectorAll('.med-check').forEach(el => el.classList.remove('checked'));
+    updateProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
