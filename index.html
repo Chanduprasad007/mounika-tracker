@@ -842,6 +842,20 @@
   <div class="app-container">
     <canvas id="confetti-canvas"></canvas>
 
+    <!-- DotField Background Container -->
+    <div id="dotFieldBackground" style="position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; border-radius: inherit;">
+      <canvas id="dotFieldCanvas" style="position: absolute; inset: 0; width: 100%; height: 100%;"></canvas>
+      <svg id="dotFieldSvg" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;">
+        <defs>
+          <radialGradient id="dotFieldGlowGrad">
+            <stop offset="0%" id="dotFieldGlowStop" stop-color="rgba(168, 85, 247, 0.35)"></stop>
+            <stop offset="100%" stop-color="transparent"></stop>
+          </radialGradient>
+        </defs>
+        <circle id="dotFieldGlowCircle" cx="-9999" cy="-9999" r="160" fill="url(#dotFieldGlowGrad)" style="opacity: 0; will-change: opacity;"></circle>
+      </svg>
+    </div>
+
     <!-- HEADER -->
     <header>
       <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle dark theme">
@@ -1403,6 +1417,7 @@
     let currentFilter = 'all';
     let notificationsActive = false;
     let lastNotifiedTime = "";
+    let dotFieldInstance = null;
 
     // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
@@ -1421,6 +1436,27 @@
       updateThemeIcon();
 
       loadState();
+
+      // Initialize DotField Canvas Background
+      try {
+        dotFieldInstance = new DotField({
+          canvasId: 'dotFieldCanvas',
+          svgId: 'dotFieldSvg',
+          glowCircleId: 'dotFieldGlowCircle',
+          glowStopId: 'dotFieldGlowStop',
+          dotRadius: 1.5,
+          dotSpacing: 14,
+          cursorRadius: 160,
+          bulgeStrength: 67,
+          glowRadius: 160,
+          sparkle: false,
+          waveAmplitude: 0
+        });
+        updateDotFieldColors(savedTheme);
+      } catch (e) {
+        console.error("Error initializing DotField:", e);
+      }
+
       updateDynamicHeader();
       updateTabletsProgress();
       document.getElementById('birthDateInput').value = babyBirthDate;
@@ -1442,9 +1478,27 @@
       document.documentElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
       updateThemeIcon();
+      updateDotFieldColors(newTheme);
       
       // Re-trigger layout calculations to adjust indicators
       setTimeout(updateTabIndicator, 150);
+    }
+
+    function updateDotFieldColors(theme) {
+      if (!dotFieldInstance) return;
+      if (theme === 'dark') {
+        dotFieldInstance.updateColors(
+          'rgba(168, 85, 247, 0.3)',
+          'rgba(180, 151, 207, 0.18)',
+          'rgba(168, 85, 247, 0.22)'
+        );
+      } else {
+        dotFieldInstance.updateColors(
+          'rgba(168, 85, 247, 0.18)',
+          'rgba(180, 151, 207, 0.12)',
+          'rgba(168, 85, 247, 0.12)'
+        );
+      }
     }
 
     function updateThemeIcon() {
@@ -1533,9 +1587,15 @@
       document.getElementById('greetingText').textContent = greeting + ", Mouni";
 
       // Calculate gestational age and countdown
-      const edd = TENTATIVE_EDD;
-      const diffTime = edd - today;
+      const edd = new Date(babyBirthDate);
+      edd.setHours(0,0,0,0);
+      const todayZero = new Date();
+      todayZero.setHours(0,0,0,0);
+      
+      const diffTime = edd - todayZero;
       const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      const babySizeCard = document.getElementById('babySizeCard');
 
       if (daysLeft > 0) {
         document.getElementById('countdownTimerText').innerHTML = `🍼 <strong>${daysLeft} Days</strong> Until Baby Arrives`;
@@ -1587,7 +1647,20 @@
           tri3Fill.style.width = "0%";
         }
         
-        document.getElementById('countdownSubtext').innerHTML = `EDD: <strong>21 Nov 2026</strong>. You are doing amazing! 🌸`;
+        const formattedEDD = formatDate(edd);
+        document.getElementById('countdownSubtext').innerHTML = `EDD: <strong>${formattedEDD}</strong>. You are doing amazing! 🌸`;
+
+        // Update Baby Size Visualizer Card
+        const sizeData = BABY_SIZE_DATA[weeks];
+        if (sizeData) {
+          document.getElementById('babySizeEmoji').textContent = sizeData.emoji;
+          document.getElementById('babySizeComparison').textContent = `Size of a ${sizeData.name}`;
+          document.getElementById('babySizeStats').textContent = sizeData.stats;
+          document.getElementById('babySizeMilestone').textContent = sizeData.milestone;
+          babySizeCard.style.display = 'block';
+        } else {
+          babySizeCard.style.display = 'none';
+        }
       } else {
         document.getElementById('babyCountdownTitle').textContent = "Baby Health Tracker";
         document.getElementById('gestationalAgeText').textContent = "Baby is Born! 🎉 Welcome to the world!";
@@ -1599,6 +1672,10 @@
         document.getElementById('tri2Fill').style.width = "100%";
         document.getElementById('tri3').className = "trimester-seg completed";
         document.getElementById('tri3Fill').style.width = "100%";
+        
+        if (babySizeCard) {
+          babySizeCard.style.display = 'none';
+        }
       }
     }
 
@@ -1729,6 +1806,7 @@
         babyBirthDate = inputVal;
         localStorage.setItem('babyBirthDate', babyBirthDate);
         renderVaccines();
+        updateDynamicHeader();
       }
     }
 
@@ -2208,6 +2286,285 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
       });
+    }
+
+    /* ==========================================
+       DOTFIELD BACKGROUND CANVAS COMPONENT
+       ========================================== */
+    class DotField {
+      constructor(options = {}) {
+        this.canvas = document.getElementById(options.canvasId || 'dotFieldCanvas');
+        this.svg = document.getElementById(options.svgId || 'dotFieldSvg');
+        this.glowEl = document.getElementById(options.glowCircleId || 'dotFieldGlowCircle');
+        this.glowStop = document.getElementById(options.glowStopId || 'dotFieldGlowStop');
+        if (!this.canvas) return;
+
+        this.ctx = this.canvas.getContext('2d', { alpha: true });
+        
+        // Properties
+        this.dotRadius = options.dotRadius || 1.5;
+        this.dotSpacing = options.dotSpacing || 14;
+        this.cursorRadius = options.cursorRadius || 160;
+        this.cursorForce = options.cursorForce || 0.1;
+        this.bulgeOnly = options.bulgeOnly !== undefined ? options.bulgeOnly : true;
+        this.bulgeStrength = options.bulgeStrength || 67;
+        this.glowRadius = options.glowRadius || 160;
+        this.sparkle = options.sparkle !== undefined ? options.sparkle : false;
+        this.waveAmplitude = options.waveAmplitude || 0;
+        
+        // Theme Colors
+        this.gradientFrom = options.gradientFrom || 'rgba(168, 85, 247, 0.35)';
+        this.gradientTo = options.gradientTo || 'rgba(180, 151, 207, 0.25)';
+        this.glowColor = options.glowColor || '#120F17';
+
+        this.dots = [];
+        this.mouse = { x: -9999, y: -9999, prevX: -9999, prevY: -9999, speed: 0 };
+        this.size = { w: 0, h: 0, offsetX: 0, offsetY: 0 };
+        this.glowOpacity = 0;
+        this.engagement = 0;
+        this.frameCount = 0;
+        this.rafId = null;
+        this.speedInterval = null;
+        this.resizeTimer = null;
+        
+        this.init();
+      }
+      
+      init() {
+        this.resize = this.resize.bind(this);
+        this.onMouseMove = this.onMouseMove.bind(this);
+        this.onTouchMove = this.onTouchMove.bind(this);
+        this.onTouchStart = this.onTouchStart.bind(this);
+        this.onTouchEnd = this.onTouchEnd.bind(this);
+        this.updateMouseSpeed = this.updateMouseSpeed.bind(this);
+        this.tick = this.tick.bind(this);
+
+        window.addEventListener('resize', this.resize);
+        window.addEventListener('mousemove', this.onMouseMove, { passive: true });
+        window.addEventListener('touchmove', this.onTouchMove, { passive: true });
+        window.addEventListener('touchstart', this.onTouchStart, { passive: true });
+        window.addEventListener('touchend', this.onTouchEnd, { passive: true });
+
+        this.speedInterval = setInterval(this.updateMouseSpeed, 20);
+
+        this.doResize();
+        this.tick();
+      }
+
+      updateColors(gradientFrom, gradientTo, glowColor) {
+        this.gradientFrom = gradientFrom;
+        this.gradientTo = gradientTo;
+        this.glowColor = glowColor;
+        if (this.glowStop) {
+          this.glowStop.setAttribute('stop-color', glowColor);
+        }
+      }
+
+      resize() {
+        clearTimeout(this.resizeTimer);
+        this.resizeTimer = setTimeout(() => this.doResize(), 100);
+      }
+
+      doResize() {
+        const parent = this.canvas.parentElement;
+        if (!parent) return;
+        const rect = parent.getBoundingClientRect();
+        const w = rect.width;
+        const h = rect.height;
+        
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        this.canvas.width = w * dpr;
+        this.canvas.height = h * dpr;
+        this.canvas.style.width = `${w}px`;
+        this.canvas.style.height = `${h}px`;
+        this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        this.size = {
+          w,
+          h,
+          offsetX: rect.left + window.scrollX,
+          offsetY: rect.top + window.scrollY,
+        };
+
+        this.buildDots(w, h);
+      }
+
+      buildDots(w, h) {
+        const step = this.dotRadius + this.dotSpacing;
+        const cols = Math.floor(w / step);
+        const rows = Math.floor(h / step);
+        const padX = (w % step) / 2;
+        const padY = (h % step) / 2;
+        
+        this.dots = new Array(rows * cols);
+        let idx = 0;
+
+        for (let row = 0; row < rows; row++) {
+          for (let col = 0; col < cols; col++) {
+            const ax = padX + col * step + step / 2;
+            const ay = padY + row * step + step / 2;
+            this.dots[idx++] = { ax, ay, sx: ax, sy: ay, vx: 0, vy: 0, x: ax, y: ay };
+          }
+        }
+      }
+
+      onMouseMove(e) {
+        this.mouse.x = e.pageX - this.size.offsetX;
+        this.mouse.y = e.pageY - this.size.offsetY;
+      }
+
+      onTouchMove(e) {
+        if (e.touches && e.touches[0]) {
+          this.mouse.x = e.touches[0].pageX - this.size.offsetX;
+          this.mouse.y = e.touches[0].pageY - this.size.offsetY;
+        }
+      }
+
+      onTouchStart(e) {
+        if (e.touches && e.touches[0]) {
+          this.mouse.x = e.touches[0].pageX - this.size.offsetX;
+          this.mouse.y = e.touches[0].pageY - this.size.offsetY;
+          this.mouse.prevX = this.mouse.x;
+          this.mouse.prevY = this.mouse.y;
+          this.mouse.speed = 5;
+        }
+      }
+
+      onTouchEnd() {
+        this.mouse.speed = 0;
+        this.mouse.x = -9999;
+        this.mouse.y = -9999;
+      }
+
+      updateMouseSpeed() {
+        const m = this.mouse;
+        const dx = m.prevX - m.x;
+        const dy = m.prevY - m.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (m.x === -9999) {
+          m.speed = 0;
+        } else {
+          m.speed += (dist - m.speed) * 0.5;
+          if (m.speed < 0.001) m.speed = 0;
+        }
+        m.prevX = m.x;
+        m.prevY = m.y;
+      }
+
+      tick() {
+        this.frameCount++;
+        const dots = this.dots;
+        const m = this.mouse;
+        const { w, h } = this.size;
+        const len = dots.length;
+        const t = this.frameCount * 0.02;
+
+        const targetEngagement = Math.min(m.speed / 5, 1);
+        this.engagement += (targetEngagement - this.engagement) * 0.06;
+        if (this.engagement < 0.001) this.engagement = 0;
+        const eng = this.engagement;
+
+        this.glowOpacity += (eng - this.glowOpacity) * 0.08;
+
+        if (this.glowEl) {
+          if (m.x === -9999) {
+            this.glowEl.style.opacity = 0;
+          } else {
+            this.glowEl.setAttribute('cx', m.x);
+            this.glowEl.setAttribute('cy', m.y);
+            this.glowEl.style.opacity = this.glowOpacity;
+          }
+        }
+
+        this.ctx.clearRect(0, 0, w, h);
+
+        if (w > 0 && h > 0 && len > 0) {
+          const grad = this.ctx.createLinearGradient(0, 0, w, h);
+          grad.addColorStop(0, this.gradientFrom);
+          grad.addColorStop(1, this.gradientTo);
+          this.ctx.fillStyle = grad;
+
+          const cr = this.cursorRadius;
+          const crSq = cr * cr;
+          const rad = this.dotRadius;
+          const isBulge = this.bulgeOnly;
+
+          this.ctx.beginPath();
+
+          const TWO_PI = Math.PI * 2;
+
+          for (let i = 0; i < len; i++) {
+            const d = dots[i];
+            const dx = m.x - d.ax;
+            const dy = m.y - d.ay;
+            const distSq = dx * dx + dy * dy;
+
+            if (distSq < crSq && eng > 0.01 && m.x !== -9999) {
+              const dist = Math.sqrt(distSq);
+              if (isBulge) {
+                const t = 1 - dist / cr;
+                const push = t * t * this.bulgeStrength * eng;
+                const angle = Math.atan2(dy, dx);
+                d.sx += (d.ax - Math.cos(angle) * push - d.sx) * 0.15;
+                d.sy += (d.ay - Math.sin(angle) * push - d.sy) * 0.15;
+              } else {
+                const angle = Math.atan2(dy, dx);
+                const move = (500 / dist) * (m.speed * this.cursorForce);
+                d.vx += Math.cos(angle) * -move;
+                d.vy += Math.sin(angle) * -move;
+              }
+            } else if (isBulge) {
+              d.sx += (d.ax - d.sx) * 0.1;
+              d.sy += (d.ay - d.sy) * 0.1;
+            }
+
+            if (!isBulge) {
+              d.vx *= 0.9;
+              d.vy *= 0.9;
+              d.x = d.ax + d.vx;
+              d.y = d.ay + d.vy;
+              d.sx += (d.x - d.sx) * 0.1;
+              d.sy += (d.y - d.sy) * 0.1;
+            }
+
+            let drawX = d.sx;
+            let drawY = d.sy;
+            if (this.waveAmplitude > 0) {
+              drawY += Math.sin(d.ax * 0.03 + t) * this.waveAmplitude;
+              drawX += Math.cos(d.ay * 0.03 + t * 0.7) * this.waveAmplitude * 0.5;
+            }
+
+            if (this.sparkle) {
+              const hash = ((i * 2654435761) ^ (this.frameCount >> 3)) >>> 0;
+              if ((hash % 100) < 3) {
+                this.ctx.moveTo(drawX + rad * 1.8, drawY);
+                this.ctx.arc(drawX, drawY, rad * 1.8, 0, TWO_PI);
+              } else {
+                this.ctx.moveTo(drawX + rad, drawY);
+                this.ctx.arc(drawX, drawY, rad, 0, TWO_PI);
+              }
+            } else {
+              this.ctx.moveTo(drawX + rad, drawY);
+              this.ctx.arc(drawX, drawY, rad, 0, TWO_PI);
+            }
+          }
+
+          this.ctx.fill();
+        }
+
+        this.rafId = requestAnimationFrame(this.tick);
+      }
+
+      destroy() {
+        cancelAnimationFrame(this.rafId);
+        clearInterval(this.speedInterval);
+        clearTimeout(this.resizeTimer);
+        window.removeEventListener('resize', this.resize);
+        window.removeEventListener('mousemove', this.onMouseMove);
+        window.removeEventListener('touchmove', this.onTouchMove);
+        window.removeEventListener('touchstart', this.onTouchStart);
+        window.removeEventListener('touchend', this.onTouchEnd);
+      }
     }
   </script>
 </body>
