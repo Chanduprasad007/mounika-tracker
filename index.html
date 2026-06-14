@@ -148,13 +148,87 @@
       font-size: 14px;
       font-weight: 400;
     }
+    /* ANIMATED GRADIENT TEXT */
+    .animated-gradient-text {
+      position: relative;
+      margin: 0 auto;
+      display: flex;
+      max-width: fit-content;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      border-radius: 1.25rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: box-shadow 0.5s ease-out;
+      overflow: hidden;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .animated-gradient-text.with-border {
+      padding: 0.35rem 0.75rem;
+    }
+
+    .gradient-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: inherit;
+      z-index: 0;
+      pointer-events: none;
+      background-image: linear-gradient(to right, #40ffaa, #4079ff, #40ffaa, #4079ff, #40ffaa);
+      background-size: 300% 100%;
+      animation: gradient-move 6s linear infinite alternate;
+    }
+
+    .gradient-overlay::before {
+      content: '';
+      position: absolute;
+      border-radius: inherit;
+      width: calc(100% - 2px);
+      height: calc(100% - 2px);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.15);
+      z-index: -1;
+    }
+
+    .text-content {
+      display: inline-block;
+      position: relative;
+      z-index: 2;
+      background-image: linear-gradient(to right, #40ffaa, #4079ff, #40ffaa, #4079ff, #40ffaa);
+      background-size: 300% 100%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: gradient-move 6s linear infinite alternate;
+    }
+
+    .animated-gradient-text:hover .gradient-overlay,
+    .animated-gradient-text:hover .text-content {
+      animation-play-state: paused;
+    }
+
+    @keyframes gradient-move {
+      0% {
+        background-position: 0% 50%;
+      }
+      100% {
+        background-position: 100% 50%;
+      }
+    }
+
     .greeting-text {
-      font-size: 13px;
+      font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 1.8px;
       font-weight: 700;
-      color: rgba(255, 255, 255, 0.75);
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
 
     /* THEME TOGGLE BUTTON */
@@ -829,65 +903,12 @@
       color: var(--text-muted);
       line-height: 1.5;
     }
-
-    /* FLUID GLASS REFRACTION LENS */
-    .glass-lens {
-      position: fixed;
-      width: 170px;
-      height: 170px;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 99999;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1.5px solid rgba(255, 255, 255, 0.35);
-      box-shadow: 
-        0 15px 35px rgba(0, 0, 0, 0.2), 
-        inset 0 0 25px rgba(255, 255, 255, 0.2),
-        inset 0 0 10px rgba(255, 255, 255, 0.4);
-      backdrop-filter: url(#glass-refract) saturate(1.25) contrast(1.05);
-      -webkit-backdrop-filter: url(#glass-refract) saturate(1.25) contrast(1.05);
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0;
-      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
-      will-change: transform, left, top;
-    }
-    
-    .glass-lens.active {
-      transform: translate(-50%, -50%) scale(1);
-      opacity: 1;
-    }
-
-    [data-theme="dark"] .glass-lens {
-      background: rgba(0, 0, 0, 0.05);
-      border: 1.5px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 
-        0 20px 45px rgba(0, 0, 0, 0.4), 
-        inset 0 0 20px rgba(255, 255, 255, 0.05),
-        inset 0 0 8px rgba(255, 255, 255, 0.1);
-      backdrop-filter: url(#glass-refract) saturate(1.4) brightness(0.9) contrast(1.1);
-      -webkit-backdrop-filter: url(#glass-refract) saturate(1.4) brightness(0.9) contrast(1.1);
-    }
   </style>
 </head>
 <body>
 
   <!-- Fluid Simulation Background Canvas -->
   <canvas id="fluid" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1; display: block;"></canvas>
-
-  <!-- Fluid Glass Lens -->
-  <div class="glass-lens" id="glassLens"></div>
-
-  <!-- SVG Refraction Filter for Fluid Glass -->
-  <svg style="width: 0; height: 0; position: absolute; overflow: hidden;" aria-hidden="true">
-    <defs>
-      <filter id="glass-refract">
-        <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" result="noise">
-          <animate attributeName="seed" from="1" to="100" dur="15s" repeatCount="indefinite" />
-        </feTurbulence>
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="22" xChannelSelector="R" yChannelSelector="G" />
-      </filter>
-    </defs>
-  </svg>
 
   <!-- IN-APP REMINDER ALERT -->
   <div class="in-app-alert" id="inAppAlert">
@@ -910,7 +931,10 @@
         </svg>
       </button>
 
-      <div class="greeting-text" id="greetingText">Good Morning</div>
+      <div class="animated-gradient-text with-border greeting-text">
+        <div class="gradient-overlay"></div>
+        <div class="text-content" id="greetingText">Good Morning, Mouni</div>
+      </div>
       <h1 id="babyCountdownTitle">Mouni & Baby's Hub</h1>
       <p>Health & schedule tracker</p>
       
@@ -3345,89 +3369,6 @@
       window.addEventListener('touchend', handleTouchEnd);
 
       updateFrame();
-    })();
-
-    /* ==========================================
-       FLUID GLASS REFRACTION LENS CONTROLLER
-       ========================================== */
-    (function initFluidGlassLens() {
-      const lens = document.getElementById('glassLens');
-      if (!lens) return;
-
-      let targetX = window.innerWidth / 2;
-      let targetY = window.innerHeight / 2;
-      let currentX = targetX;
-      let currentY = targetY;
-      let lensActive = false;
-      let hasInteraction = false;
-
-      // Update position with a smooth lerping animation
-      function updateLensPosition() {
-        if (lensActive) {
-          currentX += (targetX - currentX) * 0.15;
-          currentY += (targetY - currentY) * 0.15;
-          
-          lens.style.left = `${currentX}px`;
-          lens.style.top = `${currentY}px`;
-        }
-        requestAnimationFrame(updateLensPosition);
-      }
-
-      function onPointerMove(e) {
-        targetX = e.clientX;
-        targetY = e.clientY;
-        
-        if (!lensActive) {
-          lensActive = true;
-          lens.classList.add('active');
-          if (!hasInteraction) {
-            currentX = targetX;
-            currentY = targetY;
-            hasInteraction = true;
-          }
-        }
-      }
-
-      function onPointerLeave() {
-        lensActive = false;
-        lens.classList.remove('active');
-      }
-
-      function onTouchStart(e) {
-        if (e.touches.length > 0) {
-          targetX = e.touches[0].clientX;
-          targetY = e.touches[0].clientY;
-          currentX = targetX;
-          currentY = targetY;
-          lensActive = true;
-          lens.classList.add('active');
-        }
-      }
-
-      function onTouchMove(e) {
-        if (e.touches.length > 0) {
-          targetX = e.touches[0].clientX;
-          targetY = e.touches[0].clientY;
-        }
-      }
-
-      function onTouchEnd() {
-        lensActive = false;
-        lens.classList.remove('active');
-      }
-
-      // Desktop Listeners
-      window.addEventListener('mousemove', onPointerMove);
-      document.addEventListener('mouseleave', onPointerLeave);
-
-      // Mobile Listeners
-      window.addEventListener('touchstart', onTouchStart, { passive: true });
-      window.addEventListener('touchmove', onTouchMove, { passive: true });
-      window.addEventListener('touchend', onTouchEnd);
-      window.addEventListener('touchcancel', onTouchEnd);
-
-      // Start loop
-      requestAnimationFrame(updateLensPosition);
     })();
   </script>
 </body>
