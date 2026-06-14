@@ -880,6 +880,21 @@
           <div class="info-card-value" id="countdownTimerText">21 Nov 2026 • -- Days Left</div>
           <div class="info-card-sub" id="countdownSubtext">Trimester 2 in progress. Keep glowing! 🌟</div>
         </div>
+
+        <!-- Baby Size Visualizer Card -->
+        <div class="info-card" id="babySizeCard" style="display: none; background: rgba(255, 255, 255, 0.22); border-color: rgba(255,255,255,0.3);">
+          <div class="info-card-title">🌱 Baby Size & Milestone</div>
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div id="babySizeEmoji" style="font-size: 38px; flex-shrink: 0;">🧅</div>
+            <div class="reminder-details" style="color: white; padding: 0;">
+              <div id="babySizeComparison" style="font-size: 15px; font-weight: 700; color: white;">Size of a Pomegranate</div>
+              <div id="babySizeStats" style="font-size: 12px; opacity: 0.9; margin-top: 2px;">Length: ~13 cm | Weight: ~140g</div>
+            </div>
+          </div>
+          <div id="babySizeMilestone" style="font-size: 12px; color: rgba(255, 255, 255, 0.95); margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 6px; line-height: 1.45;">
+            Baby is developing fat reserves under the skin and strengthening their bones!
+          </div>
+        </div>
       </div>
     </header>
 
@@ -1250,6 +1265,38 @@
     // Constants
     const TENTATIVE_EDD = new Date('2026-11-21');
     const TOTAL_TABLETS = 7; 
+
+    // Baby Size comparison and milestones database (Weeks 13 to 40)
+    const BABY_SIZE_DATA = {
+      13: { emoji: "🍋", name: "Lemon", stats: "Length: ~7.4 cm | Weight: ~23g", milestone: "Baby's vocal cords are starting to form!" },
+      14: { emoji: "🍑", name: "Nectarine", stats: "Length: ~8.7 cm | Weight: ~43g", milestone: "Baby is starting to practice facial expressions!" },
+      15: { emoji: "🍎", name: "Apple", stats: "Length: ~10.1 cm | Weight: ~70g", milestone: "Baby's taste buds are developing!" },
+      16: { emoji: "🥑", name: "Avocado", stats: "Length: ~11.6 cm | Weight: ~100g", milestone: "Baby's eyes can now move slowly behind eyelids." },
+      17: { emoji: "🧅", name: "Pomegranate", stats: "Length: ~13 cm | Weight: ~140g", milestone: "Baby is developing fat reserves under the skin and strengthening their bones!" },
+      18: { emoji: "🍠", name: "Sweet Potato", stats: "Length: ~14.2 cm | Weight: ~190g", milestone: "Baby can now hear sounds, including your heartbeat!" },
+      19: { emoji: "🥭", name: "Mango", stats: "Length: ~15.3 cm | Weight: ~240g", milestone: "A protective coating called vernix caseosa is forming on baby's skin." },
+      20: { emoji: "🍌", name: "Banana", stats: "Length: ~16.4 cm | Weight: ~300g", milestone: "You are officially halfway there! Baby's swallowing reflexes are working." },
+      21: { emoji: "🥕", name: "Carrot", stats: "Length: ~26.7 cm | Weight: ~360g", milestone: "Baby's movements are becoming more coordinated." },
+      22: { emoji: "🥥", name: "Coconut", stats: "Length: ~27.8 cm | Weight: ~430g", milestone: "Baby's eyes and lips are fully formed; they look like a mini newborn!" },
+      23: { emoji: "🍊", name: "Grapefruit", stats: "Length: ~28.9 cm | Weight: ~500g", milestone: "Baby's lungs are preparing for breathing." },
+      24: { emoji: "🌽", name: "Corn", stats: "Length: ~30 cm | Weight: ~600g", milestone: "Baby's inner ears are developed, giving them a sense of balance." },
+      25: { emoji: "🥔", name: "Rutabaga", stats: "Length: ~34.6 cm | Weight: ~660g", milestone: "Baby is beginning to grow real baby hair!" },
+      26: { emoji: "🥬", name: "Scallion", stats: "Length: ~35.6 cm | Weight: ~760g", milestone: "Baby's eyes can open and blink now!" },
+      27: { emoji: "🥦", name: "Cauliflower", stats: "Length: ~36.6 cm | Weight: ~875g", milestone: "This is the final week of Trimester 2! Baby is starting to recognize your voice." },
+      28: { emoji: "🍆", name: "Eggplant", stats: "Length: ~37.6 cm | Weight: ~1kg", milestone: "Welcome to Trimester 3! Baby can blink and see light filtering in." },
+      29: { emoji: "🎃", name: "Butternut Squash", stats: "Length: ~38.6 cm | Weight: ~1.2kg", milestone: "Baby's bones are fully developed but still soft and flexible." },
+      30: { emoji: "🥬", name: "Cabbage", stats: "Length: ~39.9 cm | Weight: ~1.3kg", milestone: "Baby's brain is growing rapidly, developing deep grooves." },
+      31: { emoji: "🍍", name: "Pineapple", stats: "Length: ~41.1 cm | Weight: ~1.5kg", milestone: "Baby can turn their head from side to side." },
+      32: { emoji: "🍈", name: "Turnip", stats: "Length: ~42.4 cm | Weight: ~1.7kg", milestone: "Baby is practicing breathing by inhaling amniotic fluid." },
+      33: { emoji: "🥬", name: "Celery", stats: "Length: ~43.7 cm | Weight: ~1.9kg", milestone: "Baby's immune system is receiving antibodies from Mouni." },
+      34: { emoji: "🍈", name: "Cantaloupe", stats: "Length: ~45 cm | Weight: ~2.1kg", milestone: "Baby's central nervous system and lungs are maturing." },
+      35: { emoji: "🍈", name: "Honeydew Melon", stats: "Length: ~46.2 cm | Weight: ~2.4kg", milestone: "Baby's hearing is fully developed; they can respond to music!" },
+      36: { emoji: "🥬", name: "Romaine Lettuce", stats: "Length: ~47.4 cm | Weight: ~2.6kg", milestone: "Baby is shedding vernix caseosa as they get ready for birth." },
+      37: { emoji: "🥬", name: "Swiss Chard", stats: "Length: ~48.6 cm | Weight: ~2.9kg", milestone: "Baby is considered early term! Organs are ready to function on their own." },
+      38: { emoji: "🥬", name: "Leek", stats: "Length: ~49.8 cm | Weight: ~3.1kg", milestone: "Baby's brain and vocal cords are ready to cry and make sounds!" },
+      39: { emoji: "🍉", name: "Watermelon", stats: "Length: ~50.7 cm | Weight: ~3.3kg", milestone: "Baby is full term and waiting to meet you!" },
+      40: { emoji: "🎃", name: "Pumpkin", stats: "Length: ~51.2 cm | Weight: ~3.5kg", milestone: "Estimated Due Date! Baby is ready to arrive." }
+    };
 
     // Vaccine Schedule Database
     const VACCINE_DATABASE = [
