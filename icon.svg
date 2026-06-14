@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8927C" />
+      <stop offset="100%" stop-color="#C9A84C" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="url(#roseGrad)" />
+  <!-- Heart shape representation of care -->
+  <path d="M256,140 C285,80 395,80 395,190 C395,300 256,415 256,445 C256,415 117,300 117,190 C117,80 227,80 256,140 Z" fill="#FFFFFF" opacity="0.95"/>
+  <!-- Cute little baby carriage silhouette in the center -->
+  <path d="M220,220 A35,35 0 0,0 290,220 L290,195 A10,10 0 0,0 280,185 L230,185 A10,10 0 0,0 220,195 Z" fill="#E8927C"/>
+  <rect x="250" y="220" width="10" height="40" fill="#E8927C"/>
+  <circle cx="235" cy="270" r="15" fill="#E8927C"/>
+  <circle cx="275" cy="270" r="15" fill="#E8927C"/>
+  <path d="M200,200 L215,225" stroke="#E8927C" stroke-width="8" stroke-linecap="round"/>
+</svg>

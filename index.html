@@ -50,7 +50,6 @@
       flex-direction: column;
       align-items: center;
       -webkit-font-smoothing: antialiased;
-      /* Prevent elastic scroll bounce on iOS standard browser for app-like feel */
       overscroll-behavior-y: contain; 
     }
 
@@ -78,7 +77,6 @@
       border-bottom-right-radius: 28px;
       box-shadow: 0 4px 15px rgba(232, 146, 124, 0.15);
     }
-    /* PWA safe padding if opened as standalone app */
     @supports (padding-top: env(safe-area-inset-top)) {
       header {
         padding-top: calc(24px + env(safe-area-inset-top));
@@ -291,7 +289,6 @@
     .in-app-alert.show {
       top: 24px;
     }
-    /* standalone adjustment */
     @supports (padding-top: env(safe-area-inset-top)) {
       .in-app-alert.show {
         top: calc(16px + env(safe-area-inset-top));
@@ -606,7 +603,7 @@
       z-index: 999;
     }
 
-    /* VACCINE CONTROLS CARD */
+    /* CONTROLS CARD & SYNC BUTTONS */
     .control-card {
       margin: 12px 16px;
       background: white;
@@ -817,7 +814,7 @@
       <div class="banner banner-info">
         <span class="banner-icon">⚠️</span>
         <div>
-          <strong>Critical Rule:</strong> Thyronorm must be taken on empty stomach first. Wait 30 mins before eating. Never take Iron (Womiren) and Calcium (Magnocal) together.
+          <strong>Critical Rule:</strong> Womiron (Iron) at Night and Magnocal (Calcium) in the Afternoon must NOT be taken together. 
         </div>
       </div>
 
@@ -825,7 +822,7 @@
       <div class="progress-wrap">
         <div class="progress-top">
           <span>Today's Tablets Progress</span>
-          <span class="progress-count" id="tabletsProgressCount">0 / 9 done</span>
+          <span class="progress-count" id="tabletsProgressCount">0 / 7 done</span>
         </div>
         <div class="progress-bar-bg">
           <div class="progress-bar-fill" id="tabletsProgressFill"></div>
@@ -834,9 +831,9 @@
 
       <!-- UTILITY ROW -->
       <div class="utility-row">
-        <button class="utility-btn" onclick="resetTablets()">🔄 Reset Checklist</button>
-        <button class="utility-btn" id="notifToggleBtn" onclick="toggleNotifications()">🔔 Reminders: Off</button>
-        <button class="utility-btn" onclick="shareProgress()">📤 Share Status</button>
+        <button class="utility-btn" onclick="resetTablets()">🔄 Reset checklist</button>
+        <button class="utility-btn" id="notifToggleBtn" onclick="toggleNotifications()">🔕 Reminders: Off</button>
+        <button class="utility-btn" onclick="shareProgress()">📤 Share status</button>
       </div>
 
       <!-- COMPLETION MESSAGE -->
@@ -846,69 +843,36 @@
         <p>Great job Mounika. Baby is getting everything needed today. 💙</p>
       </div>
 
-      <!-- MORNING EMPTY STOMACH -->
-      <div class="section-label">Morning — Empty Stomach (7:30 AM)</div>
+      <!-- MORNING -->
+      <div class="section-label">Morning — (7:30 AM Wake Up)</div>
       <div class="time-block">
         <div class="time-header">
           <div class="time-icon" style="background:#FFF3E0;">🌅</div>
           <div class="time-info">
             <h2>7:30 AM</h2>
-            <span>As soon as she wakes up</span>
+            <span>Start of the day</span>
           </div>
         </div>
         
         <div class="item-row" onclick="toggleTablet(0, event)">
           <div class="checkbox-btn" id="tab-chk-0"></div>
           <div class="item-content">
-            <div class="item-name">Thyronorm 50mcg</div>
-            <div class="item-desc">Take on empty stomach immediately. Wait 30–45 mins before food or other medicines.</div>
-            <div class="badge-row">
-              <span class="badge tag-critical">🔴 Critical — Daily</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item-row" onclick="toggleTablet(1, event)">
-          <div class="checkbox-btn" id="tab-chk-1"></div>
-          <div class="item-content">
-            <div class="item-name">Tab. Dydrogest 10</div>
-            <div class="item-desc">Progesterone tablet — take after Thyronorm gap, with light food or milk.</div>
+            <div class="item-name">Tab. Dydrogest 10 (Dydrogesterone)</div>
+            <div class="item-desc">Progesterone support — prevents preterm birth. Take 1 tablet.</div>
             <div class="badge-row">
               <span class="badge tag-progesterone">💜 Preterm Prevention</span>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- BREAKFAST -->
-      <div class="section-label">After Breakfast (8:15 AM - 9:00 AM)</div>
-      <div class="time-block">
-        <div class="time-header">
-          <div class="time-icon" style="background:#E8F5E9;">🍽️</div>
-          <div class="time-info">
-            <h2>8:15 – 9:00 AM</h2>
-            <span>After proper breakfast</span>
-          </div>
-        </div>
-
-        <div class="item-row" onclick="toggleTablet(2, event)">
-          <div class="checkbox-btn" id="tab-chk-2"></div>
-          <div class="item-content">
-            <div class="item-name">Folic Acid</div>
-            <div class="item-desc">Essential for baby's neural development. Do NOT skip.</div>
-            <div class="badge-row">
-              <span class="badge tag-nutrition">🟢 Essential Nutrient</span>
-            </div>
-          </div>
-        </div>
-
+        <!-- Optional morning Pro Case -->
         <div class="item-row" onclick="toggleTablet(3, event)">
           <div class="checkbox-btn" id="tab-chk-3"></div>
           <div class="item-content">
-            <div class="item-name">Pro-Cas DF Powder</div>
-            <div class="item-desc">Mix with milk or water. Protein + DHA support. (Can be taken at Night instead).</div>
+            <div class="item-name">Pro Case DF powder</div>
+            <div class="item-desc">Protein supplement. Mix with milk/water after breakfast. (Optional: take at night instead).</div>
             <div class="badge-row">
-              <span class="badge tag-nutrition">🟢 Protein Support</span>
+              <span class="badge tag-nutrition">🟢 Protein Supplement</span>
               <span class="badge tag-topical">⭐️ Synced Morning/Night</span>
             </div>
           </div>
@@ -916,23 +880,57 @@
       </div>
 
       <!-- AFTERNOON -->
-      <div class="section-label">Afternoon (Lunch at 1:30 PM)</div>
+      <div class="section-label">Afternoon — (Lunch at 1:30 PM)</div>
       <div class="time-block">
         <div class="time-header">
           <div class="time-icon" style="background:#FFF8E1;">☀️</div>
           <div class="time-info">
             <h2>1:30 – 2:30 PM</h2>
-            <span>After lunch</span>
+            <span>Take after lunch</span>
+          </div>
+        </div>
+
+        <div class="item-row" onclick="toggleTablet(1, event)">
+          <div class="checkbox-btn" id="tab-chk-1"></div>
+          <div class="item-content">
+            <div class="item-name">Tab. Magnocal</div>
+            <div class="item-desc">Calcium + Magnesium supplement. Keep away from Womiron. Take 1 tablet.</div>
+            <div class="badge-row">
+              <span class="badge tag-calcium">🟡 Calcium & Magnesium</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item-row" onclick="toggleTablet(2, event)">
+          <div class="checkbox-btn" id="tab-chk-2"></div>
+          <div class="item-content">
+            <div class="item-name">Tab. Sustener 200 Progesterone</div>
+            <div class="item-desc">Additional progesterone support. Take 1 tablet. Afternoon timing avoids sleepiness.</div>
+            <div class="badge-row">
+              <span class="badge tag-progesterone">💜 Additional Progesterone</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NIGHT -->
+      <div class="section-label">Night — (Dinner & After)</div>
+      <div class="time-block">
+        <div class="time-header">
+          <div class="time-icon" style="background:#EDE7F6;">🌙</div>
+          <div class="time-info">
+            <h2>9:00 – 10:00 PM</h2>
+            <span>Take after dinner</span>
           </div>
         </div>
 
         <div class="item-row" onclick="toggleTablet(4, event)">
           <div class="checkbox-btn" id="tab-chk-4"></div>
           <div class="item-content">
-            <div class="item-name">Tab. Magnocal</div>
-            <div class="item-desc">Calcium + Magnesium. Keep away from iron tablets (Womiren) — take at separate times.</div>
+            <div class="item-name">Tab. Womiron (Iron + Folic)</div>
+            <div class="item-desc">Iron deficiency plus folic acid. Take 1 tablet. Keep away from Calcium. May cause dark stools.</div>
             <div class="badge-row">
-              <span class="badge tag-calcium">🟡 Calcium & Bone</span>
+              <span class="badge tag-critical">🔴 Iron & Folic Acid</span>
             </div>
           </div>
         </div>
@@ -940,56 +938,22 @@
         <div class="item-row" onclick="toggleTablet(5, event)">
           <div class="checkbox-btn" id="tab-chk-5"></div>
           <div class="item-content">
-            <div class="item-name">Tab. Sustener 200</div>
-            <div class="item-desc">Progesterone support. May cause mild drowsiness — afternoon timing is ideal.</div>
-            <div class="badge-row">
-              <span class="badge tag-progesterone">💜 Preterm Prevention</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- NIGHT -->
-      <div class="section-label">Night (Dinner & After)</div>
-      <div class="time-block">
-        <div class="time-header">
-          <div class="time-icon" style="background:#EDE7F6;">🌙</div>
-          <div class="time-info">
-            <h2>9:00 – 10:00 PM</h2>
-            <span>After dinner</span>
-          </div>
-        </div>
-
-        <div class="item-row" onclick="toggleTablet(6, event)">
-          <div class="checkbox-btn" id="tab-chk-6"></div>
-          <div class="item-content">
-            <div class="item-name">Tab. Womiren</div>
-            <div class="item-desc">Iron + Folic Acid. Best absorbed at night, away from calcium. May cause dark stools (normal).</div>
-            <div class="badge-row">
-              <span class="badge tag-nutrition">🟢 Iron & Folic Acid</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item-row" onclick="toggleTablet(7, event)">
-          <div class="checkbox-btn" id="tab-chk-7"></div>
-          <div class="item-content">
-            <div class="item-name">Tab. Dydrogest 10</div>
-            <div class="item-desc">Second dose of progesterone tablet. Take after dinner.</div>
+            <div class="item-name">Tab. Dydrogest 10 (Dydrogesterone)</div>
+            <div class="item-desc">Second dose of progesterone. Take 1 tablet.</div>
             <div class="badge-row">
               <span class="badge tag-progesterone">💜 Preterm Prevention</span>
             </div>
           </div>
         </div>
 
-        <!-- Synced Optional Pro-Cas powder -->
+        <!-- Synced Optional Pro Case night -->
         <div class="item-row" onclick="toggleTablet(3, event)">
           <div class="checkbox-btn" id="tab-chk-3-night"></div>
           <div class="item-content">
-            <div class="item-name">Pro-Cas DF Powder (Optional)</div>
-            <div class="item-desc">Alternative Night Dose: Take with milk/water if not taken in the morning.</div>
+            <div class="item-name">Pro Case DF powder (Optional)</div>
+            <div class="item-desc">Protein supplement. Take with milk/water after dinner if not taken in morning.</div>
             <div class="badge-row">
-              <span class="badge tag-nutrition">🟢 Protein Support</span>
+              <span class="badge tag-nutrition">🟢 Protein Supplement</span>
               <span class="badge tag-topical">⭐️ Synced Morning/Night</span>
             </div>
           </div>
@@ -1007,14 +971,36 @@
           </div>
         </div>
 
-        <div class="item-row" onclick="toggleTablet(8, event)">
-          <div class="checkbox-btn" id="tab-chk-8"></div>
+        <div class="item-row" onclick="toggleTablet(6, event)">
+          <div class="checkbox-btn" id="tab-chk-6"></div>
           <div class="item-content">
             <div class="item-name">Stovient Cream</div>
-            <div class="item-desc">Apply gently on belly, hips and thighs. Stretch mark prevention. 1 application at night.</div>
+            <div class="item-desc">Apply gently on belly, hips, and thighs for stretch mark prevention. 1 application.</div>
             <div class="badge-row">
               <span class="badge tag-topical">⚪ Topical application</span>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GOOGLE CALENDAR SYNC HUB -->
+      <div class="section-label">📅 Google Calendar Sync Hub</div>
+      <div class="control-card">
+        <p style="font-size:13px; color:#444; line-height:1.5;">
+          Set up automatic daily reminders on both of your Android phones.
+        </p>
+        <button class="action-btn" onclick="downloadICS()" style="background:var(--ink); box-shadow:none; margin:8px 0 0;">
+          📅 Download Reminders (.ics file)
+        </button>
+        <p style="font-size:11px; color:#666; margin-top:2px;">Import this file on the <a href="https://calendar.google.com" target="_blank" style="color:var(--rose-dark); font-weight:700;">Google Calendar Desktop Site</a> to add all alarms in 1 click.</p>
+        
+        <div style="border-top:1px solid var(--border); margin:12px 0; padding-top:12px;">
+          <label style="font-size:12px; font-weight:700; color:#777; display:block; margin-bottom:6px;">Add Individual Daily Blocks:</label>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('morning')">🌅 Add Morning Meds (7:30 AM)</button>
+            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('afternoon')">☀️ Add Afternoon Meds (1:30 PM)</button>
+            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('night')">🌙 Add Night Meds (9:00 PM)</button>
+            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('bedtime')">🌛 Add Bedtime Cream (10:00 PM)</button>
           </div>
         </div>
       </div>
@@ -1025,8 +1011,8 @@
         <div class="reminder-card">
           <div class="reminder-icon" style="color:var(--rose);">⏰</div>
           <div class="reminder-details">
-            <h3>Thyronorm timing</h3>
-            <p>Always first in the morning (7:30 AM). 30–45 min gap before food. Never take with calcium or iron.</p>
+            <h3>Dydrogest morning timing</h3>
+            <p>Take first thing in the morning at 7:30 AM. Pro Case powder can be taken with milk after breakfast.</p>
           </div>
         </div>
 
@@ -1034,7 +1020,7 @@
           <div class="reminder-icon" style="color:#FF9800;">🚫</div>
           <div class="reminder-details">
             <h3>Iron + Calcium gap</h3>
-            <p><strong>Tab. Womiren</strong> (night) and <strong>Tab. Magnocal</strong> (afternoon) must not be taken together — they block each other's absorption.</p>
+            <p><strong>Tab. Womiron</strong> (night) and <strong>Tab. Magnocal</strong> (afternoon) must not be taken together — they block each other's absorption.</p>
           </div>
         </div>
 
@@ -1058,7 +1044,7 @@
           <div class="reminder-icon" style="color:#00ACC1;">📞</div>
           <div class="reminder-details">
             <h3>Doctor Confirmation</h3>
-            <p>Confirm with <strong>Dr. Bharathi Ramesh</strong> (90367 86686) whether to continue Zuviston alongside Womiren.</p>
+            <p>Confirm with <strong>Dr. Bharathi Ramesh</strong> (90367 86686) whether to continue Zuviston alongside Womiron.</p>
           </div>
         </div>
       </div>
@@ -1121,7 +1107,7 @@
         <ol>
           <li>Open your repository on <a href="https://github.com" target="_blank" style="color:var(--rose-dark); font-weight:700;">GitHub.com</a>.</li>
           <li>Click <strong>Add file</strong> &rarr; <strong>Upload files</strong>.</li>
-          <li>Drag and drop this <code>index.html</code>, <code>manifest.json</code>, <code>sw.js</code>, and <code>icon.svg</code> files and commit the changes.</li>
+          <li>Drag and drop your <code>index.html</code>, <code>manifest.json</code>, <code>sw.js</code>, and <code>icon.svg</code> files and commit the changes.</li>
         </ol>
 
         <strong style="display:block; margin-top:12px; font-size:13px; color:var(--ink);">2. Turning on Free Website Hosting (GitHub Pages):</strong>
@@ -1137,8 +1123,23 @@
         <ol>
           <li>Open your repository on GitHub.</li>
           <li>Press the <code>.</code> (period) key on your keyboard. This opens an online code editor (VS Code in browser!).</li>
-          <li>Search for names or times (e.g., search for <code>Thyronorm</code> or scan dates). Make your edits directly.</li>
+          <li>Search for names or times (e.g., search for <code>Womiron</code> or scan dates). Make your edits directly.</li>
           <li>Go to the Source Control tab on the left bar (looks like a branch icon), type a commit message, and click <strong>Commit and Push</strong>. Your website will update automatically in 1 minute!</li>
+        </ol>
+
+        <strong style="display:block; margin-top:12px; font-size:13px; color:var(--ink);">4. How to sync Google Calendar on Android (both phones):</strong>
+        <ol>
+          <li><strong>Share the Calendar</strong>: Go to Google Calendar on a desktop, hover over your "Mouni & Baby Health Hub" calendar, click the three dots &rarr; "Settings and sharing". Add your wife's Gmail email.</li>
+          <li><strong>Accept the Share</strong>: Your wife must check her Gmail on her phone or computer and click the link inside to add the calendar.</li>
+          <li><strong>Sync on Android App</strong>:
+            <ul>
+              <li>Open the <strong>Google Calendar app</strong> on both your Android phones.</li>
+              <li>Tap the menu button (top-left, three lines) &rarr; scroll down and tap <strong>Settings</strong>.</li>
+              <li>Tap the newly added <strong>"Mouni & Baby Health Hub"</strong> calendar. (If you don't see it, tap "Show more").</li>
+              <li>Toggle <strong>"Sync"</strong> to **ON** (very important, otherwise it won't download updates!).</li>
+              <li>Ensure <strong>Notifications</strong> are set to make sound alerts.</li>
+            </ul>
+          </li>
         </ol>
       </div>
     </div>
@@ -1154,7 +1155,7 @@
   <script>
     // Constants
     const TENTATIVE_EDD = new Date('2026-11-21');
-    const TOTAL_TABLETS = 9; // Unique tablet checkpoints (Thyronorm, Dydrogest M, Folic, ProCas, Magnocal, Sustener, Womiren, Dydrogest N, StretchCream)
+    const TOTAL_TABLETS = 7; // Unique checkpoints: Dydrogest M (0), Magnocal (1), Sustener (2), Pro Case (3 - synced), Womiron (4), Dydrogest N (5), StretchCream (6)
 
     // Vaccine Schedule Database
     const VACCINE_DATABASE = [
@@ -1273,25 +1274,12 @@
 
     // Initialize Page
     document.addEventListener('DOMContentLoaded', () => {
-      // Load from LocalStorage
       loadState();
-      
-      // Setup dynamic header values
       updateDynamicHeader();
-      
-      // Render Tablets tab state
       updateTabletsProgress();
-      
-      // Initialize Date input value
       document.getElementById('birthDateInput').value = babyBirthDate;
-
-      // Check and display bed rest banner if date matches
       checkBedRestBanner();
-
-      // Render Vaccines tab
       renderVaccines();
-
-      // Start periodic reminder checking
       startReminderCheck();
     });
 
@@ -1311,7 +1299,6 @@
       try {
         const savedTabs = localStorage.getItem('checkedTablets');
         checkedTablets = savedTabs ? JSON.parse(savedTabs) : [];
-        // Apply checked classes visually (includes synced Pro-Cas checks)
         checkedTablets.forEach(id => {
           updateTabletUIState(id, true);
         });
@@ -1490,7 +1477,7 @@
 
     function updateTabletUIState(id, isChecked) {
       if (id === 3) {
-        // Synchronized Pro-Cas Morning & Night checkbox sync
+        // Synchronized Pro Case Morning & Night checkbox sync
         const chkMorning = document.getElementById('tab-chk-3');
         const chkNight = document.getElementById('tab-chk-3-night');
         
@@ -1503,7 +1490,6 @@
           chkNight.closest('.item-row').classList.toggle('checked', isChecked);
         }
       } else {
-        // Standard single item
         const chk = document.getElementById(`tab-chk-${id}`);
         if (chk) {
           chk.classList.toggle('checked', isChecked);
@@ -1672,7 +1658,7 @@
     }
 
     /* ==========================================
-       NOTIFICATIONS & ALARMS Reminders
+       NOTIFICATIONS & ALARMS REMINDERS
        ========================================== */
     function toggleNotifications() {
       if (!('Notification' in window)) {
@@ -1713,10 +1699,8 @@
     }
 
     function sendReminderNotification(title, body) {
-      // 1. Play synthesized chime
       playChime();
 
-      // 2. Show Native push if permission granted and active
       if (notificationsActive && 'Notification' in window && Notification.permission === 'granted') {
         try {
           new Notification(title, {
@@ -1724,7 +1708,6 @@
             icon: 'icon.svg'
           });
         } catch (e) {
-          // Fallback if Notification constructor fails (e.g. mobile Chrome outside service worker context)
           navigator.serviceWorker.ready.then(registration => {
             registration.showNotification(title, {
               body: body,
@@ -1734,13 +1717,11 @@
         }
       }
 
-      // 3. Show In-App Banner Popup
       const alertDiv = document.getElementById('inAppAlert');
       document.getElementById('alertTitle').textContent = title;
       document.getElementById('alertBody').textContent = body;
       alertDiv.classList.add('show');
       
-      // Auto-hide in-app alert after 10 seconds
       setTimeout(closeInAppAlert, 10000);
     }
 
@@ -1748,7 +1729,6 @@
       document.getElementById('inAppAlert').classList.remove('show');
     }
 
-    // Check scheduled hours
     function startReminderCheck() {
       setInterval(() => {
         const now = new Date();
@@ -1759,10 +1739,9 @@
         if (currentTimeString === lastNotifiedTime) return;
 
         const reminders = {
-          "07:30": { title: "Morning Tablets (7:30 AM) 🌅", body: "Thyronorm (Empty stomach) & Dydrogest. Wait 30 mins before eating." },
-          "08:15": { title: "Breakfast Tablets (8:15 AM) 🍽️", body: "Folic Acid & Pro-Cas Powder (Optional)." },
-          "13:30": { title: "Afternoon Tablets (1:30 PM) ☀️", body: "Tab. Magnocal (Calcium) and Tab. Sustener 200 after lunch." },
-          "21:00": { title: "Night Tablets (9:00 PM) 🌙", body: "Tab. Womiren (Iron) & Tab. Dydrogest 10 after dinner. (Pro-Cas Powder optional)." },
+          "07:30": { title: "Morning Tablets (7:30 AM) 🌅", body: "Take Tab. Dydrogest 10. Pro Case powder optional after breakfast." },
+          "13:30": { title: "Afternoon Tablets (1:30 PM) ☀️", body: "Take Tab. Magnocal and Tab. Sustener 200 after lunch." },
+          "21:00": { title: "Night Tablets (9:00 PM) 🌙", body: "Take Tab. Womiron and Tab. Dydrogest 10 after dinner. (Pro Case optional)." },
           "22:00": { title: "Bedtime Application (10:00 PM) 🌛", body: "Apply Stovient Cream on belly, hips, and thighs." }
         };
 
@@ -1770,17 +1749,15 @@
           lastNotifiedTime = currentTimeString;
           sendReminderNotification(reminders[currentTimeString].title, reminders[currentTimeString].body);
         }
-      }, 20000); // Check every 20 seconds
+      }, 20000); 
     }
 
-    // Web Audio Synthesizer (Crystal Chime generator)
     function playChime() {
       try {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         if (!AudioContext) return;
         const ctx = new AudioContext();
 
-        // Tune 1: Ab5 (830.61 Hz)
         const osc1 = ctx.createOscillator();
         const gain1 = ctx.createGain();
         osc1.type = 'sine';
@@ -1792,7 +1769,6 @@
         osc1.start();
         osc1.stop(ctx.currentTime + 1.2);
 
-        // Tune 2: C6 (1046.50 Hz) after 100ms
         const osc2 = ctx.createOscillator();
         const gain2 = ctx.createGain();
         osc2.type = 'sine';
@@ -1809,7 +1785,7 @@
     }
 
     /* ==========================================
-       PROGRESS SHARING (Web Share API & WhatsApp)
+       PROGRESS SHARING
        ========================================== */
     function shareProgress() {
       const today = formatDate(new Date());
@@ -1826,11 +1802,11 @@
         statusText = "Not started yet today ⏰";
       }
 
-      // Check Pro-Cas state
-      const isProCasDone = checkedTablets.includes(3) ? "✅ Done" : "❌ Pending";
-      const isThyronormDone = checkedTablets.includes(0) ? "✅ Done" : "❌ Pending";
+      const isProCaseDone = checkedTablets.includes(3) ? "✅ Done" : "❌ Pending";
+      const isMagnocalDone = checkedTablets.includes(1) ? "✅ Done" : "❌ Pending";
+      const isWomironDone = checkedTablets.includes(4) ? "✅ Done" : "❌ Pending";
 
-      const text = `🌸 *Mouni & Baby Health Update*\nDate: ${today}\n\n• Tablet Progress: *${statusText}*\n• Thyronorm (7:30 AM): ${isThyronormDone}\n• Pro-Cas Powder: ${isProCasDone}\n\nEDD: 21 Nov 2026 🍼\nKeep resting Mounika! ❤️`;
+      const text = `🌸 *Mouni & Baby Health Update*\nDate: ${today}\n\n• Tablet Progress: *${statusText}*\n• Womiron (Night): ${isWomironDone}\n• Magnocal (Calcium): ${isMagnocalDone}\n• Pro Case Powder: ${isProCaseDone}\n\nEDD: 21 Nov 2026 🍼\nKeep resting Mounika! ❤️`;
 
       if (navigator.share) {
         navigator.share({
@@ -1838,7 +1814,6 @@
           text: text
         }).catch(err => {
           console.log("Web Share error", err);
-          // Fallback
           openWhatsApp(text);
         });
       } else {
@@ -1849,6 +1824,120 @@
     function openWhatsApp(text) {
       const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
       window.open(url, '_blank');
+    }
+
+    /* ==========================================
+       GOOGLE CALENDAR SYNC SYSTEM
+       ========================================== */
+    function quickAddCalendar(block) {
+      if (block === 'morning') {
+        openGoogleCalendarLink(
+          "💊 Morning Meds (Dydrogest)",
+          "07:30",
+          "Take Tab. Dydrogest 10 (Progesterone support prevents preterm). Pro Case DF powder optional after breakfast."
+        );
+      } else if (block === 'afternoon') {
+        openGoogleCalendarLink(
+          "☀️ Afternoon Meds (Magnocal & Sustener)",
+          "13:30",
+          "Take Tab. Magnocal (Calcium + Magnesium) and Tab. Sustener 200 (Progesterone support) after lunch."
+        );
+      } else if (block === 'night') {
+        openGoogleCalendarLink(
+          "🌙 Night Meds (Womiron & Dydrogest)",
+          "21:00",
+          "Take Tab. Womiron (Iron + Folic) and Tab. Dydrogest 10 (Progesterone support) after dinner. Pro Case powder optional."
+        );
+      } else if (block === 'bedtime') {
+        openGoogleCalendarLink(
+          "🌛 Bedtime Application (Stovient Cream)",
+          "22:00",
+          "Apply Stovient Cream on belly, hips, and thighs for stretch mark prevention."
+        );
+      }
+    }
+
+    function openGoogleCalendarLink(title, timeStr, desc) {
+      const today = new Date();
+      const yr = today.getFullYear();
+      const mt = String(today.getMonth() + 1).padStart(2, '0');
+      const dy = String(today.getDate()).padStart(2, '0');
+      
+      const [hrs, mins] = timeStr.split(':');
+      const startHrs = hrs;
+      const startMins = mins;
+      const endHrs = String(parseInt(hrs) + (mins === '30' ? 1 : 0)).padStart(2, '0');
+      const endMins = mins === '30' ? '00' : '30';
+      
+      const startDateStr = `${yr}${mt}${dy}T${startHrs}${startMins}00`;
+      const endDateStr = `${yr}${mt}${dy}T${endHrs}${endMins}00`;
+      
+      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startDateStr}/${endDateStr}&recur=RRULE:FREQ=DAILY&details=${encodeURIComponent(desc)}`;
+      window.open(url, '_blank');
+    }
+
+    function downloadICS() {
+      const events = [
+        {
+          title: "💊 Morning Meds (Dydrogest)",
+          time: "07:30",
+          desc: "Take Tab. Dydrogest 10 (Progesterone support prevents preterm). Pro Case DF powder optional after breakfast."
+        },
+        {
+          title: "☀️ Afternoon Meds (Magnocal & Sustener)",
+          time: "13:30",
+          desc: "Take Tab. Magnocal (Calcium + Magnesium) and Tab. Sustener 200 (Additional progesterone support) after lunch."
+        },
+        {
+          title: "🌙 Night Meds (Womiron & Dydrogest)",
+          time: "21:00",
+          desc: "Take Tab. Womiron (Iron + Folic) and Tab. Dydrogest 10 (Progesterone support prevents preterm) after dinner. Pro Case powder optional."
+        },
+        {
+          title: "🌛 Bedtime Application (Stovient Cream)",
+          time: "22:00",
+          desc: "Apply Stovient Cream on belly, hips, and thighs."
+        }
+      ];
+
+      let icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Mouni Baby Hub//Medication Schedule//EN\nCALSCALE:GREGORIAN\n";
+      
+      const today = new Date();
+      const yr = today.getFullYear();
+      const mt = String(today.getMonth() + 1).padStart(2, '0');
+      const dy = String(today.getDate()).padStart(2, '0');
+      const dateStr = `${yr}${mt}${dy}`;
+
+      events.forEach(e => {
+        const [hrs, mins] = e.time.split(':');
+        const start = `${dateStr}T${hrs}${mins}00`;
+        const endHrs = String(parseInt(hrs) + (mins === '30' ? 1 : 0) + (mins === '00' ? 1 : 0)).padStart(2, '0');
+        const endMins = mins;
+        const end = `${dateStr}T${endHrs}${endMins}00`;
+
+        icsContent += "BEGIN:VEVENT\n";
+        icsContent += `SUMMARY:${e.title}\n`;
+        icsContent += `DTSTART:${start}\n`;
+        icsContent += `DTEND:${end}\n`;
+        icsContent += "RRULE:FREQ=DAILY\n";
+        icsContent += `DESCRIPTION:${e.desc}\n`;
+        icsContent += "BEGIN:VALARM\n";
+        icsContent += "TRIGGER:-PT0M\n";
+        icsContent += "ACTION:DISPLAY\n";
+        icsContent += "DESCRIPTION:Reminder\n";
+        icsContent += "END:VALARM\n";
+        icsContent += "END:VEVENT\n";
+      });
+
+      icsContent += "END:VCALENDAR";
+
+      const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'mouni_medication_schedule.ics';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
 
     /* ==========================================
