@@ -1,508 +1,1627 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mounika's Daily Tablet Schedule</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mouni & Baby Health Hub</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
-  :root {
-    --rose:     #E8927C;
-    --rose-lt:  #F9EAE6;
-    --sage:     #7BAE8E;
-    --sage-lt:  #EAF3EE;
-    --gold:     #C9A84C;
-    --gold-lt:  #FBF4E3;
-    --lavender: #9B89C4;
-    --lav-lt:   #F0EDF9;
-    --ink:      #2B2B3A;
-    --mist:     #F7F5F2;
-    --white:    #FFFFFF;
-    --border:   #E8E4DF;
-  }
+    :root {
+      --rose:       #E8927C;
+      --rose-lt:  #F9EAE6;
+      --rose-dark:  #C26B57;
+      --sage:       #7BAE8E;
+      --sage-lt:  #EAF3EE;
+      --sage-dark:  #508A65;
+      --gold:       #C9A84C;
+      --gold-lt:  #FBF4E3;
+      --gold-dark:  #8E712C;
+      --lavender:   #9B89C4;
+      --lav-lt:   #F0EDF9;
+      --lav-dark:   #6E5B99;
+      --sky:        #87CEEB;
+      --sky-lt:     #F0F8FF;
+      --ink:        #2B2B3A;
+      --mist:       #F7F5F2;
+      --white:      #FFFFFF;
+      --border:     #E8E4DF;
+      --shadow:     rgba(0, 0, 0, 0.05);
+    }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--mist);
-    color: var(--ink);
-    min-height: 100vh;
-    padding: 0 0 48px;
-  }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--mist);
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 0 0 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      -webkit-font-smoothing: antialiased;
+    }
 
-  /* HEADER */
-  header {
-    background: linear-gradient(135deg, #E8927C 0%, #C9A84C 100%);
-    padding: 36px 24px 28px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  header::before {
-    content: '🌸';
-    position: absolute;
-    font-size: 120px;
-    opacity: 0.08;
-    top: -20px; right: -20px;
-  }
-  header h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 28px;
-    color: white;
-    letter-spacing: 0.3px;
-    margin-bottom: 6px;
-  }
-  header p {
-    color: rgba(255,255,255,0.85);
-    font-size: 14px;
-    font-weight: 400;
-  }
-  .week-badge {
-    display: inline-block;
-    background: rgba(255,255,255,0.2);
-    color: white;
-    border-radius: 20px;
-    padding: 4px 14px;
-    font-size: 13px;
-    font-weight: 600;
-    margin-top: 10px;
-    backdrop-filter: blur(4px);
-  }
+    /* APP CONTAINER */
+    .app-container {
+      width: 100%;
+      max-width: 520px;
+      background: var(--mist);
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-  /* IMPORTANT NOTE */
-  .note-banner {
-    margin: 16px 16px 0;
-    background: var(--lav-lt);
-    border-left: 4px solid var(--lavender);
-    border-radius: 10px;
-    padding: 12px 16px;
-    font-size: 13px;
-    color: #5a4e8c;
-    line-height: 1.5;
-  }
-  .note-banner strong { font-weight: 600; }
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, var(--rose) 0%, var(--gold) 100%);
+      padding: 32px 20px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      color: white;
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+      box-shadow: 0 4px 15px rgba(232, 146, 124, 0.15);
+    }
+    header::before {
+      content: '👶';
+      position: absolute;
+      font-size: 130px;
+      opacity: 0.08;
+      top: -20px; right: -20px;
+    }
+    header::after {
+      content: '🌸';
+      position: absolute;
+      font-size: 100px;
+      opacity: 0.06;
+      bottom: -30px; left: -20px;
+    }
+    header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 30px;
+      color: white;
+      letter-spacing: 0.3px;
+      margin-bottom: 4px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    header p {
+      color: rgba(255,255,255,0.9);
+      font-size: 14px;
+      font-weight: 400;
+    }
+    .greeting-text {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: 8px;
+    }
 
-  /* SECTION LABEL */
-  .section-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #999;
-    padding: 24px 16px 8px;
-  }
+    /* DYNAMIC INFO CARDS */
+    .header-info-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .info-card {
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 16px;
+      padding: 12px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      text-align: left;
+    }
+    .info-card-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .info-card-value {
+      font-size: 15px;
+      font-weight: 700;
+      color: white;
+    }
+    .info-card-sub {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.85);
+      margin-top: 2px;
+    }
 
-  /* TIME BLOCK */
-  .time-block {
-    margin: 0 16px 12px;
-    background: var(--white);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  }
+    /* TRIMESTER PROGRESS BAR */
+    .trimester-container {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .trimester-seg {
+      flex: 1;
+      height: 6px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 3px;
+      position: relative;
+    }
+    .trimester-seg.completed {
+      background: var(--white);
+    }
+    .trimester-seg.active .trimester-fill {
+      height: 100%;
+      background: var(--white);
+      border-radius: 3px;
+      transition: width 0.5s ease;
+    }
+    .trimester-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.8);
+      margin-top: 4px;
+    }
 
-  .time-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 16px 12px;
-    border-bottom: 1px solid var(--border);
-  }
-  .time-icon {
-    width: 40px; height: 40px;
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-  .time-info h2 {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.2;
-  }
-  .time-info span {
-    font-size: 12px;
-    color: #888;
-  }
+    /* TABS */
+    .tabs-bar {
+      display: flex;
+      background: white;
+      margin: 16px 16px 8px;
+      padding: 6px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .tab-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 12px 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #777;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+    }
+    .tab-btn.active {
+      background: var(--rose-lt);
+      color: var(--rose-dark);
+    }
+    .tab-btn:focus-visible {
+      outline: 2px solid var(--rose);
+      outline-offset: -2px;
+    }
 
-  /* MEDICINE ROW */
-  .med-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.15s;
-  }
-  .med-row:last-child { border-bottom: none; }
-  .med-row:active { background: var(--mist); }
+    /* TAB CONTENT PANELS */
+    .tab-content {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .tab-content.active {
+      display: block;
+      opacity: 1;
+    }
 
-  .med-check {
-    width: 24px; height: 24px;
-    border-radius: 8px;
-    border: 2px solid var(--border);
-    flex-shrink: 0;
-    margin-top: 2px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-    background: white;
-  }
-  .med-check.checked {
-    background: var(--sage);
-    border-color: var(--sage);
-  }
-  .med-check.checked::after {
-    content: '✓';
-    color: white;
-    font-size: 14px;
-    font-weight: 700;
-  }
+    /* BANNER NOTIFICATION */
+    .banner {
+      margin: 12px 16px 0;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.5;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+    .banner-warning {
+      background: #FFF3E0;
+      border-left: 4px solid #FF9800;
+      color: #A05C00;
+    }
+    .banner-info {
+      background: var(--lav-lt);
+      border-left: 4px solid var(--lavender);
+      color: var(--lav-dark);
+    }
+    .banner-danger {
+      background: #FFE8E4;
+      border-left: 4px solid var(--rose);
+      color: var(--rose-dark);
+    }
+    .banner-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
 
-  .med-info { flex: 1; }
-  .med-name {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 2px;
-  }
-  .med-desc {
-    font-size: 12px;
-    color: #888;
-    line-height: 1.4;
-  }
-  .med-tag {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 20px;
-    margin-top: 4px;
-    letter-spacing: 0.3px;
-  }
-  .tag-critical { background: #FFE8E4; color: #C0392B; }
-  .tag-progesterone { background: var(--lav-lt); color: #6B52AE; }
-  .tag-nutrition { background: var(--sage-lt); color: #2E7D52; }
-  .tag-calcium { background: var(--gold-lt); color: #8B6914; }
-  .tag-topical { background: #F0F0F0; color: #555; }
+    /* SECTION LABEL */
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #8A8A99;
+      padding: 24px 20px 8px;
+    }
 
-  /* PROGRESS BAR */
-  .progress-wrap {
-    margin: 16px 16px 0;
-    background: white;
-    border-radius: 16px;
-    padding: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  }
-  .progress-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  .progress-top span:first-child {
-    font-size: 13px;
-    font-weight: 600;
-  }
-  .progress-count {
-    font-size: 13px;
-    color: var(--sage);
-    font-weight: 600;
-  }
-  .progress-bar-bg {
-    background: var(--border);
-    border-radius: 99px;
-    height: 8px;
-    overflow: hidden;
-  }
-  .progress-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--sage), var(--rose));
-    border-radius: 99px;
-    transition: width 0.4s ease;
-    width: 0%;
-  }
+    /* PROGRESS CONTAINER */
+    .progress-wrap {
+      margin: 12px 16px 0;
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 12px var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .progress-top span:first-child {
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .progress-count {
+      font-size: 13px;
+      color: var(--sage-dark);
+      font-weight: 700;
+    }
+    .progress-bar-bg {
+      background: var(--border);
+      border-radius: 99px;
+      height: 10px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--sage), var(--rose));
+      border-radius: 99px;
+      transition: width 0.4s cubic-bezier(0.1, 0.8, 0.25, 1);
+      width: 0%;
+    }
 
-  /* RESET BUTTON */
-  .reset-btn {
-    display: block;
-    width: calc(100% - 32px);
-    margin: 16px auto 0;
-    padding: 14px;
-    background: var(--rose);
-    color: white;
-    border: none;
-    border-radius: 14px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    text-align: center;
-    transition: opacity 0.2s;
-  }
-  .reset-btn:active { opacity: 0.85; }
+    /* TIME BLOCKS / CARDS */
+    .time-block {
+      margin: 0 16px 14px;
+      background: var(--white);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .time-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      background: #FAF9F7;
+    }
+    .time-icon {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .time-info h2 {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .time-info span {
+      font-size: 11px;
+      color: #888;
+    }
 
-  /* IMPORTANT REMINDERS */
-  .reminder-card {
-    margin: 0 16px 10px;
-    background: white;
-    border-radius: 14px;
-    padding: 14px 16px;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  }
-  .reminder-icon { font-size: 22px; flex-shrink: 0; }
-  .reminder-text { font-size: 13px; line-height: 1.5; color: #444; }
-  .reminder-text strong { font-weight: 600; color: var(--ink); }
+    /* ITEMS LIST (MEDICINES & VACCINES) */
+    .item-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s ease;
+      cursor: pointer;
+    }
+    .item-row:last-child { border-bottom: none; }
+    .item-row:hover { background: #FAF9F7; }
 
-  /* COMPLETION MESSAGE */
-  .completion-msg {
-    display: none;
-    margin: 16px;
-    background: linear-gradient(135deg, var(--sage-lt), var(--rose-lt));
-    border-radius: 16px;
-    padding: 20px;
-    text-align: center;
-  }
-  .completion-msg.show { display: block; }
-  .completion-msg h3 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px;
-    margin: 8px 0 4px;
-  }
-  .completion-msg p { font-size: 13px; color: #666; }
-</style>
+    .checkbox-btn {
+      width: 26px; height: 26px;
+      border-radius: 8px;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      margin-top: 2px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background: white;
+    }
+    .checkbox-btn.checked {
+      background: var(--sage);
+      border-color: var(--sage);
+      transform: scale(1.05);
+    }
+    .checkbox-btn.checked::after {
+      content: '✓';
+      color: white;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .item-content { flex: 1; }
+    .item-name {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 3px;
+      transition: color 0.2s;
+    }
+    .item-row.checked .item-name {
+      color: #999;
+      text-decoration: line-through;
+    }
+    .item-desc {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.45;
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
+    }
+    .tag-critical { background: #FFE8E4; color: var(--rose-dark); }
+    .tag-progesterone { background: var(--lav-lt); color: var(--lav-dark); }
+    .tag-nutrition { background: var(--sage-lt); color: var(--sage-dark); }
+    .tag-calcium { background: var(--gold-lt); color: var(--gold-dark); }
+    .tag-topical { background: #F0F0F0; color: #555; }
+    .tag-overdue { background: #FFE8E4; color: var(--rose-dark); font-weight: 800; }
+    .tag-upcoming { background: var(--gold-lt); color: var(--gold-dark); }
+    .tag-future { background: #E0F7FA; color: #00838F; }
+
+    /* RESET BUTTON */
+    .action-btn {
+      display: block;
+      width: calc(100% - 32px);
+      margin: 16px auto 0;
+      padding: 14px;
+      background: var(--rose);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(232, 146, 124, 0.2);
+    }
+    .action-btn:hover {
+      background: var(--rose-dark);
+      transform: translateY(-1px);
+    }
+    .action-btn:active {
+      transform: translateY(1px);
+    }
+    
+    .secondary-btn {
+      background: white;
+      color: var(--ink);
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 6px var(--shadow);
+    }
+    .secondary-btn:hover {
+      background: var(--mist);
+    }
+
+    /* CARD GRID FOR REMINDERS & CONTROLS */
+    .reminders-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0 16px;
+    }
+    .reminder-card {
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      box-shadow: 0 4px 12px var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .reminder-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+      width: 40px; height: 40px;
+      background: var(--mist);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .reminder-details { flex: 1; }
+    .reminder-details h3 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #999;
+      margin-bottom: 4px;
+    }
+    .reminder-details p {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #444;
+    }
+    .reminder-details strong {
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    /* COMPLETION MESSAGE */
+    .completion-msg {
+      display: none;
+      margin: 16px;
+      background: linear-gradient(135deg, var(--sage-lt), var(--rose-lt));
+      border-radius: 18px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(123, 174, 142, 0.15);
+      border: 1px solid rgba(255,255,255,0.6);
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .completion-msg.show { display: block; }
+    .completion-msg h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      margin: 10px 0 6px;
+      color: var(--ink);
+    }
+    .completion-msg p { font-size: 14px; color: #555; }
+
+    @keyframes popIn {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* CONFETTI CANVAS */
+    #confetti-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* VACCINE CONTROLS CARD */
+    .control-card {
+      margin: 12px 16px;
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 12px var(--shadow);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .control-group label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #777;
+    }
+    .date-input-wrap {
+      display: flex;
+      gap: 8px;
+    }
+    .date-input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--ink);
+      font-weight: 500;
+      background: #FAFAFA;
+      transition: all 0.2s;
+    }
+    .date-input:focus {
+      outline: none;
+      border-color: var(--rose);
+      background: white;
+      box-shadow: 0 0 0 3px var(--rose-lt);
+    }
+    
+    /* FILTERS */
+    .filters-bar {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .filter-chip {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: white;
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-chip.active {
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+    }
+
+    /* GITHUB GUIDE ACCORDION */
+    .accordion {
+      margin: 24px 16px 16px;
+      background: white;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+    .accordion-header {
+      padding: 16px;
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      background: #FAFAFA;
+      user-select: none;
+    }
+    .accordion-header:hover {
+      background: #F5F4F2;
+    }
+    .accordion-content {
+      display: none;
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: #555;
+      line-height: 1.6;
+    }
+    .accordion-content.show {
+      display: block;
+    }
+    .accordion-content ol {
+      margin-left: 20px;
+      margin-top: 8px;
+      margin-bottom: 12px;
+    }
+    .accordion-content li {
+      margin-bottom: 8px;
+    }
+    .accordion-content code {
+      background: #F1EFFC;
+      color: var(--lav-dark);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .accordion-arrow {
+      transition: transform 0.3s;
+      font-size: 12px;
+    }
+    .accordion-header.active .accordion-arrow {
+      transform: rotate(180deg);
+    }
+
+    /* FOOTER DETAILS */
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      font-size: 11px;
+      color: #999;
+      line-height: 1.5;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <h1>Mounika's Daily Schedule</h1>
-  <p>Pregnancy Tablet Tracker</p>
-  <div class="week-badge">🤱 17 Weeks • EDD: 21 Nov 2026</div>
-</header>
+  <div class="app-container">
+    <canvas id="confetti-canvas"></canvas>
 
-<div class="note-banner">
-  <strong>⚠️ Important:</strong> Thyronorm must be taken on empty stomach first. Wait 30 mins before eating. Confirm with doctor whether to continue Zuviston alongside Womiren.
-</div>
+    <!-- HEADER -->
+    <header>
+      <div class="greeting-text" id="greetingText">Good Morning</div>
+      <h1 id="babyCountdownTitle">Mouni & Baby's Hub</h1>
+      <p>Health & schedule tracker</p>
+      
+      <div class="header-info-wrap">
+        <!-- Trimester / Gestational progress -->
+        <div class="info-card">
+          <div class="info-card-title">
+            <span>🤰 Pregnancy Progress</span>
+            <span id="gestationalAgeText">17 Weeks • 2nd Trimester</span>
+          </div>
+          <!-- Visual Trimester Gauge -->
+          <div class="trimester-container">
+            <div class="trimester-seg completed" id="tri1"></div>
+            <div class="trimester-seg" id="tri2"><div class="trimester-fill" id="tri2Fill" style="width: 0%;"></div></div>
+            <div class="trimester-seg" id="tri3"><div class="trimester-fill" id="tri3Fill" style="width: 0%;"></div></div>
+          </div>
+          <div class="trimester-label-row">
+            <span>TRI 1 (W1-12)</span>
+            <span>TRI 2 (W13-27)</span>
+            <span>TRI 3 (W28-40)</span>
+          </div>
+        </div>
 
-<!-- PROGRESS -->
-<div class="progress-wrap">
-  <div class="progress-top">
-    <span>Today's Progress</span>
-    <span class="progress-count" id="progressCount">0 / 8 done</span>
-  </div>
-  <div class="progress-bar-bg">
-    <div class="progress-bar-fill" id="progressFill"></div>
-  </div>
-</div>
+        <!-- Baby Countdown Card -->
+        <div class="info-card" style="background: rgba(255, 255, 255, 0.25);">
+          <div class="info-card-title">🍼 Tentative Due Date</div>
+          <div class="info-card-value" id="countdownTimerText">21 Nov 2026 • -- Days Left</div>
+          <div class="info-card-sub" id="countdownSubtext">Trimester 2 in progress. Keep glowing! 🌟</div>
+        </div>
+      </div>
+    </header>
 
-<!-- MORNING EMPTY STOMACH -->
-<div class="section-label">Morning — Empty Stomach</div>
-<div class="time-block">
-  <div class="time-header">
-    <div class="time-icon" style="background:#FFF3E0;">🌅</div>
-    <div class="time-info">
-      <h2>5:30 – 6:30 AM</h2>
-      <span>Before eating anything</span>
+    <!-- TABS BAR -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" onclick="switchTab('tablets-tab', this)">
+        <span>💊</span> Mouni's Tablets
+      </button>
+      <button class="tab-btn" onclick="switchTab('vaccines-tab', this)">
+        <span>👶</span> Baby's Vaccines
+      </button>
     </div>
-  </div>
-  <div class="med-row">
-    <div class="med-check" onclick="toggle(this)" id="check-0"></div>
-    <div class="med-info">
-      <div class="med-name">Thyronorm 50mcg</div>
-      <div class="med-desc">Take with a small sip of water (50ml milk if nauseous). Wait 30–45 mins before any food or other tablets.</div>
-      <span class="med-tag tag-critical">🔴 Critical — Daily</span>
+
+    <!-- TAB CONTENT: TABLET TRACKER -->
+    <div id="tablets-tab" class="tab-content active">
+      
+      <!-- Bed Rest Active Warning (June 15 to July 6) -->
+      <div class="banner banner-danger" id="bedRestBanner" style="display: none;">
+        <span class="banner-icon">🛌</span>
+        <div>
+          <strong>Strict Bed Rest Period Active:</strong> 3 weeks of complete bed rest starts 15 June. Walk only to the bathroom. No cooking, no heavy lifting. Rest well Mounika! ❤️
+        </div>
+      </div>
+
+      <div class="banner banner-info">
+        <span class="banner-icon">⚠️</span>
+        <div>
+          <strong>Critical Rule:</strong> Thyronorm must be taken on empty stomach first. Wait 30 mins before eating. Never take Iron (Womiren) and Calcium (Magnocal) together.
+        </div>
+      </div>
+
+      <!-- PROGRESS -->
+      <div class="progress-wrap">
+        <div class="progress-top">
+          <span>Today's Tablets Progress</span>
+          <span class="progress-count" id="tabletsProgressCount">0 / 9 done</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="tabletsProgressFill"></div>
+        </div>
+      </div>
+
+      <!-- COMPLETION MESSAGE -->
+      <div class="completion-msg" id="tabletsCompletionMsg">
+        <div style="font-size:40px;">🎉</div>
+        <h3>All done for today!</h3>
+        <p>Great job Mounika. Baby is getting everything needed today. 💙</p>
+      </div>
+
+      <!-- MORNING EMPTY STOMACH -->
+      <div class="section-label">Morning — Empty Stomach</div>
+      <div class="time-block">
+        <div class="time-header">
+          <div class="time-icon" style="background:#FFF3E0;">🌅</div>
+          <div class="time-info">
+            <h2>5:30 – 6:30 AM</h2>
+            <span>Before eating anything</span>
+          </div>
+        </div>
+        
+        <div class="item-row" onclick="toggleTablet(0, event)">
+          <div class="checkbox-btn" id="tab-chk-0"></div>
+          <div class="item-content">
+            <div class="item-name">Thyronorm 50mcg</div>
+            <div class="item-desc">Take with a small sip of water. Wait 30–45 mins before food or other medicines.</div>
+            <div class="badge-row">
+              <span class="badge tag-critical">🔴 Critical — Daily</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item-row" onclick="toggleTablet(1, event)">
+          <div class="checkbox-btn" id="tab-chk-1"></div>
+          <div class="item-content">
+            <div class="item-name">Tab. Dydrogest 10</div>
+            <div class="item-desc">Progesterone tablet — take after Thyronorm gap, with light food or milk.</div>
+            <div class="badge-row">
+              <span class="badge tag-progesterone">💜 Preterm Prevention</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BREAKFAST -->
+      <div class="section-label">After Breakfast</div>
+      <div class="time-block">
+        <div class="time-header">
+          <div class="time-icon" style="background:#E8F5E9;">🍽️</div>
+          <div class="time-info">
+            <h2>8:00 – 9:00 AM</h2>
+            <span>After proper breakfast</span>
+          </div>
+        </div>
+
+        <div class="item-row" onclick="toggleTablet(2, event)">
+          <div class="checkbox-btn" id="tab-chk-2"></div>
+          <div class="item-content">
+            <div class="item-name">Folic Acid</div>
+            <div class="item-desc">Essential for baby's neural development. Do NOT skip.</div>
+            <div class="badge-row">
+              <span class="badge tag-nutrition">🟢 Essential Nutrient</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item-row" onclick="toggleTablet(3, event)">
+          <div class="checkbox-btn" id="tab-chk-3"></div>
+          <div class="item-content">
+            <div class="item-name">Pro-Cas DF Powder</div>
+            <div class="item-desc">Mix with milk or water. Protein + DHA for baby's brain and Mounika's nutrition.</div>
+            <div class="badge-row">
+              <span class="badge tag-nutrition">🟢 Protein Support</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AFTERNOON -->
+      <div class="section-label">Afternoon</div>
+      <div class="time-block">
+        <div class="time-header">
+          <div class="time-icon" style="background:#FFF8E1;">☀️</div>
+          <div class="time-info">
+            <h2>1:00 – 2:00 PM</h2>
+            <span>After lunch</span>
+          </div>
+        </div>
+
+        <div class="item-row" onclick="toggleTablet(4, event)">
+          <div class="checkbox-btn" id="tab-chk-4"></div>
+          <div class="item-content">
+            <div class="item-name">Tab. Magnocal</div>
+            <div class="item-desc">Calcium + Magnesium. Keep away from iron tablets (Womiren) — take at separate times.</div>
+            <div class="badge-row">
+              <span class="badge tag-calcium">🟡 Calcium & Bone</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item-row" onclick="toggleTablet(5, event)">
+          <div class="checkbox-btn" id="tab-chk-5"></div>
+          <div class="item-content">
+            <div class="item-name">Tab. Sustener 200</div>
+            <div class="item-desc">Progesterone support. May cause mild drowsiness — afternoon timing is ideal.</div>
+            <div class="badge-row">
+              <span class="badge tag-progesterone">💜 Preterm Prevention</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NIGHT -->
+      <div class="section-label">Night</div>
+      <div class="time-block">
+        <div class="time-header">
+          <div class="time-icon" style="background:#EDE7F6;">🌙</div>
+          <div class="time-info">
+            <h2>9:00 – 10:00 PM</h2>
+            <span>After dinner</span>
+          </div>
+        </div>
+
+        <div class="item-row" onclick="toggleTablet(6, event)">
+          <div class="checkbox-btn" id="tab-chk-6"></div>
+          <div class="item-content">
+            <div class="item-name">Tab. Womiren</div>
+            <div class="item-desc">Iron + Folic Acid. Best absorbed at night, away from calcium. May cause dark stools (normal).</div>
+            <div class="badge-row">
+              <span class="badge tag-nutrition">🟢 Iron & Folic Acid</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item-row" onclick="toggleTablet(7, event)">
+          <div class="checkbox-btn" id="tab-chk-7"></div>
+          <div class="item-content">
+            <div class="item-name">Tab. Dydrogest 10</div>
+            <div class="item-desc">Second dose of progesterone tablet. Take after dinner.</div>
+            <div class="badge-row">
+              <span class="badge tag-progesterone">💜 Preterm Prevention</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BEDTIME -->
+      <div class="section-label">Bedtime</div>
+      <div class="time-block">
+        <div class="time-header">
+          <div class="time-icon" style="background:#FCE4EC;">🌛</div>
+          <div class="time-info">
+            <h2>Before Sleep</h2>
+            <span>Topical application</span>
+          </div>
+        </div>
+
+        <div class="item-row" onclick="toggleTablet(8, event)">
+          <div class="checkbox-btn" id="tab-chk-8"></div>
+          <div class="item-content">
+            <div class="item-name">Stovient Cream</div>
+            <div class="item-desc">Apply gently on belly, hips and thighs. Stretch mark prevention. 1 application at night.</div>
+            <div class="badge-row">
+              <span class="badge tag-topical">⚪ Topical application</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESET FOR NEW DAY -->
+      <button class="action-btn" onclick="resetTablets()">🔄 Reset Checklist for New Day</button>
+      
+      <!-- TABLET REMINDERS -->
+      <div class="section-label">Important Reminders</div>
+      <div class="reminders-grid">
+        <div class="reminder-card">
+          <div class="reminder-icon" style="color:var(--rose);">⏰</div>
+          <div class="reminder-details">
+            <h3>Thyronorm timing</h3>
+            <p>Always first in the morning. 30–45 min gap before food. Never take with calcium or iron.</p>
+          </div>
+        </div>
+
+        <div class="reminder-card">
+          <div class="reminder-icon" style="color:#FF9800;">🚫</div>
+          <div class="reminder-details">
+            <h3>Iron + Calcium gap</h3>
+            <p><strong>Tab. Womiren</strong> (night) and <strong>Tab. Magnocal</strong> (afternoon) must not be taken together — they block each other's absorption.</p>
+          </div>
+        </div>
+
+        <div class="reminder-card">
+          <div class="reminder-icon" style="color:var(--lavender);">🛏️</div>
+          <div class="reminder-details">
+            <h3>Post-Cerclage Care</h3>
+            <p>3 weeks complete bed rest starts <strong>15 June 2026</strong>. Limit movement to washroom only.</p>
+          </div>
+        </div>
+
+        <div class="reminder-card">
+          <div class="reminder-icon" style="color:var(--gold-dark);">📅</div>
+          <div class="reminder-details">
+            <h3>Next Appointment & Retest</h3>
+            <p>• <strong>TIFFA Level 2 Scan:</strong> Scheduled for <strong>14 July 2026</strong> (~21 weeks).<br>• <strong>TSH Retest:</strong> Due late July 2026.</p>
+          </div>
+        </div>
+
+        <div class="reminder-card">
+          <div class="reminder-icon" style="color:#00ACC1;">📞</div>
+          <div class="reminder-details">
+            <h3>Doctor Confirmation</h3>
+            <p>Confirm with <strong>Dr. Bharathi Ramesh</strong> (90367 86686) whether to continue Zuviston alongside Womiren.</p>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </div>
-  <div class="med-row">
-    <div class="med-check" onclick="toggle(this)" id="check-1"></div>
-    <div class="med-info">
-      <div class="med-name">Tab. Dydrogest 10</div>
-      <div class="med-desc">Progesterone tablet — take after Thyronorm gap, with light food or milk.</div>
-      <span class="med-tag tag-progesterone">💜 Preterm Prevention</span>
+
+    <!-- TAB CONTENT: VACCINE PLANNER -->
+    <div id="vaccines-tab" class="tab-content">
+      
+      <!-- DATE SETTINGS & FILTERS -->
+      <div class="control-card">
+        <div class="control-group">
+          <label for="birthDateInput">📅 Baby's Birth Date (Tentative / Actual)</label>
+          <div class="date-input-wrap">
+            <input type="date" id="birthDateInput" class="date-input" onchange="onBirthDateChange()">
+          </div>
+          <p style="font-size:11px; color:#888; margin-top:2px;">Change this once the baby is born. All vaccine dates will adjust automatically!</p>
+        </div>
+
+        <div class="control-group" style="margin-top:6px;">
+          <label>🔍 Filter Schedule</label>
+          <div class="filters-bar">
+            <button class="filter-chip active" id="filter-all" onclick="filterVaccines('all')">All</button>
+            <button class="filter-chip" id="filter-pending" onclick="filterVaccines('pending')">Pending</button>
+            <button class="filter-chip" id="filter-completed" onclick="filterVaccines('completed')">Completed</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROGRESS -->
+      <div class="progress-wrap" style="margin-bottom:12px;">
+        <div class="progress-top">
+          <span>Vaccination Progress</span>
+          <span class="progress-count" id="vaccineProgressCount">0 / 0 completed</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="vaccineProgressFill"></div>
+        </div>
+      </div>
+
+      <!-- DYNAMIC VACCINE LIST -->
+      <div id="vaccineListContainer">
+        <!-- Groups of vaccines will be generated dynamically by JavaScript -->
+      </div>
+
+      <button class="action-btn secondary-btn" onclick="resetVaccines()">🔄 Clear All Checked Vaccines</button>
+
     </div>
-  </div>
-</div>
 
-<!-- BREAKFAST -->
-<div class="section-label">After Breakfast</div>
-<div class="time-block">
-  <div class="time-header">
-    <div class="time-icon" style="background:#E8F5E9;">🍽️</div>
-    <div class="time-info">
-      <h2>8:00 – 9:00 AM</h2>
-      <span>After proper breakfast</span>
+    <!-- ACCORDION: GITHUB WEBSITE GUIDE -->
+    <div class="accordion">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span>🌐 How to host & edit this file on GitHub</span>
+        <span class="accordion-arrow">▼</span>
+      </div>
+      <div class="accordion-content">
+        <p>You can easily run this as a real website on your phone and edit it directly on GitHub. Here's how:</p>
+        
+        <strong style="display:block; margin-top:12px; font-size:13px; color:var(--ink);">1. Uploading the file:</strong>
+        <ol>
+          <li>Open your repository on <a href="https://github.com" target="_blank" style="color:var(--rose-dark); font-weight:700;">GitHub.com</a>.</li>
+          <li>Click <strong>Add file</strong> &rarr; <strong>Upload files</strong>.</li>
+          <li>Drag and drop this <code>index.html</code> file and commit the changes.</li>
+        </ol>
+
+        <strong style="display:block; margin-top:12px; font-size:13px; color:var(--ink);">2. Turning on Free Website Hosting (GitHub Pages):</strong>
+        <ol>
+          <li>Go to your repository's <strong>Settings</strong> tab.</li>
+          <li>On the left sidebar, click <strong>Pages</strong>.</li>
+          <li>Under "Build and deployment" &rarr; "Source", select <strong>Deploy from a branch</strong>.</li>
+          <li>Under "Branch", select <code>main</code> (or <code>master</code>) and click <strong>Save</strong>.</li>
+          <li>In 1-2 minutes, GitHub will give you a live link like <code>https://your-username.github.io/your-repo/</code> that you can bookmark on your phone!</li>
+        </ol>
+
+        <strong style="display:block; margin-top:12px; font-size:13px; color:var(--ink);">3. How to edit text or details directly on GitHub:</strong>
+        <ol>
+          <li>Open your repository on GitHub.</li>
+          <li>Press the <code>.</code> (period) key on your keyboard. This opens an online code editor (VS Code in browser!).</li>
+          <li>Search for names or times (e.g., search for <code>Thyronorm</code> or scan dates). Make your edits directly.</li>
+          <li>Go to the Source Control tab on the left bar (looks like a branch icon), type a commit message, and click <strong>Commit and Push</strong>. Your website will update automatically in 1 minute!</li>
+        </ol>
+      </div>
     </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>Designed for Mounika & Baby's Health Tracker • 2026</p>
+      <p style="margin-top: 4px;">Data is saved locally in your browser storage.</p>
+    </footer>
+
   </div>
-  <div class="med-row">
-    <div class="med-check" onclick="toggle(this)" id="check-2"></div>
-    <div class="med-info">
-      <div class="med-name">Folic Acid</div>
-      <div class="med-desc">Essential for baby's neural development. Do NOT skip.</div>
-      <span class="med-tag tag-nutrition">🟢 Essential</span>
-    </div>
-  </div>
-  <div class="med-row">
-    <div class="med-check" onclick="toggle(this)" id="check-3"></div>
-    <div class="med-info">
-      <div class="med-name">Pro-Cas DF Powder</div>
-      <div class="med-desc">Mix with milk or water. Protein + DHA for baby's brain development and Mounika's nutrition.</div>
-      <span class="med-tag tag-nutrition">🟢 Protein Support</span>
-    </div>
-  </div>
-</div>
 
-<!-- AFTERNOON -->
-<div class="section-label">Afternoon</div>
-<div class="time-block">
-  <div class="time-header">
-    <div class="time-icon" style="background:#FFF8E1;">☀️</div>
-    <div class="time-info">
-      <h2>1:00 – 2:00 PM</h2>
-      <span>After lunch</span>
-    </div>
-  </div>
-  <div class="med-row">
-    <div class="med-check" onclick="toggle(this)" id="check-4"></div>
-    <div class="med-info">
-      <div class="med-name">Tab. Magnocal</div>
-      <div class="med-desc">Calcium + Magnesium. Keep away from iron tablets (Womiren) — take at separate times.</div>
-      <span class="med-tag tag-calcium">🟡 Calcium & Bone</span>
-    </div>
-  </div>
-  <div class="med-row">
-    <div class="med-check" onclick="toggle(this)" id="check-5"></div>
-    <div class="med-info">
-      <div class="med-name">Tab. Sustener 200</div>
-      <div class="med-desc">Progesterone support. May cause mild drowsiness — afternoon timing is ideal.</div>
-      <span class="med-tag tag-progesterone">💜 Preterm Prevention</span>
-    </div>
-  </div>
-</div>
+  <script>
+    // Constants
+    const TENTATIVE_EDD = new Date('2026-11-21');
+    const TOTAL_TABLETS = 9;
 
-<!-- NIGHT -->
-<div class="section-label">Night</div>
-<div class="time-block">
-  <div class="time-header">
-    <div class="time-icon" style="background:#EDE7F6;">🌙</div>
-    <div class="time-info">
-      <h2>9:00 – 10:00 PM</h2>
-      <span>After dinner</span>
-    </div>
-  </div>
-  <div class="med-row">
-    <div class="med-check" onclick="toggle(this)" id="check-6"></div>
-    <div class="med-info">
-      <div class="med-name">Tab. Womiren</div>
-      <div class="med-desc">Iron + Folic Acid. Best absorbed at night, away from calcium. May cause dark stools — normal.</div>
-      <span class="med-tag tag-nutrition">🟢 Iron & Folic Acid</span>
-    </div>
-  </div>
-  <div class="med-row">
-    <div class="med-check" onclick="toggle(this)" id="check-7"></div>
-    <div class="med-info">
-      <div class="med-name">Tab. Dydrogest 10</div>
-      <div class="med-desc">Second dose of progesterone tablet. Take after dinner.</div>
-      <span class="med-tag tag-progesterone">💜 Preterm Prevention</span>
-    </div>
-  </div>
-</div>
+    // Vaccine Schedule Database
+    const VACCINE_DATABASE = [
+      {
+        ageGroup: "At Birth",
+        daysOffset: 0,
+        vaccines: [
+          { id: "bcg", name: "BCG", desc: "Bacillus Calmette-Guérin: Protects against severe Tuberculosis (TB). Injectable.", tag: "tag-critical" },
+          { id: "opv0", name: "OPV 0", desc: "Oral Polio Vaccine (Dose 0): Protects against Polio. Given orally as drops.", tag: "tag-critical" },
+          { id: "hepb1", name: "HepB 1", desc: "Hepatitis B (Dose 1): Protects against Hepatitis B liver infection. Given within 24 hours of birth.", tag: "tag-critical" }
+        ]
+      },
+      {
+        ageGroup: "6 Weeks",
+        daysOffset: 42,
+        vaccines: [
+          { id: "penta1", name: "Pentavalent 1 / DTaP 1", desc: "Protects against 5 diseases: Diphtheria, Tetanus, Pertussis (Whooping Cough), HepB, and Hib.", tag: "tag-critical" },
+          { id: "ipv1", name: "IPV 1", desc: "Inactivated Polio Vaccine (Dose 1): Protects against Polio. Injectable.", tag: "tag-critical" },
+          { id: "rota1", name: "Rotavirus 1", desc: "Protects against severe Rotavirus diarrhea. Given orally as drops.", tag: "tag-nutrition" },
+          { id: "pcv1", name: "PCV 1", desc: "Pneumococcal Conjugate Vaccine (Dose 1): Protects against Pneumonia & Meningitis.", tag: "tag-nutrition" }
+        ]
+      },
+      {
+        ageGroup: "10 Weeks",
+        daysOffset: 70,
+        vaccines: [
+          { id: "penta2", name: "Pentavalent 2 / DTaP 2", desc: "Protects against Diphtheria, Tetanus, Pertussis, HepB, and Hib. Dose 2.", tag: "tag-critical" },
+          { id: "rota2", name: "Rotavirus 2", desc: "Protects against severe Rotavirus diarrhea. Dose 2. Oral drops.", tag: "tag-nutrition" }
+        ]
+      },
+      {
+        ageGroup: "14 Weeks",
+        daysOffset: 98,
+        vaccines: [
+          { id: "penta3", name: "Pentavalent 3 / DTaP 3", desc: "Protects against Diphtheria, Tetanus, Pertussis, HepB, and Hib. Dose 3.", tag: "tag-critical" },
+          { id: "ipv2", name: "IPV 2", desc: "Inactivated Polio Vaccine (Dose 2): Protects against Polio. Injectable.", tag: "tag-critical" },
+          { id: "rota3", name: "Rotavirus 3", desc: "Protects against Rotavirus diarrhea. Dose 3. Oral drops.", tag: "tag-nutrition" },
+          { id: "pcv2", name: "PCV 2", desc: "Pneumococcal Conjugate Vaccine (Dose 2): Protects against Pneumonia & Meningitis.", tag: "tag-nutrition" }
+        ]
+      },
+      {
+        ageGroup: "6 Months",
+        daysOffset: 182,
+        vaccines: [
+          { id: "hepb3", name: "HepB 3 / OPV 1", desc: "Hepatitis B booster / Oral Polio booster. Confirms long-term immunity.", tag: "tag-critical" },
+          { id: "flu1", name: "Influenza 1", desc: "Flu vaccine (Dose 1): Protects against seasonal influenza virus strains.", tag: "tag-nutrition" }
+        ]
+      },
+      {
+        ageGroup: "7 Months",
+        daysOffset: 212,
+        vaccines: [
+          { id: "flu2", name: "Influenza 2", desc: "Flu vaccine booster (Dose 2): Required 4 weeks after the first dose.", tag: "tag-nutrition" }
+        ]
+      },
+      {
+        ageGroup: "9 Months",
+        daysOffset: 273,
+        vaccines: [
+          { id: "mmr1", name: "MMR 1", desc: "Measles, Mumps, Rubella (Dose 1): Critical protection against childhood viral diseases.", tag: "tag-critical" },
+          { id: "typhoid1", name: "Typhoid Conjugate (TCV)", desc: "Protects against Typhoid fever caused by Salmonella Typhi.", tag: "tag-nutrition" }
+        ]
+      },
+      {
+        ageGroup: "12 Months",
+        daysOffset: 365,
+        vaccines: [
+          { id: "hepa1", name: "HepA 1", desc: "Hepatitis A (Dose 1): Protects against food-borne Hepatitis A liver disease.", tag: "tag-nutrition" }
+        ]
+      },
+      {
+        ageGroup: "15 Months",
+        daysOffset: 456,
+        vaccines: [
+          { id: "mmr2", name: "MMR 2", desc: "Measles, Mumps, and Rubella booster. Dose 2.", tag: "tag-critical" },
+          { id: "varicella1", name: "Varicella 1", desc: "Chickenpox vaccine (Dose 1): Protects against Varicella virus.", tag: "tag-nutrition" },
+          { id: "pcv_boost", name: "PCV Booster", desc: "Pneumococcal Conjugate Booster dose for lasting protection.", tag: "tag-nutrition" }
+        ]
+      },
+      {
+        ageGroup: "18 Months",
+        daysOffset: 547,
+        vaccines: [
+          { id: "dtap_b1", name: "DTaP Booster 1", desc: "Booster dose for Diphtheria, Tetanus, and Pertussis (Whooping Cough).", tag: "tag-critical" },
+          { id: "ipv_boost", name: "IPV Booster", desc: "Inactivated Polio booster injection.", tag: "tag-critical" },
+          { id: "hib_boost", name: "Hib Booster", desc: "Haemophilus influenzae type b booster dose.", tag: "tag-critical" },
+          { id: "varicella2", name: "Varicella 2", desc: "Chickenpox vaccine booster. Dose 2.", tag: "tag-nutrition" },
+          { id: "hepa2", name: "HepA 2", desc: "Hepatitis A booster (Dose 2) for long term protection.", tag: "tag-nutrition" }
+        ]
+      },
+      {
+        ageGroup: "2 Years",
+        daysOffset: 730,
+        vaccines: [
+          { id: "typhoid_boost", name: "Typhoid Booster", desc: "Booster dose to maintain immunity against Typhoid fever.", tag: "tag-nutrition" }
+        ]
+      }
+    ];
 
-<!-- BEDTIME -->
-<div class="section-label">Bedtime</div>
-<div class="time-block">
-  <div class="time-header">
-    <div class="time-icon" style="background:#FCE4EC;">🌛</div>
-    <div class="time-info">
-      <h2>Before Sleep</h2>
-      <span>Topical application</span>
-    </div>
-  </div>
-  <div class="med-row">
-    <div class="med-check" onclick="toggle(this)" id="check-8"></div>
-    <div class="med-info">
-      <div class="med-name">Stovient Cream</div>
-      <div class="med-desc">Apply gently on belly, hips and thighs. Stretch mark prevention. 1 application at night.</div>
-      <span class="med-tag tag-topical">⚪ Topical</span>
-    </div>
-  </div>
-</div>
+    // Local State
+    let checkedTablets = [];
+    let checkedVaccines = [];
+    let babyBirthDate = '2026-11-21';
+    let currentFilter = 'all';
 
-<!-- COMPLETION MESSAGE -->
-<div class="completion-msg" id="completionMsg">
-  <div style="font-size:40px;">🎉</div>
-  <h3>All done for today!</h3>
-  <p>Great job Mounika. Baby is getting everything needed today. 💙</p>
-</div>
+    // Initialize Page
+    document.addEventListener('DOMContentLoaded', () => {
+      // Load from LocalStorage
+      loadState();
+      
+      // Setup dynamic header values
+      updateDynamicHeader();
+      
+      // Render Tablets tab state
+      updateTabletsProgress();
+      
+      // Initialize Date input value
+      document.getElementById('birthDateInput').value = babyBirthDate;
 
-<!-- RESET -->
-<button class="reset-btn" onclick="resetAll()">🔄 Reset for New Day</button>
+      // Check and display bed rest banner if date matches
+      checkBedRestBanner();
 
-<!-- REMINDERS -->
-<div class="section-label">Important Reminders</div>
+      // Render Vaccines tab
+      renderVaccines();
+    });
 
-<div class="reminder-card">
-  <div class="reminder-icon">⏰</div>
-  <div class="reminder-text"><strong>Thyronorm timing:</strong> Always first in the morning. 30–45 min gap before food. Never with calcium or iron.</div>
-</div>
+    // Load states
+    function loadState() {
+      // Check for day change and potentially auto-reset tablets
+      const todayString = getTodayString();
+      const lastResetDate = localStorage.getItem('lastResetDate');
+      
+      if (lastResetDate && lastResetDate !== todayString) {
+        // Automatically archive/clear tablets if it's a new day
+        localStorage.setItem('checkedTablets', JSON.stringify([]));
+        localStorage.setItem('lastResetDate', todayString);
+      } else if (!lastResetDate) {
+        localStorage.setItem('lastResetDate', todayString);
+      }
 
-<div class="reminder-card">
-  <div class="reminder-icon">🚫</div>
-  <div class="reminder-text"><strong>Iron + Calcium gap:</strong> Womiren (night) and Magnocal (afternoon) must not be taken together — they cancel each other out.</div>
-</div>
+      // Load Tablets
+      try {
+        const savedTabs = localStorage.getItem('checkedTablets');
+        checkedTablets = savedTabs ? JSON.parse(savedTabs) : [];
+        // Apply checked classes
+        checkedTablets.forEach(id => {
+          const chk = document.getElementById(`tab-chk-${id}`);
+          if (chk) {
+            chk.classList.add('checked');
+            chk.closest('.item-row').classList.add('checked');
+          }
+        });
+      } catch (e) {
+        console.error("Error loading tablets state", e);
+        checkedTablets = [];
+      }
 
-<div class="reminder-card">
-  <div class="reminder-icon">🛏️</div>
-  <div class="reminder-text"><strong>Bed rest:</strong> 3 weeks complete bed rest post cerclage (15 June onwards). Walk only to bathroom. No cooking, no lifting.</div>
-</div>
+      // Load Vaccines
+      try {
+        const savedVac = localStorage.getItem('checkedVaccines');
+        checkedVaccines = savedVac ? JSON.parse(savedVac) : [];
+      } catch (e) {
+        console.error("Error loading vaccines state", e);
+        checkedVaccines = [];
+      }
 
-<div class="reminder-card">
-  <div class="reminder-icon">📅</div>
-  <div class="reminder-text"><strong>Next scan:</strong> TIFFA Level 2 scan on <strong>14 July 2026</strong> (~21 weeks).</div>
-</div>
-
-<div class="reminder-card">
-  <div class="reminder-icon">🩸</div>
-  <div class="reminder-text"><strong>TSH retest:</strong> Due late July 2026. Keep taking Thyronorm daily without fail.</div>
-</div>
-
-<div class="reminder-card">
-  <div class="reminder-icon">💊</div>
-  <div class="reminder-text"><strong>Zuviston:</strong> Confirm with Dr. Bharathi Ramesh (90367 86686) whether to continue alongside Womiren.</div>
-</div>
-
-<script>
-  const TOTAL = 9; // 0 to 8
-
-  function toggle(el) {
-    el.classList.toggle('checked');
-    updateProgress();
-  }
-
-  function updateProgress() {
-    const checked = document.querySelectorAll('.med-check.checked').length;
-    const pct = Math.round((checked / TOTAL) * 100);
-    document.getElementById('progressFill').style.width = pct + '%';
-    document.getElementById('progressCount').textContent = checked + ' / ' + TOTAL + ' done';
-
-    const msg = document.getElementById('completionMsg');
-    if (checked === TOTAL) {
-      msg.classList.add('show');
-    } else {
-      msg.classList.remove('show');
+      // Load Baby Birth Date
+      const savedDate = localStorage.getItem('babyBirthDate');
+      if (savedDate) {
+        babyBirthDate = savedDate;
+      } else {
+        localStorage.setItem('babyBirthDate', babyBirthDate);
+      }
     }
-  }
 
-  function resetAll() {
-    if (!confirm('Reset all checkboxes for a new day?')) return;
-    document.querySelectorAll('.med-check').forEach(el => el.classList.remove('checked'));
-    updateProgress();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-</script>
+    // Save states
+    function saveTabletsState() {
+      localStorage.setItem('checkedTablets', JSON.stringify(checkedTablets));
+    }
 
+    function saveVaccinesState() {
+      localStorage.setItem('checkedVaccines', JSON.stringify(checkedVaccines));
+    }
+
+    function getTodayString() {
+      const today = new Date();
+      return today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+    }
+
+    // Dynamic Header Calculations
+    function updateDynamicHeader() {
+      const today = new Date();
+      
+      // Greetings
+      const hour = today.getHours();
+      let greeting = "Good Morning";
+      if (hour >= 12 && hour < 17) greeting = "Good Afternoon";
+      else if (hour >= 17 && hour < 22) greeting = "Good Evening";
+      else if (hour >= 22 || hour < 5) greeting = "Sweet Dreams";
+      document.getElementById('greetingText').textContent = greeting + ", Mouni";
+
+      // Calculate gestational age and countdown
+      const edd = TENTATIVE_EDD;
+      const diffTime = edd - today;
+      const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      if (daysLeft > 0) {
+        // Pregnancy mode
+        document.getElementById('countdownTimerText').innerHTML = `🍼 <strong>${daysLeft} Days</strong> Until Baby Arrives`;
+        
+        // 280 days total in pregnancy. Days completed = 280 - daysLeft
+        const totalPregnancyDays = 280;
+        const daysCompleted = Math.max(0, Math.min(totalPregnancyDays, totalPregnancyDays - daysLeft));
+        const weeks = Math.floor(daysCompleted / 7);
+        const days = Math.floor(daysCompleted % 7);
+        
+        // Trimester progress percentages
+        // Tri 1: 0 - 12 weeks (84 days)
+        // Tri 2: 13 - 27 weeks (85 - 189 days)
+        // Tri 3: 28 - 40 weeks (190 - 280 days)
+        let triText = "1st Trimester";
+        if (weeks >= 13 && weeks <= 27) triText = "2nd Trimester";
+        else if (weeks >= 28) triText = "3rd Trimester";
+        
+        document.getElementById('gestationalAgeText').textContent = `${weeks} Weeks, ${days} Days Pregnant • ${triText}`;
+        document.getElementById('babyCountdownTitle').textContent = "Mouni & Baby's Hub";
+
+        // Draw Trimester Bars
+        // Segment 1 (Tri 1): completed if daysCompleted >= 84
+        const tri1 = document.getElementById('tri1');
+        const tri2Fill = document.getElementById('tri2Fill');
+        const tri3Fill = document.getElementById('tri3Fill');
+
+        if (daysCompleted >= 84) {
+          tri1.className = "trimester-seg completed";
+        } else {
+          tri1.className = "trimester-seg active";
+          // We can set background to represent detailed progress in Tri 1 if desired, or keep simple.
+        }
+
+        // Segment 2 (Tri 2): 84 to 189 days (range is 105 days)
+        if (daysCompleted >= 189) {
+          document.getElementById('tri2').className = "trimester-seg completed";
+          tri2Fill.style.width = "100%";
+        } else if (daysCompleted > 84) {
+          document.getElementById('tri2').className = "trimester-seg active";
+          const progress = ((daysCompleted - 84) / 105) * 100;
+          tri2Fill.style.width = progress + "%";
+        } else {
+          document.getElementById('tri2').className = "trimester-seg";
+          tri2Fill.style.width = "0%";
+        }
+
+        // Segment 3 (Tri 3): 189 to 280 days (range is 91 days)
+        if (daysCompleted >= 280) {
+          document.getElementById('tri3').className = "trimester-seg completed";
+          tri3Fill.style.width = "100%";
+        } else if (daysCompleted > 189) {
+          document.getElementById('tri3').className = "trimester-seg active";
+          const progress = ((daysCompleted - 189) / 91) * 100;
+          tri3Fill.style.width = progress + "%";
+        } else {
+          document.getElementById('tri3').className = "trimester-seg";
+          tri3Fill.style.width = "0%";
+        }
+        
+        document.getElementById('countdownSubtext').innerHTML = `EDD: <strong>21 Nov 2026</strong>. You are doing amazing! 🌸`;
+      } else {
+        // Post birth mode / Baby is born!
+        document.getElementById('babyCountdownTitle').textContent = "Baby Health Tracker";
+        document.getElementById('gestationalAgeText').textContent = "Baby is Born! 🎉 Welcome to the world!";
+        document.getElementById('countdownTimerText').textContent = "💖 Double joy, double love!";
+        document.getElementById('countdownSubtext').textContent = "Go to the Baby's Vaccines tab to manage vaccine records.";
+        // Complete all trimester progress
+        document.getElementById('tri1').className = "trimester-seg completed";
+        document.getElementById('tri2').className = "trimester-seg completed";
+        document.getElementById('tri2Fill').style.width = "100%";
+        document.getElementById('tri3').className = "trimester-seg completed";
+        document.getElementById('tri3Fill').style.width = "100%";
+      }
+    }
+
+    // Check Bed Rest dates: June 15 to July 6
+    function checkBedRestBanner() {
+      const today = new Date();
+      const startDate = new Date('2026-06-15T00:00:00');
+      const endDate = new Date('2026-07-06T23:59:59');
+      
+      const banner = document.getElementById('bedRestBanner');
+      if (today >= startDate && today <= endDate) {
+        banner.style.display = 'flex';
+      } else {
+        banner.style.display = 'none';
+      }
+    }
+
+    // Switch Tabs
+    function switchTab(tabId, btn) {
+      // Deactivate all content and buttons
+      document.querySelectorAll('.tab-content').forEach(panel => {
+        panel.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-btn').forEach(button => {
+        button.classList.remove('active');
+      });
+
+      // Activate selected
+      document.getElementById(tabId).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // Toggle Accordion
+    function toggleAccordion(header) {
+      header.classList.toggle('active');
+      const content = header.nextElementSibling;
+      content.classList.toggle('show');
+    }
+
+    /* ==========================================
+       TABLETS CONTROLLER
+       ========================================== */
+    function toggleTablet(id, event) {
+      // Prevent double trigger if clicking directly on the check box vs row
+      event.stopPropagation();
+      const row = event.currentTarget;
+      const chk = row.querySelector('.checkbox-btn');
+      
+      const isChecked = chk.classList.toggle('checked');
+      row.classList.toggle('checked', isChecked);
+
+      if (isChecked) {
+        if (!checkedTablets.includes(id)) {
+          checkedTablets.push(id);
+        }
+      } else {
+        checkedTablets = checkedTablets.filter(tId => tId !== id);
+      }
+
+      saveTabletsState();
+      updateTabletsProgress();
+    }
+
+    function updateTabletsProgress() {
+      const checkedCount = checkedTablets.length;
+      const pct = Math.round((checkedCount / TOTAL_TABLETS) * 100);
+      
+      document.getElementById('tabletsProgressFill').style.width = pct + '%';
+      document.getElementById('tabletsProgressCount').textContent = `${checkedCount} / ${TOTAL_TABLETS} done`;
+
+      const msg = document.getElementById('tabletsCompletionMsg');
+      if (checkedCount === TOTAL_TABLETS) {
+        msg.classList.add('show');
+        triggerConfetti();
+      } else {
+        msg.classList.remove('show');
+      }
+    }
+
+    function resetTablets() {
+      if (!confirm('Reset all tablet checkboxes for a new day?')) return;
+      checkedTablets = [];
+      saveTabletsState();
+      
+      document.querySelectorAll('#tablets-tab .checkbox-btn').forEach(chk => {
+        chk.classList.remove('checked');
+        chk.closest('.item-row').classList.remove('checked');
+      });
+      
+      updateTabletsProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ==========================================
+       VACCINES CONTROLLER
+       ========================================== */
+    function onBirthDateChange() {
+      const inputVal = document.getElementById('birthDateInput').value;
+      if (inputVal) {
+        babyBirthDate = inputVal;
+        localStorage.setItem('babyBirthDate', babyBirthDate);
+        renderVaccines();
+      }
+    }
+
+    function filterVaccines(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-chip').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(`filter-${filter}`).classList.add('active');
+      renderVaccines();
+    }
+
+    // Render Vaccine List dynamically
+    function renderVaccines() {
+      const container = document.getElementById('vaccineListContainer');
+      container.innerHTML = ''; // Clear existing content
+      
+      const birthDate = new Date(babyBirthDate);
+      const today = new Date();
+      today.setHours(0,0,0,0);
+
+      let totalVaccinesCount = 0;
+      let completedVaccinesCount = 0;
+
+      VACCINE_DATABASE.forEach(group => {
+        // Calculate group target date
+        const targetDate = new Date(birthDate.getTime() + (group.daysOffset * 24 * 60 * 60 * 1000));
+        const dateStr = formatDate(targetDate);
+        
+        // Determine status (Overdue vs Future)
+        const isPast = targetDate < today;
+        let timeLabel = "";
+        let timeTagClass = "";
+
+        if (isPast) {
+          timeLabel = "Due Now / Past";
+          timeTagClass = "tag-overdue";
+        } else {
+          // Check if due in next 30 days
+          const daysDiff = Math.ceil((targetDate - today) / (1000 * 60 * 60 * 24));
+          if (daysDiff <= 30) {
+            timeLabel = `Due in ${daysDiff} days`;
+            timeTagClass = "tag-upcoming";
+          } else {
+            timeLabel = `Future`;
+            timeTagClass = "tag-future";
+          }
+        }
+
+        // Build HTML for vaccines in this group
+        let groupHTML = '';
+        let visibleCountInGroup = 0;
+
+        group.vaccines.forEach(v => {
+          totalVaccinesCount++;
+          const isChecked = checkedVaccines.includes(v.id);
+          if (isChecked) completedVaccinesCount++;
+
+          // Filter logic
+          if (currentFilter === 'pending' && isChecked) return;
+          if (currentFilter === 'completed' && !isChecked) return;
+          
+          visibleCountInGroup++;
+
+          groupHTML += `
+            <div class="item-row ${isChecked ? 'checked' : ''}" onclick="toggleVaccine('${v.id}', event)">
+              <div class="checkbox-btn ${isChecked ? 'checked' : ''}"></div>
+              <div class="item-content">
+                <div class="item-name">${v.name}</div>
+                <div class="item-desc">${v.desc}</div>
+                <div class="badge-row">
+                  <span class="badge ${v.tag === 'tag-critical' ? 'tag-critical' : 'tag-nutrition'}">
+                    ${v.tag === 'tag-critical' ? '🔴 Critical' : '🟢 Recommended'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+
+        // If there are visible vaccines in this group, render the section
+        if (visibleCountInGroup > 0) {
+          const sectionHTML = `
+            <div class="section-label">${group.ageGroup} &mdash; Approx. ${dateStr}</div>
+            <div class="time-block">
+              <div class="time-header">
+                <div class="time-icon" style="background:#ECEFF1;">👶</div>
+                <div class="time-info">
+                  <h2>${group.ageGroup} Schedule</h2>
+                  <span class="badge ${timeTagClass}">${timeLabel}</span>
+                </div>
+              </div>
+              ${groupHTML}
+            </div>
+          `;
+          container.insertAdjacentHTML('beforeend', sectionHTML);
+        }
+      });
+
+      // Update Vaccine Progress bar
+      const pct = totalVaccinesCount > 0 ? Math.round((completedVaccinesCount / totalVaccinesCount) * 100) : 0;
+      document.getElementById('vaccineProgressFill').style.width = pct + '%';
+      document.getElementById('vaccineProgressCount').textContent = `${completedVaccinesCount} / ${totalVaccinesCount} completed`;
+    }
+
+    function toggleVaccine(id, event) {
+      event.stopPropagation();
+      
+      const idx = checkedVaccines.indexOf(id);
+      if (idx > -1) {
+        // Uncheck
+        checkedVaccines.splice(idx, 1);
+      } else {
+        // Check
+        checkedVaccines.push(id);
+      }
+
+      saveVaccinesState();
+      renderVaccines();
+    }
+
+    function resetVaccines() {
+      if (!confirm('Are you sure you want to clear all marked vaccine records?')) return;
+      checkedVaccines = [];
+      saveVaccinesState();
+      renderVaccines();
+    }
+
+    // Helper Date formatter
+    function formatDate(date) {
+      const options = { day: 'numeric', month: 'short', year: 'numeric' };
+      return date.toLocaleDateString('en-IN', options);
+    }
+
+    /* ==========================================
+       CONFETTI SYSTEM
+       ========================================== */
+    function triggerConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      let particles = [];
+      const colors = ['#E8927C', '#7BAE8E', '#C9A84C', '#9B89C4', '#87CEEB'];
+
+      for (let i = 0; i < 120; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          r: Math.random() * 6 + 4,
+          d: Math.random() * canvas.height,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          tilt: Math.random() * 10 - 5,
+          tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+          tiltAngle: 0
+        });
+      }
+
+      let animationFrameId;
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        let remaining = false;
+        particles.forEach((p, index) => {
+          p.tiltAngle += p.tiltAngleIncremental;
+          p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+          p.x += Math.sin(p.tiltAngle);
+          p.tilt = Math.sin(p.tiltAngle - index / 3) * 15;
+
+          if (p.y <= canvas.height) {
+            remaining = true;
+          }
+
+          ctx.beginPath();
+          ctx.lineWidth = p.r;
+          ctx.strokeStyle = p.color;
+          ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+          ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+          ctx.stroke();
+        });
+
+        if (remaining) {
+          animationFrameId = requestAnimationFrame(draw);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      draw();
+
+      // Adjust canvas on resize
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    }
+  </script>
 </body>
 </html>
