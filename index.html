@@ -17,33 +17,66 @@
     @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
     :root {
-      --rose:       #E8927C;
-      --rose-lt:  #F9EAE6;
-      --rose-dark:  #C26B57;
-      --sage:       #7BAE8E;
-      --sage-lt:  #EAF3EE;
-      --sage-dark:  #508A65;
-      --gold:       #C9A84C;
-      --gold-lt:  #FBF4E3;
-      --gold-dark:  #8E712C;
-      --lavender:   #9B89C4;
-      --lav-lt:   #F0EDF9;
-      --lav-dark:   #6E5B99;
-      --sky:        #87CEEB;
-      --sky-lt:     #F0F8FF;
-      --ink:        #2B2B3A;
-      --mist:       #F7F5F2;
-      --white:      #FFFFFF;
-      --border:     #E8E4DF;
-      --shadow:     rgba(0, 0, 0, 0.05);
+      /* Theme light variables */
+      --bg:             #F2F0EB;
+      --bg-app:         #F2F0EB;
+      --text:           #1C1C1E;
+      --text-muted:     #6E6E73;
+      --card-bg:        rgba(255, 255, 255, 0.7);
+      --card-border:    rgba(255, 255, 255, 0.45);
+      --border:         rgba(0, 0, 0, 0.05);
+      --header-grad:    linear-gradient(135deg, #E8927C 0%, #C9A84C 100%);
+      --shadow-blur:    0 12px 30px 0 rgba(0, 0, 0, 0.03);
+      --shadow-card:    0 8px 24px rgba(0, 0, 0, 0.02);
+      
+      --rose:           #E8927C;
+      --rose-lt:        #FBF0ED;
+      --rose-dark:      #C26B57;
+      --sage:           #7BAE8E;
+      --sage-lt:        #EDF5F1;
+      --sage-dark:      #508A65;
+      --gold:           #C9A84C;
+      --gold-lt:        #FAF6E9;
+      --gold-dark:      #8E712C;
+      --lavender:       #9B89C4;
+      --lav-lt:         #F3F1FA;
+      --lav-dark:       #6E5B99;
+      --sky:            #87CEEB;
+      --sky-lt:         #EBF7FD;
+      --white:          #FFFFFF;
+    }
+
+    [data-theme="dark"] {
+      /* Theme dark variables (Apple-style Midnight) */
+      --bg:             #09090D;
+      --bg-app:         #09090D;
+      --text:           #F5F5F7;
+      --text-muted:     #8E8E93;
+      --card-bg:        rgba(22, 22, 30, 0.55);
+      --card-border:    rgba(255, 255, 255, 0.05);
+      --border:         rgba(255, 255, 255, 0.08);
+      --header-grad:    linear-gradient(135deg, #F0A593 0%, #DBC172 100%);
+      --shadow-blur:    0 12px 30px 0 rgba(0, 0, 0, 0.3);
+      --shadow-card:    0 8px 24px rgba(0, 0, 0, 0.2);
+      
+      --rose-lt:        rgba(232, 146, 124, 0.12);
+      --rose-dark:      #FF9E8A;
+      --sage-lt:        rgba(123, 174, 142, 0.12);
+      --sage-dark:      #9BCCA9;
+      --gold-lt:        rgba(201, 168, 76, 0.12);
+      --gold-dark:      #ECCB6E;
+      --lav-lt:         rgba(155, 137, 196, 0.12);
+      --lav-dark:       #BCAFE0;
+      --sky-lt:         rgba(135, 206, 235, 0.12);
+      --white:          #1C1C1E;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'DM Sans', sans-serif;
-      background: var(--mist);
-      color: var(--ink);
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
       padding: 0;
       display: flex;
@@ -51,31 +84,33 @@
       align-items: center;
       -webkit-font-smoothing: antialiased;
       overscroll-behavior-y: contain; 
+      transition: background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.4s ease;
     }
 
-    /* APP CONTAINER (Mobile webapp suitable) */
+    /* APP CONTAINER (Apple standalone look) */
     .app-container {
       width: 100%;
       max-width: 520px;
-      background: var(--mist);
+      background: var(--bg-app);
       position: relative;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 0 30px rgba(0,0,0,0.03);
+      transition: background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     /* HEADER */
     header {
-      background: linear-gradient(135deg, var(--rose) 0%, var(--gold) 100%);
-      padding: 40px 20px 28px;
+      background: var(--header-grad);
+      padding: 42px 20px 32px;
       text-align: center;
       position: relative;
       overflow: hidden;
       color: white;
-      border-bottom-left-radius: 28px;
-      border-bottom-right-radius: 28px;
-      box-shadow: 0 4px 15px rgba(232, 146, 124, 0.15);
+      border-bottom-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+      box-shadow: 0 8px 25px rgba(232, 146, 124, 0.12);
+      transition: background 0.4s ease;
     }
     @supports (padding-top: env(safe-area-inset-top)) {
       header {
@@ -98,7 +133,7 @@
     }
     header h1 {
       font-family: 'DM Serif Display', serif;
-      font-size: 30px;
+      font-size: 32px;
       color: white;
       letter-spacing: 0.3px;
       margin-bottom: 4px;
@@ -112,10 +147,49 @@
     .greeting-text {
       font-size: 13px;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.8px;
       font-weight: 700;
       color: rgba(255, 255, 255, 0.75);
       margin-bottom: 8px;
+    }
+
+    /* THEME TOGGLE BUTTON */
+    .theme-toggle-btn {
+      position: absolute;
+      top: 24px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+    @supports (padding-top: env(safe-area-inset-top)) {
+      .theme-toggle-btn {
+        top: calc(16px + env(safe-area-inset-top));
+      }
+    }
+    .theme-toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+    .theme-toggle-btn:active {
+      transform: scale(0.95);
+    }
+    .theme-toggle-btn svg {
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .theme-toggle-btn:active svg {
+      transform: rotate(45deg);
     }
 
     /* DYNAMIC INFO CARDS */
@@ -127,10 +201,10 @@
     }
     .info-card {
       background: rgba(255, 255, 255, 0.18);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-radius: 16px;
-      padding: 12px 16px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 14px 18px;
       border: 1px solid rgba(255, 255, 255, 0.25);
       text-align: left;
     }
@@ -140,13 +214,13 @@
       letter-spacing: 1px;
       font-weight: 700;
       color: rgba(255,255,255,0.85);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .info-card-value {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
       color: white;
     }
@@ -188,15 +262,18 @@
       margin-top: 4px;
     }
 
-    /* TABS */
+    /* LIQUID TABS BAR */
     .tabs-bar {
       display: flex;
-      background: white;
+      background: var(--card-bg);
       margin: 16px 16px 8px;
-      padding: 6px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px var(--shadow);
-      border: 1px solid var(--border);
+      padding: 4px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-blur);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      position: relative;
     }
     .tab-btn {
       flex: 1;
@@ -206,22 +283,28 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 14px;
       font-weight: 600;
-      color: #777;
-      border-radius: 12px;
+      color: var(--text-muted);
+      border-radius: 16px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: all 0.25s ease;
+      transition: color 0.3s ease;
+      z-index: 2;
     }
     .tab-btn.active {
-      background: var(--rose-lt);
       color: var(--rose-dark);
     }
-    .tab-btn:focus-visible {
-      outline: 2px solid var(--rose);
-      outline-offset: -2px;
+    .tab-indicator {
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      left: 4px;
+      background: var(--rose-lt);
+      border-radius: 16px;
+      transition: transform 0.4s cubic-bezier(0.25, 1.25, 0.5, 1.25), width 0.4s ease;
+      z-index: 1;
     }
 
     /* TAB CONTENT PANELS */
@@ -235,22 +318,36 @@
       opacity: 1;
     }
 
+    /* GLASS CARD COMMON WRAPPER */
+    .time-block, .control-card, .progress-wrap, .reminder-card, .accordion {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px; /* Squircle Corner */
+      box-shadow: var(--shadow-blur);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
     /* BANNER NOTIFICATION */
     .banner {
       margin: 12px 16px 0;
-      border-radius: 14px;
+      border-radius: 18px;
       padding: 14px 16px;
       font-size: 13px;
       line-height: 1.5;
       display: flex;
       gap: 12px;
       align-items: flex-start;
-      box-shadow: 0 2px 8px var(--shadow);
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
     .banner-warning {
-      background: #FFF3E0;
+      background: rgba(255, 152, 0, 0.12);
       border-left: 4px solid #FF9800;
-      color: #A05C00;
+      color: var(--gold-dark);
     }
     .banner-info {
       background: var(--lav-lt);
@@ -258,7 +355,7 @@
       color: var(--lav-dark);
     }
     .banner-danger {
-      background: #FFE8E4;
+      background: var(--rose-lt);
       border-left: 4px solid var(--rose);
       color: var(--rose-dark);
     }
@@ -275,11 +372,14 @@
       transform: translateX(-50%);
       width: 90%;
       max-width: 460px;
-      background: var(--ink);
-      color: white;
+      background: var(--card-bg);
+      color: var(--text);
       padding: 16px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      border-radius: 20px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       z-index: 1000;
       display: flex;
       gap: 12px;
@@ -296,8 +396,8 @@
     }
     .in-app-alert-details { flex: 1; }
     .in-app-alert-title { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
-    .in-app-alert-body { font-size: 12px; color: rgba(255,255,255,0.8); }
-    .in-app-alert-close { background: none; border: none; color: white; font-weight: bold; cursor: pointer; padding: 4px; }
+    .in-app-alert-body { font-size: 12px; color: var(--text-muted); }
+    .in-app-alert-close { background: none; border: none; color: var(--text); font-weight: bold; cursor: pointer; padding: 4px; font-size: 16px; }
 
     /* SECTION LABEL */
     .section-label {
@@ -305,18 +405,14 @@
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: #8A8A99;
+      color: var(--text-muted);
       padding: 24px 20px 8px;
     }
 
     /* PROGRESS CONTAINER */
     .progress-wrap {
       margin: 12px 16px 0;
-      background: white;
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 4px 12px var(--shadow);
-      border: 1px solid var(--border);
+      padding: 18px;
     }
     .progress-top {
       display: flex;
@@ -347,7 +443,7 @@
       width: 0%;
     }
 
-    /* UTILITY QUICK ACTION ROW (Reset, Share, Notification Toggle) */
+    /* UTILITY QUICK ACTION ROW */
     .utility-row {
       display: flex;
       gap: 8px;
@@ -355,37 +451,33 @@
     }
     .utility-btn {
       flex: 1;
-      padding: 10px 8px;
-      border-radius: 12px;
+      padding: 12px 8px;
+      border-radius: 16px;
       font-size: 12px;
       font-weight: 700;
-      border: 1px solid var(--border);
-      background: white;
-      color: var(--ink);
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
       transition: all 0.2s;
-      box-shadow: 0 2px 6px var(--shadow);
+      box-shadow: var(--shadow-card);
     }
-    .utility-btn:hover { background: #FAF9F7; }
-    .utility-btn:active { transform: scale(0.98); }
+    .utility-btn:hover { background: var(--border); }
+    .utility-btn:active { transform: scale(0.96); }
     .utility-btn.active-notif {
       background: var(--lav-lt);
       color: var(--lav-dark);
       border-color: var(--lavender);
     }
 
-    /* TIME BLOCKS / CARDS */
+    /* TIME BLOCKS */
     .time-block {
       margin: 0 16px 14px;
-      background: var(--white);
-      border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 4px 12px var(--shadow);
-      border: 1px solid var(--border);
     }
     .time-header {
       display: flex;
@@ -393,15 +485,14 @@
       gap: 12px;
       padding: 16px;
       border-bottom: 1px solid var(--border);
-      background: #FAF9F7;
     }
     .time-icon {
       width: 42px; height: 42px;
-      border-radius: 12px;
+      border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
       font-size: 22px;
       flex-shrink: 0;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      box-shadow: var(--shadow-card);
     }
     .time-info h2 {
       font-size: 15px;
@@ -410,21 +501,24 @@
     }
     .time-info span {
       font-size: 11px;
-      color: #888;
+      color: var(--text-muted);
     }
 
-    /* ITEMS LIST (MEDICINES & VACCINES) */
+    /* ITEMS LIST (Satisfying Apple Bouncy Rows) */
     .item-row {
       display: flex;
       align-items: flex-start;
       gap: 14px;
       padding: 14px 16px;
       border-bottom: 1px solid var(--border);
-      transition: background 0.15s ease;
+      transition: background 0.2s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
       cursor: pointer;
     }
     .item-row:last-child { border-bottom: none; }
-    .item-row:hover { background: #FAF9F7; }
+    .item-row:hover { background: var(--border); }
+    .item-row:active {
+      transform: scale(0.97);
+    }
 
     .checkbox-btn {
       width: 26px; height: 26px;
@@ -434,13 +528,13 @@
       margin-top: 2px;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      background: white;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      background: var(--white);
     }
     .checkbox-btn.checked {
       background: var(--sage);
       border-color: var(--sage);
-      transform: scale(1.05);
+      transform: scale(1.1);
     }
     .checkbox-btn.checked::after {
       content: '✓';
@@ -454,15 +548,15 @@
       font-size: 15px;
       font-weight: 700;
       margin-bottom: 3px;
-      transition: color 0.2s;
+      transition: color 0.3s ease;
     }
     .item-row.checked .item-name {
-      color: #999;
+      color: var(--text-muted);
       text-decoration: line-through;
     }
     .item-desc {
       font-size: 12px;
-      color: #777;
+      color: var(--text-muted);
       line-height: 1.45;
     }
     .badge-row {
@@ -479,16 +573,16 @@
       border-radius: 20px;
       letter-spacing: 0.3px;
     }
-    .tag-critical { background: #FFE8E4; color: var(--rose-dark); }
-    .tag-progesterone { background: var(--lav-lt); color: var(--lav-dark); }
-    .tag-nutrition { background: var(--sage-lt); color: var(--sage-dark); }
-    .tag-calcium { background: var(--gold-lt); color: var(--gold-dark); }
-    .tag-topical { background: #F0F0F0; color: #555; }
-    .tag-overdue { background: #FFE8E4; color: var(--rose-dark); font-weight: 800; }
-    .tag-upcoming { background: var(--gold-lt); color: var(--gold-dark); }
-    .tag-future { background: #E0F7FA; color: #00838F; }
+    .tag-critical { background: var(--badge-critical-bg); color: var(--badge-critical-text); }
+    .tag-progesterone { background: var(--badge-progesterone-bg); color: var(--badge-progesterone-text); }
+    .tag-nutrition { background: var(--badge-nutrition-bg); color: var(--badge-nutrition-text); }
+    .tag-calcium { background: var(--badge-calcium-bg); color: var(--badge-calcium-text); }
+    .tag-topical { background: var(--border); color: var(--text-muted); }
+    .tag-overdue { background: var(--badge-critical-bg); color: var(--badge-critical-text); font-weight: 800; }
+    .tag-upcoming { background: var(--badge-calcium-bg); color: var(--badge-calcium-text); }
+    .tag-future { background: var(--sky-lt); color: #00838F; }
 
-    /* RESET BUTTON */
+    /* ACTION BUTTON */
     .action-btn {
       display: block;
       width: calc(100% - 32px);
@@ -497,34 +591,34 @@
       background: var(--rose);
       color: white;
       border: none;
-      border-radius: 14px;
+      border-radius: 16px;
       font-family: 'DM Sans', sans-serif;
       font-size: 15px;
       font-weight: 700;
       cursor: pointer;
       text-align: center;
-      transition: all 0.2s;
-      box-shadow: 0 4px 12px rgba(232, 146, 124, 0.2);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 4px 15px rgba(232, 146, 124, 0.2);
     }
     .action-btn:hover {
       background: var(--rose-dark);
       transform: translateY(-1px);
     }
     .action-btn:active {
-      transform: translateY(1px);
+      transform: translateY(1px) scale(0.98);
     }
     
     .secondary-btn {
-      background: white;
-      color: var(--ink);
-      border: 1px solid var(--border);
-      box-shadow: 0 2px 6px var(--shadow);
+      background: var(--card-bg);
+      color: var(--text);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow-card);
     }
     .secondary-btn:hover {
-      background: var(--mist);
+      background: var(--border);
     }
 
-    /* CARD GRID FOR REMINDERS & CONTROLS */
+    /* CARD GRID FOR REMINDERS */
     .reminders-grid {
       display: flex;
       flex-direction: column;
@@ -532,22 +626,19 @@
       padding: 0 16px;
     }
     .reminder-card {
-      background: white;
-      border-radius: 16px;
       padding: 16px;
       display: flex;
       gap: 14px;
       align-items: flex-start;
-      box-shadow: 0 4px 12px var(--shadow);
-      border: 1px solid var(--border);
     }
     .reminder-icon {
       font-size: 24px;
       flex-shrink: 0;
       width: 40px; height: 40px;
-      background: var(--mist);
-      border-radius: 12px;
+      background: var(--border);
+      border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
+      transition: background-color 0.4s ease;
     }
     .reminder-details { flex: 1; }
     .reminder-details h3 {
@@ -555,17 +646,18 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      color: #999;
+      color: var(--text-muted);
       margin-bottom: 4px;
     }
     .reminder-details p {
       font-size: 13px;
       line-height: 1.5;
-      color: #444;
+      color: var(--text);
+      opacity: 0.85;
     }
     .reminder-details strong {
       font-weight: 700;
-      color: var(--ink);
+      color: var(--text);
     }
 
     /* COMPLETION MESSAGE */
@@ -573,11 +665,11 @@
       display: none;
       margin: 16px;
       background: linear-gradient(135deg, var(--sage-lt), var(--rose-lt));
-      border-radius: 18px;
+      border-radius: 24px;
       padding: 24px;
       text-align: center;
-      box-shadow: 0 4px 15px rgba(123, 174, 142, 0.15);
-      border: 1px solid rgba(255,255,255,0.6);
+      box-shadow: 0 8px 25px rgba(123, 174, 142, 0.12);
+      border: 1px solid var(--card-border);
       animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .completion-msg.show { display: block; }
@@ -585,9 +677,9 @@
       font-family: 'DM Serif Display', serif;
       font-size: 22px;
       margin: 10px 0 6px;
-      color: var(--ink);
+      color: var(--text);
     }
-    .completion-msg p { font-size: 14px; color: #555; }
+    .completion-msg p { font-size: 14px; color: var(--text-muted); }
 
     @keyframes popIn {
       0% { transform: scale(0.9); opacity: 0; }
@@ -603,14 +695,10 @@
       z-index: 999;
     }
 
-    /* CONTROLS CARD & SYNC BUTTONS */
+    /* CONTROLS CARD */
     .control-card {
       margin: 12px 16px;
-      background: white;
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 4px 12px var(--shadow);
-      border: 1px solid var(--border);
+      padding: 18px;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -623,7 +711,7 @@
     .control-group label {
       font-size: 12px;
       font-weight: 700;
-      color: #777;
+      color: var(--text-muted);
     }
     .date-input-wrap {
       display: flex;
@@ -632,19 +720,19 @@
     .date-input {
       flex: 1;
       padding: 12px;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1.5px solid var(--border);
       font-family: 'DM Sans', sans-serif;
       font-size: 14px;
-      color: var(--ink);
+      color: var(--text);
       font-weight: 500;
-      background: #FAFAFA;
+      background: var(--border);
       transition: all 0.2s;
     }
     .date-input:focus {
       outline: none;
       border-color: var(--rose);
-      background: white;
+      background: var(--white);
       box-shadow: 0 0 0 3px var(--rose-lt);
     }
     
@@ -658,27 +746,23 @@
       padding: 6px 14px;
       border-radius: 20px;
       border: 1px solid var(--border);
-      background: white;
+      background: var(--card-bg);
       font-size: 12px;
       font-weight: 600;
-      color: #666;
+      color: var(--text-muted);
       cursor: pointer;
       transition: all 0.2s;
     }
     .filter-chip.active {
-      background: var(--ink);
-      color: white;
-      border-color: var(--ink);
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
     }
 
-    /* GITHUB GUIDE ACCORDION */
+    /* ACCORDION */
     .accordion {
       margin: 24px 16px 16px;
-      background: white;
-      border-radius: 16px;
-      border: 1px solid var(--border);
       overflow: hidden;
-      box-shadow: 0 4px 12px var(--shadow);
     }
     .accordion-header {
       padding: 16px;
@@ -688,18 +772,21 @@
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-      background: #FAFAFA;
+      background: var(--border);
       user-select: none;
+      transition: background-color 0.4s ease;
     }
     .accordion-header:hover {
-      background: #F5F4F2;
+      background: var(--border);
+      opacity: 0.9;
     }
     .accordion-content {
       display: none;
       padding: 16px;
       border-top: 1px solid var(--border);
       font-size: 13px;
-      color: #555;
+      color: var(--text);
+      opacity: 0.9;
       line-height: 1.6;
     }
     .accordion-content.show {
@@ -714,7 +801,7 @@
       margin-bottom: 8px;
     }
     .accordion-content code {
-      background: #F1EFFC;
+      background: var(--lav-lt);
       color: var(--lav-dark);
       padding: 2px 6px;
       border-radius: 4px;
@@ -733,9 +820,9 @@
     /* FOOTER DETAILS */
     footer {
       text-align: center;
-      padding: 24px 16px 40px;
+      padding: 24px 16px 48px;
       font-size: 11px;
-      color: #999;
+      color: var(--text-muted);
       line-height: 1.5;
     }
   </style>
@@ -757,6 +844,12 @@
 
     <!-- HEADER -->
     <header>
+      <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle dark theme">
+        <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Icon injected dynamically -->
+        </svg>
+      </button>
+
       <div class="greeting-text" id="greetingText">Good Morning</div>
       <h1 id="babyCountdownTitle">Mouni & Baby's Hub</h1>
       <p>Health & schedule tracker</p>
@@ -790,8 +883,9 @@
       </div>
     </header>
 
-    <!-- TABS BAR -->
+    <!-- LIQUID TABS BAR -->
     <div class="tabs-bar">
+      <div class="tab-indicator"></div>
       <button class="tab-btn active" onclick="switchTab('tablets-tab', this)">
         <span>💊</span> Mouni's Tablets
       </button>
@@ -865,7 +959,7 @@
           </div>
         </div>
 
-        <!-- Optional morning Pro Case -->
+        <!-- Synced morning Pro Case -->
         <div class="item-row" onclick="toggleTablet(3, event)">
           <div class="checkbox-btn" id="tab-chk-3"></div>
           <div class="item-content">
@@ -986,16 +1080,16 @@
       <!-- GOOGLE CALENDAR SYNC HUB -->
       <div class="section-label">📅 Google Calendar Sync Hub</div>
       <div class="control-card">
-        <p style="font-size:13px; color:#444; line-height:1.5;">
+        <p style="font-size:13px; color:var(--text); opacity:0.9; line-height:1.5;">
           Set up automatic daily reminders on both of your Android phones.
         </p>
-        <button class="action-btn" onclick="downloadICS()" style="background:var(--ink); box-shadow:none; margin:8px 0 0;">
+        <button class="action-btn" onclick="downloadICS()" style="background:var(--text); color:var(--bg); box-shadow:none; margin:8px 0 0;">
           📅 Download Reminders (.ics file)
         </button>
-        <p style="font-size:11px; color:#666; margin-top:2px;">Import this file on the <a href="https://calendar.google.com" target="_blank" style="color:var(--rose-dark); font-weight:700;">Google Calendar Desktop Site</a> to add all alarms in 1 click.</p>
+        <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Import this file on the <a href="https://calendar.google.com" target="_blank" style="color:var(--rose-dark); font-weight:700;">Google Calendar Desktop Site</a> to add all alarms in 1 click.</p>
         
         <div style="border-top:1px solid var(--border); margin:12px 0; padding-top:12px;">
-          <label style="font-size:12px; font-weight:700; color:#777; display:block; margin-bottom:6px;">Add Individual Daily Blocks:</label>
+          <label style="font-size:12px; font-weight:700; color:var(--text-muted); display:block; margin-bottom:6px;">Add Individual Daily Blocks:</label>
           <div style="display:flex; flex-direction:column; gap:6px;">
             <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('morning')">🌅 Add Morning Meds (7:30 AM)</button>
             <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('afternoon')">☀️ Add Afternoon Meds (1:30 PM)</button>
@@ -1061,7 +1155,7 @@
           <div class="date-input-wrap">
             <input type="date" id="birthDateInput" class="date-input" onchange="onBirthDateChange()">
           </div>
-          <p style="font-size:11px; color:#888; margin-top:2px;">Change this once the baby is born. All vaccine dates will adjust automatically!</p>
+          <p style="font-size:11px; color:var(--text-muted); margin-top:2px;">Change this once the baby is born. All vaccine dates will adjust automatically!</p>
         </div>
 
         <div class="control-group" style="margin-top:6px;">
@@ -1103,14 +1197,14 @@
       <div class="accordion-content">
         <p>You can easily run this as a real website on your phone and edit it directly on GitHub. Here's how:</p>
         
-        <strong style="display:block; margin-top:12px; font-size:13px; color:var(--ink);">1. Uploading the file:</strong>
+        <strong style="display:block; margin-top:12px; font-size:13px; color:var(--text);">1. Uploading the file:</strong>
         <ol>
           <li>Open your repository on <a href="https://github.com" target="_blank" style="color:var(--rose-dark); font-weight:700;">GitHub.com</a>.</li>
           <li>Click <strong>Add file</strong> &rarr; <strong>Upload files</strong>.</li>
           <li>Drag and drop your <code>index.html</code>, <code>manifest.json</code>, <code>sw.js</code>, and <code>icon.svg</code> files and commit the changes.</li>
         </ol>
 
-        <strong style="display:block; margin-top:12px; font-size:13px; color:var(--ink);">2. Turning on Free Website Hosting (GitHub Pages):</strong>
+        <strong style="display:block; margin-top:12px; font-size:13px; color:var(--text);">2. Turning on Free Website Hosting (GitHub Pages):</strong>
         <ol>
           <li>Go to your repository's <strong>Settings</strong> tab.</li>
           <li>On the left sidebar, click <strong>Pages</strong>.</li>
@@ -1119,7 +1213,7 @@
           <li>In 1-2 minutes, GitHub will give you a live link like <code>https://your-username.github.io/your-repo/</code> that you can bookmark on your phone!</li>
         </ol>
 
-        <strong style="display:block; margin-top:12px; font-size:13px; color:var(--ink);">3. How to edit text or details directly on GitHub:</strong>
+        <strong style="display:block; margin-top:12px; font-size:13px; color:var(--text);">3. How to edit text or details directly on GitHub:</strong>
         <ol>
           <li>Open your repository on GitHub.</li>
           <li>Press the <code>.</code> (period) key on your keyboard. This opens an online code editor (VS Code in browser!).</li>
@@ -1127,7 +1221,7 @@
           <li>Go to the Source Control tab on the left bar (looks like a branch icon), type a commit message, and click <strong>Commit and Push</strong>. Your website will update automatically in 1 minute!</li>
         </ol>
 
-        <strong style="display:block; margin-top:12px; font-size:13px; color:var(--ink);">4. How to sync Google Calendar on Android (both phones):</strong>
+        <strong style="display:block; margin-top:12px; font-size:13px; color:var(--text);">4. How to sync Google Calendar on Android (both phones):</strong>
         <ol>
           <li><strong>Share the Calendar</strong>: Go to Google Calendar on a desktop, hover over your "Mouni & Baby Health Hub" calendar, click the three dots &rarr; "Settings and sharing". Add your wife's Gmail email.</li>
           <li><strong>Accept the Share</strong>: Your wife must check her Gmail on her phone or computer and click the link inside to add the calendar.</li>
@@ -1155,7 +1249,7 @@
   <script>
     // Constants
     const TENTATIVE_EDD = new Date('2026-11-21');
-    const TOTAL_TABLETS = 7; // Unique checkpoints: Dydrogest M (0), Magnocal (1), Sustener (2), Pro Case (3 - synced), Womiron (4), Dydrogest N (5), StretchCream (6)
+    const TOTAL_TABLETS = 7; 
 
     // Vaccine Schedule Database
     const VACCINE_DATABASE = [
@@ -1274,6 +1368,11 @@
 
     // Initialize Page
     document.addEventListener('DOMContentLoaded', () => {
+      // Set Theme on Startup
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      updateThemeIcon();
+
       loadState();
       updateDynamicHeader();
       updateTabletsProgress();
@@ -1281,7 +1380,37 @@
       checkBedRestBanner();
       renderVaccines();
       startReminderCheck();
+
+      // Fluid tab indicator resize listeners
+      window.addEventListener('resize', updateTabIndicator);
+      // Wait for font rendering to size tab width accurately
+      setTimeout(updateTabIndicator, 200);
     });
+
+    // Theme Switcher Controller
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon();
+      
+      // Re-trigger layout calculations to adjust indicators
+      setTimeout(updateTabIndicator, 150);
+    }
+
+    function updateThemeIcon() {
+      const icon = document.getElementById('themeIcon');
+      if (!icon) return;
+      if (document.documentElement.getAttribute('data-theme') === 'dark') {
+        // Moon icon representation
+        icon.innerHTML = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor"></path>`;
+      } else {
+        // Sun icon representation
+        icon.innerHTML = `<circle cx="12" cy="12" r="5" fill="currentColor"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>`;
+      }
+    }
 
     // Load states
     function loadState() {
@@ -1440,6 +1569,19 @@
       }
     }
 
+    // Fluid sliding tab indicator positioning
+    function updateTabIndicator() {
+      const activeTab = document.querySelector('.tab-btn.active');
+      const indicator = document.querySelector('.tab-indicator');
+      if (activeTab && indicator) {
+        const rect = activeTab.getBoundingClientRect();
+        const parentRect = activeTab.parentElement.getBoundingClientRect();
+        
+        indicator.style.width = `${rect.width}px`;
+        indicator.style.transform = `translateX(${rect.left - parentRect.left}px)`;
+      }
+    }
+
     // Switch Tabs
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-content').forEach(panel => panel.classList.remove('active'));
@@ -1447,6 +1589,9 @@
 
       document.getElementById(tabId).classList.add('active');
       btn.classList.add('active');
+      
+      // Animates tab pill dynamically
+      updateTabIndicator();
     }
 
     // Toggle Accordion
@@ -1614,7 +1759,7 @@
             <div class="section-label">${group.ageGroup} &mdash; Approx. ${dateStr}</div>
             <div class="time-block">
               <div class="time-header">
-                <div class="time-icon" style="background:#ECEFF1;">👶</div>
+                <div class="time-icon" style="background:var(--border);">👶</div>
                 <div class="time-info">
                   <h2>${group.ageGroup} Schedule</h2>
                   <span class="badge ${timeTagClass}">${timeLabel}</span>
@@ -1850,7 +1995,7 @@
         );
       } else if (block === 'bedtime') {
         openGoogleCalendarLink(
-          "🌛 Bedtime Application (Stovient Cream)",
+          "🌛 Add Bedtime Cream (Stovient)",
           "22:00",
           "Apply Stovient Cream on belly, hips, and thighs for stretch mark prevention."
         );
