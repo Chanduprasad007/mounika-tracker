@@ -2017,7 +2017,14 @@
       const startDateStr = `${yr}${mt}${dy}T${startHrs}${startMins}00`;
       const endDateStr = `${yr}${mt}${dy}T${endHrs}${endMins}00`;
       
-      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startDateStr}/${endDateStr}&recur=RRULE:FREQ=DAILY&details=${encodeURIComponent(desc)}`;
+      // Calculate end date (3 months from today) for Google Calendar daily repeat limit
+      const untilDate = new Date(today.getFullYear(), today.getMonth() + 3, today.getDate());
+      const untilYr = untilDate.getFullYear();
+      const untilMt = String(untilDate.getMonth() + 1).padStart(2, '0');
+      const untilDy = String(untilDate.getDate()).padStart(2, '0');
+      const untilStr = `${untilYr}${untilMt}${untilDy}T235959`; // ending at end of day
+
+      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startDateStr}/${endDateStr}&recur=RRULE:FREQ=DAILY;UNTIL=${untilStr}&details=${encodeURIComponent(desc)}`;
       window.open(url, '_blank');
     }
 
@@ -2053,6 +2060,13 @@
       const dy = String(today.getDate()).padStart(2, '0');
       const dateStr = `${yr}${mt}${dy}`;
 
+      // Calculate end date (3 months from today) for iCalendar daily repeat limit
+      const untilDate = new Date(today.getFullYear(), today.getMonth() + 3, today.getDate());
+      const untilYr = untilDate.getFullYear();
+      const untilMt = String(untilDate.getMonth() + 1).padStart(2, '0');
+      const untilDy = String(untilDate.getDate()).padStart(2, '0');
+      const untilStr = `${untilYr}${untilMt}${untilDy}T235959`;
+
       events.forEach(e => {
         const [hrs, mins] = e.time.split(':');
         const start = `${dateStr}T${hrs}${mins}00`;
@@ -2064,7 +2078,7 @@
         icsContent += `SUMMARY:${e.title}\n`;
         icsContent += `DTSTART:${start}\n`;
         icsContent += `DTEND:${end}\n`;
-        icsContent += "RRULE:FREQ=DAILY\n";
+        icsContent += `RRULE:FREQ=DAILY;UNTIL=${untilStr}\n`;
         icsContent += `DESCRIPTION:${e.desc}\n`;
         icsContent += "BEGIN:VALARM\n";
         icsContent += "TRIGGER:-PT0M\n";
