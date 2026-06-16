@@ -1047,6 +1047,18 @@
           </div>
         </div>
         
+        <div class="item-row" onclick="toggleTablet(7, event)">
+          <div class="checkbox-btn" id="tab-chk-7"></div>
+          <div class="item-content">
+            <div class="item-name">Tab. Thyronorm 50mg</div>
+            <div class="item-desc">Thyroid support. Take first thing in the morning on an empty stomach (30 mins before food).</div>
+            <div class="badge-row">
+              <span class="badge tag-critical">🔴 Thyroid Support</span>
+              <span class="badge tag-topical">🕒 Before Food</span>
+            </div>
+          </div>
+        </div>
+
         <div class="item-row" onclick="toggleTablet(0, event)">
           <div class="checkbox-btn" id="tab-chk-0"></div>
           <div class="item-content">
@@ -1348,7 +1360,7 @@
   <script>
     // Constants
     const TENTATIVE_EDD = new Date('2026-11-21');
-    const TOTAL_TABLETS = 7; 
+    const TOTAL_TABLETS = 8; 
 
     // Baby Size comparison and milestones database (Weeks 13 to 40)
     const BABY_SIZE_DATA = {
@@ -2036,7 +2048,7 @@
         if (currentTimeString === lastNotifiedTime) return;
 
         const reminders = {
-          "07:30": { title: "Morning Tablets (7:30 AM) 🌅", body: "Take Tab. Dydrogest 10. Pro Case powder optional after breakfast." },
+          "07:30": { title: "Morning Tablets (7:30 AM) 🌅", body: "Take Tab. Thyronorm 50mg (before food) and Tab. Dydrogest 10. Pro Case powder optional after breakfast." },
           "13:30": { title: "Afternoon Tablets (1:30 PM) ☀️", body: "Take Tab. Magnocal and Tab. Sustener 200 after lunch." },
           "21:00": { title: "Night Tablets (9:00 PM) 🌙", body: "Take Tab. Womiron and Tab. Dydrogest 10 after dinner. (Pro Case optional)." },
           "22:00": { title: "Bedtime Application (10:00 PM) 🌛", body: "Apply Stovient Cream on belly, hips, and thighs." }
@@ -2099,11 +2111,12 @@
         statusText = "Not started yet today ⏰";
       }
 
+      const isThyronormDone = checkedTablets.includes(7) ? "✅ Done" : "❌ Pending";
       const isProCaseDone = checkedTablets.includes(3) ? "✅ Done" : "❌ Pending";
       const isMagnocalDone = checkedTablets.includes(1) ? "✅ Done" : "❌ Pending";
       const isWomironDone = checkedTablets.includes(4) ? "✅ Done" : "❌ Pending";
 
-      const text = `🌸 *Mouni & Baby Health Update*\nDate: ${today}\n\n• Tablet Progress: *${statusText}*\n• Womiron (Night): ${isWomironDone}\n• Magnocal (Calcium): ${isMagnocalDone}\n• Pro Case Powder: ${isProCaseDone}\n\nEDD: 21 Nov 2026 🍼\nKeep resting Mounika! ❤️`;
+      const text = `🌸 *Mouni & Baby Health Update*\nDate: ${today}\n\n• Tablet Progress: *${statusText}*\n• Thyronorm (Morning): ${isThyronormDone}\n• Womiron (Night): ${isWomironDone}\n• Magnocal (Calcium): ${isMagnocalDone}\n• Pro Case Powder: ${isProCaseDone}\n\nEDD: 21 Nov 2026 🍼\nKeep resting Mounika! ❤️`;
 
       if (navigator.share) {
         navigator.share({
@@ -2129,9 +2142,9 @@
     function quickAddCalendar(block) {
       if (block === 'morning') {
         openGoogleCalendarLink(
-          "💊 Morning Meds (Dydrogest)",
+          "💊 Morning Meds (Thyronorm & Dydrogest)",
           "07:30",
-          "Take Tab. Dydrogest 10 (Progesterone support prevents preterm). Pro Case DF powder optional after breakfast."
+          "Take Tab. Thyronorm 50mg (before food on empty stomach). Take Tab. Dydrogest 10 (Progesterone support prevents preterm). Pro Case DF powder optional after breakfast."
         );
       } else if (block === 'afternoon') {
         openGoogleCalendarLink(
@@ -2183,9 +2196,9 @@
     function downloadICS() {
       const events = [
         {
-          title: "💊 Morning Meds (Dydrogest)",
+          title: "💊 Morning Meds (Thyronorm & Dydrogest)",
           time: "07:30",
-          desc: "Take Tab. Dydrogest 10 (Progesterone support prevents preterm). Pro Case DF powder optional after breakfast."
+          desc: "Take Tab. Thyronorm 50mg (before food on empty stomach). Take Tab. Dydrogest 10 (Progesterone support prevents preterm). Pro Case DF powder optional after breakfast."
         },
         {
           title: "☀️ Afternoon Meds (Magnocal & Sustener)",
