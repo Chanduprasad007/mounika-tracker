@@ -1228,6 +1228,80 @@
       color: var(--text-muted);
       line-height: 1.5;
     }
+
+    /* WATER TRACKER WIDGET STYLES */
+    .water-glass-container {
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      width: 100%;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .water-glass {
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      border-radius: 8px;
+    }
+    .water-glass:hover {
+      transform: translateY(-3px) scale(1.15);
+    }
+    .water-glass.active .glass-water {
+      opacity: 1 !important;
+      transform: scaleY(1) !important;
+    }
+    .water-glass.active .glass-body,
+    .water-glass.active .glass-rim {
+      stroke: #81d4fa !important;
+      opacity: 1 !important;
+    }
+    .water-glass.active {
+      filter: drop-shadow(0 0 6px rgba(3, 169, 244, 0.7));
+    }
+
+    /* GESTATION TIMELINE STYLES */
+    .timeline-bar-container {
+      position: relative;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      margin: 12px 0 6px 0;
+    }
+    .timeline-progress-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #ff8da1, #ff5e7e);
+      border-radius: 4px;
+      box-shadow: 0 0 8px rgba(255,94,126,0.6);
+      transition: width 0.5s ease;
+    }
+    .timeline-current-marker {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 14px;
+      height: 14px;
+      background: #ffffff;
+      border: 3px solid #ff5e7e;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255,255,255,0.8);
+      z-index: 2;
+      transition: left 0.5s ease;
+    }
+    .timeline-tick {
+      position: absolute;
+      top: -8px;
+      width: 2px;
+      height: 24px;
+      background: rgba(255,255,255,0.25);
+      z-index: 1;
+    }
   </style>
 </head>
 <body>
@@ -1290,18 +1364,79 @@
           <div class="info-card-sub" id="countdownSubtext">Trimester 2 in progress. Keep glowing! 🌟</div>
         </div>
 
-        <!-- Baby Size Visualizer Card -->
-        <div class="info-card" id="babySizeCard" style="display: none; background: rgba(255, 255, 255, 0.22); border-color: rgba(255,255,255,0.3);">
-          <div class="info-card-title">🌱 Baby Size & Milestone</div>
-          <div style="display: flex; align-items: center; gap: 14px;">
-            <div id="babySizeEmoji" style="font-size: 38px; flex-shrink: 0;">🧅</div>
-            <div class="reminder-details" style="color: white; padding: 0;">
-              <div id="babySizeComparison" style="font-size: 15px; font-weight: 700; color: white;">Size of a Pomegranate</div>
-              <div id="babySizeStats" style="font-size: 12px; opacity: 0.9; margin-top: 2px;">Length: ~13 cm | Weight: ~140g</div>
+        <!-- Baby Size Visualizer Card (Option E) -->
+        <div class="info-card" id="babySizeCard" style="display: none; background: rgba(255, 255, 255, 0.22); border-color: rgba(255,255,255,0.3); padding: 16px;">
+          <div class="info-card-title" style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+            <span>🌱 Baby Size & Development</span>
+            <span id="weeksProgressBadge" style="background: rgba(255, 255, 255, 0.25); padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold;">Week --</span>
+          </div>
+          
+          <!-- Size & Stats Bento Row -->
+          <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px;">
+            <div id="babySizeEmoji" style="font-size: 42px; background: rgba(255,255,255,0.15); padding: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; flex-shrink: 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">👶</div>
+            <div style="flex-grow: 1;">
+              <div id="babySizeComparison" style="font-size: 16px; font-weight: 700; color: white;">Calculating size...</div>
+              <div style="display: flex; gap: 12px; margin-top: 4px; flex-wrap: wrap;">
+                <span id="babySizeLength" style="font-size: 12px; background: rgba(255,255,255,0.12); padding: 2px 6px; border-radius: 6px; display: flex; align-items: center; gap: 4px;">📏 --</span>
+                <span id="babySizeWeight" style="font-size: 12px; background: rgba(255,255,255,0.12); padding: 2px 6px; border-radius: 6px; display: flex; align-items: center; gap: 4px;">⚖️ --</span>
+              </div>
             </div>
           </div>
-          <div id="babySizeMilestone" style="font-size: 12px; color: rgba(255, 255, 255, 0.95); margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 6px; line-height: 1.45;">
-            Baby is developing fat reserves under the skin and strengthening their bones!
+          
+          <!-- Milestones & Organ Progress Grid -->
+          <div style="display: grid; grid-template-columns: 1fr; gap: 10px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px; margin-bottom: 14px;">
+            <div>
+              <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; font-weight: bold; margin-bottom: 2px;">🌟 Key Milestone</div>
+              <div id="babySizeMilestone" style="font-size: 12px; color: rgba(255, 255, 255, 0.95); line-height: 1.4;">
+                --
+              </div>
+            </div>
+            <div>
+              <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; font-weight: bold; margin-bottom: 2px;">🫁 Organ Development</div>
+              <div id="babySizeOrgan" style="font-size: 12px; color: rgba(255, 255, 255, 0.9); line-height: 1.4; font-style: italic;">
+                --
+              </div>
+            </div>
+          </div>
+          
+          <!-- Timeline Section -->
+          <div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px;">
+            <div style="display: flex; justify-content: space-between; font-size: 11px; opacity: 0.8; margin-bottom: 6px;">
+              <span id="timelineWeeksCompleted">-- Weeks Completed</span>
+              <span id="timelineWeeksRemaining">-- Weeks Remaining</span>
+            </div>
+            
+            <!-- Timeline Visual Bar -->
+            <div class="timeline-bar-container">
+              <!-- Filled segment -->
+              <div id="timelineProgressFill" class="timeline-progress-fill" style="width: 0%;"></div>
+              <!-- Current Week Pin/Marker -->
+              <div id="timelineCurrentMarker" class="timeline-current-marker" style="left: 0%;"></div>
+              
+              <!-- Milestone Flags/Ticks on Timeline -->
+              <!-- 13 Weeks Tick: 13 / 40 = 32.5% -->
+              <div class="timeline-tick" style="left: 32.5%;" title="W13: Trimester 2 Starts"></div>
+              <!-- 20 Weeks Tick: 20 / 40 = 50.0% -->
+              <div class="timeline-tick" style="left: 50.0%;" title="W20: Halfway (Banana)"></div>
+              <!-- 28 Weeks Tick: 28 / 40 = 70.0% -->
+              <div class="timeline-tick" style="left: 70.0%;" title="W28: Trimester 3 Starts"></div>
+              <!-- 34 Weeks Tick: 34 / 40 = 85.0% -->
+              <div class="timeline-tick" style="left: 85.0%;" title="W34: 15-Day Injection Limit"></div>
+              <!-- 37 Weeks Tick: 37 / 40 = 92.5% -->
+              <div class="timeline-tick" style="left: 92.5%;" title="W37: Early Term"></div>
+              <!-- 40 Weeks Tick: 100% -->
+              <div class="timeline-tick" style="left: 100%;" title="W40: Due Date"></div>
+            </div>
+            
+            <!-- Labels for the Milestone Flags -->
+            <div style="position: relative; height: 16px; margin-top: 4px; font-size: 8px; opacity: 0.6;">
+              <span style="position: absolute; left: 32.5%; transform: translateX(-50%); white-space: nowrap;">W13 (Tri 2)</span>
+              <span style="position: absolute; left: 50.0%; transform: translateX(-50%); white-space: nowrap;">W20 (Half)</span>
+              <span style="position: absolute; left: 70.0%; transform: translateX(-50%); white-space: nowrap;">W28 (Tri 3)</span>
+              <span style="position: absolute; left: 85.0%; transform: translateX(-50%); white-space: nowrap;">W34 (Goal)</span>
+              <span style="position: absolute; left: 92.5%; transform: translateX(-50%); white-space: nowrap;">W37 (Term)</span>
+              <span style="position: absolute; left: 100%; transform: translateX(-100%); white-space: nowrap;">W40 (Due)</span>
+            </div>
           </div>
         </div>
       </div>
@@ -1344,6 +1479,31 @@
         </div>
         <div class="progress-bar-bg">
           <div class="progress-bar-fill" id="tabletsProgressFill"></div>
+        </div>
+      </div>
+
+      <!-- WATER INTAKE TRACKER (Option E) -->
+      <div class="info-card" id="waterTrackerCard" style="background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.2); margin-top: 16px; padding: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <div style="font-size: 13px; font-weight: 700; color: white; display: flex; align-items: center; gap: 6px;">
+            <span>💧 Daily Hydration Tracker</span>
+          </div>
+          <span id="waterGoalText" style="font-size: 13px; font-weight: 700; color: #b3e5fc;">0 / 8 Glasses (0 ml)</span>
+        </div>
+        <p style="font-size: 11px; color: rgba(255, 255, 255, 0.85); margin-bottom: 12px; line-height: 1.4;">
+          Mouni needs at least 8 glasses (~2 Liters) of water daily for healthy amniotic fluid levels.
+        </p>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; background: rgba(0,0,0,0.15); padding: 12px; border-radius: 12px;">
+          <div id="waterGlassesContainer" class="water-glass-container">
+            <!-- Generated dynamically by JS -->
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; font-size: 11px;">
+          <button class="utility-btn" onclick="adjustWater(-1)" style="padding: 4px 8px; font-size: 11px; margin: 0;">- Remove 1 Glass</button>
+          <span style="opacity: 0.8; color: white;">Tap glasses to log drinking</span>
+          <button class="utility-btn" onclick="adjustWater(1)" style="padding: 4px 8px; font-size: 11px; margin: 0; background: rgba(3, 169, 244, 0.3); border-color: rgba(3, 169, 244, 0.5);">+ Add 1 Glass</button>
         </div>
       </div>
 
@@ -1853,34 +2013,34 @@
 
     // Baby Size comparison and milestones database (Weeks 13 to 40)
     const BABY_SIZE_DATA = {
-      13: { emoji: "🍋", name: "Lemon", stats: "Length: ~7.4 cm | Weight: ~23g", milestone: "Baby's vocal cords are starting to form!" },
-      14: { emoji: "🍑", name: "Nectarine", stats: "Length: ~8.7 cm | Weight: ~43g", milestone: "Baby is starting to practice facial expressions!" },
-      15: { emoji: "🍎", name: "Apple", stats: "Length: ~10.1 cm | Weight: ~70g", milestone: "Baby's taste buds are developing!" },
-      16: { emoji: "🥑", name: "Avocado", stats: "Length: ~11.6 cm | Weight: ~100g", milestone: "Baby's eyes can now move slowly behind eyelids." },
-      17: { emoji: "🧅", name: "Pomegranate", stats: "Length: ~13 cm | Weight: ~140g", milestone: "Baby is developing fat reserves under the skin and strengthening their bones!" },
-      18: { emoji: "🍠", name: "Sweet Potato", stats: "Length: ~14.2 cm | Weight: ~190g", milestone: "Baby can now hear sounds, including your heartbeat!" },
-      19: { emoji: "🥭", name: "Mango", stats: "Length: ~15.3 cm | Weight: ~240g", milestone: "A protective coating called vernix caseosa is forming on baby's skin." },
-      20: { emoji: "🍌", name: "Banana", stats: "Length: ~16.4 cm | Weight: ~300g", milestone: "You are officially halfway there! Baby's swallowing reflexes are working." },
-      21: { emoji: "🥕", name: "Carrot", stats: "Length: ~26.7 cm | Weight: ~360g", milestone: "Baby's movements are becoming more coordinated." },
-      22: { emoji: "🥥", name: "Coconut", stats: "Length: ~27.8 cm | Weight: ~430g", milestone: "Baby's eyes and lips are fully formed; they look like a mini newborn!" },
-      23: { emoji: "🍊", name: "Grapefruit", stats: "Length: ~28.9 cm | Weight: ~500g", milestone: "Baby's lungs are preparing for breathing." },
-      24: { emoji: "🌽", name: "Corn", stats: "Length: ~30 cm | Weight: ~600g", milestone: "Baby's inner ears are developed, giving them a sense of balance." },
-      25: { emoji: "🥔", name: "Rutabaga", stats: "Length: ~34.6 cm | Weight: ~660g", milestone: "Baby is beginning to grow real baby hair!" },
-      26: { emoji: "🥬", name: "Scallion", stats: "Length: ~35.6 cm | Weight: ~760g", milestone: "Baby's eyes can open and blink now!" },
-      27: { emoji: "🥦", name: "Cauliflower", stats: "Length: ~36.6 cm | Weight: ~875g", milestone: "This is the final week of Trimester 2! Baby is starting to recognize your voice." },
-      28: { emoji: "🍆", name: "Eggplant", stats: "Length: ~37.6 cm | Weight: ~1kg", milestone: "Welcome to Trimester 3! Baby can blink and see light filtering in." },
-      29: { emoji: "🎃", name: "Butternut Squash", stats: "Length: ~38.6 cm | Weight: ~1.2kg", milestone: "Baby's bones are fully developed but still soft and flexible." },
-      30: { emoji: "🥬", name: "Cabbage", stats: "Length: ~39.9 cm | Weight: ~1.3kg", milestone: "Baby's brain is growing rapidly, developing deep grooves." },
-      31: { emoji: "🍍", name: "Pineapple", stats: "Length: ~41.1 cm | Weight: ~1.5kg", milestone: "Baby can turn their head from side to side." },
-      32: { emoji: "🍈", name: "Turnip", stats: "Length: ~42.4 cm | Weight: ~1.7kg", milestone: "Baby is practicing breathing by inhaling amniotic fluid." },
-      33: { emoji: "🥬", name: "Celery", stats: "Length: ~43.7 cm | Weight: ~1.9kg", milestone: "Baby's immune system is receiving antibodies from Mouni." },
-      34: { emoji: "🍈", name: "Cantaloupe", stats: "Length: ~45 cm | Weight: ~2.1kg", milestone: "Baby's central nervous system and lungs are maturing." },
-      35: { emoji: "🍈", name: "Honeydew Melon", stats: "Length: ~46.2 cm | Weight: ~2.4kg", milestone: "Baby's hearing is fully developed; they can respond to music!" },
-      36: { emoji: "🥬", name: "Romaine Lettuce", stats: "Length: ~47.4 cm | Weight: ~2.6kg", milestone: "Baby is shedding vernix caseosa as they get ready for birth." },
-      37: { emoji: "🥬", name: "Swiss Chard", stats: "Length: ~48.6 cm | Weight: ~2.9kg", milestone: "Baby is considered early term! Organs are ready to function on their own." },
-      38: { emoji: "🥬", name: "Leek", stats: "Length: ~49.8 cm | Weight: ~3.1kg", milestone: "Baby's brain and vocal cords are ready to cry and make sounds!" },
-      39: { emoji: "🍉", name: "Watermelon", stats: "Length: ~50.7 cm | Weight: ~3.3kg", milestone: "Baby is full term and waiting to meet you!" },
-      40: { emoji: "🎃", name: "Pumpkin", stats: "Length: ~51.2 cm | Weight: ~3.5kg", milestone: "Estimated Due Date! Baby is ready to arrive." }
+      13: { emoji: "🍋", name: "Lemon", weight: "~23g", length: "~7.4 cm", milestone: "Baby's vocal cords are starting to form!", organ: "Kidneys are working and producing urine, which baby swallows." },
+      14: { emoji: "🍑", name: "Nectarine", weight: "~43g", length: "~8.7 cm", milestone: "Baby is starting to practice facial expressions!", organ: "Thyroid gland is mature, beginning hormone production." },
+      15: { emoji: "🍎", name: "Apple", weight: "~70g", length: "~10.1 cm", milestone: "Baby's taste buds are developing!", organ: "Skeleton and bones are developing and hardening (ossifying)." },
+      16: { emoji: "🥑", name: "Avocado", weight: "~100g", length: "~11.6 cm", milestone: "Baby's eyes can now move slowly behind eyelids.", organ: "Circulatory system functioning; heart pumps ~25 quarts of blood daily." },
+      17: { emoji: "🧅", name: "Pomegranate", weight: "~140g", length: "~13 cm", milestone: "Baby is developing fat reserves under the skin and strengthening bones!", organ: "Myelin sheath starts coating the spinal cord to protect nerves." },
+      18: { emoji: "🍠", name: "Sweet Potato", weight: "~190g", length: "~14.2 cm", milestone: "Baby can now hear sounds, including your heartbeat!", organ: "Digestive system is active; baby is swallowing amniotic fluid." },
+      19: { emoji: "🥭", name: "Mango", weight: "~240g", length: "~15.3 cm", milestone: "A protective coating called vernix caseosa is forming on baby's skin.", organ: "Brain sensory areas (hearing, sight, taste, smell, touch) are developing." },
+      20: { emoji: "🍌", name: "Banana", weight: "~300g", length: "~16.4 cm", milestone: "You are officially halfway there! Baby's swallowing reflexes are working.", organ: "Uterus forms in girls; testes begin descending in boys." },
+      21: { emoji: "🥕", name: "Carrot", weight: "~360g", length: "~26.7 cm", milestone: "Baby's movements are becoming more coordinated.", organ: "Bone marrow is taking over blood cell production." },
+      22: { emoji: "🥥", name: "Coconut", weight: "~430g", length: "~27.8 cm", milestone: "Baby's eyes and lips are fully formed; they look like a mini newborn!", organ: "Pancreas is developing steadily, beginning insulin production." },
+      23: { emoji: "🍊", name: "Grapefruit", weight: "~500g", length: "~28.9 cm", milestone: "Baby's lungs are preparing for breathing.", organ: "Blood vessels in the lungs are developing to prepare for breathing." },
+      24: { emoji: "🌽", name: "Corn", weight: "~600g", length: "~30 cm", milestone: "Baby's inner ears are developed, giving them a sense of balance.", organ: "Lungs start producing surfactant to keep air sacs open." },
+      25: { emoji: "🥔", name: "Rutabaga", weight: "~660g", length: "~34.6 cm", milestone: "Baby is beginning to grow real baby hair!", organ: "Brain's cerebral cortex is forming distinct layers." },
+      26: { emoji: "🥬", name: "Scallion", weight: "~760g", length: "~35.6 cm", milestone: "Baby's eyes can open and blink now!", organ: "Optic nerves are active, allowing eyes to respond to light." },
+      27: { emoji: "🥦", name: "Cauliflower", weight: "~875g", length: "~36.6 cm", milestone: "This is the final week of Trimester 2! Baby is starting to recognize your voice.", organ: "Lungs are capable of gas exchange now (early viability)." },
+      28: { emoji: "🍆", name: "Eggplant", weight: "~1kg", length: "~37.6 cm", milestone: "Welcome to Trimester 3! Baby can blink and see light filtering in.", organ: "Brain starts controlling body temperature and breathing." },
+      29: { emoji: "🎃", name: "Butternut Squash", weight: "~1.2kg", length: "~38.6 cm", milestone: "Baby's bones are fully developed but still soft and flexible.", organ: "Bone marrow is now fully in charge of red blood cell production." },
+      30: { emoji: "🥬", name: "Cabbage", weight: "~1.3kg", length: "~39.9 cm", milestone: "Baby's brain is growing rapidly, developing deep grooves.", organ: "Brain is growing rapidly, folds/grooves are deepening." },
+      31: { emoji: "🍍", name: "Pineapple", weight: "~1.5kg", length: "~41.1 cm", milestone: "Baby can turn their head from side to side.", organ: "Central nervous system can now regulate body temperature." },
+      32: { emoji: "🍈", name: "Turnip", weight: "~1.7kg", length: "~42.4 cm", milestone: "Baby is practicing breathing by inhaling amniotic fluid.", organ: "Digestive tract is fully prepped and ready for feeding." },
+      33: { emoji: "🥬", name: "Celery", weight: "~1.9kg", length: "~43.7 cm", milestone: "Baby's immune system is receiving antibodies from Mouni.", organ: "Brain billions of neurons are creating synaptic connections." },
+      34: { emoji: "🍈", name: "Cantaloupe", weight: "~2.1kg", length: "~45 cm", milestone: "Baby's central nervous system and lungs are maturing.", organ: "Lungs and central nervous system are reaching maturity." },
+      35: { emoji: "🍈", name: "Honeydew Melon", weight: "~2.4kg", length: "~46.2 cm", milestone: "Baby's hearing is fully developed; they can respond to music!", organ: "Kidneys are fully developed; liver can process some waste products." },
+      36: { emoji: "🥬", name: "Romaine Lettuce", weight: "~2.6kg", length: "~47.4 cm", milestone: "Baby is shedding vernix caseosa as they get ready for birth.", organ: "Lungs are almost fully mature and ready for outside air." },
+      37: { emoji: "🥬", name: "Swiss Chard", weight: "~2.9kg", length: "~48.6 cm", milestone: "Baby is considered early term! Organs are ready to function on their own.", organ: "Brain and lungs are considered mature enough for birth." },
+      38: { emoji: "🥬", name: "Leek", weight: "~3.1kg", length: "~49.8 cm", milestone: "Baby's brain and vocal cords are ready to cry and make sounds!", organ: "Liver and kidneys are fully functional, baby accumulates fat." },
+      39: { emoji: "🍉", name: "Watermelon", weight: "~3.3kg", length: "~50.7 cm", milestone: "Baby is full term and waiting to meet you!", organ: "Immune system is active, absorbing antibodies from placenta." },
+      40: { emoji: "🎃", name: "Pumpkin", weight: "~3.5kg", length: "~51.2 cm", milestone: "Estimated Due Date! Baby is ready to arrive.", organ: "All organs are fully mature and ready for life outside the womb!" }
     };
 
     // Vaccine Schedule Database
@@ -1988,6 +2148,7 @@
     let currentFilter = 'all';
     let notificationsActive = false;
     let lastNotifiedTime = "";
+    let waterCount = 0;
 
     // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
@@ -2011,6 +2172,7 @@
       checkInjectionAlert();
       updateDynamicHeader();
       updateTabletsProgress();
+      updateWaterUI();
       document.getElementById('birthDateInput').value = babyBirthDate;
       checkBedRestBanner();
       renderVaccines();
@@ -2058,6 +2220,7 @@
       
       if (lastResetDate && lastResetDate !== todayString) {
         localStorage.setItem('checkedTablets', JSON.stringify([]));
+        localStorage.setItem('waterCount', '0');
         localStorage.setItem('lastResetDate', todayString);
       } else if (!lastResetDate) {
         localStorage.setItem('lastResetDate', todayString);
@@ -2073,6 +2236,15 @@
       } catch (e) {
         console.error("Error loading tablets state", e);
         checkedTablets = [];
+      }
+
+      // Load Water
+      try {
+        const savedWater = localStorage.getItem('waterCount');
+        waterCount = savedWater ? parseInt(savedWater, 10) : 0;
+      } catch (e) {
+        console.error("Error loading water state", e);
+        waterCount = 0;
       }
 
       // Load Vaccines
@@ -2185,16 +2357,47 @@
         const dateStr = formatDate(edd);
         document.getElementById('countdownSubtext').innerHTML = `EDD: <strong>${dateStr}</strong>. You are doing amazing! 🌸`;
 
-        // Update Baby Size Visualizer Card
+        // Update Baby Size Visualizer Card (Option E)
         const sizeData = BABY_SIZE_DATA[weeks];
         if (sizeData && babySizeCard) {
+          document.getElementById('weeksProgressBadge').textContent = `Week ${weeks}`;
           document.getElementById('babySizeEmoji').textContent = sizeData.emoji;
           document.getElementById('babySizeComparison').textContent = `Size of a ${sizeData.name}`;
-          document.getElementById('babySizeStats').textContent = sizeData.stats;
+          document.getElementById('babySizeLength').textContent = `📏 ${sizeData.length}`;
+          document.getElementById('babySizeWeight').textContent = `⚖️ ${sizeData.weight}`;
           document.getElementById('babySizeMilestone').textContent = sizeData.milestone;
+          document.getElementById('babySizeOrgan').textContent = sizeData.organ;
+          
+          document.getElementById('timelineWeeksCompleted').textContent = `${weeks} Weeks Completed`;
+          document.getElementById('timelineWeeksRemaining').textContent = `${40 - weeks} Weeks Remaining`;
+          
+          // Calculate timeline progress (from week 0 to week 40)
+          const timelinePct = Math.max(0, Math.min(100, (weeks / 40) * 100));
+          document.getElementById('timelineProgressFill').style.width = `${timelinePct}%`;
+          document.getElementById('timelineCurrentMarker').style.left = `${timelinePct}%`;
+          
           babySizeCard.style.display = 'block';
         } else if (babySizeCard) {
-          babySizeCard.style.display = 'none';
+          if (weeks > 0 && weeks < 13) {
+            document.getElementById('weeksProgressBadge').textContent = `Week ${weeks}`;
+            document.getElementById('babySizeEmoji').textContent = "👶";
+            document.getElementById('babySizeComparison').textContent = "First Trimester";
+            document.getElementById('babySizeLength').textContent = "📏 Growing rapidly";
+            document.getElementById('babySizeWeight').textContent = "⚖️ Tiny bubble";
+            document.getElementById('babySizeMilestone').textContent = "Baby is developing major structures and vital organs! Size comparison starts at Week 13.";
+            document.getElementById('babySizeOrgan').textContent = "Heart, brain, and spinal cord are forming rapidly.";
+            
+            document.getElementById('timelineWeeksCompleted').textContent = `${weeks} Weeks Completed`;
+            document.getElementById('timelineWeeksRemaining').textContent = `${40 - weeks} Weeks Remaining`;
+            
+            const timelinePct = Math.max(0, Math.min(100, (weeks / 40) * 100));
+            document.getElementById('timelineProgressFill').style.width = `${timelinePct}%`;
+            document.getElementById('timelineCurrentMarker').style.left = `${timelinePct}%`;
+            
+            babySizeCard.style.display = 'block';
+          } else {
+            babySizeCard.style.display = 'none';
+          }
         }
       } else {
         document.getElementById('babyCountdownTitle').textContent = "Baby Health Tracker";
@@ -2498,6 +2701,97 @@
     }
 
     /* ==========================================
+       WATER DRINK TRACKER & SOUND
+       ========================================== */
+    function updateWaterUI() {
+      const container = document.getElementById('waterGlassesContainer');
+      if (!container) return;
+      
+      let html = '';
+      for (let i = 0; i < 8; i++) {
+        const isActive = i < waterCount ? 'active' : '';
+        html += `
+          <div class="water-glass ${isActive}" onclick="logWaterGlass(${i})" title="Glass ${i+1}">
+            <svg width="28" height="36" viewBox="0 0 24 30">
+              <defs>
+                <linearGradient id="waterGrad-${i}" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#4fc3f7" />
+                  <stop offset="100%" stop-color="#0288d1" />
+                </linearGradient>
+              </defs>
+              <ellipse cx="12" cy="4" rx="8" ry="2" fill="none" stroke="rgba(255, 255, 255, 0.4)" stroke-width="1.5" class="glass-rim" />
+              <path d="M4 4 L6 26 C6.2 27.5 7.5 28.5 9 28.5 L15 28.5 C16.5 28.5 17.8 27.5 18 26 L20 4" fill="none" stroke="rgba(255, 255, 255, 0.4)" stroke-width="1.5" class="glass-body" />
+              <path d="M5.5 20 L6.1 25.5 C6.2 26.5 7 27 8 27 L16 27 C17 27 17.8 26.5 17.9 25.5 L18.5 20 Z" fill="url(#waterGrad-${i})" class="glass-water" style="opacity: ${i < waterCount ? 1 : 0}; transform: scaleY(${i < waterCount ? 1 : 0}); transform-origin: bottom; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);" />
+            </svg>
+          </div>
+        `;
+      }
+      container.innerHTML = html;
+      
+      const goalText = document.getElementById('waterGoalText');
+      if (goalText) {
+        const ml = waterCount * 250;
+        if (waterCount >= 8) {
+          goalText.innerHTML = `🎉 ${waterCount} / 8 Glasses (${(ml/1000).toFixed(1)} L)`;
+          goalText.style.color = '#4caf50';
+        } else {
+          goalText.textContent = `${waterCount} / 8 Glasses (${ml} ml)`;
+          goalText.style.color = '#b3e5fc';
+        }
+      }
+    }
+
+    function logWaterGlass(index) {
+      if (index === waterCount - 1) {
+        waterCount = index;
+      } else {
+        waterCount = index + 1;
+        playWaterDripSound();
+      }
+      localStorage.setItem('waterCount', waterCount);
+      updateWaterUI();
+    }
+
+    function adjustWater(delta) {
+      const newCount = waterCount + delta;
+      if (newCount >= 0) {
+        if (delta > 0) {
+          playWaterDripSound();
+        }
+        waterCount = newCount;
+        localStorage.setItem('waterCount', waterCount);
+        updateWaterUI();
+      }
+    }
+
+    function playWaterDripSound() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+        
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(400, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.15);
+        
+        gain.gain.setValueAtTime(0.001, ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+        
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        
+        osc.start();
+        osc.stop(ctx.currentTime + 0.25);
+      } catch (e) {
+        console.error("Audio Synthesis error", e);
+      }
+    }
+
+    /* ==========================================
        VACCINES CONTROLLER
        ========================================== */
     function onBirthDateChange() {
@@ -2714,8 +3008,14 @@
 
         const reminders = {
           "07:30": { title: "Morning Tablets (7:30 AM) 🌅", body: "Take empty-stomach meds (Thyronorm, Pan 40mg), and morning meds (Dydrogest 10, Duvadilan 10mg, Ceftum 500mg after breakfast)." },
-          "13:30": { title: "Afternoon Tablets (1:30 PM) ☀️", body: "Take Tab. Magnocal and Tab. Sustener 200 after lunch." },
+          "09:30": { title: "💧 Hydration Time!", body: "Time to drink a glass of water to keep Mouni and Baby healthy and hydrated!" },
+          "11:30": { title: "💧 Hydration Time!", body: "Keep up the water intake! Drink a glass of water now." },
+          "13:30": { title: "Afternoon Tablets (1:30 PM) ☀️ & Water Reminder 💧", body: "Take Tab. Magnocal and Tab. Sustener 200 after lunch. Also, drink a glass of water!" },
+          "15:30": { title: "💧 Hydration Time!", body: "Mid-afternoon check. Drink a glass of water to stay fresh and hydrated." },
+          "17:30": { title: "💧 Hydration Time!", body: "Time for another glass of water. Keep going, you're doing great!" },
+          "19:30": { title: "💧 Hydration Time!", body: "Evening hydration reminder. Take a glass of water now." },
           "21:00": { title: "Night Tablets (9:00 PM) 🌙", body: "Take night meds: Tab. Womiron, Tab. Dydrogest 10, Tab. Duvadilan 10mg, and Tab. Ceftum 500mg after dinner." },
+          "21:30": { title: "💧 Hydration Time!", body: "Last water reminder for the day! Have a glass of water before winding down." },
           "22:00": { title: "Bedtime Application (10:00 PM) 🌛", body: "Apply Stovient Cream. Take Syp. Duphalac 15ml if needed for constipation." }
         };
 
