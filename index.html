@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mouni & Baby Health Hub</title>
   
+  <!-- External Libraries for WebGL and Animations -->
+  <script src="https://cdn.jsdelivr.net/npm/ogl/dist/ogl.umd.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  
   <!-- PWA meta tags & installability -->
   <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -696,46 +700,165 @@
       background: var(--border);
     }
 
-    /* CARD GRID FOR REMINDERS */
-    .reminders-grid {
-      display: flex;
-      flex-direction: column;
+    /* MAGIC BENTO GRID FOR REMINDERS */
+    .card-grid {
+      display: grid;
       gap: 12px;
       padding: 0 16px;
+      width: 100%;
+      user-select: none;
     }
-    .reminder-card {
-      padding: 16px;
+
+    .magic-bento-card {
       display: flex;
-      gap: 14px;
-      align-items: flex-start;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      aspect-ratio: 1.5;
+      min-height: 150px;
+      width: 100%;
+      max-width: 100%;
+      padding: 20px;
+      border-radius: 20px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      font-weight: 300;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+
+      --glow-x: 50%;
+      --glow-y: 50%;
+      --glow-intensity: 0;
+      --glow-radius: 250px;
     }
-    .reminder-icon {
-      font-size: 24px;
-      flex-shrink: 0;
-      width: 40px; height: 40px;
-      background: var(--border);
-      border-radius: 14px;
-      display: flex; align-items: center; justify-content: center;
-      transition: background-color 0.4s ease;
+
+    .magic-bento-card__header,
+    .magic-bento-card__content {
+      display: flex;
+      position: relative;
+      color: var(--text);
+      z-index: 2;
     }
-    .reminder-details { flex: 1; }
-    .reminder-details h3 {
-      font-size: 13px;
+
+    .magic-bento-card__header {
+      gap: 12px;
+      justify-content: space-between;
+    }
+
+    .magic-bento-card__content {
+      flex-direction: column;
+      margin-top: auto;
+    }
+
+    .magic-bento-card__label {
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       color: var(--text-muted);
-      margin-bottom: 4px;
     }
-    .reminder-details p {
-      font-size: 13px;
-      line-height: 1.5;
+
+    .magic-bento-card__title {
+      font-weight: 700;
+      font-size: 15px;
+      margin: 0 0 4px;
       color: var(--text);
-      opacity: 0.85;
     }
-    .reminder-details strong {
+
+    .magic-bento-card__description {
+      font-size: 12.5px;
+      line-height: 1.4;
+      opacity: 0.85;
+      color: var(--text);
+    }
+
+    .magic-bento-card__description strong {
       font-weight: 700;
       color: var(--text);
+    }
+
+    @media (max-width: 599px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (min-width: 600px) {
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .magic-bento-card:nth-child(3) {
+        grid-column: span 2;
+        aspect-ratio: 3;
+        min-height: 120px;
+      }
+    }
+
+    /* Border glow effect */
+    .magic-bento-card--border-glow::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      padding: 1px;
+      background: radial-gradient(
+        var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+        rgba(var(--glow-color), calc(var(--glow-intensity) * 0.85)) 0%,
+        rgba(var(--glow-color), calc(var(--glow-intensity) * 0.3)) 40%,
+        transparent 70%
+      );
+      border-radius: inherit;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+
+    .magic-bento-card--border-glow:hover::after {
+      opacity: 1;
+    }
+
+    .particle-container {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .particle::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: rgba(var(--glow-color), 0.2);
+      border-radius: 50%;
+      z-index: -1;
+    }
+
+    .global-spotlight {
+      mix-blend-mode: screen;
+      will-change: transform, opacity;
+      z-index: 200 !important;
+      pointer-events: none;
     }
 
     /* COMPLETION MESSAGE */
@@ -907,8 +1030,8 @@
 </head>
 <body>
 
-  <!-- Fluid Simulation Background Canvas -->
-  <canvas id="fluid" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1; display: block;"></canvas>
+  <!-- Prism Simulation Background Container -->
+  <div id="prism-bg" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1; display: block;"></div>
 
   <!-- IN-APP REMINDER ALERT -->
   <div class="in-app-alert" id="inAppAlert">
