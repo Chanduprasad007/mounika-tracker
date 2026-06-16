@@ -1,41 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#140B0E" />
-      <stop offset="50%" stop-color="#231318" />
-      <stop offset="100%" stop-color="#11070A" />
-    </linearGradient>
-    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#F3D3B1" />
-      <stop offset="50%" stop-color="#E8927C" />
-      <stop offset="100%" stop-color="#B8808F" />
+    <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8927C" />
+      <stop offset="100%" stop-color="#C9A84C" />
     </linearGradient>
   </defs>
-  
-  <!-- Rounded square background -->
-  <rect width="512" height="512" rx="140" fill="url(#bgGrad)" stroke="#2C1A20" stroke-width="8"/>
-  
-  <!-- Outer decorative ring -->
-  <circle cx="256" cy="256" r="200" fill="none" stroke="url(#goldGrad)" stroke-width="4" stroke-dasharray="12 16" opacity="0.4" />
-  
-  <!-- Stylized Mother Embracing Child Art -->
-  <g transform="translate(0, 5)">
-    <!-- Mother's Head -->
-    <circle cx="215" cy="180" r="30" fill="none" stroke="url(#goldGrad)" stroke-width="9" stroke-linecap="round" />
-    
-    <!-- Baby's Head -->
-    <circle cx="285" cy="235" r="20" fill="none" stroke="url(#goldGrad)" stroke-width="9" stroke-linecap="round" />
-    
-    <!-- Mother's Back & Shoulder -->
-    <path d="M165,280 C155,210 180,185 190,180" fill="none" stroke="url(#goldGrad)" stroke-width="9" stroke-linecap="round" />
-    
-    <!-- Mother's Arm wrapping around to cradle baby -->
-    <path d="M165,280 C175,370 305,370 335,290 C345,245 315,210 295,210" fill="none" stroke="url(#goldGrad)" stroke-width="9" stroke-linecap="round" />
-    
-    <!-- Baby's Body/Blanket Wrap -->
-    <path d="M295,250 C315,280 295,330 265,330 C245,330 235,310 235,290" fill="none" stroke="url(#goldGrad)" stroke-width="7" stroke-linecap="round" />
-  </g>
-  
-  <!-- Heart of Love above -->
-  <path d="M256,120 C260,110 272,110 276,120 C280,130 256,150 256,150 C256,150 232,130 236,120 C240,110 252,110 256,120 Z" fill="url(#goldGrad)" opacity="0.9" />
+  <rect width="512" height="512" rx="128" fill="url(#roseGrad)" />
+  <!-- Heart shape representation of care -->
+  <path d="M256,140 C285,80 395,80 395,190 C395,300 256,415 256,445 C256,415 117,300 117,190 C117,80 227,80 256,140 Z" fill="#FFFFFF" opacity="0.95"/>
+  <!-- Cute little baby carriage silhouette in the center -->
+  <path d="M220,220 A35,35 0 0,0 290,220 L290,195 A10,10 0 0,0 280,185 L230,185 A10,10 0 0,0 220,195 Z" fill="#E8927C"/>
+  <rect x="250" y="220" width="10" height="40" fill="#E8927C"/>
+  <circle cx="235" cy="270" r="15" fill="#E8927C"/>
+  <circle cx="275" cy="270" r="15" fill="#E8927C"/>
+  <path d="M200,200 L215,225" stroke="#E8927C" stroke-width="8" stroke-linecap="round"/>
 </svg>

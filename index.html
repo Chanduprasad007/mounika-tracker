@@ -59,7 +59,7 @@
       --card-bg:        rgba(22, 22, 30, 0.55);
       --card-border:    rgba(255, 255, 255, 0.05);
       --border:         rgba(255, 255, 255, 0.08);
-      --header-grad:    linear-gradient(135deg, #241418 0%, #0D0709 100%);
+      --header-grad:    linear-gradient(135deg, #F0A593 0%, #DBC172 100%);
       --shadow-blur:    0 12px 30px 0 rgba(0, 0, 0, 0.3);
       --shadow-card:    0 8px 24px rgba(0, 0, 0, 0.2);
       
@@ -73,45 +73,6 @@
       --lav-dark:       #BCAFE0;
       --sky-lt:         rgba(135, 206, 235, 0.12);
       --white:          #1C1C1E;
-    }
-
-    /* SHINY TEXT & LOGO */
-    .shiny-text {
-      display: inline-block;
-      font-weight: 500;
-      background: linear-gradient(120deg, var(--text-muted) 0%, var(--text-muted) 35%, var(--text) 50%, var(--text-muted) 65%, var(--text-muted) 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shiny-sweep 3s linear infinite;
-    }
-    
-    @keyframes shiny-sweep {
-      0% {
-        background-position: 150% center;
-      }
-      100% {
-        background-position: -50% center;
-      }
-    }
-
-    .header-logo-wrap {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 14px;
-      margin-top: -10px;
-    }
-    .header-logo {
-      width: 72px;
-      height: 72px;
-      border-radius: 20px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-    .header-logo:hover {
-      transform: scale(1.06) rotate(2deg);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -822,48 +783,16 @@
       .card-grid {
         grid-template-columns: 1fr;
       }
-      .magic-bento-card {
-        aspect-ratio: 1.6;
-        min-height: 140px;
-      }
     }
 
     @media (min-width: 600px) {
       .card-grid {
         grid-template-columns: repeat(2, 1fr);
       }
-      .magic-bento-card {
-        aspect-ratio: 1.4;
-      }
       .magic-bento-card:nth-child(3) {
         grid-column: span 2;
-        aspect-ratio: 2.8;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .card-grid {
-        grid-template-columns: repeat(4, 1fr);
-        max-width: 52em;
-        margin: 0 auto;
-      }
-      .magic-bento-card {
-        aspect-ratio: 1.3;
-        min-height: 140px;
-      }
-      .magic-bento-card:nth-child(3) {
-        grid-column: span 2;
-        grid-row: span 2;
-        aspect-ratio: 1.4;
-      }
-      .magic-bento-card:nth-child(4) {
-        grid-column: 1 / span 2;
-        grid-row: 2 / span 2;
-        aspect-ratio: 1.4;
-      }
-      .magic-bento-card:nth-child(6) {
-        grid-column: 4;
-        grid-row: 3;
+        aspect-ratio: 3;
+        min-height: 120px;
       }
     }
 
@@ -1125,16 +1054,12 @@
         </svg>
       </button>
 
-      <div class="header-logo-wrap">
-        <img src="icon.svg" class="header-logo" alt="Mouni & Baby Logo">
-      </div>
-
       <div class="animated-gradient-text with-border greeting-text">
         <div class="gradient-overlay"></div>
         <div class="text-content" id="greetingText">Good Morning, Mouni</div>
       </div>
       <h1 id="babyCountdownTitle">Mouni & Baby's Hub</h1>
-      <p class="shiny-text">Health & schedule tracker</p>
+      <p>Health & schedule tracker</p>
       
       <div class="header-info-wrap">
         <!-- Trimester / Gestational progress -->
@@ -1410,83 +1335,46 @@
       
       <!-- TABLET REMINDERS -->
       <div class="section-label">Important Reminders</div>
-      <div class="card-grid bento-section" id="bentoGrid">
-        
-        <!-- Card 1: Morning Timing -->
-        <div class="magic-bento-card magic-bento-card--border-glow" style="--glow-color: 232, 146, 124;">
-          <div class="magic-bento-card__header">
-            <span class="magic-bento-card__label">🌅 Morning Meds</span>
-            <span style="font-size: 18px;">⏰</span>
-          </div>
-          <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">Dydrogest morning timing</h3>
-            <p class="magic-bento-card__description">Take first thing in the morning at 7:30 AM. Pro Case powder can be taken with milk after breakfast.</p>
+      <div class="reminders-grid">
+        <div class="reminder-card">
+          <div class="reminder-icon" style="color:var(--rose);">⏰</div>
+          <div class="reminder-details">
+            <h3>Dydrogest morning timing</h3>
+            <p>Take first thing in the morning at 7:30 AM. Pro Case powder can be taken with milk after breakfast.</p>
           </div>
         </div>
 
-        <!-- Card 2: Thyronorm -->
-        <div class="magic-bento-card magic-bento-card--border-glow" style="--glow-color: 64, 121, 255;">
-          <div class="magic-bento-card__header">
-            <span class="magic-bento-card__label">💊 Empty Stomach</span>
-            <span style="font-size: 18px;">🌤️</span>
-          </div>
-          <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">Thyronorm timing</h3>
-            <p class="magic-bento-card__description">Take Tab. Thyronorm 50mg before food in the morning, on an empty stomach. Keep at least 30 mins gap before tea/coffee.</p>
+        <div class="reminder-card">
+          <div class="reminder-icon" style="color:#FF9800;">🚫</div>
+          <div class="reminder-details">
+            <h3>Iron + Calcium gap</h3>
+            <p><strong>Tab. Womiron</strong> (night) and <strong>Tab. Magnocal</strong> (afternoon) must not be taken together — they block each other's absorption.</p>
           </div>
         </div>
 
-        <!-- Card 3: Medication Gap -->
-        <div class="magic-bento-card magic-bento-card--border-glow" style="--glow-color: 255, 152, 0;">
-          <div class="magic-bento-card__header">
-            <span class="magic-bento-card__label">🚫 Critical Gap</span>
-            <span style="font-size: 18px;">⚠️</span>
-          </div>
-          <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">Iron + Calcium gap</h3>
-            <p class="magic-bento-card__description"><strong>Tab. Womiron</strong> (night) and <strong>Tab. Magnocal</strong> (afternoon) must not be taken together — they block each other's absorption. Keep a safe gap of at least 4-6 hours.</p>
+        <div class="reminder-card">
+          <div class="reminder-icon" style="color:var(--lavender);">🛏️</div>
+          <div class="reminder-details">
+            <h3>Post-Cerclage Care</h3>
+            <p>3 weeks complete bed rest starts <strong>15 June 2026</strong>. Limit movement to washroom only.</p>
           </div>
         </div>
 
-        <!-- Card 4: Bed Rest -->
-        <div class="magic-bento-card magic-bento-card--border-glow" style="--glow-color: 180, 151, 207;">
-          <div class="magic-bento-card__header">
-            <span class="magic-bento-card__label">🛏️ Activity Limit</span>
-            <span style="font-size: 18px;">💤</span>
-          </div>
-          <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">Post-Cerclage Care</h3>
-            <p class="magic-bento-card__description"><strong>3 weeks complete bed rest</strong> starts from 15 June 2026. Limit movement to washroom visits only. Use a pillow under hips when resting if suggested.</p>
+        <div class="reminder-card">
+          <div class="reminder-icon" style="color:var(--gold-dark);">📅</div>
+          <div class="reminder-details">
+            <h3>Next Appointment & Retest</h3>
+            <p>• <strong>TIFFA Level 2 Scan:</strong> Scheduled for <strong>14 July 2026</strong> (~21 weeks).<br>• <strong>TSH Retest:</strong> Due late July 2026.</p>
           </div>
         </div>
 
-        <!-- Card 5: Next Appointment -->
-        <div class="magic-bento-card magic-bento-card--border-glow" style="--glow-color: 212, 175, 55;">
-          <div class="magic-bento-card__header">
-            <span class="magic-bento-card__label">📅 Calendar</span>
-            <span style="font-size: 18px;">🩺</span>
-          </div>
-          <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">Next Appointment & Retest</h3>
-            <p class="magic-bento-card__description">
-              • <strong>TIFFA Level 2 Scan:</strong> Scheduled for 14 July 2026 (~21 weeks).<br>
-              • <strong>TSH Retest:</strong> Due late July 2026.
-            </p>
+        <div class="reminder-card">
+          <div class="reminder-icon" style="color:#00ACC1;">📞</div>
+          <div class="reminder-details">
+            <h3>Doctor Confirmation</h3>
+            <p>Confirm with <strong>Dr. Bharathi Ramesh</strong> (90367 86686) whether to continue Zuviston alongside Womiron.</p>
           </div>
         </div>
-
-        <!-- Card 6: Doctor Contact -->
-        <div class="magic-bento-card magic-bento-card--border-glow" style="--glow-color: 0, 188, 212;">
-          <div class="magic-bento-card__header">
-            <span class="magic-bento-card__label">📞 Call Doctor</span>
-            <span style="font-size: 18px;">👩‍⚕️</span>
-          </div>
-          <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">Doctor Confirmation</h3>
-            <p class="magic-bento-card__description">Confirm with <strong>Dr. Bharathi Ramesh</strong> (90367 86686) whether to continue Zuviston alongside Womiron.</p>
-          </div>
-        </div>
-
       </div>
 
     </div>
@@ -1758,8 +1646,6 @@
       checkBedRestBanner();
       renderVaccines();
       startReminderCheck();
-      initPrismBackground();
-      initMagicBento();
 
       // Fluid tab indicator resize listeners
       window.addEventListener('resize', updateTabIndicator);
@@ -2566,680 +2452,1060 @@
     }
 
     /* ==========================================
-       PRISM BACKGROUND SIMULATION (Raymarched WebGL)
+       FLUID CURSOR SIMULATION (WebGL background)
        ========================================== */
-    function initPrismBackground() {
-      const container = document.getElementById('prism-bg');
-      if (!container) return;
-      const oglLib = window.OGL || window.ogl;
-      if (!oglLib) {
-        console.warn("OGL library not loaded yet.");
+    (function initFluidSimulation() {
+      const canvas = document.getElementById('fluid');
+      if (!canvas) return;
+
+      const SIM_RESOLUTION = 128;
+      const DYE_RESOLUTION = 512;
+      const CAPTURE_RESOLUTION = 512;
+      const DENSITY_DISSIPATION = 3.5;
+      const VELOCITY_DISSIPATION = 2;
+      const PRESSURE = 0.1;
+      const PRESSURE_ITERATIONS = 20;
+      const CURL = 3;
+      const SPLAT_RADIUS = 0.2;
+      const SPLAT_FORCE = 6000;
+      const SHADING = true;
+      const COLOR_UPDATE_SPEED = 10;
+      const BACK_COLOR = { r: 0.05, g: 0.05, b: 0.08 };
+      const TRANSPARENT = true;
+      const RAINBOW_MODE = true;
+      const COLOR = '#ff0000';
+
+      function pointerPrototype() {
+        this.id = -1;
+        this.texcoordX = 0;
+        this.texcoordY = 0;
+        this.prevTexcoordX = 0;
+        this.prevTexcoordY = 0;
+        this.deltaX = 0;
+        this.deltaY = 0;
+        this.down = false;
+        this.moved = false;
+        this.color = [0, 0, 0];
+      }
+
+      let config = {
+        SIM_RESOLUTION,
+        DYE_RESOLUTION,
+        CAPTURE_RESOLUTION,
+        DENSITY_DISSIPATION,
+        VELOCITY_DISSIPATION,
+        PRESSURE,
+        PRESSURE_ITERATIONS,
+        CURL,
+        SPLAT_RADIUS,
+        SPLAT_FORCE,
+        SHADING,
+        COLOR_UPDATE_SPEED,
+        PAUSED: false,
+        BACK_COLOR,
+        TRANSPARENT,
+        RAINBOW_MODE,
+        COLOR
+      };
+
+      let pointers = [new pointerPrototype()];
+
+      const webgl = getWebGLContext(canvas);
+      if (!webgl) {
+        console.warn("WebGL not supported, fluid cursor background disabled.");
         return;
       }
-      const { Renderer, Triangle, Program, Mesh } = oglLib;
+      const { gl, ext } = webgl;
+      if (!ext.supportLinearFiltering) {
+        config.DYE_RESOLUTION = 256;
+        config.SHADING = false;
+      }
 
-      const height = 3.5;
-      const baseWidth = 5.5;
-      const animationType = 'rotate'; 
-      const glow = 1.0;
-      const offset = { x: 0, y: 0 };
-      const noise = 0.25; 
-      const transparent = true;
-      const scale = 3.6;
-      const hueShift = 0.0;
-      const colorFrequency = 1.0;
-      const hoverStrength = 2.0;
-      const inertia = 0.05;
-      const bloom = 1.0;
-      const suspendWhenOffscreen = true;
-      const timeScale = 0.5;
+      function getWebGLContext(canvas) {
+        const params = {
+          alpha: true,
+          depth: false,
+          stencil: false,
+          antialias: false,
+          preserveDrawingBuffer: false
+        };
+        let gl = canvas.getContext('webgl2', params);
+        const isWebGL2 = !!gl;
+        if (!isWebGL2) gl = canvas.getContext('webgl', params) || canvas.getContext('experimental-webgl', params);
+        if (!gl) return null;
 
-      const H = Math.max(0.001, height);
-      const BW = Math.max(0.001, baseWidth);
-      const BASE_HALF = BW * 0.5;
-      const GLOW = Math.max(0.0, glow);
-      const NOISE = Math.max(0.0, noise);
-      const offX = offset?.x ?? 0;
-      const offY = offset?.y ?? 0;
-      const SAT = transparent ? 1.5 : 1;
-      const SCALE = Math.max(0.001, scale);
-      const HUE = hueShift || 0;
-      const CFREQ = Math.max(0.0, colorFrequency || 1);
-      const BLOOM = Math.max(0.0, bloom || 1);
-      const TS = Math.max(0, timeScale || 1);
-      const HOVSTR = Math.max(0, hoverStrength || 1);
-      const INERT = Math.max(0, Math.min(1, inertia || 0.12));
-
-      const dpr = Math.min(2, window.devicePixelRatio || 1);
-      const renderer = new Renderer({
-        dpr,
-        alpha: transparent,
-        antialias: false
-      });
-      const gl = renderer.gl;
-      gl.disable(gl.DEPTH_TEST);
-      gl.disable(gl.CULL_FACE);
-      gl.disable(gl.BLEND);
-
-      Object.assign(gl.canvas.style, {
-        position: 'absolute',
-        inset: '0',
-        width: '100%',
-        height: '100%',
-        display: 'block'
-      });
-      container.appendChild(gl.canvas);
-
-      const vertex = /* glsl */ `
-        attribute vec2 position;
-        void main() {
-          gl_Position = vec4(position, 0.0, 1.0);
+        let halfFloat;
+        let supportLinearFiltering;
+        if (isWebGL2) {
+          gl.getExtension('EXT_color_buffer_float');
+          supportLinearFiltering = gl.getExtension('OES_texture_float_linear');
+        } else {
+          halfFloat = gl.getExtension('OES_texture_half_float');
+          supportLinearFiltering = gl.getExtension('OES_texture_half_float_linear');
         }
-      `;
+        gl.clearColor(0.0, 0.0, 0.0, 0.0);
 
-      const fragment = /* glsl */ `
+        const halfFloatTexType = isWebGL2 ? gl.HALF_FLOAT : halfFloat && halfFloat.HALF_FLOAT_OES;
+        let formatRGBA;
+        let formatRG;
+        let formatR;
+
+        if (isWebGL2) {
+          formatRGBA = getSupportedFormat(gl, gl.RGBA16F, gl.RGBA, halfFloatTexType);
+          formatRG = getSupportedFormat(gl, gl.RG16F, gl.RG, halfFloatTexType);
+          formatR = getSupportedFormat(gl, gl.R16F, gl.RED, halfFloatTexType);
+        } else {
+          formatRGBA = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
+          formatRG = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
+          formatR = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
+        }
+
+        return {
+          gl,
+          ext: {
+            formatRGBA,
+            formatRG,
+            formatR,
+            halfFloatTexType,
+            supportLinearFiltering
+          }
+        };
+      }
+
+      function getSupportedFormat(gl, internalFormat, format, type) {
+        if (!supportRenderTextureFormat(gl, internalFormat, format, type)) {
+          switch (internalFormat) {
+            case gl.R16F:
+              return getSupportedFormat(gl, gl.RG16F, gl.RG, type);
+            case gl.RG16F:
+              return getSupportedFormat(gl, gl.RGBA16F, gl.RGBA, type);
+            default:
+              return null;
+          }
+        }
+        return { internalFormat, format };
+      }
+
+      function supportRenderTextureFormat(gl, internalFormat, format, type) {
+        const texture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, 4, 4, 0, format, type, null);
+        const fbo = gl.createFramebuffer();
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+        const status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
+        return status === gl.FRAMEBUFFER_COMPLETE;
+      }
+
+      class Material {
+        constructor(vertexShader, fragmentShaderSource) {
+          this.vertexShader = vertexShader;
+          this.fragmentShaderSource = fragmentShaderSource;
+          this.programs = [];
+          this.activeProgram = null;
+          this.uniforms = [];
+        }
+        setKeywords(keywords) {
+          let hash = 0;
+          for (let i = 0; i < keywords.length; i++) hash += hashCode(keywords[i]);
+          let program = this.programs[hash];
+          if (program == null) {
+            let fragmentShader = compileShader(gl.FRAGMENT_SHADER, this.fragmentShaderSource, keywords);
+            program = createProgram(this.vertexShader, fragmentShader);
+            this.programs[hash] = program;
+          }
+          if (program === this.activeProgram) return;
+          this.uniforms = getUniforms(program);
+          this.activeProgram = program;
+        }
+        bind() {
+          gl.useProgram(this.activeProgram);
+        }
+      }
+
+      class Program {
+        constructor(vertexShader, fragmentShader) {
+          this.uniforms = {};
+          this.program = createProgram(vertexShader, fragmentShader);
+          this.uniforms = getUniforms(this.program);
+        }
+        bind() {
+          gl.useProgram(this.program);
+        }
+      }
+
+      function createProgram(vertexShader, fragmentShader) {
+        let program = gl.createProgram();
+        gl.attachShader(program, vertexShader);
+        gl.attachShader(program, fragmentShader);
+        gl.linkProgram(program);
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) console.trace(gl.getProgramInfoLog(program));
+        return program;
+      }
+
+      function getUniforms(program) {
+        let uniforms = [];
+        let uniformCount = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
+        for (let i = 0; i < uniformCount; i++) {
+          let uniformName = gl.getActiveUniform(program, i).name;
+          uniforms[uniformName] = gl.getUniformLocation(program, uniformName);
+        }
+        return uniforms;
+      }
+
+      function compileShader(type, source, keywords) {
+        source = addKeywords(source, keywords);
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) console.trace(gl.getShaderInfoLog(shader));
+        return shader;
+      }
+
+      function addKeywords(source, keywords) {
+        if (!keywords) return source;
+        let keywordsString = '';
+        keywords.forEach(keyword => {
+          keywordsString += '#define ' + keyword + '\n';
+        });
+        return keywordsString + source;
+      }
+
+      const baseVertexShader = compileShader(
+        gl.VERTEX_SHADER,
+        `
+          precision highp float;
+          attribute vec2 aPosition;
+          varying vec2 vUv;
+          varying vec2 vL;
+          varying vec2 vR;
+          varying vec2 vT;
+          varying vec2 vB;
+          uniform vec2 texelSize;
+
+          void main () {
+              vUv = aPosition * 0.5 + 0.5;
+              vL = vUv - vec2(texelSize.x, 0.0);
+              vR = vUv + vec2(texelSize.x, 0.0);
+              vT = vUv + vec2(0.0, texelSize.y);
+              vB = vUv - vec2(0.0, texelSize.y);
+              gl_Position = vec4(aPosition, 0.0, 1.0);
+          }
+        `
+      );
+
+      const copyShader = compileShader(
+        gl.FRAGMENT_SHADER,
+        `
+          precision mediump float;
+          precision mediump sampler2D;
+          varying highp vec2 vUv;
+          uniform sampler2D uTexture;
+
+          void main () {
+              gl_FragColor = texture2D(uTexture, vUv);
+          }
+        `
+      );
+
+      const clearShader = compileShader(
+        gl.FRAGMENT_SHADER,
+        `
+          precision mediump float;
+          precision mediump sampler2D;
+          varying highp vec2 vUv;
+          uniform sampler2D uTexture;
+          uniform float value;
+
+          void main () {
+              gl_FragColor = value * texture2D(uTexture, vUv);
+          }
+        `
+      );
+
+      const displayShaderSource = `
         precision highp float;
+        precision highp sampler2D;
+        varying vec2 vUv;
+        varying vec2 vL;
+        varying vec2 vR;
+        varying vec2 vT;
+        varying vec2 vB;
+        uniform sampler2D uTexture;
+        uniform sampler2D uDithering;
+        uniform vec2 ditherScale;
+        uniform vec2 texelSize;
 
-        uniform vec2  iResolution;
-        uniform float iTime;
-
-        uniform float uHeight;
-        uniform float uBaseHalf;
-        uniform mat3  uRot;
-        uniform int   uUseBaseWobble;
-        uniform float uGlow;
-        uniform vec2  uOffsetPx;
-        uniform float uNoise;
-        uniform float uSaturation;
-        uniform float uScale;
-        uniform float uHueShift;
-        uniform float uColorFreq;
-        uniform float uBloom;
-        uniform float uCenterShift;
-        uniform float uInvBaseHalf;
-        uniform float uInvHeight;
-        uniform float uMinAxis;
-        uniform float uPxScale;
-        uniform float uTimeScale;
-
-        vec4 tanh4(vec4 x){
-          vec4 e2x = exp(2.0*x);
-          return (e2x - 1.0) / (e2x + 1.0);
+        vec3 linearToGamma (vec3 color) {
+            color = max(color, vec3(0));
+            return max(1.055 * pow(color, vec3(0.416666667)) - 0.055, vec3(0));
         }
 
-        float rand(vec2 co){
-          return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453123);
-        }
+        void main () {
+            vec3 c = texture2D(uTexture, vUv).rgb;
+            #ifdef SHADING
+                vec3 lc = texture2D(uTexture, vL).rgb;
+                vec3 rc = texture2D(uTexture, vR).rgb;
+                vec3 tc = texture2D(uTexture, vT).rgb;
+                vec3 bc = texture2D(uTexture, vB).rgb;
 
-        float sdOctaAnisoInv(vec3 p){
-          vec3 q = vec3(abs(p.x) * uInvBaseHalf, abs(p.y) * uInvHeight, abs(p.z) * uInvBaseHalf);
-          float m = q.x + q.y + q.z - 1.0;
-          return m * uMinAxis * 0.5773502691896258;
-        }
+                float dx = length(rc) - length(lc);
+                float dy = length(tc) - length(bc);
 
-        float sdPyramidUpInv(vec3 p){
-          float oct = sdOctaAnisoInv(p);
-          float halfSpace = -p.y;
-          return max(oct, halfSpace);
-        }
+                vec3 n = normalize(vec3(dx, dy, length(texelSize)));
+                vec3 l = vec3(0.0, 0.0, 1.0);
 
-        mat3 hueRotation(float a){
-          float c = cos(a), s = sin(a);
-          mat3 W = mat3(
-            0.299, 0.587, 0.114,
-            0.299, 0.587, 0.114,
-            0.299, 0.587, 0.114
-          );
-          mat3 U = mat3(
-             0.701, -0.587, -0.114,
-            -0.299,  0.413, -0.114,
-            -0.300, -0.588,  0.886
-          );
-          mat3 V = mat3(
-             0.168, -0.331,  0.500,
-             0.328,  0.035, -0.500,
-            -0.497,  0.296,  0.201
-          );
-          return W + U * c + V * s;
-        }
+                float diffuse = clamp(dot(n, l) + 0.7, 0.7, 1.0);
+                c *= diffuse;
+            #endif
 
-        void main(){
-          vec2 f = (gl_FragCoord.xy - 0.5 * iResolution.xy - uOffsetPx) * uPxScale;
-
-          float z = 5.0;
-          float d = 0.0;
-
-          vec3 p;
-          vec4 o = vec4(0.0);
-
-          float centerShift = uCenterShift;
-          float cf = uColorFreq;
-
-          mat2 wob = mat2(1.0);
-          if (uUseBaseWobble == 1) {
-            float t = iTime * uTimeScale;
-            float c0 = cos(t + 0.0);
-            float c1 = cos(t + 33.0);
-            float c2 = cos(t + 11.0);
-            wob = mat2(c0, c1, c2, c0);
-          }
-
-          const int STEPS = 100;
-          for (int i = 0; i < STEPS; i++) {
-            p = vec3(f, z);
-            p.xz = p.xz * wob;
-            p = uRot * p;
-            vec3 q = p;
-            q.y += centerShift;
-            d = 0.1 + 0.2 * abs(sdPyramidUpInv(q));
-            z -= d;
-            o += (sin((p.y + z) * cf + vec4(0.0, 1.0, 2.0, 3.0)) + 1.0) / d;
-          }
-
-          o = tanh4(o * o * (uGlow * uBloom) / 1e5);
-
-          vec3 col = o.rgb;
-          float n = rand(gl_FragCoord.xy + vec2(iTime));
-          col += (n - 0.5) * uNoise;
-          col = clamp(col, 0.0, 1.0);
-
-          float L = dot(col, vec3(0.2126, 0.7152, 0.0722));
-          col = clamp(mix(vec3(L), col, uSaturation), 0.0, 1.0);
-
-          if(abs(uHueShift) > 0.0001){
-            col = clamp(hueRotation(uHueShift) * col, 0.0, 1.0);
-          }
-
-          gl_FragColor = vec4(col, o.a);
+            float a = max(c.r, max(c.g, c.b));
+            gl_FragColor = vec4(c, a);
         }
       `;
 
-      const geometry = new Triangle(gl);
-      const iResBuf = new Float32Array(2);
-      const offsetPxBuf = new Float32Array(2);
+      const splatShader = compileShader(
+        gl.FRAGMENT_SHADER,
+        `
+          precision highp float;
+          precision highp sampler2D;
+          varying vec2 vUv;
+          uniform sampler2D uTarget;
+          uniform float aspectRatio;
+          uniform vec3 color;
+          uniform vec2 point;
+          uniform float radius;
 
-      const program = new Program(gl, {
-        vertex,
-        fragment,
-        uniforms: {
-          iResolution: { value: iResBuf },
-          iTime: { value: 0 },
-          uHeight: { value: H },
-          uBaseHalf: { value: BASE_HALF },
-          uUseBaseWobble: { value: 1 },
-          uRot: { value: new Float32Array([1, 0, 0, 0, 1, 0, 0, 0, 1]) },
-          uGlow: { value: GLOW },
-          uOffsetPx: { value: offsetPxBuf },
-          uNoise: { value: NOISE },
-          uSaturation: { value: SAT },
-          uScale: { value: SCALE },
-          uHueShift: { value: HUE },
-          uColorFreq: { value: CFREQ },
-          uBloom: { value: BLOOM },
-          uCenterShift: { value: H * 0.25 },
-          uInvBaseHalf: { value: 1 / BASE_HALF },
-          uInvHeight: { value: 1 / H },
-          uMinAxis: { value: Math.min(BASE_HALF, H) },
-          uPxScale: {
-            value: 1 / ((gl.drawingBufferHeight || 1) * 0.1 * SCALE)
+          void main () {
+              vec2 p = vUv - point.xy;
+              p.x *= aspectRatio;
+              vec3 splat = exp(-dot(p, p) / radius) * color;
+              vec3 base = texture2D(uTarget, vUv).xyz;
+              gl_FragColor = vec4(base + splat, 1.0);
+          }
+        `
+      );
+
+      const advectionShader = compileShader(
+        gl.FRAGMENT_SHADER,
+        `
+          precision highp float;
+          precision highp sampler2D;
+          varying vec2 vUv;
+          uniform sampler2D uVelocity;
+          uniform sampler2D uSource;
+          uniform vec2 texelSize;
+          uniform vec2 dyeTexelSize;
+          uniform float dt;
+          uniform float dissipation;
+
+          vec4 bilerp (sampler2D sam, vec2 uv, vec2 tsize) {
+              vec2 st = uv / tsize - 0.5;
+              vec2 iuv = floor(st);
+              vec2 fuv = fract(st);
+
+              vec4 a = texture2D(sam, (iuv + vec2(0.5, 0.5)) * tsize);
+              vec4 b = texture2D(sam, (iuv + vec2(1.5, 0.5)) * tsize);
+              vec4 c = texture2D(sam, (iuv + vec2(0.5, 1.5)) * tsize);
+              vec4 d = texture2D(sam, (iuv + vec2(1.5, 1.5)) * tsize);
+
+              return mix(mix(a, b, fuv.x), mix(c, d, fuv.x), fuv.y);
+          }
+
+          void main () {
+              #ifdef MANUAL_FILTERING
+                  vec2 coord = vUv - dt * bilerp(uVelocity, vUv, texelSize).xy * texelSize;
+                  vec4 result = bilerp(uSource, coord, dyeTexelSize);
+              #else
+                  vec2 coord = vUv - dt * texture2D(uVelocity, vUv).xy * texelSize;
+                  vec4 result = texture2D(uSource, coord);
+              #endif
+              float decay = 1.0 + dissipation * dt;
+              gl_FragColor = result / decay;
+          }
+        `,
+        ext.supportLinearFiltering ? null : ['MANUAL_FILTERING']
+      );
+
+      const divergenceShader = compileShader(
+        gl.FRAGMENT_SHADER,
+        `
+          precision mediump float;
+          precision mediump sampler2D;
+          varying highp vec2 vUv;
+          varying highp vec2 vL;
+          varying highp vec2 vR;
+          varying highp vec2 vT;
+          varying highp vec2 vB;
+          uniform sampler2D uVelocity;
+
+          void main () {
+              float L = texture2D(uVelocity, vL).x;
+              float R = texture2D(uVelocity, vR).x;
+              float T = texture2D(uVelocity, vT).y;
+              float B = texture2D(uVelocity, vB).y;
+
+              vec2 C = texture2D(uVelocity, vUv).xy;
+              if (vL.x < 0.0) { L = -C.x; }
+              if (vR.x > 1.0) { R = -C.x; }
+              if (vT.y > 1.0) { T = -C.y; }
+              if (vB.y < 0.0) { B = -C.y; }
+
+              float div = 0.5 * (R - L + T - B);
+              gl_FragColor = vec4(div, 0.0, 0.0, 1.0);
+          }
+        `
+      );
+
+      const curlShader = compileShader(
+        gl.FRAGMENT_SHADER,
+        `
+          precision mediump float;
+          precision mediump sampler2D;
+          varying highp vec2 vUv;
+          varying highp vec2 vL;
+          varying highp vec2 vR;
+          varying highp vec2 vT;
+          varying highp vec2 vB;
+          uniform sampler2D uVelocity;
+
+          void main () {
+              float L = texture2D(uVelocity, vL).y;
+              float R = texture2D(uVelocity, vR).y;
+              float T = texture2D(uVelocity, vT).x;
+              float B = texture2D(uVelocity, vB).x;
+              float vorticity = R - L - T + B;
+              gl_FragColor = vec4(0.5 * vorticity, 0.0, 0.0, 1.0);
+          }
+        `
+      );
+
+      const vorticityShader = compileShader(
+        gl.FRAGMENT_SHADER,
+        `
+          precision highp float;
+          precision highp sampler2D;
+          varying vec2 vUv;
+          varying vec2 vL;
+          varying vec2 vR;
+          varying vec2 vT;
+          varying vec2 vB;
+          uniform sampler2D uVelocity;
+          uniform sampler2D uCurl;
+          uniform float curl;
+          uniform float dt;
+
+          void main () {
+              float L = texture2D(uCurl, vL).x;
+              float R = texture2D(uCurl, vR).x;
+              float T = texture2D(uCurl, vT).x;
+              float B = texture2D(uCurl, vB).x;
+              float C = texture2D(uCurl, vUv).x;
+
+              vec2 force = 0.5 * vec2(abs(T) - abs(B), abs(R) - abs(L));
+              force /= length(force) + 0.0001;
+              force *= curl * C;
+              force.y *= -1.0;
+
+              vec2 velocity = texture2D(uVelocity, vUv).xy;
+              velocity += force * dt;
+              velocity = min(max(velocity, -1000.0), 1000.0);
+              gl_FragColor = vec4(velocity, 0.0, 1.0);
+          }
+        `
+      );
+
+      const pressureShader = compileShader(
+        gl.FRAGMENT_SHADER,
+        `
+          precision mediump float;
+          precision mediump sampler2D;
+          varying highp vec2 vUv;
+          varying highp vec2 vL;
+          varying highp vec2 vR;
+          varying highp vec2 vT;
+          varying highp vec2 vB;
+          uniform sampler2D uPressure;
+          uniform sampler2D uDivergence;
+
+          void main () {
+              float L = texture2D(uPressure, vL).x;
+              float R = texture2D(uPressure, vR).x;
+              float T = texture2D(uPressure, vT).x;
+              float B = texture2D(uPressure, vB).x;
+              float C = texture2D(uPressure, vUv).x;
+              float divergence = texture2D(uDivergence, vUv).x;
+              float pressure = (L + R + B + T - divergence) * 0.25;
+              gl_FragColor = vec4(pressure, 0.0, 0.0, 1.0);
+          }
+        `
+      );
+
+      const gradientSubtractShader = compileShader(
+        gl.FRAGMENT_SHADER,
+        `
+          precision mediump float;
+          precision mediump sampler2D;
+          varying highp vec2 vUv;
+          varying highp vec2 vL;
+          varying highp vec2 vR;
+          varying highp vec2 vT;
+          varying highp vec2 vB;
+          uniform sampler2D uPressure;
+          uniform sampler2D uVelocity;
+
+          void main () {
+              float L = texture2D(uPressure, vL).x;
+              float R = texture2D(uPressure, vR).x;
+              float T = texture2D(uPressure, vT).x;
+              float B = texture2D(uPressure, vB).x;
+              vec2 velocity = texture2D(uVelocity, vUv).xy;
+              velocity.xy -= vec2(R - L, T - B);
+              gl_FragColor = vec4(velocity, 0.0, 1.0);
+          }
+        `
+      );
+
+      const blit = (() => {
+        gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]), gl.STATIC_DRAW);
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, gl.createBuffer());
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array([0, 1, 2, 0, 2, 3]), gl.STATIC_DRAW);
+        gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(0);
+        return (target, clear = false) => {
+          if (target == null) {
+            gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
+            gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+          } else {
+            gl.viewport(0, 0, target.width, target.height);
+            gl.bindFramebuffer(gl.FRAMEBUFFER, target.fbo);
+          }
+          if (clear) {
+            gl.clearColor(0.0, 0.0, 0.0, 0.0);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+          }
+          gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+        };
+      })();
+
+      let dye, velocity, divergence, curl, pressure;
+
+      const copyProgram = new Program(baseVertexShader, copyShader);
+      const clearProgram = new Program(baseVertexShader, clearShader);
+      const splatProgram = new Program(baseVertexShader, splatShader);
+      const advectionProgram = new Program(baseVertexShader, advectionShader);
+      const divergenceProgram = new Program(baseVertexShader, divergenceShader);
+      const curlProgram = new Program(baseVertexShader, curlShader);
+      const vorticityProgram = new Program(baseVertexShader, vorticityShader);
+      const pressureProgram = new Program(baseVertexShader, pressureShader);
+      const gradienSubtractProgram = new Program(baseVertexShader, gradientSubtractShader);
+      const displayMaterial = new Material(baseVertexShader, displayShaderSource);
+
+      function initFramebuffers() {
+        let simRes = getResolution(config.SIM_RESOLUTION);
+        let dyeRes = getResolution(config.DYE_RESOLUTION);
+        const texType = ext.halfFloatTexType;
+        const rgba = ext.formatRGBA;
+        const rg = ext.formatRG;
+        const r = ext.formatR;
+        const filtering = ext.supportLinearFiltering ? gl.LINEAR : gl.NEAREST;
+        gl.disable(gl.BLEND);
+
+        if (!dye)
+          dye = createDoubleFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
+        else
+          dye = resizeDoubleFBO(dye, dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
+
+        if (!velocity)
+          velocity = createDoubleFBO(simRes.width, simRes.height, rg.internalFormat, rg.format, texType, filtering);
+        else
+          velocity = resizeDoubleFBO(
+            velocity,
+            simRes.width,
+            simRes.height,
+            rg.internalFormat,
+            rg.format,
+            texType,
+            filtering
+          );
+
+        divergence = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+        curl = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+        pressure = createDoubleFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
+      }
+
+      function createFBO(w, h, internalFormat, format, type, param) {
+        gl.activeTexture(gl.TEXTURE0);
+        let texture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, param);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, param);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, w, h, 0, format, type, null);
+
+        let fbo = gl.createFramebuffer();
+        gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+        gl.viewport(0, 0, w, h);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        let texelSizeX = 1.0 / w;
+        let texelSizeY = 1.0 / h;
+        return {
+          texture,
+          fbo,
+          width: w,
+          height: h,
+          texelSizeX,
+          texelSizeY,
+          attach(id) {
+            gl.activeTexture(gl.TEXTURE0 + id);
+            gl.bindTexture(gl.TEXTURE_2D, texture);
+            return id;
+          }
+        };
+      }
+
+      function createDoubleFBO(w, h, internalFormat, format, type, param) {
+        let fbo1 = createFBO(w, h, internalFormat, format, type, param);
+        let fbo2 = createFBO(w, h, internalFormat, format, type, param);
+        return {
+          width: w,
+          height: h,
+          texelSizeX: fbo1.texelSizeX,
+          texelSizeY: fbo1.texelSizeY,
+          get read() {
+            return fbo1;
           },
-          uTimeScale: { value: TS }
+          set read(value) {
+            fbo1 = value;
+          },
+          get write() {
+            return fbo2;
+          },
+          set write(value) {
+            fbo2 = value;
+          },
+          swap() {
+            let temp = fbo1;
+            fbo1 = fbo2;
+            fbo2 = temp;
+          }
+        };
+      }
+
+      function resizeFBO(target, w, h, internalFormat, format, type, param) {
+        let newFBO = createFBO(w, h, internalFormat, format, type, param);
+        copyProgram.bind();
+        gl.uniform1i(copyProgram.uniforms.uTexture, target.attach(0));
+        blit(newFBO);
+        return newFBO;
+      }
+
+      function resizeDoubleFBO(target, w, h, internalFormat, format, type, param) {
+        if (target.width === w && target.height === h) return target;
+        target.read = resizeFBO(target.read, w, h, internalFormat, format, type, param);
+        target.write = createFBO(w, h, internalFormat, format, type, param);
+        target.width = w;
+        target.height = h;
+        target.texelSizeX = 1.0 / w;
+        target.texelSizeY = 1.0 / h;
+        return target;
+      }
+
+      function updateKeywords() {
+        let displayKeywords = [];
+        if (config.SHADING) displayKeywords.push('SHADING');
+        displayMaterial.setKeywords(displayKeywords);
+      }
+
+      updateKeywords();
+      initFramebuffers();
+      let lastUpdateTime = Date.now();
+      let colorUpdateTimer = 0.0;
+
+      function updateFrame() {
+        const dt = calcDeltaTime();
+        if (resizeCanvas()) initFramebuffers();
+        updateColors(dt);
+        applyInputs();
+        step(dt);
+        render(null);
+        requestAnimationFrame(updateFrame);
+      }
+
+      function calcDeltaTime() {
+        let now = Date.now();
+        let dt = (now - lastUpdateTime) / 1000;
+        dt = Math.min(dt, 0.016666);
+        lastUpdateTime = now;
+        return dt;
+      }
+
+      function resizeCanvas() {
+        let width = scaleByPixelRatio(canvas.clientWidth);
+        let height = scaleByPixelRatio(canvas.clientHeight);
+        if (canvas.width !== width || canvas.height !== height) {
+          canvas.width = width;
+          canvas.height = height;
+          return true;
         }
-      });
-      const mesh = new Mesh(gl, { geometry, program });
+        return false;
+      }
 
-      const resize = () => {
-        const w = container.clientWidth || 1;
-        const h = container.clientHeight || 1;
-        renderer.setSize(w, h);
-        iResBuf[0] = gl.drawingBufferWidth;
-        iResBuf[1] = gl.drawingBufferHeight;
-        offsetPxBuf[0] = offX * dpr;
-        offsetPxBuf[1] = offY * dpr;
-        program.uniforms.uPxScale.value = 1 / ((gl.drawingBufferHeight || 1) * 0.1 * SCALE);
-      };
-      const ro = new ResizeObserver(resize);
-      ro.observe(container);
-      resize();
+      function updateColors(dt) {
+        colorUpdateTimer += dt * config.COLOR_UPDATE_SPEED;
+        if (colorUpdateTimer >= 1) {
+          colorUpdateTimer = wrap(colorUpdateTimer, 0, 1);
+          pointers.forEach(p => {
+            p.color = generateColor();
+          });
+        }
+      }
 
-      const rotBuf = new Float32Array(9);
-      const setMat3FromEuler = (yawY, pitchX, rollZ, out) => {
-        const cy = Math.cos(yawY), sy = Math.sin(yawY);
-        const cx = Math.cos(pitchX), sx = Math.sin(pitchX);
-        const cz = Math.cos(rollZ),  sz = Math.sin(rollZ);
+      // Splat random particles once in a while to keep the background active
+      let inactiveTimer = 0;
+      function applyInputs() {
+        let anyMoved = false;
+        pointers.forEach(p => {
+          if (p.moved) {
+            p.moved = false;
+            splatPointer(p);
+            anyMoved = true;
+          }
+        });
         
-        const r00 = cy * cz + sy * sx * sz;
-        const r01 = -cy * sz + sy * sx * cz;
-        const r02 = sy * cx;
-
-        const r10 = cx * sz;
-        const r11 = cx * cz;
-        const r12 = -sx;
-
-        const r20 = -sy * cz + cy * sx * sz;
-        const r21 = sy * sz + cy * sx * cz;
-        const r22 = cy * cx;
-
-        out[0] = r00; out[1] = r10; out[2] = r20;
-        out[3] = r01; out[4] = r11; out[5] = r21;
-        out[6] = r02; out[7] = r12; out[8] = r22;
-        return out;
-      };
-
-      const NOISE_IS_ZERO = NOISE < 1e-6;
-      let raf = 0;
-      const t0 = performance.now();
-      const startRAF = () => {
-        if (raf) return;
-        raf = requestAnimationFrame(render);
-      };
-      const stopRAF = () => {
-        if (!raf) return;
-        cancelAnimationFrame(raf);
-        raf = 0;
-      };
-
-      const rnd = () => Math.random();
-      const wX = (0.3 + rnd() * 0.6);
-      const wY = (0.2 + rnd() * 0.7);
-      const wZ = (0.1 + rnd() * 0.5);
-      const phX = rnd() * Math.PI * 2;
-      const phZ = rnd() * Math.PI * 2;
-
-      let yaw = 0, pitch = 0, roll = 0;
-      let targetYaw = 0, targetPitch = 0;
-      const lerp = (a, b, t) => a + (b - a) * t;
-
-      const pointer = { x: 0, y: 0, inside: false };
-      const onMove = e => {
-        const ww = Math.max(1, window.innerWidth);
-        const wh = Math.max(1, window.innerHeight);
-        const cx = ww * 0.5;
-        const cy = wh * 0.5;
-        const nx = (e.clientX - cx) / (ww * 0.5);
-        const ny = (e.clientY - cy) / (wh * 0.5);
-        pointer.x = Math.max(-1, Math.min(1, nx));
-        pointer.y = Math.max(-1, Math.min(1, ny));
-        pointer.inside = true;
-      };
-      const onLeave = () => { pointer.inside = false; };
-      const onBlur = () => { pointer.inside = false; };
-
-      let onPointerMove = null;
-      if (animationType === 'hover') {
-        onPointerMove = e => {
-          onMove(e);
-          startRAF();
-        };
-        window.addEventListener('pointermove', onPointerMove, { passive: true });
-        window.addEventListener('mouseleave', onLeave);
-        window.addEventListener('blur', onBlur);
-        program.uniforms.uUseBaseWobble.value = 0;
-      } else if (animationType === '3drotate') {
-        program.uniforms.uUseBaseWobble.value = 0;
-      } else {
-        program.uniforms.uUseBaseWobble.value = 1;
-      }
-
-      const render = t => {
-        const time = (t - t0) * 0.001;
-        program.uniforms.iTime.value = time;
-
-        let continueRAF = true;
-
-        if (animationType === 'hover') {
-          const maxPitch = 0.6 * HOVSTR;
-          const maxYaw = 0.6 * HOVSTR;
-          targetYaw = (pointer.inside ? -pointer.x : 0) * maxYaw;
-          targetPitch = (pointer.inside ? pointer.y : 0) * maxPitch;
-          const prevYaw = yaw;
-          const prevPitch = pitch;
-          const prevRoll = roll;
-          yaw = lerp(prevYaw, targetYaw, INERT);
-          pitch = lerp(prevPitch, targetPitch, INERT);
-          roll = lerp(prevRoll, 0, 0.1);
-          program.uniforms.uRot.value = setMat3FromEuler(yaw, pitch, roll, rotBuf);
-
-          if (NOISE_IS_ZERO) {
-            const settled =
-              Math.abs(yaw - targetYaw) < 1e-4 && Math.abs(pitch - targetPitch) < 1e-4 && Math.abs(roll) < 1e-4;
-            if (settled) continueRAF = false;
+        // Auto splat occasional subtle swirls if user is idle
+        if (!anyMoved) {
+          inactiveTimer += 0.0166;
+          if (inactiveTimer > 4.0) {
+            inactiveTimer = 0;
+            const mockPointer = {
+              texcoordX: 0.2 + Math.random() * 0.6,
+              texcoordY: 0.2 + Math.random() * 0.6
+            };
+            clickSplat(mockPointer);
           }
-        } else if (animationType === '3drotate') {
-          const tScaled = time * TS;
-          yaw = tScaled * wY;
-          pitch = Math.sin(tScaled * wX + phX) * 0.6;
-          roll = Math.sin(tScaled * wZ + phZ) * 0.5;
-          program.uniforms.uRot.value = setMat3FromEuler(yaw, pitch, roll, rotBuf);
-          if (TS < 1e-6) continueRAF = false;
         } else {
-          rotBuf[0] = 1; rotBuf[1] = 0; rotBuf[2] = 0;
-          rotBuf[3] = 0; rotBuf[4] = 1; rotBuf[5] = 0;
-          rotBuf[6] = 0; rotBuf[7] = 0; rotBuf[8] = 1;
-          program.uniforms.uRot.value = rotBuf;
-          if (TS < 1e-6) continueRAF = false;
+          inactiveTimer = 0;
+        }
+      }
+
+      function step(dt) {
+        gl.disable(gl.BLEND);
+        curlProgram.bind();
+        gl.uniform2f(curlProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl.uniform1i(curlProgram.uniforms.uVelocity, velocity.read.attach(0));
+        blit(curl);
+
+        vorticityProgram.bind();
+        gl.uniform2f(vorticityProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl.uniform1i(vorticityProgram.uniforms.uVelocity, velocity.read.attach(0));
+        gl.uniform1i(vorticityProgram.uniforms.uCurl, curl.attach(1));
+        gl.uniform1f(vorticityProgram.uniforms.curl, config.CURL);
+        gl.uniform1f(vorticityProgram.uniforms.dt, dt);
+        blit(velocity.write);
+        velocity.swap();
+
+        divergenceProgram.bind();
+        gl.uniform2f(divergenceProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl.uniform1i(divergenceProgram.uniforms.uVelocity, velocity.read.attach(0));
+        blit(divergence);
+
+        clearProgram.bind();
+        gl.uniform1i(clearProgram.uniforms.uTexture, pressure.read.attach(0));
+        gl.uniform1f(clearProgram.uniforms.value, config.PRESSURE);
+        blit(pressure.write);
+        pressure.swap();
+
+        pressureProgram.bind();
+        gl.uniform2f(pressureProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl.uniform1i(pressureProgram.uniforms.uDivergence, divergence.attach(0));
+        for (let i = 0; i < config.PRESSURE_ITERATIONS; i++) {
+          gl.uniform1i(pressureProgram.uniforms.uPressure, pressure.read.attach(1));
+          blit(pressure.write);
+          pressure.swap();
         }
 
-        renderer.render({ scene: mesh });
-        if (continueRAF) {
-          raf = requestAnimationFrame(render);
+        gradienSubtractProgram.bind();
+        gl.uniform2f(gradienSubtractProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        gl.uniform1i(gradienSubtractProgram.uniforms.uPressure, pressure.read.attach(0));
+        gl.uniform1i(gradienSubtractProgram.uniforms.uVelocity, velocity.read.attach(1));
+        blit(velocity.write);
+        velocity.swap();
+
+        advectionProgram.bind();
+        gl.uniform2f(advectionProgram.uniforms.texelSize, velocity.texelSizeX, velocity.texelSizeY);
+        if (!ext.supportLinearFiltering)
+          gl.uniform2f(advectionProgram.uniforms.dyeTexelSize, velocity.texelSizeX, velocity.texelSizeY);
+        let velocityId = velocity.read.attach(0);
+        gl.uniform1i(advectionProgram.uniforms.uVelocity, velocityId);
+        gl.uniform1i(advectionProgram.uniforms.uSource, velocityId);
+        gl.uniform1f(advectionProgram.uniforms.dt, dt);
+        gl.uniform1f(advectionProgram.uniforms.dissipation, config.VELOCITY_DISSIPATION);
+        blit(velocity.write);
+        velocity.swap();
+
+        if (!ext.supportLinearFiltering)
+          gl.uniform2f(advectionProgram.uniforms.dyeTexelSize, dye.texelSizeX, dye.texelSizeY);
+        gl.uniform1i(advectionProgram.uniforms.uVelocity, velocity.read.attach(0));
+        gl.uniform1i(advectionProgram.uniforms.uSource, dye.read.attach(1));
+        gl.uniform1f(advectionProgram.uniforms.dissipation, config.DENSITY_DISSIPATION);
+        blit(dye.write);
+        dye.swap();
+      }
+
+      function render(target) {
+        gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+        gl.enable(gl.BLEND);
+        drawDisplay(target);
+      }
+
+      function drawDisplay(target) {
+        let width = target == null ? gl.drawingBufferWidth : target.width;
+        let height = target == null ? gl.drawingBufferHeight : target.height;
+        displayMaterial.bind();
+        if (config.SHADING) gl.uniform2f(displayMaterial.uniforms.texelSize, 1.0 / width, 1.0 / height);
+        gl.uniform1i(displayMaterial.uniforms.uTexture, dye.read.attach(0));
+        blit(target);
+      }
+
+      function splatPointer(pointer) {
+        let dx = pointer.deltaX * config.SPLAT_FORCE;
+        let dy = pointer.deltaY * config.SPLAT_FORCE;
+        splat(pointer.texcoordX, pointer.texcoordY, dx, dy, pointer.color);
+      }
+
+      function clickSplat(pointer) {
+        const color = generateColor();
+        color.r *= 10.0;
+        color.g *= 10.0;
+        color.b *= 10.0;
+        let dx = 10 * (Math.random() - 0.5);
+        let dy = 30 * (Math.random() - 0.5);
+        splat(pointer.texcoordX, pointer.texcoordY, dx, dy, color);
+      }
+
+      function splat(x, y, dx, dy, color) {
+        splatProgram.bind();
+        gl.uniform1i(splatProgram.uniforms.uTarget, velocity.read.attach(0));
+        gl.uniform1f(splatProgram.uniforms.aspectRatio, canvas.width / canvas.height);
+        gl.uniform2f(splatProgram.uniforms.point, x, y);
+        gl.uniform3f(splatProgram.uniforms.color, dx, dy, 0.0);
+        gl.uniform1f(splatProgram.uniforms.radius, correctRadius(config.SPLAT_RADIUS / 100.0));
+        blit(velocity.write);
+        velocity.swap();
+
+        gl.uniform1i(splatProgram.uniforms.uTarget, dye.read.attach(0));
+        gl.uniform3f(splatProgram.uniforms.color, color.r, color.g, color.b);
+        blit(dye.write);
+        dye.swap();
+      }
+
+      function correctRadius(radius) {
+        let aspectRatio = canvas.width / canvas.height;
+        if (aspectRatio > 1) radius *= aspectRatio;
+        return radius;
+      }
+
+      function updatePointerDownData(pointer, id, posX, posY) {
+        pointer.id = id;
+        pointer.down = true;
+        pointer.moved = false;
+        pointer.texcoordX = posX / canvas.width;
+        pointer.texcoordY = 1.0 - posY / canvas.height;
+        pointer.prevTexcoordX = pointer.texcoordX;
+        pointer.prevTexcoordY = pointer.texcoordY;
+        pointer.deltaX = 0;
+        pointer.deltaY = 0;
+        pointer.color = generateColor();
+      }
+
+      function updatePointerMoveData(pointer, posX, posY, color) {
+        pointer.prevTexcoordX = pointer.texcoordX;
+        pointer.prevTexcoordY = pointer.texcoordY;
+        pointer.texcoordX = posX / canvas.width;
+        pointer.texcoordY = 1.0 - posY / canvas.height;
+        pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX);
+        pointer.deltaY = correctDeltaY(pointer.texcoordY - pointer.prevTexcoordY);
+        pointer.moved = Math.abs(pointer.deltaX) > 0 || Math.abs(pointer.deltaY) > 0;
+        pointer.color = color;
+      }
+
+      function updatePointerUpData(pointer) {
+        pointer.down = false;
+      }
+
+      function correctDeltaX(delta) {
+        let aspectRatio = canvas.width / canvas.height;
+        if (aspectRatio < 1) delta *= aspectRatio;
+        return delta;
+      }
+
+      function correctDeltaY(delta) {
+        let aspectRatio = canvas.width / canvas.height;
+        if (aspectRatio > 1) delta /= aspectRatio;
+        return delta;
+      }
+
+      function hexToRGB(hex) {
+        let val = hex.replace('#', '');
+        if (val.length === 3) val = val[0] + val[0] + val[1] + val[1] + val[2] + val[2];
+        const r = parseInt(val.slice(0, 2), 16) / 255;
+        const g = parseInt(val.slice(2, 4), 16) / 255;
+        const b = parseInt(val.slice(4, 6), 16) / 255;
+        return { r: r * 0.15, g: g * 0.15, b: b * 0.15 };
+      }
+
+      function generateColor() {
+        if (!config.RAINBOW_MODE) {
+          return hexToRGB(config.COLOR);
+        }
+        let c = HSVtoRGB(Math.random(), 1.0, 1.0);
+        c.r *= 0.15;
+        c.g *= 0.15;
+        c.b *= 0.15;
+        return c;
+      }
+
+      function HSVtoRGB(h, s, v) {
+        let r, g, b, i, f, p, q, t;
+        i = Math.floor(h * 6);
+        f = h * 6 - i;
+        p = v * (1 - s);
+        q = v * (1 - f * s);
+        t = v * (1 - (1 - f) * s);
+        switch (i % 6) {
+          case 0:
+            r = v;
+            g = t;
+            b = p;
+            break;
+          case 1:
+            r = q;
+            g = v;
+            b = p;
+            break;
+          case 2:
+            r = p;
+            g = v;
+            b = t;
+            break;
+          case 3:
+            r = p;
+            g = q;
+            b = v;
+            break;
+          case 4:
+            r = t;
+            g = p;
+            b = v;
+            break;
+          case 5:
+            r = v;
+            g = p;
+            b = q;
+            break;
+          default:
+            break;
+        }
+        return { r, g, b };
+      }
+
+      function wrap(value, min, max) {
+        const range = max - min;
+        if (range === 0) return min;
+        return ((value - min) % range) + min;
+      }
+
+      function getResolution(resolution) {
+        let aspectRatio = gl.drawingBufferWidth / gl.drawingBufferHeight;
+        if (aspectRatio < 1) aspectRatio = 1.0 / aspectRatio;
+        const min = Math.round(resolution);
+        const max = Math.round(resolution * aspectRatio);
+        if (gl.drawingBufferWidth > gl.drawingBufferHeight) return { width: max, height: min };
+        else return { width: min, height: max };
+      }
+
+      function scaleByPixelRatio(input) {
+        const pixelRatio = window.devicePixelRatio || 1;
+        return Math.floor(input * pixelRatio);
+      }
+
+      function hashCode(s) {
+        if (s.length === 0) return 0;
+        let hash = 0;
+        for (let i = 0; i < s.length; i++) {
+          hash = (hash << 5) - hash + s.charCodeAt(i);
+          hash |= 0;
+        }
+        return hash;
+      }
+
+      function handleMouseDown(e) {
+        let pointer = pointers[0];
+        let posX = scaleByPixelRatio(e.clientX);
+        let posY = scaleByPixelRatio(e.clientY);
+        updatePointerDownData(pointer, -1, posX, posY);
+        clickSplat(pointer);
+      }
+
+      let firstMouseMoveHandled = false;
+      function handleMouseMove(e) {
+        let pointer = pointers[0];
+        let posX = scaleByPixelRatio(e.clientX);
+        let posY = scaleByPixelRatio(e.clientY);
+        if (!firstMouseMoveHandled) {
+          let color = generateColor();
+          updatePointerMoveData(pointer, posX, posY, color);
+          firstMouseMoveHandled = true;
         } else {
-          raf = 0;
+          updatePointerMoveData(pointer, posX, posY, pointer.color);
         }
-      };
-
-      if (suspendWhenOffscreen) {
-        const io = new IntersectionObserver(entries => {
-          const vis = entries.some(e => e.isIntersecting);
-          if (vis) startRAF();
-          else stopRAF();
-        });
-        io.observe(container);
-        startRAF();
-        container.__prismIO = io;
-      } else {
-        startRAF();
-      }
-    }
-
-    /* ==========================================
-       MAGIC BENTO INTERACTION MANAGER (GSAP-based)
-       ========================================== */
-    function initMagicBento() {
-      const grid = document.getElementById('bentoGrid');
-      if (!grid) return;
-      if (!window.gsap) {
-        console.warn("GSAP library not loaded yet.");
-        return;
       }
 
-      const isMobile = window.innerWidth <= 768;
-      const disableAnimations = isMobile;
-
-      // 1. Create global spotlight cursor follower
-      let spotlight = document.querySelector('.global-spotlight');
-      if (!spotlight && !disableAnimations) {
-        spotlight = document.createElement('div');
-        spotlight.className = 'global-spotlight';
-        spotlight.style.cssText = `
-          position: fixed;
-          width: 800px;
-          height: 800px;
-          border-radius: 50%;
-          pointer-events: none;
-          background: radial-gradient(circle,
-            rgba(232, 146, 124, 0.15) 0%,
-            rgba(232, 146, 124, 0.08) 15%,
-            rgba(232, 146, 124, 0.04) 25%,
-            rgba(232, 146, 124, 0.02) 40%,
-            rgba(232, 146, 124, 0.01) 65%,
-            transparent 70%
-          );
-          z-index: 200;
-          opacity: 0;
-          transform: translate(-50%, -50%);
-          mix-blend-mode: screen;
-          will-change: transform, opacity;
-        `;
-        document.body.appendChild(spotlight);
-      }
-
-      const cards = grid.querySelectorAll('.magic-bento-card');
-
-      // Helper to create particle elements
-      const createParticleElement = (x, y, color) => {
-        const el = document.createElement('div');
-        el.className = 'particle';
-        el.style.cssText = `
-          position: absolute;
-          width: 4px;
-          height: 4px;
-          border-radius: 50%;
-          background: rgba(${color}, 1);
-          box-shadow: 0 0 6px rgba(${color}, 0.6);
-          pointer-events: none;
-          z-index: 5;
-          left: ${x}px;
-          top: ${y}px;
-        `;
-        return el;
-      };
-
-      // Global Mousemove listener
-      const handleGlobalMouseMove = e => {
-        if (disableAnimations) return;
-
-        const rect = grid.getBoundingClientRect();
-        const mouseInside = (
-          e.clientX >= rect.left && e.clientX <= rect.right &&
-          e.clientY >= rect.top && e.clientY <= rect.bottom
-        );
-
-        if (!mouseInside) {
-          gsap.to(spotlight, { opacity: 0, duration: 0.3, ease: 'power2.out' });
-          cards.forEach(card => card.style.setProperty('--glow-intensity', '0'));
-          return;
+      function handleTouchStart(e) {
+        const touches = e.targetTouches;
+        let pointer = pointers[0];
+        for (let i = 0; i < touches.length; i++) {
+          let posX = scaleByPixelRatio(touches[i].clientX);
+          let posY = scaleByPixelRatio(touches[i].clientY);
+          updatePointerDownData(pointer, touches[i].identifier, posX, posY);
         }
-
-        const spotlightRadius = 300;
-        const proximity = spotlightRadius * 0.5;
-        const fadeDistance = spotlightRadius * 0.75;
-        let minDistance = Infinity;
-
-        cards.forEach(card => {
-          const cardRect = card.getBoundingClientRect();
-          const centerX = cardRect.left + cardRect.width / 2;
-          const centerY = cardRect.top + cardRect.height / 2;
-          const distance = Math.hypot(e.clientX - centerX, e.clientY - centerY) - Math.max(cardRect.width, cardRect.height) / 2;
-          const effectiveDistance = Math.max(0, distance);
-
-          minDistance = Math.min(minDistance, effectiveDistance);
-
-          let glowIntensity = 0;
-          if (effectiveDistance <= proximity) {
-            glowIntensity = 1;
-          } else if (effectiveDistance <= fadeDistance) {
-            glowIntensity = (fadeDistance - effectiveDistance) / (fadeDistance - proximity);
-          }
-
-          const relativeX = ((e.clientX - cardRect.left) / cardRect.width) * 100;
-          const relativeY = ((e.clientY - cardRect.top) / cardRect.height) * 100;
-
-          card.style.setProperty('--glow-x', `${relativeX}%`);
-          card.style.setProperty('--glow-y', `${relativeY}%`);
-          card.style.setProperty('--glow-intensity', glowIntensity.toString());
-          card.style.setProperty('--glow-radius', `${spotlightRadius}px`);
-        });
-
-        // Move spotlight
-        gsap.to(spotlight, {
-          left: e.clientX,
-          top: e.clientY,
-          duration: 0.1,
-          ease: 'power2.out'
-        });
-
-        const targetOpacity = minDistance <= proximity
-          ? 0.8
-          : minDistance <= fadeDistance
-            ? ((fadeDistance - minDistance) / (fadeDistance - proximity)) * 0.8
-            : 0;
-
-        gsap.to(spotlight, {
-          opacity: targetOpacity,
-          duration: targetOpacity > 0 ? 0.2 : 0.5,
-          ease: 'power2.out'
-        });
-      };
-
-      if (!disableAnimations) {
-        document.addEventListener('mousemove', handleGlobalMouseMove);
       }
 
-      // Configure each bento card
-      cards.forEach(card => {
-        card._isHovered = false;
-        card._particles = [];
-        card._timeouts = [];
+      function handleTouchMove(e) {
+        const touches = e.targetTouches;
+        let pointer = pointers[0];
+        for (let i = 0; i < touches.length; i++) {
+          let posX = scaleByPixelRatio(touches[i].clientX);
+          let posY = scaleByPixelRatio(touches[i].clientY);
+          updatePointerMoveData(pointer, posX, posY, pointer.color);
+        }
+      }
 
-        const handleMouseEnter = () => {
-          card._isHovered = true;
-          if (disableAnimations) return;
+      function handleTouchEnd(e) {
+        const touches = e.changedTouches;
+        let pointer = pointers[0];
+        for (let i = 0; i < touches.length; i++) {
+          updatePointerUpData(pointer);
+        }
+      }
 
-          const cardRect = card.getBoundingClientRect();
-          const glowColor = card.style.getPropertyValue('--glow-color') || '132, 0, 255';
-          const particleCount = 12;
+      window.addEventListener('mousedown', handleMouseDown);
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('touchstart', handleTouchStart);
+      window.addEventListener('touchmove', handleTouchMove, { passive: false });
+      window.addEventListener('touchend', handleTouchEnd);
 
-          for (let i = 0; i < particleCount; i++) {
-            const timeoutId = setTimeout(() => {
-              if (!card._isHovered) return;
-              const pX = Math.random() * cardRect.width;
-              const pY = Math.random() * cardRect.height;
-              const clone = createParticleElement(pX, pY, glowColor);
-              card.appendChild(clone);
-              card._particles.push(clone);
-
-              gsap.fromTo(clone, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.7)' });
-
-              gsap.to(clone, {
-                x: (Math.random() - 0.5) * 80,
-                y: (Math.random() - 0.5) * 80,
-                rotation: Math.random() * 360,
-                duration: 2 + Math.random() * 2,
-                ease: 'none',
-                repeat: -1,
-                yoyo: true
-              });
-
-              gsap.to(clone, {
-                opacity: 0.3,
-                duration: 1.5,
-                ease: 'power2.inOut',
-                repeat: -1,
-                yoyo: true
-              });
-            }, i * 100);
-            card._timeouts.push(timeoutId);
-          }
-
-          gsap.to(card, {
-            rotateX: 4,
-            rotateY: 4,
-            duration: 0.3,
-            ease: 'power2.out',
-            transformPerspective: 1000
-          });
-        };
-
-        const handleMouseMove = e => {
-          if (disableAnimations) return;
-
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-
-          // 3D Tilt
-          const rotateX = ((y - centerY) / centerY) * -8;
-          const rotateY = ((x - centerX) / centerX) * 8;
-          gsap.to(card, {
-            rotateX,
-            rotateY,
-            duration: 0.1,
-            ease: 'power2.out',
-            transformPerspective: 1000
-          });
-
-          // Magnet attraction
-          const magnetX = (x - centerX) * 0.06;
-          const magnetY = (y - centerY) * 0.06;
-          gsap.to(card, {
-            x: magnetX,
-            y: magnetY,
-            duration: 0.3,
-            ease: 'power2.out'
-          });
-        };
-
-        const handleMouseLeave = () => {
-          card._isHovered = false;
-
-          // Clear timeouts and particles
-          card._timeouts.forEach(clearTimeout);
-          card._timeouts = [];
-
-          card._particles.forEach(p => {
-            gsap.to(p, {
-              scale: 0,
-              opacity: 0,
-              duration: 0.3,
-              ease: 'power2.in',
-              onComplete: () => p.remove()
-            });
-          });
-          card._particles = [];
-
-          if (disableAnimations) return;
-
-          // Reset positioning
-          gsap.to(card, {
-            rotateX: 0,
-            rotateY: 0,
-            x: 0,
-            y: 0,
-            duration: 0.3,
-            ease: 'power2.out'
-          });
-        };
-
-        const handleClick = e => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-
-          const maxDistance = Math.max(
-            Math.hypot(x, y),
-            Math.hypot(x - rect.width, y),
-            Math.hypot(x, y - rect.height),
-            Math.hypot(x - rect.width, y - rect.height)
-          );
-
-          const ripple = document.createElement('div');
-          const glowColor = card.style.getPropertyValue('--glow-color') || '132, 0, 255';
-          ripple.style.cssText = `
-            position: absolute;
-            width: ${maxDistance * 2}px;
-            height: ${maxDistance * 2}px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(${glowColor.trim()}, 0.35) 0%, rgba(${glowColor.trim()}, 0.08) 35%, transparent 70%);
-            left: ${x - maxDistance}px;
-            top: ${y - maxDistance}px;
-            pointer-events: none;
-            z-index: 10;
-          `;
-
-          card.appendChild(ripple);
-
-          gsap.fromTo(
-            ripple,
-            { scale: 0, opacity: 1 },
-            {
-              scale: 1,
-              opacity: 0,
-              duration: 0.8,
-              ease: 'power2.out',
-              onComplete: () => ripple.remove()
-            }
-          );
-        };
-
-        card.addEventListener('mouseenter', handleMouseEnter);
-        card.addEventListener('mousemove', handleMouseMove);
-        card.addEventListener('mouseleave', handleMouseLeave);
-        card.addEventListener('click', handleClick);
-      });
-    }
+      updateFrame();
+    })();
   </script>
 </body>
 </html>
