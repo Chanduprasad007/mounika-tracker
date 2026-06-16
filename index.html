@@ -874,8 +874,9 @@
       flex-direction: column;
       justify-content: space-between;
       position: relative;
-      aspect-ratio: 1.5;
-      min-height: 150px;
+      aspect-ratio: auto;
+      min-height: 160px;
+      height: auto;
       width: 100%;
       max-width: 100%;
       padding: 20px;
@@ -883,7 +884,7 @@
       border: 1px solid var(--card-border);
       background: var(--card-bg);
       font-weight: 300;
-      overflow: hidden;
+      overflow: visible;
       transition: box-shadow 0.3s ease, border-color 0.3s ease;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
@@ -971,7 +972,6 @@
       }
       .magic-bento-card:nth-child(3) {
         grid-column: span 2;
-        aspect-ratio: 2.8;
         min-height: 120px;
       }
     }
@@ -981,35 +981,19 @@
         grid-template-columns: repeat(4, 1fr);
       }
       .magic-bento-card {
-        aspect-ratio: 1.35;
         min-height: 140px;
       }
       .magic-bento-card:nth-child(3) {
         grid-column: span 2;
         grid-row: span 2;
-        aspect-ratio: 1.45;
       }
       .magic-bento-card:nth-child(4) {
         grid-column: 1 / span 2;
         grid-row: 2 / span 2;
-        aspect-ratio: 1.45;
       }
       .magic-bento-card:nth-child(6) {
         grid-column: 4;
         grid-row: 3;
-      }
-    }
-
-    @media (max-width: 1023px) {
-      .magic-bento-card {
-        aspect-ratio: auto !important;
-        height: auto !important;
-        min-height: 140px;
-        overflow: visible !important;
-      }
-      .magic-bento-card:nth-child(3),
-      .magic-bento-card:nth-child(4) {
-        aspect-ratio: auto !important;
       }
     }
 
@@ -1654,6 +1638,24 @@
             <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('afternoon')">☀️ Add Afternoon Meds (1:30 PM)</button>
             <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('night')">🌙 Add Night Meds (9:00 PM)</button>
             <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('bedtime')">🌛 Add Bedtime Cream (10:00 PM)</button>
+            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('injection')">💉 Add Injection Alarms (Every 15 Days)</button>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid var(--border); margin:12px 0; padding-top:12px;">
+          <div class="accordion-header" onclick="toggleAccordion(this)" style="display:flex; justify-content:space-between; align-items:center; width:100%; background:none; border:none; padding:8px 0; font-family:inherit; font-size:12px; font-weight:700; color:var(--text); cursor:pointer;">
+            <span>ℹ️ Setup Guide: Why do web alarms fail when closed?</span>
+            <span class="accordion-arrow">▼</span>
+          </div>
+          <div class="accordion-content" style="padding: 12px 0 0; border: none; font-size: 12.5px; line-height: 1.5;">
+            <p style="margin-bottom:8px;">
+              Modern mobile browsers (iOS Safari & Android Chrome) freeze all website scripts when a tab is closed or your phone is locked to preserve battery and memory.
+            </p>
+            <p style="margin-bottom:8px;"><strong>How to get 100% reliable system alerts:</strong></p>
+            <ol style="margin-left:16px; margin-bottom:8px; display:flex; flex-direction:column; gap:6px;">
+              <li><strong>📅 Calendar Sync (Recommended):</strong> Click the <strong>Download Reminders (.ics)</strong> button above, then import it into your system calendar. Your phone will ring natively even when offline or closed.</li>
+              <li><strong>📱 Install as App (PWA):</strong> Open your browser menu (Safari Share on iOS, or Chrome settings on Android) and tap <strong>"Add to Home Screen"</strong>. Standing standalone apps run checks and sync background push alerts with higher system priority.</li>
+            </ol>
           </div>
         </div>
       </div>
@@ -2849,6 +2851,20 @@
           "22:00",
           "Apply Stovient Cream. Take Syp. Duphalac 15ml if needed for constipation."
         );
+      } else if (block === 'injection') {
+        const dateParts = babyBirthDate.split('-');
+        const edd = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+        const date34Weeks = new Date(edd.getTime() - 42 * 24 * 60 * 60 * 1000);
+        const untilYr = date34Weeks.getFullYear();
+        const untilMt = String(date34Weeks.getMonth() + 1).padStart(2, '0');
+        const untilDy = String(date34Weeks.getDate()).padStart(2, '0');
+        const untilStr = `${untilYr}${untilMt}${untilDy}T235959`;
+
+        const startDateStr = "20260630T100000";
+        const endDateStr = "20260630T103000";
+
+        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("💉 Inj. Proluton Depot 500mg IM Due")}&dates=${startDateStr}/${endDateStr}&recur=RRULE:FREQ=DAILY;INTERVAL=15;UNTIL=${untilStr}&details=${encodeURIComponent("Administer Inj. Proluton Depot 500mg IM today. Scheduled once every 15 days until 34 weeks of pregnancy to prevent preterm contractions.")}`;
+        window.open(url, '_blank');
       }
     }
 
@@ -2930,6 +2946,37 @@
         icsContent += `DTEND:${end}\n`;
         icsContent += `RRULE:FREQ=DAILY;UNTIL=${untilStr}\n`;
         icsContent += `DESCRIPTION:${e.desc}\n`;
+        icsContent += "BEGIN:VALARM\n";
+        icsContent += "TRIGGER:-PT0M\n";
+        icsContent += "ACTION:DISPLAY\n";
+        icsContent += "DESCRIPTION:Reminder\n";
+        icsContent += "END:VALARM\n";
+        icsContent += "END:VEVENT\n";
+      });
+
+      // Add Injection dates to ICS
+      const injectionDates = [];
+      let currentDue = new Date(2026, 5, 30); // June 30, 2026 (Month is 0-indexed: 5 is June)
+      const dateParts = babyBirthDate.split('-');
+      const edd = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+      const date34Weeks = new Date(edd.getTime() - 42 * 24 * 60 * 60 * 1000); // 34 weeks (42 days before EDD)
+
+      while (currentDue <= date34Weeks) {
+        injectionDates.push(new Date(currentDue));
+        currentDue.setDate(currentDue.getDate() + 15);
+      }
+
+      injectionDates.forEach(date => {
+        const iYr = date.getFullYear();
+        const iMt = String(date.getMonth() + 1).padStart(2, '0');
+        const iDy = String(date.getDate()).padStart(2, '0');
+        const iDateStr = `${iYr}${iMt}${iDy}`;
+        
+        icsContent += "BEGIN:VEVENT\n";
+        icsContent += "SUMMARY:💉 Inj. Proluton Depot 500mg IM Due\n";
+        icsContent += `DTSTART:${iDateStr}T100000\n`; // At 10:00 AM
+        icsContent += `DTEND:${iDateStr}T103000\n`;
+        icsContent += "DESCRIPTION:Administer Inj. Proluton Depot 500mg IM today. Scheduled once every 15 days until 34 weeks of pregnancy to prevent preterm contractions.\n";
         icsContent += "BEGIN:VALARM\n";
         icsContent += "TRIGGER:-PT0M\n";
         icsContent += "ACTION:DISPLAY\n";
