@@ -48,6 +48,24 @@
       --sky:            #87CEEB;
       --sky-lt:         #EBF7FD;
       --white:          #FFFFFF;
+
+      /* Badge Colors Light */
+      --badge-critical-bg: #FDE8E8;
+      --badge-critical-text: #9B1C1C;
+      --badge-progesterone-bg: #F3E8FF;
+      --badge-progesterone-text: #6B21A8;
+      --badge-nutrition-bg: #DEF7EC;
+      --badge-nutrition-text: #03543F;
+      --badge-calcium-bg: #FEF08A;
+      --badge-calcium-text: #713F12;
+      --badge-before-food-bg: #FFF3E0;
+      --badge-before-food-text: #E65100;
+      --badge-before-food-border: #FFB74D;
+      --badge-before-food-shadow: rgba(255, 183, 77, 0.25);
+      --badge-after-food-bg: #E3F2FD;
+      --badge-after-food-text: #0D47A1;
+      --badge-after-food-border: #64B5F6;
+      --badge-after-food-shadow: rgba(100, 181, 246, 0.25);
     }
 
     [data-theme="dark"] {
@@ -73,6 +91,24 @@
       --lav-dark:       #BCAFE0;
       --sky-lt:         rgba(135, 206, 235, 0.12);
       --white:          #1C1C1E;
+
+      /* Badge Colors Dark */
+      --badge-critical-bg: rgba(248, 113, 113, 0.15);
+      --badge-critical-text: #FCA5A5;
+      --badge-progesterone-bg: rgba(192, 132, 252, 0.15);
+      --badge-progesterone-text: #E9D5FF;
+      --badge-nutrition-bg: rgba(52, 211, 153, 0.15);
+      --badge-nutrition-text: #A7F3D0;
+      --badge-calcium-bg: rgba(253, 224, 71, 0.15);
+      --badge-calcium-text: #FEF08A;
+      --badge-before-food-bg: rgba(255, 183, 77, 0.12);
+      --badge-before-food-text: #FFB74D;
+      --badge-before-food-border: rgba(255, 183, 77, 0.35);
+      --badge-before-food-shadow: rgba(255, 183, 77, 0.2);
+      --badge-after-food-bg: rgba(100, 181, 246, 0.12);
+      --badge-after-food-text: #90CAF9;
+      --badge-after-food-border: rgba(100, 181, 246, 0.35);
+      --badge-after-food-shadow: rgba(100, 181, 246, 0.2);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -663,6 +699,130 @@
     .tag-overdue { background: var(--badge-critical-bg); color: var(--badge-critical-text); font-weight: 800; }
     .tag-upcoming { background: var(--badge-calcium-bg); color: var(--badge-calcium-text); }
     .tag-future { background: var(--sky-lt); color: #00838F; }
+    .tag-before-food {
+      background: var(--badge-before-food-bg);
+      color: var(--badge-before-food-text);
+      border: 1px solid var(--badge-before-food-border);
+      box-shadow: 0 0 8px var(--badge-before-food-shadow);
+      font-weight: 700;
+    }
+    .tag-after-food {
+      background: var(--badge-after-food-bg);
+      color: var(--badge-after-food-text);
+      border: 1px solid var(--badge-after-food-border);
+      box-shadow: 0 0 8px var(--badge-after-food-shadow);
+      font-weight: 700;
+    }
+
+    /* ACTIVE TIME BLOCK HIGHLIGHT */
+    .time-block.active-time-block {
+      border: 1.5px solid var(--rose) !important;
+      box-shadow: 0 0 20px rgba(232, 146, 124, 0.25), var(--shadow-blur) !important;
+    }
+    [data-theme="dark"] .time-block.active-time-block {
+      border: 1.5px solid var(--rose-dark) !important;
+      box-shadow: 0 0 25px rgba(255, 158, 138, 0.3), var(--shadow-blur) !important;
+    }
+
+    /* INJECTION ALERT CARD */
+    .injection-alert-card {
+      margin: 16px 16px 8px;
+      padding: 16px 20px;
+      background: linear-gradient(135deg, rgba(155, 137, 196, 0.15) 0%, rgba(232, 146, 124, 0.15) 100%);
+      border: 1.5px solid rgba(155, 137, 196, 0.4);
+      border-radius: 24px;
+      box-shadow: 0 0 20px rgba(155, 137, 196, 0.25), var(--shadow-blur);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      animation: alert-pulse 3s infinite alternate ease-in-out;
+    }
+    
+    @keyframes alert-pulse {
+      0% {
+        border-color: rgba(155, 137, 196, 0.4);
+        box-shadow: 0 0 16px rgba(155, 137, 196, 0.15), var(--shadow-blur);
+      }
+      100% {
+        border-color: rgba(232, 146, 124, 0.65);
+        box-shadow: 0 0 24px rgba(232, 146, 124, 0.3), var(--shadow-blur);
+      }
+    }
+
+    .injection-alert-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .injection-alert-icon {
+      font-size: 24px;
+      background: rgba(155, 137, 196, 0.2);
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-card);
+    }
+
+    .injection-alert-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .injection-alert-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .injection-alert-due-date {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .injection-alert-description {
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: var(--text);
+      opacity: 0.9;
+    }
+
+    .injection-alert-badge {
+      align-self: flex-start;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .injection-badge-upcoming {
+      background: var(--badge-calcium-bg);
+      color: var(--badge-calcium-text);
+      border: 1px solid var(--badge-before-food-border);
+    }
+
+    .injection-badge-due {
+      background: var(--badge-critical-bg);
+      color: var(--badge-critical-text);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      animation: badge-pulse 1s infinite alternate ease-in-out;
+    }
+
+    @keyframes badge-pulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.05); }
+    }
 
     /* ACTION BUTTON */
     .action-btn {
@@ -837,6 +997,19 @@
       .magic-bento-card:nth-child(6) {
         grid-column: 4;
         grid-row: 3;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      .magic-bento-card {
+        aspect-ratio: auto !important;
+        height: auto !important;
+        min-height: 140px;
+        overflow: visible !important;
+      }
+      .magic-bento-card:nth-child(3),
+      .magic-bento-card:nth-child(4) {
+        aspect-ratio: auto !important;
       }
     }
 
@@ -1204,235 +1377,263 @@
         <p>Great job Mounika. Baby is getting everything needed today. 💙</p>
       </div>
 
-      <!-- MORNING -->
-      <div class="section-label">Morning — (7:30 AM Wake Up)</div>
-      <div class="time-block">
-        <div class="time-header">
-          <div class="time-icon" style="background:#FFF3E0;">🌅</div>
-          <div class="time-info">
-            <h2>7:30 AM</h2>
-            <span>Start of the day</span>
+      <!-- INJECTION ALERT WIDGET -->
+      <div id="injectionAlertWidget" class="injection-alert-card" style="display: none;">
+        <div class="injection-alert-header">
+          <div class="injection-alert-icon">💉</div>
+          <div class="injection-alert-title-wrap">
+            <h4 class="injection-alert-title">Proluton Depot Injection</h4>
+            <span class="injection-alert-due-date" id="injectionAlertDueDate">Next Due: 30th June 2026</span>
           </div>
         </div>
-        
-        <div class="item-row" onclick="toggleTablet(7, event)">
-          <div class="checkbox-btn" id="tab-chk-7"></div>
-          <div class="item-content">
-            <div class="item-name">Tab. Thyronorm 50mg</div>
-            <div class="item-desc">Thyroid support. Take first thing in the morning on an empty stomach (30 mins before food).</div>
-            <div class="badge-row">
-              <span class="badge tag-critical">🔴 Thyroid Support</span>
-              <span class="badge tag-topical">🕒 Before Food</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item-row" onclick="toggleTablet(8, event)">
-          <div class="checkbox-btn" id="tab-chk-8"></div>
-          <div class="item-content">
-            <div class="item-name">Tab. Pan 40mg</div>
-            <div class="item-desc">Acid prevention. Take 1 tablet on empty stomach (30 mins before breakfast).</div>
-            <div class="badge-row">
-              <span class="badge tag-critical">🔴 Gastric Support</span>
-              <span class="badge tag-topical">🕒 Before Food</span>
-              <span class="badge tag-nutrition">📅 5 Days Course</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item-row" onclick="toggleTablet(0, event)">
-          <div class="checkbox-btn" id="tab-chk-0"></div>
-          <div class="item-content">
-            <div class="item-name">Tab. Dydrogest 10 (Dydrogesterone)</div>
-            <div class="item-desc">Progesterone support — prevents preterm birth. Take 1 tablet after breakfast.</div>
-            <div class="badge-row">
-              <span class="badge tag-progesterone">💜 Preterm Prevention</span>
-              <span class="badge tag-topical">🕒 After Food</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item-row" onclick="toggleTablet(9, event)">
-          <div class="checkbox-btn" id="tab-chk-9"></div>
-          <div class="item-content">
-            <div class="item-name">Tab. Ceftum 500mg</div>
-            <div class="item-desc">Antibiotic. Take 1 tablet after breakfast.</div>
-            <div class="badge-row">
-              <span class="badge tag-critical">🔴 Antibiotic</span>
-              <span class="badge tag-topical">🕒 After Food</span>
-              <span class="badge tag-nutrition">📅 5 Days Course</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item-row" onclick="toggleTablet(10, event)">
-          <div class="checkbox-btn" id="tab-chk-10"></div>
-          <div class="item-content">
-            <div class="item-name">Tab. Duvadilan 10mg</div>
-            <div class="item-desc">Uterine relaxant — prevents preterm contractions. Take 1 tablet after breakfast.</div>
-            <div class="badge-row">
-              <span class="badge tag-progesterone">💜 Preterm Prevention</span>
-              <span class="badge tag-topical">🕒 After Food</span>
-              <span class="badge tag-nutrition">📅 5 Days Course</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Synced morning Pro Case -->
-        <div class="item-row" onclick="toggleTablet(3, event)">
-          <div class="checkbox-btn" id="tab-chk-3"></div>
-          <div class="item-content">
-            <div class="item-name">Pro Case DF powder</div>
-            <div class="item-desc">Protein supplement. Mix with milk/water after breakfast. (Optional: take at night instead).</div>
-            <div class="badge-row">
-              <span class="badge tag-nutrition">🟢 Protein Supplement</span>
-              <span class="badge tag-topical">⭐️ Synced Morning/Night</span>
-            </div>
-          </div>
-        </div>
+        <p class="injection-alert-description" id="injectionAlertDesc">
+          Inj. Proluton Depot 500mg IM is due soon. This is administered once every 15 days to prevent preterm contractions.
+        </p>
+        <div class="injection-alert-badge" id="injectionAlertBadge">3 Days Left</div>
       </div>
 
-      <!-- AFTERNOON -->
-      <div class="section-label">Afternoon — (Lunch at 1:30 PM)</div>
-      <div class="time-block">
-        <div class="time-header">
-          <div class="time-icon" style="background:#FFF8E1;">☀️</div>
-          <div class="time-info">
-            <h2>1:30 – 2:30 PM</h2>
-            <span>Take after lunch</span>
-          </div>
-        </div>
+      <!-- MEDICATIONS CONTAINER FOR DYNAMIC ORDERING -->
+      <div id="medications-container" style="display:flex; flex-direction:column; gap:0px; width:100%;">
 
-        <div class="item-row" onclick="toggleTablet(1, event)">
-          <div class="checkbox-btn" id="tab-chk-1"></div>
-          <div class="item-content">
-            <div class="item-name">Tab. Magnocal</div>
-            <div class="item-desc">Calcium + Magnesium supplement. Keep away from Womiron. Take 1 tablet.</div>
-            <div class="badge-row">
-              <span class="badge tag-calcium">🟡 Calcium & Magnesium</span>
+        <!-- MORNING WRAP -->
+        <div id="morning-wrap" class="time-block-wrap" style="display:flex; flex-direction:column; order:1; width:100%;">
+          <div class="section-label">Morning — (7:30 AM Wake Up)</div>
+          <div class="time-block" id="morning-card">
+            <div class="time-header">
+              <div class="time-icon" style="background:#FFF3E0;">🌅</div>
+              <div class="time-info">
+                <h2>7:30 AM</h2>
+                <span>Start of the day</span>
+              </div>
+            </div>
+            
+            <div class="item-row" onclick="toggleTablet(7, event)">
+              <div class="checkbox-btn" id="tab-chk-7"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Thyronorm 50mg</div>
+                <div class="item-desc">Thyroid support. Take first thing in the morning on an empty stomach (30 mins before food).</div>
+                <div class="badge-row">
+                  <span class="badge tag-critical">🔴 Thyroid Support</span>
+                  <span class="badge tag-before-food">🕒 Before Food</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="item-row" onclick="toggleTablet(8, event)">
+              <div class="checkbox-btn" id="tab-chk-8"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Pan 40mg</div>
+                <div class="item-desc">Acid prevention. Take 1 tablet on empty stomach (30 mins before breakfast).</div>
+                <div class="badge-row">
+                  <span class="badge tag-critical">🔴 Gastric Support</span>
+                  <span class="badge tag-before-food">🕒 Before Food</span>
+                  <span class="badge tag-nutrition">📅 5 Days Course</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="item-row" onclick="toggleTablet(0, event)">
+              <div class="checkbox-btn" id="tab-chk-0"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Dydrogest 10 (Dydrogesterone)</div>
+                <div class="item-desc">Progesterone support — prevents preterm birth. Take 1 tablet after breakfast.</div>
+                <div class="badge-row">
+                  <span class="badge tag-progesterone">💜 Preterm Prevention</span>
+                  <span class="badge tag-after-food">🕒 After Food</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="item-row" onclick="toggleTablet(9, event)">
+              <div class="checkbox-btn" id="tab-chk-9"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Ceftum 500mg</div>
+                <div class="item-desc">Antibiotic. Take 1 tablet after breakfast.</div>
+                <div class="badge-row">
+                  <span class="badge tag-critical">🔴 Antibiotic</span>
+                  <span class="badge tag-after-food">🕒 After Food</span>
+                  <span class="badge tag-nutrition">📅 5 Days Course</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="item-row" onclick="toggleTablet(10, event)">
+              <div class="checkbox-btn" id="tab-chk-10"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Duvadilan 10mg</div>
+                <div class="item-desc">Uterine relaxant — prevents preterm contractions. Take 1 tablet after breakfast.</div>
+                <div class="badge-row">
+                  <span class="badge tag-progesterone">💜 Preterm Prevention</span>
+                  <span class="badge tag-after-food">🕒 After Food</span>
+                  <span class="badge tag-nutrition">📅 5 Days Course</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Synced morning Pro Case -->
+            <div class="item-row" onclick="toggleTablet(3, event)">
+              <div class="checkbox-btn" id="tab-chk-3"></div>
+              <div class="item-content">
+                <div class="item-name">Pro Case DF powder</div>
+                <div class="item-desc">Protein supplement. Mix with milk/water after breakfast. (Optional: take at night instead).</div>
+                <div class="badge-row">
+                  <span class="badge tag-nutrition">🟢 Protein Supplement</span>
+                  <span class="badge tag-topical">⭐️ Synced Morning/Night</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="item-row" onclick="toggleTablet(2, event)">
-          <div class="checkbox-btn" id="tab-chk-2"></div>
-          <div class="item-content">
-            <div class="item-name">Tab. Sustener 200 Progesterone</div>
-            <div class="item-desc">Additional progesterone support. Take 1 tablet. Afternoon timing avoids sleepiness.</div>
-            <div class="badge-row">
-              <span class="badge tag-progesterone">💜 Additional Progesterone</span>
+        <!-- AFTERNOON WRAP -->
+        <div id="afternoon-wrap" class="time-block-wrap" style="display:flex; flex-direction:column; order:2; width:100%;">
+          <div class="section-label">Afternoon — (Lunch at 1:30 PM)</div>
+          <div class="time-block" id="afternoon-card">
+            <div class="time-header">
+              <div class="time-icon" style="background:#FFF8E1;">☀️</div>
+              <div class="time-info">
+                <h2>1:30 – 2:30 PM</h2>
+                <span>Take after lunch</span>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- NIGHT -->
-      <div class="section-label">Night — (Dinner & After)</div>
-      <div class="time-block">
-        <div class="time-header">
-          <div class="time-icon" style="background:#EDE7F6;">🌙</div>
-          <div class="time-info">
-            <h2>9:00 – 10:00 PM</h2>
-            <span>Take after dinner</span>
-          </div>
-        </div>
-
-        <div class="item-row" onclick="toggleTablet(4, event)">
-          <div class="checkbox-btn" id="tab-chk-4"></div>
-          <div class="item-content">
-            <div class="item-name">Tab. Womiron (Iron + Folic)</div>
-            <div class="item-desc">Iron deficiency plus folic acid. Take 1 tablet. Keep away from Calcium. May cause dark stools.</div>
-            <div class="badge-row">
-              <span class="badge tag-critical">🔴 Iron & Folic Acid</span>
+            <div class="item-row" onclick="toggleTablet(1, event)">
+              <div class="checkbox-btn" id="tab-chk-1"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Magnocal</div>
+                <div class="item-desc">Calcium + Magnesium supplement. Keep away from Womiron. Take 1 tablet.</div>
+                <div class="badge-row">
+                  <span class="badge tag-calcium">🟡 Calcium & Magnesium</span>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div class="item-row" onclick="toggleTablet(5, event)">
-          <div class="checkbox-btn" id="tab-chk-5"></div>
-          <div class="item-content">
-            <div class="item-name">Tab. Dydrogest 10 (Dydrogesterone)</div>
-            <div class="item-desc">Second dose of progesterone. Take 1 tablet after dinner.</div>
-            <div class="badge-row">
-              <span class="badge tag-progesterone">💜 Preterm Prevention</span>
-              <span class="badge tag-topical">🕒 After Food</span>
+            <div class="item-row" onclick="toggleTablet(2, event)">
+              <div class="checkbox-btn" id="tab-chk-2"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Sustener 200 Progesterone</div>
+                <div class="item-desc">Additional progesterone support. Take 1 tablet. Afternoon timing avoids sleepiness.</div>
+                <div class="badge-row">
+                  <span class="badge tag-progesterone">💜 Additional Progesterone</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="item-row" onclick="toggleTablet(11, event)">
-          <div class="checkbox-btn" id="tab-chk-11"></div>
-          <div class="item-content">
-            <div class="item-name">Tab. Ceftum 500mg</div>
-            <div class="item-desc">Antibiotic. Take 1 tablet after dinner.</div>
-            <div class="badge-row">
-              <span class="badge tag-critical">🔴 Antibiotic</span>
-              <span class="badge tag-topical">🕒 After Food</span>
-              <span class="badge tag-nutrition">📅 5 Days Course</span>
+        <!-- NIGHT WRAP -->
+        <div id="night-wrap" class="time-block-wrap" style="display:flex; flex-direction:column; order:3; width:100%;">
+          <div class="section-label">Night — (Dinner & After)</div>
+          <div class="time-block" id="night-card">
+            <div class="time-header">
+              <div class="time-icon" style="background:#EDE7F6;">🌙</div>
+              <div class="time-info">
+                <h2>9:00 – 10:00 PM</h2>
+                <span>Take after dinner</span>
+              </div>
+            </div>
+
+            <div class="item-row" onclick="toggleTablet(4, event)">
+              <div class="checkbox-btn" id="tab-chk-4"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Womiron (Iron + Folic)</div>
+                <div class="item-desc">Iron deficiency plus folic acid. Take 1 tablet. Keep away from Calcium. May cause dark stools.</div>
+                <div class="badge-row">
+                  <span class="badge tag-critical">🔴 Iron & Folic Acid</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="item-row" onclick="toggleTablet(5, event)">
+              <div class="checkbox-btn" id="tab-chk-5"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Dydrogest 10 (Dydrogesterone)</div>
+                <div class="item-desc">Second dose of progesterone. Take 1 tablet after dinner.</div>
+                <div class="badge-row">
+                  <span class="badge tag-progesterone">💜 Preterm Prevention</span>
+                  <span class="badge tag-after-food">🕒 After Food</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="item-row" onclick="toggleTablet(11, event)">
+              <div class="checkbox-btn" id="tab-chk-11"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Ceftum 500mg</div>
+                <div class="item-desc">Antibiotic. Take 1 tablet after dinner.</div>
+                <div class="badge-row">
+                  <span class="badge tag-critical">🔴 Antibiotic</span>
+                  <span class="badge tag-after-food">🕒 After Food</span>
+                  <span class="badge tag-nutrition">📅 5 Days Course</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="item-row" onclick="toggleTablet(12, event)">
+              <div class="checkbox-btn" id="tab-chk-12"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Duvadilan 10mg</div>
+                <div class="item-desc">Second dose of uterine relaxant. Take 1 tablet after dinner.</div>
+                <div class="badge-row">
+                  <span class="badge tag-progesterone">💜 Preterm Prevention</span>
+                  <span class="badge tag-after-food">🕒 After Food</span>
+                  <span class="badge tag-nutrition">📅 5 Days Course</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Synced Optional Pro Case night -->
+            <div class="item-row" onclick="toggleTablet(3, event)">
+              <div class="checkbox-btn" id="tab-chk-3-night"></div>
+              <div class="item-content">
+                <div class="item-name">Pro Case DF powder (Optional)</div>
+                <div class="item-desc">Protein supplement. Take with milk/water after dinner if not taken in morning.</div>
+                <div class="badge-row">
+                  <span class="badge tag-nutrition">🟢 Protein Supplement</span>
+                  <span class="badge tag-topical">⭐️ Synced Morning/Night</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="item-row" onclick="toggleTablet(12, event)">
-          <div class="checkbox-btn" id="tab-chk-12"></div>
-          <div class="item-content">
-            <div class="item-name">Tab. Duvadilan 10mg</div>
-            <div class="item-desc">Second dose of uterine relaxant. Take 1 tablet after dinner.</div>
-            <div class="badge-row">
-              <span class="badge tag-progesterone">💜 Preterm Prevention</span>
-              <span class="badge tag-topical">🕒 After Food</span>
-              <span class="badge tag-nutrition">📅 5 Days Course</span>
+        <!-- BEDTIME WRAP -->
+        <div id="bedtime-wrap" class="time-block-wrap" style="display:flex; flex-direction:column; order:4; width:100%;">
+          <div class="section-label">Bedtime</div>
+          <div class="time-block" id="bedtime-card">
+            <div class="time-header">
+              <div class="time-icon" style="background:#FCE4EC;">🌛</div>
+              <div class="time-info">
+                <h2>Before Sleep</h2>
+                <span>Topical application</span>
+              </div>
+            </div>
+
+            <div class="item-row" onclick="toggleTablet(6, event)">
+              <div class="checkbox-btn" id="tab-chk-6"></div>
+              <div class="item-content">
+                <div class="item-name">Stovient Cream</div>
+                <div class="item-desc">Apply gently on belly, hips, and thighs for stretch mark prevention. 1 application.</div>
+                <div class="badge-row">
+                  <span class="badge tag-topical">⚪ Topical application</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="item-row" onclick="toggleTablet(13, event)">
+              <div class="checkbox-btn" id="tab-chk-13"></div>
+              <div class="item-content">
+                <div class="item-name">Syp. Duphalac 15ml</div>
+                <div class="item-desc">Laxative. Take 15ml at bedtime for constipation support, as needed (SOS).</div>
+                <div class="badge-row">
+                  <span class="badge tag-topical">⚪ SOS / As Needed</span>
+                  <span class="badge tag-nutrition">🟢 Constipation Support</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Synced Optional Pro Case night -->
-        <div class="item-row" onclick="toggleTablet(3, event)">
-          <div class="checkbox-btn" id="tab-chk-3-night"></div>
-          <div class="item-content">
-            <div class="item-name">Pro Case DF powder (Optional)</div>
-            <div class="item-desc">Protein supplement. Take with milk/water after dinner if not taken in morning.</div>
-            <div class="badge-row">
-              <span class="badge tag-nutrition">🟢 Protein Supplement</span>
-              <span class="badge tag-topical">⭐️ Synced Morning/Night</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- BEDTIME -->
-      <div class="section-label">Bedtime</div>
-      <div class="time-block">
-        <div class="time-header">
-          <div class="time-icon" style="background:#FCE4EC;">🌛</div>
-          <div class="time-info">
-            <h2>Before Sleep</h2>
-            <span>Topical application</span>
-          </div>
-        </div>
-
-        <div class="item-row" onclick="toggleTablet(6, event)">
-          <div class="checkbox-btn" id="tab-chk-6"></div>
-          <div class="item-content">
-            <div class="item-name">Stovient Cream</div>
-            <div class="item-desc">Apply gently on belly, hips, and thighs for stretch mark prevention. 1 application.</div>
-            <div class="badge-row">
-              <span class="badge tag-topical">⚪ Topical application</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="item-row" onclick="toggleTablet(13, event)">
-          <div class="checkbox-btn" id="tab-chk-13"></div>
-          <div class="item-content">
-            <div class="item-name">Syp. Duphalac 15ml</div>
-            <div class="item-desc">Laxative. Take 15ml at bedtime for constipation support, as needed (SOS).</div>
-            <div class="badge-row">
-              <span class="badge tag-topical">⚪ SOS / As Needed</span>
-              <span class="badge tag-nutrition">🟢 Constipation Support</span>
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- GOOGLE CALENDAR SYNC HUB -->
@@ -1646,7 +1847,7 @@
   <script>
     // Constants
     const TENTATIVE_EDD = new Date('2026-11-21');
-    const TOTAL_TABLETS = 13; 
+    let TOTAL_TABLETS = 13; 
 
     // Baby Size comparison and milestones database (Weeks 13 to 40)
     const BABY_SIZE_DATA = {
@@ -1803,6 +2004,9 @@
       updateThemeIcon();
 
       loadState();
+      checkCourseExpiration();
+      updateTimeBlockOrdering();
+      checkInjectionAlert();
       updateDynamicHeader();
       updateTabletsProgress();
       document.getElementById('birthDateInput').value = babyBirthDate;
@@ -2096,16 +2300,180 @@
       }
     }
 
+    function checkIsCourseActive() {
+      const today = new Date();
+      const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const courseEndDate = new Date(2026, 5, 21); // June 21, 2026 (Month is 0-indexed: 5 is June)
+      return todayMidnight < courseEndDate;
+    }
+
+    function checkCourseExpiration() {
+      const courseIds = [8, 9, 10, 11, 12];
+      const isCourseActive = checkIsCourseActive();
+
+      courseIds.forEach(id => {
+        const chk = document.getElementById(`tab-chk-${id}`);
+        if (chk) {
+          const row = chk.closest('.item-row');
+          if (row) {
+            if (isCourseActive) {
+              row.style.display = 'flex';
+            } else {
+              row.style.display = 'none';
+            }
+          }
+        }
+      });
+
+      if (!isCourseActive) {
+        const oldLen = checkedTablets.length;
+        checkedTablets = checkedTablets.filter(tId => !courseIds.includes(tId));
+        if (checkedTablets.length !== oldLen) {
+          saveTabletsState();
+        }
+      }
+    }
+
+    function updateTimeBlockOrdering() {
+      const now = new Date();
+      const hrs = now.getHours();
+      const mins = now.getMinutes();
+
+      const morningWrap = document.getElementById('morning-wrap');
+      const afternoonWrap = document.getElementById('afternoon-wrap');
+      const nightWrap = document.getElementById('night-wrap');
+      const bedtimeWrap = document.getElementById('bedtime-wrap');
+
+      const morningCard = document.getElementById('morning-card');
+      const afternoonCard = document.getElementById('afternoon-card');
+      const nightCard = document.getElementById('night-card');
+      const bedtimeCard = document.getElementById('bedtime-card');
+
+      if (!morningWrap || !afternoonWrap || !nightWrap || !bedtimeWrap) return;
+
+      // Reset active card highlights
+      morningCard.classList.remove('active-time-block');
+      afternoonCard.classList.remove('active-time-block');
+      nightCard.classList.remove('active-time-block');
+      bedtimeCard.classList.remove('active-time-block');
+
+      // 12:00 AM to 11:00 AM -> Morning active
+      // 11:01 AM to 4:00 PM -> Afternoon active
+      // 4:01 PM to 11:59 PM -> Night active
+      const currentMins = hrs * 60 + mins;
+      const boundary11AM = 11 * 60; // 11:00 AM = 660 mins
+      const boundary4PM = 16 * 60;  // 4:00 PM = 960 mins
+
+      if (currentMins >= 0 && currentMins <= boundary11AM) {
+        // Morning active
+        morningWrap.style.order = '1';
+        afternoonWrap.style.order = '2';
+        nightWrap.style.order = '3';
+        bedtimeWrap.style.order = '4';
+        
+        morningCard.classList.add('active-time-block');
+      } else if (currentMins > boundary11AM && currentMins <= boundary4PM) {
+        // Afternoon active
+        afternoonWrap.style.order = '1';
+        nightWrap.style.order = '2';
+        bedtimeWrap.style.order = '3';
+        morningWrap.style.order = '4';
+        
+        afternoonCard.classList.add('active-time-block');
+      } else {
+        // Night active
+        nightWrap.style.order = '1';
+        bedtimeWrap.style.order = '2';
+        morningWrap.style.order = '3';
+        afternoonWrap.style.order = '4';
+        
+        nightCard.classList.add('active-time-block');
+      }
+    }
+
+    function checkInjectionAlert() {
+      const today = new Date();
+      const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+      // Generate the schedule of injection dates starting June 30, 2026 every 15 days
+      const injectionDates = [];
+      let currentDue = new Date(2026, 5, 30); // June 30, 2026 (Month is 0-indexed: 5 is June)
+
+      // Calculate 34 weeks of pregnancy as exactly 42 days (6 weeks) before EDD
+      const dateParts = babyBirthDate.split('-');
+      const edd = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+      const date34Weeks = new Date(edd.getTime() - 42 * 24 * 60 * 60 * 1000); // 42 days before EDD
+
+      while (currentDue <= date34Weeks) {
+        injectionDates.push(new Date(currentDue));
+        currentDue.setDate(currentDue.getDate() + 15);
+      }
+
+      // Check window for each due date: due - 3 days to due + 2 days (i.e. due day + 2 days after)
+      let activeDue = null;
+      let activeDiff = null;
+
+      for (let due of injectionDates) {
+        const diffTime = due.getTime() - todayStart.getTime();
+        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+        if (diffDays >= -2 && diffDays <= 3) {
+          activeDue = due;
+          activeDiff = diffDays;
+          break; // Show the closest due date
+        }
+      }
+
+      const widget = document.getElementById('injectionAlertWidget');
+      if (activeDue && widget) {
+        widget.style.display = 'flex';
+        
+        // Format date elegantly
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        const formattedDate = activeDue.toLocaleDateString('en-US', options);
+        document.getElementById('injectionAlertDueDate').textContent = `Next Due: ${formattedDate}`;
+
+        const badge = document.getElementById('injectionAlertBadge');
+        badge.className = 'injection-alert-badge';
+
+        if (activeDiff > 0) {
+          badge.textContent = `Due in ${activeDiff} ${activeDiff === 1 ? 'day' : 'days'}`;
+          badge.classList.add('injection-badge-upcoming');
+          document.getElementById('injectionAlertDesc').innerHTML = `Inj. Proluton Depot 500mg IM is scheduled. <strong>Next dose is due in ${activeDiff} ${activeDiff === 1 ? 'day' : 'days'}</strong> (on ${formattedDate}).`;
+        } else if (activeDiff === 0) {
+          badge.textContent = `⚠️ Due Today`;
+          badge.classList.add('injection-badge-due');
+          document.getElementById('injectionAlertDesc').innerHTML = `🚨 <strong>Injection is due today!</strong> Please administer Inj. Proluton Depot 500mg IM and check this off when completed.`;
+        } else {
+          const daysAgo = Math.abs(activeDiff);
+          badge.textContent = `⚠️ Stays Highlighted`;
+          badge.classList.add('injection-badge-due');
+          document.getElementById('injectionAlertDesc').innerHTML = `💉 <strong>Injection was scheduled on ${formattedDate}</strong> (${daysAgo} ${daysAgo === 1 ? 'day' : 'days'} ago). Stays highlighted for tracking.`;
+        }
+      } else if (widget) {
+        widget.style.display = 'none';
+      }
+    }
+
     function updateTabletsProgress() {
+      const courseIds = [8, 9, 10, 11, 12];
+      const isCourseActive = checkIsCourseActive();
+      
+      let activeIds = [0, 1, 2, 3, 4, 5, 6, 7];
+      if (isCourseActive) {
+        activeIds = activeIds.concat(courseIds);
+      }
+      
+      TOTAL_TABLETS = activeIds.length;
+
       // Exclude Duphalac (ID 13) from daily progress calculations since it is SOS (optional)
-      const checkedCount = checkedTablets.filter(id => id !== 13).length;
-      const pct = Math.round((checkedCount / TOTAL_TABLETS) * 100);
+      const checkedCount = checkedTablets.filter(id => activeIds.includes(id) && id !== 13).length;
+      const pct = Math.round((checkedCount / TOTAL_TABLETS) * 100) || 0;
       
       document.getElementById('tabletsProgressFill').style.width = pct + '%';
       document.getElementById('tabletsProgressCount').textContent = `${checkedCount} / ${TOTAL_TABLETS} done`;
 
       const msg = document.getElementById('tabletsCompletionMsg');
-      if (checkedCount === TOTAL_TABLETS) {
+      if (checkedCount === TOTAL_TABLETS && TOTAL_TABLETS > 0) {
         msg.classList.add('show');
         triggerConfetti();
       } else {
@@ -2331,6 +2699,10 @@
 
     function startReminderCheck() {
       setInterval(() => {
+        updateTimeBlockOrdering();
+        checkCourseExpiration();
+        checkInjectionAlert();
+
         const now = new Date();
         const hrs = String(now.getHours()).padStart(2, '0');
         const mins = String(now.getMinutes()).padStart(2, '0');
@@ -2389,9 +2761,11 @@
        ========================================== */
     function shareProgress() {
       const today = formatDate(new Date());
-      const doneCount = checkedTablets.filter(id => id !== 13).length;
+      const isCourseActive = checkIsCourseActive();
+      const courseIds = [8, 9, 10, 11, 12];
+      const doneCount = checkedTablets.filter(id => id !== 13 && (isCourseActive || !courseIds.includes(id))).length;
       const total = TOTAL_TABLETS;
-      const pct = Math.round((doneCount / total) * 100);
+      const pct = Math.round((doneCount / total) * 100) || 0;
       
       let statusText = "";
       if (doneCount === total) {
@@ -2413,7 +2787,21 @@
       const isProCaseDone = checkedTablets.includes(3) ? "✅ Done" : "❌ Pending";
       const isDuphalacDone = checkedTablets.includes(13) ? "✅ Taken" : "💤 Not needed";
 
-      const text = `🌸 *Mouni & Baby Health Update*\nDate: ${today}\n\n• Tablet Progress: *${statusText}*\n• Thyronorm (AM): ${isThyronormDone}\n• Pan 40mg (AM): ${isPanDone}\n• Ceftum 500mg (AM): ${isCeftumAMDone}\n• Duvadilan 10mg (AM): ${isDuvadilanAMDone}\n• Magnocal (Calcium): ${isMagnocalDone}\n• Womiron (Night): ${isWomironDone}\n• Ceftum 500mg (PM): ${isCeftumPMDone}\n• Duvadilan 10mg (PM): ${isDuvadilanPMDone}\n• Pro Case Powder: ${isProCaseDone}\n• Duphalac (Constipation): ${isDuphalacDone}\n\nEDD: 21 Nov 2026 🍼\nKeep resting Mounika! ❤️`;
+      let text = `🌸 *Mouni & Baby Health Update*\nDate: ${today}\n\n• Tablet Progress: *${statusText}*\n• Thyronorm (AM): ${isThyronormDone}\n`;
+      if (isCourseActive) {
+        text += `• Pan 40mg (AM): ${isPanDone}\n`;
+        text += `• Ceftum 500mg (AM): ${isCeftumAMDone}\n`;
+        text += `• Duvadilan 10mg (AM): ${isDuvadilanAMDone}\n`;
+      }
+      text += `• Magnocal (Calcium): ${isMagnocalDone}\n`;
+      text += `• Womiron (Night): ${isWomironDone}\n`;
+      if (isCourseActive) {
+        text += `• Ceftum 500mg (PM): ${isCeftumPMDone}\n`;
+        text += `• Duvadilan 10mg (PM): ${isDuvadilanPMDone}\n`;
+      }
+      text += `• Pro Case Powder: ${isProCaseDone}\n`;
+      text += `• Duphalac (Constipation): ${isDuphalacDone}\n\n`;
+      text += `EDD: ${formatDate(new Date(babyBirthDate))} 🍼\nKeep resting Mounika! ❤️`;
 
       if (navigator.share) {
         navigator.share({
