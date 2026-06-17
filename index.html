@@ -1554,7 +1554,7 @@
             <div class="item-row" onclick="toggleTablet(7, event)">
               <div class="checkbox-btn" id="tab-chk-7"></div>
               <div class="item-content">
-                <div class="item-name">Tab. Thyronorm 50mg</div>
+                <div class="item-name">Tab. Thyronorm 50mcg</div>
                 <div class="item-desc">Thyroid support. Take first thing in the morning on an empty stomach (30 mins before food).</div>
                 <div class="badge-row">
                   <span class="badge tag-critical">🔴 Thyroid Support</span>
@@ -1842,7 +1842,7 @@
           </div>
           <div class="magic-bento-card__content">
             <h3 class="magic-bento-card__title">Thyronorm & Pan 40mg</h3>
-            <p class="magic-bento-card__description">Take <strong>Thyronorm 50mg</strong> and <strong>Tab. Pan 40mg</strong> first thing on empty stomach (30 mins before tea/breakfast).</p>
+            <p class="magic-bento-card__description">Take <strong>Thyronorm 50mcg</strong> and <strong>Tab. Pan 40mg</strong> first thing on empty stomach (30 mins before tea/breakfast).</p>
           </div>
         </div>
 
@@ -1867,7 +1867,8 @@
           <div class="magic-bento-card__content">
             <h3 class="magic-bento-card__title">Post-Cerclage Care & Injection</h3>
             <p class="magic-bento-card__description">
-              • <strong>3 weeks bed rest:</strong> Starts 15 June 2026. Limit movement.<br>
+              • <strong>Cervical Cerclage Completed:</strong> Stitch surgery was successfully completed (15/16 June 2026).<br>
+              • <strong>Strict Bed Rest:</strong> 3 weeks active (15 June to 6 July 2026). Limit movement.<br>
               • <strong>Inj. Proluton Depot 500mg IM:</strong> Administer once every 15 days until 34 weeks of pregnancy.
             </p>
           </div>
@@ -2008,7 +2009,7 @@
 
   <script>
     // Constants
-    const TENTATIVE_EDD = new Date('2026-11-21');
+    const TENTATIVE_EDD = new Date('2026-11-14');
     let TOTAL_TABLETS = 13; 
 
     // Baby Size comparison and milestones database (Weeks 13 to 40)
@@ -2144,7 +2145,7 @@
     // Local State
     let checkedTablets = [];
     let checkedVaccines = [];
-    let babyBirthDate = '2026-11-21';
+    let babyBirthDate = '2026-11-14';
     let currentFilter = 'all';
     let notificationsActive = false;
     let lastNotifiedTime = "";
@@ -2260,6 +2261,10 @@
       const savedDate = localStorage.getItem('babyBirthDate');
       if (savedDate) {
         babyBirthDate = savedDate;
+        if (babyBirthDate === '2026-11-21') {
+          babyBirthDate = '2026-11-14';
+          localStorage.setItem('babyBirthDate', '2026-11-14');
+        }
       } else {
         localStorage.setItem('babyBirthDate', babyBirthDate);
       }
@@ -3131,7 +3136,7 @@
         openGoogleCalendarLink(
           "💊 Morning Meds (Thyronorm, Pan, Dydrogest, Duvadilan, Ceftum)",
           "07:30",
-          "Take empty-stomach meds (Thyronorm 50mg, Pan 40mg). Take morning meds (Dydrogest 10, Duvadilan 10mg, Ceftum 500mg after breakfast). Pro Case DF powder optional."
+          "Take empty-stomach meds (Thyronorm 50mcg, Pan 40mg). Take morning meds (Dydrogest 10, Duvadilan 10mg, Ceftum 500mg after breakfast). Pro Case DF powder optional."
         );
       } else if (block === 'afternoon') {
         openGoogleCalendarLink(
@@ -3199,7 +3204,7 @@
         {
           title: "💊 Morning Meds (Thyronorm, Pan, Dydrogest, Duvadilan, Ceftum)",
           time: "07:30",
-          desc: "Take empty-stomach meds (Thyronorm 50mg, Pan 40mg). Take morning meds (Dydrogest 10, Duvadilan 10mg, Ceftum 500mg after breakfast). Pro Case DF powder optional."
+          desc: "Take empty-stomach meds (Thyronorm 50mcg, Pan 40mg). Take morning meds (Dydrogest 10, Duvadilan 10mg, Ceftum 500mg after breakfast). Pro Case DF powder optional."
         },
         {
           title: "☀️ Afternoon Meds (Magnocal & Sustener)",
