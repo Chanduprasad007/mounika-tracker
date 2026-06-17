@@ -30,6 +30,7 @@
       --card-border:    rgba(255, 255, 255, 0.45);
       --border:         rgba(0, 0, 0, 0.05);
       --header-grad:    linear-gradient(135deg, #E8927C 0%, #C9A84C 100%);
+      --header-shadow:  0 8px 25px rgba(232, 146, 124, 0.12);
       --shadow-blur:    0 12px 30px 0 rgba(0, 0, 0, 0.03);
       --shadow-card:    0 8px 24px rgba(0, 0, 0, 0.02);
       
@@ -77,7 +78,8 @@
       --card-bg:        rgba(22, 22, 30, 0.55);
       --card-border:    rgba(255, 255, 255, 0.05);
       --border:         rgba(255, 255, 255, 0.08);
-      --header-grad:    linear-gradient(135deg, #F0A593 0%, #DBC172 100%);
+      --header-grad:    linear-gradient(135deg, #2d161c 0%, #0c0507 100%);
+      --header-shadow:  0 8px 25px rgba(0, 0, 0, 0.55);
       --shadow-blur:    0 12px 30px 0 rgba(0, 0, 0, 0.3);
       --shadow-card:    0 8px 24px rgba(0, 0, 0, 0.2);
       
@@ -153,8 +155,8 @@
       color: white;
       border-bottom-left-radius: 32px;
       border-bottom-right-radius: 32px;
-      box-shadow: 0 8px 25px rgba(232, 146, 124, 0.12);
-      transition: background 0.4s ease;
+      box-shadow: var(--header-shadow);
+      transition: background 0.4s ease, box-shadow 0.4s ease;
     }
     @supports (padding-top: env(safe-area-inset-top)) {
       header {
@@ -1229,39 +1231,7 @@
       line-height: 1.5;
     }
 
-    /* WATER TRACKER WIDGET STYLES */
-    .water-glass-container {
-      display: flex;
-      gap: 10px;
-      justify-content: space-between;
-      width: 100%;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-    .water-glass {
-      cursor: pointer;
-      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px;
-      border-radius: 8px;
-    }
-    .water-glass:hover {
-      transform: translateY(-3px) scale(1.15);
-    }
-    .water-glass.active .glass-water {
-      opacity: 1 !important;
-      transform: scaleY(1) !important;
-    }
-    .water-glass.active .glass-body,
-    .water-glass.active .glass-rim {
-      stroke: #81d4fa !important;
-      opacity: 1 !important;
-    }
-    .water-glass.active {
-      filter: drop-shadow(0 0 6px rgba(3, 169, 244, 0.7));
-    }
+
 
     /* GESTATION TIMELINE STYLES */
     .timeline-bar-container {
@@ -1482,30 +1452,7 @@
         </div>
       </div>
 
-      <!-- WATER INTAKE TRACKER (Option E) -->
-      <div class="info-card" id="waterTrackerCard" style="background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.2); margin-top: 16px; padding: 16px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-          <div style="font-size: 13px; font-weight: 700; color: white; display: flex; align-items: center; gap: 6px;">
-            <span>💧 Daily Hydration Tracker</span>
-          </div>
-          <span id="waterGoalText" style="font-size: 13px; font-weight: 700; color: #b3e5fc;">0 / 8 Glasses (0 ml)</span>
-        </div>
-        <p style="font-size: 11px; color: rgba(255, 255, 255, 0.85); margin-bottom: 12px; line-height: 1.4;">
-          Mouni needs at least 8 glasses (~2 Liters) of water daily for healthy amniotic fluid levels.
-        </p>
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; background: rgba(0,0,0,0.15); padding: 12px; border-radius: 12px;">
-          <div id="waterGlassesContainer" class="water-glass-container">
-            <!-- Generated dynamically by JS -->
-          </div>
-        </div>
 
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; font-size: 11px;">
-          <button class="utility-btn" onclick="adjustWater(-1)" style="padding: 4px 8px; font-size: 11px; margin: 0;">- Remove 1 Glass</button>
-          <span style="opacity: 0.8; color: white;">Tap glasses to log drinking</span>
-          <button class="utility-btn" onclick="adjustWater(1)" style="padding: 4px 8px; font-size: 11px; margin: 0; background: rgba(3, 169, 244, 0.3); border-color: rgba(3, 169, 244, 0.5);">+ Add 1 Glass</button>
-        </div>
-      </div>
 
       <!-- UTILITY ROW -->
       <div class="utility-row">
@@ -2149,7 +2096,6 @@
     let currentFilter = 'all';
     let notificationsActive = false;
     let lastNotifiedTime = "";
-    let waterCount = 0;
 
     // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
@@ -2173,7 +2119,6 @@
       checkInjectionAlert();
       updateDynamicHeader();
       updateTabletsProgress();
-      updateWaterUI();
       document.getElementById('birthDateInput').value = babyBirthDate;
       checkBedRestBanner();
       renderVaccines();
@@ -2221,7 +2166,6 @@
       
       if (lastResetDate && lastResetDate !== todayString) {
         localStorage.setItem('checkedTablets', JSON.stringify([]));
-        localStorage.setItem('waterCount', '0');
         localStorage.setItem('lastResetDate', todayString);
       } else if (!lastResetDate) {
         localStorage.setItem('lastResetDate', todayString);
@@ -2237,15 +2181,6 @@
       } catch (e) {
         console.error("Error loading tablets state", e);
         checkedTablets = [];
-      }
-
-      // Load Water
-      try {
-        const savedWater = localStorage.getItem('waterCount');
-        waterCount = savedWater ? parseInt(savedWater, 10) : 0;
-      } catch (e) {
-        console.error("Error loading water state", e);
-        waterCount = 0;
       }
 
       // Load Vaccines
@@ -2705,96 +2640,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /* ==========================================
-       WATER DRINK TRACKER & SOUND
-       ========================================== */
-    function updateWaterUI() {
-      const container = document.getElementById('waterGlassesContainer');
-      if (!container) return;
-      
-      let html = '';
-      for (let i = 0; i < 8; i++) {
-        const isActive = i < waterCount ? 'active' : '';
-        html += `
-          <div class="water-glass ${isActive}" onclick="logWaterGlass(${i})" title="Glass ${i+1}">
-            <svg width="28" height="36" viewBox="0 0 24 30">
-              <defs>
-                <linearGradient id="waterGrad-${i}" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" stop-color="#4fc3f7" />
-                  <stop offset="100%" stop-color="#0288d1" />
-                </linearGradient>
-              </defs>
-              <ellipse cx="12" cy="4" rx="8" ry="2" fill="none" stroke="rgba(255, 255, 255, 0.4)" stroke-width="1.5" class="glass-rim" />
-              <path d="M4 4 L6 26 C6.2 27.5 7.5 28.5 9 28.5 L15 28.5 C16.5 28.5 17.8 27.5 18 26 L20 4" fill="none" stroke="rgba(255, 255, 255, 0.4)" stroke-width="1.5" class="glass-body" />
-              <path d="M5.5 20 L6.1 25.5 C6.2 26.5 7 27 8 27 L16 27 C17 27 17.8 26.5 17.9 25.5 L18.5 20 Z" fill="url(#waterGrad-${i})" class="glass-water" style="opacity: ${i < waterCount ? 1 : 0}; transform: scaleY(${i < waterCount ? 1 : 0}); transform-origin: bottom; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);" />
-            </svg>
-          </div>
-        `;
-      }
-      container.innerHTML = html;
-      
-      const goalText = document.getElementById('waterGoalText');
-      if (goalText) {
-        const ml = waterCount * 250;
-        if (waterCount >= 8) {
-          goalText.innerHTML = `🎉 ${waterCount} / 8 Glasses (${(ml/1000).toFixed(1)} L)`;
-          goalText.style.color = '#4caf50';
-        } else {
-          goalText.textContent = `${waterCount} / 8 Glasses (${ml} ml)`;
-          goalText.style.color = '#b3e5fc';
-        }
-      }
-    }
 
-    function logWaterGlass(index) {
-      if (index === waterCount - 1) {
-        waterCount = index;
-      } else {
-        waterCount = index + 1;
-        playWaterDripSound();
-      }
-      localStorage.setItem('waterCount', waterCount);
-      updateWaterUI();
-    }
-
-    function adjustWater(delta) {
-      const newCount = waterCount + delta;
-      if (newCount >= 0) {
-        if (delta > 0) {
-          playWaterDripSound();
-        }
-        waterCount = newCount;
-        localStorage.setItem('waterCount', waterCount);
-        updateWaterUI();
-      }
-    }
-
-    function playWaterDripSound() {
-      try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContext) return;
-        const ctx = new AudioContext();
-        
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(400, ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.15);
-        
-        gain.gain.setValueAtTime(0.001, ctx.currentTime);
-        gain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 0.05);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
-        
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        
-        osc.start();
-        osc.stop(ctx.currentTime + 0.25);
-      } catch (e) {
-        console.error("Audio Synthesis error", e);
-      }
-    }
 
     /* ==========================================
        VACCINES CONTROLLER
