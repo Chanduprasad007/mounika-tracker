@@ -1560,6 +1560,33 @@
                 </div>
               </div>
             </div>
+            <!-- Deriphyllin Retard 500mg Morning (3 Days Course) -->
+            <div class="item-row" onclick="toggleTablet(14, event)">
+              <div class="checkbox-btn" id="tab-chk-14"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Deriphyllin Retard 500mg</div>
+                <div class="item-desc">Bronchodilator (helps breathing / muscle relaxant). Take 1 tablet after breakfast.</div>
+                <div class="badge-row">
+                  <span class="badge tag-critical">🔴 Post-Surgery Support</span>
+                  <span class="badge tag-after-food">🕒 After Food</span>
+                  <span class="badge tag-nutrition">📅 3 Days Course</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dolo 650mg Morning (3 Days Course) -->
+            <div class="item-row" onclick="toggleTablet(16, event)">
+              <div class="checkbox-btn" id="tab-chk-16"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Dolo 650mg</div>
+                <div class="item-desc">Pain relief and fever prevention. Take 1 tablet after breakfast.</div>
+                <div class="badge-row">
+                  <span class="badge tag-critical">🔴 Pain Management</span>
+                  <span class="badge tag-after-food">🕒 After Food</span>
+                  <span class="badge tag-nutrition">📅 3 Days Course</span>
+                </div>
+              </div>
+            </div>
 
             <!-- Synced morning Pro Case -->
             <div class="item-row" onclick="toggleTablet(3, event)">
@@ -1669,6 +1696,33 @@
                   <span class="badge tag-progesterone">💜 Preterm Prevention</span>
                   <span class="badge tag-after-food">🕒 After Food</span>
                   <span class="badge tag-nutrition">📅 5 Days Course</span>
+                </div>
+              </div>
+            </div>
+            <!-- Deriphyllin Retard 500mg Night (3 Days Course) -->
+            <div class="item-row" onclick="toggleTablet(15, event)">
+              <div class="checkbox-btn" id="tab-chk-15"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Deriphyllin Retard 500mg</div>
+                <div class="item-desc">Bronchodilator (helps breathing / muscle relaxant). Take 1 tablet after dinner.</div>
+                <div class="badge-row">
+                  <span class="badge tag-critical">🔴 Post-Surgery Support</span>
+                  <span class="badge tag-after-food">🕒 After Food</span>
+                  <span class="badge tag-nutrition">📅 3 Days Course</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dolo 650mg Night (3 Days Course) -->
+            <div class="item-row" onclick="toggleTablet(17, event)">
+              <div class="checkbox-btn" id="tab-chk-17"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Dolo 650mg</div>
+                <div class="item-desc">Pain relief and fever prevention. Take 1 tablet after dinner.</div>
+                <div class="badge-row">
+                  <span class="badge tag-critical">🔴 Pain Management</span>
+                  <span class="badge tag-after-food">🕒 After Food</span>
+                  <span class="badge tag-nutrition">📅 3 Days Course</span>
                 </div>
               </div>
             </div>
@@ -1815,7 +1869,7 @@
             <h3 class="magic-bento-card__title">Post-Cerclage Care & Injection</h3>
             <p class="magic-bento-card__description">
               • <strong>Cervical Cerclage Completed:</strong> Stitch surgery was successfully completed (15/16 June 2026).<br>
-              • <strong>Strict Bed Rest:</strong> 3 weeks active (15 June to 6 July 2026). Limit movement.<br>
+              • <strong>Strict Bed Rest & Hydration:</strong> 3 weeks active (15 June to 6 July 2026). Limit movement. Ensure adequate hydration (regular water intake) and plenty of rest.<br>
               • <strong>Inj. Proluton Depot 500mg IM:</strong> Administer once every 15 days until 34 weeks of pregnancy.
             </p>
           </div>
@@ -1949,6 +2003,7 @@
     <!-- FOOTER -->
     <footer>
       <p>Designed for Mounika & Baby's Health Tracker • 2026</p>
+      <p style="margin-top: 4px; font-size: 11px; opacity: 0.8; font-weight: 500;" id="appStatusIndicator">Loading app status...</p>
       <p style="margin-top: 4px;">Data is saved locally in your browser storage.</p>
     </footer>
 
@@ -2097,11 +2152,22 @@
     let notificationsActive = false;
     let lastNotifiedTime = "";
 
-    // PWA Service Worker Registration
+    // PWA Service Worker Registration with Auto-Update Reload
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('Service Worker registered!'))
+          .then(reg => {
+            console.log('Service Worker registered!');
+            reg.addEventListener('updatefound', () => {
+              const newWorker = reg.installing;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  console.log('New version installed. Reloading page...');
+                  window.location.reload();
+                }
+              });
+            });
+          })
           .catch(err => console.error('Service Worker registration failed:', err));
       });
     }
@@ -2115,6 +2181,7 @@
 
       loadState();
       checkCourseExpiration();
+      updateAppStatusIndicator();
       updateTimeBlockOrdering();
       checkInjectionAlert();
       updateDynamicHeader();
@@ -2452,6 +2519,13 @@
       return todayMidnight < courseEndDate;
     }
 
+    function checkIsPostSurgeryActive() {
+      const today = new Date();
+      const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const postSurgeryEndDate = new Date(2026, 5, 21); // June 21, 2026 (expires on this date)
+      return todayMidnight < postSurgeryEndDate;
+    }
+
     function checkCourseExpiration() {
       const courseIds = [8, 9, 10, 11, 12];
       const isCourseActive = checkIsCourseActive();
@@ -2470,12 +2544,50 @@
         }
       });
 
+      const postSurgeryIds = [14, 15, 16, 17];
+      const isPostSurgeryActive = checkIsPostSurgeryActive();
+
+      postSurgeryIds.forEach(id => {
+        const chk = document.getElementById(`tab-chk-${id}`);
+        if (chk) {
+          const row = chk.closest('.item-row');
+          if (row) {
+            if (isPostSurgeryActive) {
+              row.style.display = 'flex';
+            } else {
+              row.style.display = 'none';
+            }
+          }
+        }
+      });
+
+      let changed = false;
       if (!isCourseActive) {
         const oldLen = checkedTablets.length;
         checkedTablets = checkedTablets.filter(tId => !courseIds.includes(tId));
-        if (checkedTablets.length !== oldLen) {
-          saveTabletsState();
-        }
+        if (checkedTablets.length !== oldLen) changed = true;
+      }
+      if (!isPostSurgeryActive) {
+        const oldLen = checkedTablets.length;
+        checkedTablets = checkedTablets.filter(tId => !postSurgeryIds.includes(tId));
+        if (checkedTablets.length !== oldLen) changed = true;
+      }
+      if (changed) {
+        saveTabletsState();
+      }
+    }
+
+    function updateAppStatusIndicator() {
+      const today = new Date();
+      const options = { day: 'numeric', month: 'short', year: 'numeric' };
+      const dateStr = today.toLocaleDateString('en-US', options);
+      const isCourseActive = checkIsCourseActive();
+      const isPostSurgeryActive = checkIsPostSurgeryActive();
+      
+      const statusText = `📅 App Date: ${dateStr} | 💊 5-Day Course: ${isCourseActive ? 'Active' : 'Expired'} | 🏥 Post-Surgery Course: ${isPostSurgeryActive ? 'Active' : 'Expired'}`;
+      const elem = document.getElementById('appStatusIndicator');
+      if (elem) {
+        elem.textContent = statusText;
       }
     }
 
@@ -2602,10 +2714,16 @@
     function updateTabletsProgress() {
       const courseIds = [8, 9, 10, 11, 12];
       const isCourseActive = checkIsCourseActive();
+
+      const postSurgeryIds = [14, 15, 16, 17];
+      const isPostSurgeryActive = checkIsPostSurgeryActive();
       
       let activeIds = [0, 1, 2, 3, 4, 5, 6, 7];
       if (isCourseActive) {
         activeIds = activeIds.concat(courseIds);
+      }
+      if (isPostSurgeryActive) {
+        activeIds = activeIds.concat(postSurgeryIds);
       }
       
       TOTAL_TABLETS = activeIds.length;
@@ -2848,6 +2966,7 @@
       setInterval(() => {
         updateTimeBlockOrdering();
         checkCourseExpiration();
+        updateAppStatusIndicator();
         checkInjectionAlert();
 
         const now = new Date();
@@ -2857,15 +2976,24 @@
         
         if (currentTimeString === lastNotifiedTime) return;
 
+        const isPostSurgeryActive = checkIsPostSurgeryActive();
+        const morningMedsText = isPostSurgeryActive 
+          ? "Take empty-stomach meds (Thyronorm, Pan 40mg), and morning meds (Dydrogest 10, Duvadilan 10mg, Ceftum 500mg, Deriphyllin Retard 500mg, Dolo 650mg after breakfast)."
+          : "Take empty-stomach meds (Thyronorm, Pan 40mg), and morning meds (Dydrogest 10, Duvadilan 10mg, Ceftum 500mg after breakfast).";
+          
+        const nightMedsText = isPostSurgeryActive
+          ? "Take night meds: Tab. Womiron, Tab. Dydrogest 10, Tab. Duvadilan 10mg, Tab. Ceftum 500mg, Deriphyllin Retard 500mg, Dolo 650mg after dinner."
+          : "Take night meds: Tab. Womiron, Tab. Dydrogest 10, Tab. Duvadilan 10mg, and Tab. Ceftum 500mg after dinner.";
+
         const reminders = {
-          "07:30": { title: "Morning Tablets (7:30 AM) 🌅", body: "Take empty-stomach meds (Thyronorm, Pan 40mg), and morning meds (Dydrogest 10, Duvadilan 10mg, Ceftum 500mg after breakfast)." },
+          "07:30": { title: "Morning Tablets (7:30 AM) 🌅", body: morningMedsText },
           "09:30": { title: "💧 Hydration Time!", body: "Time to drink a glass of water to keep Mouni and Baby healthy and hydrated!" },
           "11:30": { title: "💧 Hydration Time!", body: "Keep up the water intake! Drink a glass of water now." },
           "13:30": { title: "Afternoon Tablets (1:30 PM) ☀️ & Water Reminder 💧", body: "Take Tab. Magnocal and Tab. Sustener 200 after lunch. Also, drink a glass of water!" },
           "15:30": { title: "💧 Hydration Time!", body: "Mid-afternoon check. Drink a glass of water to stay fresh and hydrated." },
           "17:30": { title: "💧 Hydration Time!", body: "Time for another glass of water. Keep going, you're doing great!" },
           "19:30": { title: "💧 Hydration Time!", body: "Evening hydration reminder. Take a glass of water now." },
-          "21:00": { title: "Night Tablets (9:00 PM) 🌙", body: "Take night meds: Tab. Womiron, Tab. Dydrogest 10, Tab. Duvadilan 10mg, and Tab. Ceftum 500mg after dinner." },
+          "21:00": { title: "Night Tablets (9:00 PM) 🌙", body: nightMedsText },
           "21:30": { title: "💧 Hydration Time!", body: "Last water reminder for the day! Have a glass of water before winding down." },
           "22:00": { title: "Bedtime Application (10:00 PM) 🌛", body: "Apply Stovient Cream. Take Syp. Duphalac 15ml if needed for constipation." }
         };
@@ -2916,7 +3044,15 @@
       const today = formatDate(new Date());
       const isCourseActive = checkIsCourseActive();
       const courseIds = [8, 9, 10, 11, 12];
-      const doneCount = checkedTablets.filter(id => id !== 13 && (isCourseActive || !courseIds.includes(id))).length;
+      const isPostSurgeryActive = checkIsPostSurgeryActive();
+      const postSurgeryIds = [14, 15, 16, 17];
+      
+      const doneCount = checkedTablets.filter(id => {
+        if (id === 13) return false; // Exclude Duphalac
+        if (courseIds.includes(id) && !isCourseActive) return false;
+        if (postSurgeryIds.includes(id) && !isPostSurgeryActive) return false;
+        return true;
+      }).length;
       const total = TOTAL_TABLETS;
       const pct = Math.round((doneCount / total) * 100) || 0;
       
@@ -2940,17 +3076,30 @@
       const isProCaseDone = checkedTablets.includes(3) ? "✅ Done" : "❌ Pending";
       const isDuphalacDone = checkedTablets.includes(13) ? "✅ Taken" : "💤 Not needed";
 
+      const isDeriphyllinAMDone = checkedTablets.includes(14) ? "✅ Done" : "❌ Pending";
+      const isDeriphyllinPMDone = checkedTablets.includes(15) ? "✅ Done" : "❌ Pending";
+      const isDoloAMDone = checkedTablets.includes(16) ? "✅ Done" : "❌ Pending";
+      const isDoloPMDone = checkedTablets.includes(17) ? "✅ Done" : "❌ Pending";
+
       let text = `🌸 *Mouni & Baby Health Update*\nDate: ${today}\n\n• Tablet Progress: *${statusText}*\n• Thyronorm (AM): ${isThyronormDone}\n`;
       if (isCourseActive) {
         text += `• Pan 40mg (AM): ${isPanDone}\n`;
         text += `• Ceftum 500mg (AM): ${isCeftumAMDone}\n`;
         text += `• Duvadilan 10mg (AM): ${isDuvadilanAMDone}\n`;
       }
+      if (isPostSurgeryActive) {
+        text += `• Deriphyllin Retard (AM): ${isDeriphyllinAMDone}\n`;
+        text += `• Dolo 650mg (AM): ${isDoloAMDone}\n`;
+      }
       text += `• Magnocal (Calcium): ${isMagnocalDone}\n`;
       text += `• Womiron (Night): ${isWomironDone}\n`;
       if (isCourseActive) {
         text += `• Ceftum 500mg (PM): ${isCeftumPMDone}\n`;
         text += `• Duvadilan 10mg (PM): ${isDuvadilanPMDone}\n`;
+      }
+      if (isPostSurgeryActive) {
+        text += `• Deriphyllin Retard (PM): ${isDeriphyllinPMDone}\n`;
+        text += `• Dolo 650mg (PM): ${isDoloPMDone}\n`;
       }
       text += `• Pro Case Powder: ${isProCaseDone}\n`;
       text += `• Duphalac (Constipation): ${isDuphalacDone}\n\n`;
