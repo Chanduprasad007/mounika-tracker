@@ -620,14 +620,10 @@
       gap: 14px;
       padding: 14px 16px;
       border-bottom: var(--border-width) solid var(--border);
-      transition: background-color 0.15s ease-out, transform 0.15s ease-out;
-      cursor: pointer;
+      transition: background-color 0.15s ease-out;
+      cursor: default;
     }
     .item-row:last-child { border-bottom: none; }
-    .item-row:hover { background: var(--dot-color); }
-    .item-row:active {
-      transform: translate(1px, 1px);
-    }
 
     .checkbox-btn {
       width: 26px; height: 26px;
@@ -637,8 +633,14 @@
       margin-top: 2px;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      transition: all 0.15s ease-out;
+      transition: transform 0.1s ease-out, background-color 0.15s ease-out;
       background: var(--white);
+    }
+    .checkbox-btn:hover {
+      background: var(--gold);
+    }
+    .checkbox-btn:active {
+      transform: scale(0.92);
     }
     .checkbox-btn.checked {
       background: var(--rose);
@@ -1548,8 +1550,8 @@
               </div>
             </div>
             
-            <div class="item-row" onclick="toggleTablet(7, event)">
-              <div class="checkbox-btn" id="tab-chk-7"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-7" onclick="toggleTablet(7, event)"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Thyronorm 50mcg</div>
                 <div class="item-desc">Thyroid support. Take first thing in the morning on an empty stomach (30 mins before food).</div>
@@ -1560,8 +1562,8 @@
               </div>
             </div>
 
-            <div class="item-row" onclick="toggleTablet(8, event)">
-              <div class="checkbox-btn" id="tab-chk-8"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-8" onclick="toggleTablet(8, event)"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Pan 40mg</div>
                 <div class="item-desc">Acid prevention. Take 1 tablet on empty stomach (30 mins before breakfast).</div>
@@ -1573,8 +1575,8 @@
               </div>
             </div>
 
-            <div class="item-row" onclick="toggleTablet(0, event)">
-              <div class="checkbox-btn" id="tab-chk-0"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-0" onclick="toggleTablet(0, event)"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Dydrogest 10 (Dydrogesterone)</div>
                 <div class="item-desc">Progesterone support — prevents preterm birth. Take 1 tablet after breakfast.</div>
@@ -1585,8 +1587,8 @@
               </div>
             </div>
 
-            <div class="item-row" onclick="toggleTablet(9, event)">
-              <div class="checkbox-btn" id="tab-chk-9"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-9" onclick="toggleTablet(9, event)"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Ceftum 500mg</div>
                 <div class="item-desc">Antibiotic. Take 1 tablet after breakfast.</div>
@@ -1598,8 +1600,8 @@
               </div>
             </div>
 
-            <div class="item-row" onclick="toggleTablet(10, event)">
-              <div class="checkbox-btn" id="tab-chk-10"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-10" onclick="toggleTablet(10, event)"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Duvadilan 10mg</div>
                 <div class="item-desc">Uterine relaxant — prevents preterm contractions. Take 1 tablet after breakfast.</div>
@@ -1611,8 +1613,8 @@
               </div>
             </div>
             <!-- Deriphyllin Retard 500mg Morning (3 Days Course) -->
-            <div class="item-row" onclick="toggleTablet(14, event)">
-              <div class="checkbox-btn" id="tab-chk-14"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-14" onclick="toggleTablet(14, event)"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Deriphyllin Retard 500mg</div>
                 <div class="item-desc">Bronchodilator (helps breathing / muscle relaxant). Take 1 tablet after breakfast.</div>
@@ -1625,8 +1627,8 @@
             </div>
 
             <!-- Dolo 650mg Morning (3 Days Course) -->
-            <div class="item-row" onclick="toggleTablet(16, event)">
-              <div class="checkbox-btn" id="tab-chk-16"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-16" onclick="toggleTablet(16, event)"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Dolo 650mg</div>
                 <div class="item-desc">Pain relief and fever prevention. Take 1 tablet after breakfast.</div>
@@ -1639,8 +1641,8 @@
             </div>
 
             <!-- Synced morning Pro Case -->
-            <div class="item-row" onclick="toggleTablet(3, event)">
-              <div class="checkbox-btn" id="tab-chk-3"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-3" onclick="toggleTablet(3, event)"></div>
               <div class="item-content">
                 <div class="item-name">Pro Case DF powder</div>
                 <div class="item-desc">Protein supplement. Mix with milk/water after breakfast. (Optional: take at night instead).</div>
@@ -1665,8 +1667,8 @@
               </div>
             </div>
 
-            <div class="item-row" onclick="toggleTablet(1, event)">
-              <div class="checkbox-btn" id="tab-chk-1"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-1" onclick="toggleTablet(1, event)"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Magnocal</div>
                 <div class="item-desc">Calcium + Magnesium supplement. Keep away from Womiron. Take 1 tablet.</div>
@@ -1676,8 +1678,8 @@
               </div>
             </div>
 
-            <div class="item-row" onclick="toggleTablet(2, event)">
-              <div class="checkbox-btn" id="tab-chk-2"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-2" onclick="toggleTablet(2, event)"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Sustener 200 Progesterone</div>
                 <div class="item-desc">Additional progesterone support. Take 1 tablet. Afternoon timing avoids sleepiness.</div>
@@ -1701,8 +1703,8 @@
               </div>
             </div>
 
-            <div class="item-row" onclick="toggleTablet(4, event)">
-              <div class="checkbox-btn" id="tab-chk-4"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-4" onclick="toggleTablet(4, event)"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Womiron (Iron + Folic)</div>
                 <div class="item-desc">Iron deficiency plus folic acid. Take 1 tablet. Keep away from Calcium. May cause dark stools.</div>
@@ -1712,8 +1714,8 @@
               </div>
             </div>
 
-            <div class="item-row" onclick="toggleTablet(5, event)">
-              <div class="checkbox-btn" id="tab-chk-5"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-5" onclick="toggleTablet(5, event)"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Dydrogest 10 (Dydrogesterone)</div>
                 <div class="item-desc">Second dose of progesterone. Take 1 tablet after dinner.</div>
@@ -1724,8 +1726,8 @@
               </div>
             </div>
 
-            <div class="item-row" onclick="toggleTablet(11, event)">
-              <div class="checkbox-btn" id="tab-chk-11"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-11" onclick="toggleTablet(11, event)"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Ceftum 500mg</div>
                 <div class="item-desc">Antibiotic. Take 1 tablet after dinner.</div>
@@ -1737,8 +1739,8 @@
               </div>
             </div>
 
-            <div class="item-row" onclick="toggleTablet(12, event)">
-              <div class="checkbox-btn" id="tab-chk-12"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-12" onclick="toggleTablet(12, event)"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Duvadilan 10mg</div>
                 <div class="item-desc">Second dose of uterine relaxant. Take 1 tablet after dinner.</div>
@@ -1750,8 +1752,8 @@
               </div>
             </div>
             <!-- Deriphyllin Retard 500mg Night (3 Days Course) -->
-            <div class="item-row" onclick="toggleTablet(15, event)">
-              <div class="checkbox-btn" id="tab-chk-15"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-15" onclick="toggleTablet(15, event)"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Deriphyllin Retard 500mg</div>
                 <div class="item-desc">Bronchodilator (helps breathing / muscle relaxant). Take 1 tablet after dinner.</div>
@@ -1764,8 +1766,8 @@
             </div>
 
             <!-- Dolo 650mg Night (3 Days Course) -->
-            <div class="item-row" onclick="toggleTablet(17, event)">
-              <div class="checkbox-btn" id="tab-chk-17"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-17" onclick="toggleTablet(17, event)"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Dolo 650mg</div>
                 <div class="item-desc">Pain relief and fever prevention. Take 1 tablet after dinner.</div>
@@ -1778,8 +1780,8 @@
             </div>
 
             <!-- Synced Optional Pro Case night -->
-            <div class="item-row" onclick="toggleTablet(3, event)">
-              <div class="checkbox-btn" id="tab-chk-3-night"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-3-night" onclick="toggleTablet(3, event)"></div>
               <div class="item-content">
                 <div class="item-name">Pro Case DF powder (Optional)</div>
                 <div class="item-desc">Protein supplement. Take with milk/water after dinner if not taken in morning.</div>
@@ -1804,8 +1806,8 @@
               </div>
             </div>
 
-            <div class="item-row" onclick="toggleTablet(6, event)">
-              <div class="checkbox-btn" id="tab-chk-6"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-6" onclick="toggleTablet(6, event)"></div>
               <div class="item-content">
                 <div class="item-name">Stovient Cream</div>
                 <div class="item-desc">Apply gently on belly, hips, and thighs for stretch mark prevention. 1 application.</div>
@@ -1815,8 +1817,8 @@
               </div>
             </div>
 
-            <div class="item-row" onclick="toggleTablet(13, event)">
-              <div class="checkbox-btn" id="tab-chk-13"></div>
+            <div class="item-row">
+              <div class="checkbox-btn" id="tab-chk-13" onclick="toggleTablet(13, event)"></div>
               <div class="item-content">
                 <div class="item-name">Syp. Duphalac 15ml</div>
                 <div class="item-desc">Laxative. Take 15ml at bedtime for constipation support, as needed (SOS).</div>
@@ -2877,8 +2879,8 @@
           visibleCountInGroup++;
 
           groupHTML += `
-            <div class="item-row ${isChecked ? 'checked' : ''}" onclick="toggleVaccine('${v.id}', event)">
-              <div class="checkbox-btn ${isChecked ? 'checked' : ''}"></div>
+            <div class="item-row ${isChecked ? 'checked' : ''}">
+              <div class="checkbox-btn ${isChecked ? 'checked' : ''}" onclick="toggleVaccine('${v.id}', event)"></div>
               <div class="item-content">
                 <div class="item-name">${v.name}</div>
                 <div class="item-desc">${v.desc}</div>
