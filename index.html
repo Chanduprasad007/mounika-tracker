@@ -18,33 +18,31 @@
   <meta name="theme-color" content="#E8927C">
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
     :root {
-      /* Theme light variables - Bauhaus style */
-      --bg:             #F0F0F0;
-      --bg-app:         #F0F0F0;
-      --text:           #121212;
-      --text-muted:     #555555;
-      --card-bg:        #FFFFFF;
-      --card-border:    #121212;
-      --border:         #121212;
-      --header-grad:    #1040C0; /* Bauhaus Blue */
-      --header-shadow:  4px 4px 0px 0px #121212;
-      --shadow-blur:    4px 4px 0px 0px #121212;
-      --shadow-card:    6px 6px 0px 0px #121212;
-      --border-width:   2.5px;
-      --dot-color:      rgba(18, 18, 18, 0.08);
+      /* Theme light variables */
+      --bg:             #F2F0EB;
+      --bg-app:         #F2F0EB;
+      --text:           #1C1C1E;
+      --text-muted:     #6E6E73;
+      --card-bg:        rgba(255, 255, 255, 0.7);
+      --card-border:    rgba(255, 255, 255, 0.45);
+      --border:         rgba(0, 0, 0, 0.05);
+      --header-grad:    linear-gradient(135deg, #E8927C 0%, #C9A84C 100%);
+      --header-shadow:  0 8px 25px rgba(232, 146, 124, 0.12);
+      --shadow-blur:    0 12px 30px 0 rgba(0, 0, 0, 0.03);
+      --shadow-card:    0 8px 24px rgba(0, 0, 0, 0.02);
       
-      --rose:           #D02020; /* Bauhaus Red */
-      --rose-lt:        #FDE8E8;
-      --rose-dark:      #D02020;
-      --sage:           #1040C0; /* Bauhaus Blue */
-      --sage-lt:        #E3F2FD;
-      --sage-dark:      #1040C0;
-      --gold:           #F0C020; /* Bauhaus Yellow */
-      --gold-lt:        #FFF9C4;
-      --gold-dark:      #F0C020;
+      --rose:           #E8927C;
+      --rose-lt:        #FBF0ED;
+      --rose-dark:      #C26B57;
+      --sage:           #7BAE8E;
+      --sage-lt:        #EDF5F1;
+      --sage-dark:      #508A65;
+      --gold:           #C9A84C;
+      --gold-lt:        #FAF6E9;
+      --gold-dark:      #8E712C;
       --lavender:       #9B89C4;
       --lav-lt:         #F3F1FA;
       --lav-dark:       #6E5B99;
@@ -53,71 +51,66 @@
       --white:          #FFFFFF;
 
       /* Badge Colors Light */
-      --badge-critical-bg: #D02020;
-      --badge-critical-text: #FFFFFF;
-      --badge-progesterone-bg: #1040C0;
-      --badge-progesterone-text: #FFFFFF;
-      --badge-nutrition-bg: #F0C020;
-      --badge-nutrition-text: #121212;
-      --badge-calcium-bg: #F0C020;
-      --badge-calcium-text: #121212;
-      --badge-before-food-bg: #FFF9C4;
-      --badge-before-food-text: #121212;
-      --badge-before-food-border: #121212;
-      --badge-before-food-shadow: none;
+      --badge-critical-bg: #FDE8E8;
+      --badge-critical-text: #9B1C1C;
+      --badge-progesterone-bg: #F3E8FF;
+      --badge-progesterone-text: #6B21A8;
+      --badge-nutrition-bg: #DEF7EC;
+      --badge-nutrition-text: #03543F;
+      --badge-calcium-bg: #FEF08A;
+      --badge-calcium-text: #713F12;
+      --badge-before-food-bg: #FFF3E0;
+      --badge-before-food-text: #E65100;
+      --badge-before-food-border: #FFB74D;
+      --badge-before-food-shadow: rgba(255, 183, 77, 0.25);
       --badge-after-food-bg: #E3F2FD;
-      --badge-after-food-text: #121212;
-      --badge-after-food-border: #121212;
-      --badge-after-food-shadow: none;
+      --badge-after-food-text: #0D47A1;
+      --badge-after-food-border: #64B5F6;
+      --badge-after-food-shadow: rgba(100, 181, 246, 0.25);
     }
 
     [data-theme="dark"] {
-      /* Theme dark variables - Bauhaus style */
-      --bg:             #121212;
-      --bg-app:         #121212;
-      --text:           #F0F0F0;
-      --text-muted:     #AAAAAA;
-      --card-bg:        #1A1A1A;
-      --card-border:    #F0F0F0;
-      --border:         #F0F0F0;
-      --header-grad:    #1E3A8A; /* Dark Bauhaus Blue */
-      --header-shadow:  4px 4px 0px 0px #F0F0F0;
-      --shadow-blur:    4px 4px 0px 0px #F0F0F0;
-      --shadow-card:    6px 6px 0px 0px #F0F0F0;
-      --border-width:   2.5px;
-      --dot-color:      rgba(240, 240, 240, 0.08);
+      /* Theme dark variables (Apple-style Midnight) */
+      --bg:             #09090D;
+      --bg-app:         #09090D;
+      --text:           #F5F5F7;
+      --text-muted:     #8E8E93;
+      --card-bg:        rgba(22, 22, 30, 0.55);
+      --card-border:    rgba(255, 255, 255, 0.05);
+      --border:         rgba(255, 255, 255, 0.08);
+      --header-grad:    linear-gradient(135deg, #2d161c 0%, #0c0507 100%);
+      --header-shadow:  0 8px 25px rgba(0, 0, 0, 0.55);
+      --shadow-blur:    0 12px 30px 0 rgba(0, 0, 0, 0.3);
+      --shadow-card:    0 8px 24px rgba(0, 0, 0, 0.2);
       
-      --rose:           #EF4444; /* Bright Red */
-      --rose-lt:        rgba(239, 68, 68, 0.15);
-      --rose-dark:      #EF4444;
-      --sage:           #3B82F6; /* Bright Blue */
-      --sage-lt:        rgba(59, 130, 246, 0.15);
-      --sage-dark:      #3B82F6;
-      --gold:           #F59E0B; /* Bright Yellow */
-      --gold-lt:        rgba(245, 158, 11, 0.15);
-      --gold-dark:      #F59E0B;
+      --rose-lt:        rgba(232, 146, 124, 0.12);
+      --rose-dark:      #FF9E8A;
+      --sage-lt:        rgba(123, 174, 142, 0.12);
+      --sage-dark:      #9BCCA9;
+      --gold-lt:        rgba(201, 168, 76, 0.12);
+      --gold-dark:      #ECCB6E;
       --lav-lt:         rgba(155, 137, 196, 0.12);
       --lav-dark:       #BCAFE0;
       --sky-lt:         rgba(135, 206, 235, 0.12);
-      --white:          #2B2B2B;
+      --white:          #1C1C1E;
 
       /* Badge Colors Dark */
-      --badge-critical-bg: #EF4444;
-      --badge-critical-text: #121212;
-      --badge-progesterone-bg: #3B82F6;
-      --badge-progesterone-text: #121212;
-      --badge-nutrition-bg: #F59E0B;
-      --badge-nutrition-text: #121212;
-      --badge-calcium-bg: #F59E0B;
-      --badge-calcium-text: #121212;
-      --badge-before-food-bg: rgba(245, 158, 11, 0.25);
-      --badge-before-food-text: #F0F0F0;
-      --badge-before-food-border: #F0F0F0;
-      --badge-before-shadow: none;
-      --badge-after-food-bg: rgba(59, 130, 246, 0.25);
-      --badge-after-food-text: #F0F0F0;
-      --badge-after-food-border: #F0F0F0;
-      --badge-after-food-shadow: none;
+      --badge-critical-bg: rgba(248, 113, 113, 0.15);
+      --badge-critical-text: #FCA5A5;
+      --badge-progesterone-bg: rgba(192, 132, 252, 0.15);
+      --badge-progesterone-text: #E9D5FF;
+      --badge-nutrition-bg: rgba(52, 211, 153, 0.15);
+      --badge-nutrition-text: #A7F3D0;
+      --badge-calcium-bg: rgba(253, 224, 71, 0.15);
+      --badge-calcium-text: #FEF08A;
+      --badge-before-food-bg: rgba(255, 183, 77, 0.12);
+      --badge-before-food-text: #FFB74D;
+      --badge-before-food-border: rgba(255, 183, 77, 0.35);
+      --badge-before-food-shadow: rgba(255, 183, 77, 0.2);
+      --badge-after-food-bg: rgba(100, 181, 246, 0.12);
+      --badge-after-food-text: #90CAF9;
+      --badge-after-food-border: rgba(100, 181, 246, 0.35);
+      --badge-after-food-shadow: rgba(100, 181, 246, 0.2);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -128,10 +121,8 @@
     }
 
     body {
-      font-family: 'Outfit', sans-serif;
-      background-color: var(--bg);
-      background-image: radial-gradient(var(--dot-color) 1.5px, transparent 1.5px);
-      background-size: 20px 20px;
+      font-family: 'DM Sans', sans-serif;
+      background: transparent;
       color: var(--text);
       min-height: 100vh;
       padding: 0;
@@ -162,9 +153,8 @@
       position: relative;
       overflow: hidden;
       color: white;
-      border-bottom-left-radius: 0px;
-      border-bottom-right-radius: 0px;
-      border-bottom: var(--border-width) solid var(--text);
+      border-bottom-left-radius: 32px;
+      border-bottom-right-radius: 32px;
       box-shadow: var(--header-shadow);
       transition: background 0.4s ease, box-shadow 0.4s ease;
     }
@@ -188,23 +178,19 @@
       bottom: -30px; left: -20px;
     }
     header h1 {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 900;
-      font-size: 34px;
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
       color: white;
-      letter-spacing: -1.5px;
-      text-transform: uppercase;
+      letter-spacing: 0.3px;
       margin-bottom: 4px;
       text-shadow: 0 1px 2px rgba(0,0,0,0.1);
     }
     header p {
       color: rgba(255,255,255,0.9);
       font-size: 14px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
+      font-weight: 400;
     }
-    /* GREETING BADGE - Bauhaus Style */
+    /* ANIMATED GRADIENT TEXT */
     .animated-gradient-text {
       position: relative;
       margin: 0 auto;
@@ -213,15 +199,13 @@
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      border-radius: 9999px;
-      background: var(--gold);
-      border: 2px solid var(--text);
-      color: var(--text) !important;
-      box-shadow: 3px 3px 0px 0px var(--text);
+      border-radius: 1.25rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: box-shadow 0.5s ease-out;
       overflow: hidden;
       cursor: pointer;
       z-index: 1;
-      transition: all 0.2s ease;
     }
 
     .animated-gradient-text.with-border {
@@ -229,44 +213,84 @@
     }
 
     .gradient-overlay {
-      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: inherit;
+      z-index: 0;
+      pointer-events: none;
+      background-image: linear-gradient(to right, #40ffaa, #4079ff, #40ffaa, #4079ff, #40ffaa);
+      background-size: 300% 100%;
+      animation: gradient-move 6s linear infinite alternate;
+    }
+
+    .gradient-overlay::before {
+      content: '';
+      position: absolute;
+      border-radius: inherit;
+      width: calc(100% - 2px);
+      height: calc(100% - 2px);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.15);
+      z-index: -1;
     }
 
     .text-content {
       display: inline-block;
       position: relative;
       z-index: 2;
-      background: none !important;
-      color: var(--text) !important;
-      -webkit-text-fill-color: var(--text) !important;
-      animation: none !important;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      background-image: linear-gradient(to right, #40ffaa, #4079ff, #40ffaa, #4079ff, #40ffaa);
+      background-size: 300% 100%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: gradient-move 6s linear infinite alternate;
+    }
+
+    .animated-gradient-text:hover .gradient-overlay,
+    .animated-gradient-text:hover .text-content {
+      animation-play-state: paused;
+    }
+
+    @keyframes gradient-move {
+      0% {
+        background-position: 0% 50%;
+      }
+      100% {
+        background-position: 100% 50%;
+      }
     }
 
     .greeting-text {
       font-size: 10px;
-      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+      font-weight: 700;
+      margin-bottom: 12px;
     }
 
-    /* THEME TOGGLE BUTTON - Bauhaus Style */
+    /* THEME TOGGLE BUTTON */
     .theme-toggle-btn {
       position: absolute;
       top: 24px;
       right: 20px;
-      background: var(--gold);
-      border: var(--border-width) solid var(--text);
-      color: var(--text);
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
       width: 40px;
       height: 40px;
-      border-radius: 0px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 3px 3px 0px 0px var(--text);
-      transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       z-index: 10;
     }
     @supports (padding-top: env(safe-area-inset-top)) {
@@ -275,12 +299,11 @@
       }
     }
     .theme-toggle-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 4px 4px 0px 0px var(--text);
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
     }
     .theme-toggle-btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: none !important;
+      transform: scale(0.95);
     }
     .theme-toggle-btn svg {
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -288,7 +311,8 @@
     .theme-toggle-btn:active svg {
       transform: rotate(45deg);
     }
-    /* DYNAMIC INFO CARDS - Bauhaus Style */
+
+    /* DYNAMIC INFO CARDS */
     .header-info-wrap {
       display: flex;
       flex-direction: column;
@@ -296,11 +320,12 @@
       margin-top: 18px;
     }
     .info-card {
-      background: var(--card-bg);
-      border-radius: 0px;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px;
       padding: 14px 18px;
-      border: var(--border-width) solid var(--text);
-      box-shadow: 4px 4px 0px 0px var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       text-align: left;
     }
     .info-card-title {
@@ -308,7 +333,7 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       font-weight: 700;
-      color: var(--text);
+      color: rgba(255,255,255,0.85);
       margin-bottom: 6px;
       display: flex;
       justify-content: space-between;
@@ -316,18 +341,16 @@
     }
     .info-card-value {
       font-size: 16px;
-      font-weight: 900;
-      text-transform: uppercase;
-      color: var(--text);
+      font-weight: 700;
+      color: white;
     }
     .info-card-sub {
       font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 4px;
-      font-weight: 500;
+      color: rgba(255, 255, 255, 0.85);
+      margin-top: 2px;
     }
 
-    /* TRIMESTER PROGRESS BAR - Bauhaus Style */
+    /* TRIMESTER PROGRESS BAR */
     .trimester-container {
       display: flex;
       align-items: center;
@@ -336,19 +359,18 @@
     }
     .trimester-seg {
       flex: 1;
-      height: 10px;
-      background: var(--muted);
-      border: 1.5px solid var(--text);
-      border-radius: 0px;
+      height: 6px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 3px;
       position: relative;
     }
     .trimester-seg.completed {
-      background: var(--sage);
+      background: var(--white);
     }
     .trimester-seg.active .trimester-fill {
       height: 100%;
-      background: var(--rose);
-      border-radius: 0px;
+      background: var(--white);
+      border-radius: 3px;
       transition: width 0.5s ease;
     }
     .trimester-label-row {
@@ -356,19 +378,21 @@
       justify-content: space-between;
       font-size: 9px;
       font-weight: 700;
-      color: var(--text-muted);
+      color: rgba(255,255,255,0.8);
       margin-top: 4px;
     }
 
-    /* LIQUID TABS BAR - Bauhaus Style */
+    /* LIQUID TABS BAR */
     .tabs-bar {
       display: flex;
       background: var(--card-bg);
       margin: 16px 16px 8px;
       padding: 4px;
-      border-radius: 0px;
-      box-shadow: 4px 4px 0px 0px var(--text);
-      border: var(--border-width) solid var(--text);
+      border-radius: 20px;
+      box-shadow: var(--shadow-blur);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       position: relative;
     }
     .tab-btn {
@@ -376,33 +400,30 @@
       border: none;
       background: transparent;
       padding: 12px 8px;
-      font-family: 'Outfit', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-size: 14px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      font-weight: 600;
       color: var(--text-muted);
-      border-radius: 0px;
+      border-radius: 16px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: color 0.2s ease;
+      transition: color 0.3s ease;
       z-index: 2;
     }
     .tab-btn.active {
-      color: var(--white) !important;
+      color: var(--rose-dark);
     }
     .tab-indicator {
       position: absolute;
       top: 4px;
       bottom: 4px;
       left: 4px;
-      background: var(--rose);
-      border: 1.5px solid var(--text);
-      border-radius: 0px;
-      transition: transform 0.3s ease-out, width 0.3s ease-out;
+      background: var(--rose-lt);
+      border-radius: 16px;
+      transition: transform 0.4s cubic-bezier(0.25, 1.25, 0.5, 1.25), width 0.4s ease;
       z-index: 1;
     }
 
@@ -410,28 +431,28 @@
     .tab-content {
       display: none;
       opacity: 0;
-      transition: opacity 0.2s ease;
+      transition: opacity 0.3s ease;
     }
     .tab-content.active {
       display: block;
       opacity: 1;
     }
 
-    /* CORE CONTAINERS COMMON - Bauhaus Style */
+    /* GLASS CARD COMMON WRAPPER */
     .time-block, .control-card, .progress-wrap, .reminder-card, .accordion {
       background: var(--card-bg);
-      border: var(--border-width) solid var(--card-border);
-      border-radius: 0px;
-      box-shadow: var(--shadow-card);
-      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+      border: 1px solid var(--card-border);
+      border-radius: 24px; /* Squircle Corner */
+      box-shadow: var(--shadow-blur);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.4s ease, box-shadow 0.4s ease;
     }
-    .time-block:hover, .control-card:hover, .progress-wrap:hover, .reminder-card:hover, .accordion:hover {
-      transform: translateY(-2px);
-      box-shadow: 8px 8px 0px 0px var(--text);
-     /* BANNER NOTIFICATION */
+
+    /* BANNER NOTIFICATION */
     .banner {
       margin: 12px 16px 0;
-      border-radius: 0px;
+      border-radius: 18px;
       padding: 14px 16px;
       font-size: 13px;
       line-height: 1.5;
@@ -439,19 +460,24 @@
       gap: 12px;
       align-items: flex-start;
       box-shadow: var(--shadow-card);
-      border: var(--border-width) solid var(--card-border);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
     .banner-warning {
-      background: var(--gold);
-      color: #121212;
+      background: rgba(255, 152, 0, 0.12);
+      border-left: 4px solid #FF9800;
+      color: var(--gold-dark);
     }
     .banner-info {
-      background: var(--sage);
-      color: #FFFFFF;
+      background: var(--lav-lt);
+      border-left: 4px solid var(--lavender);
+      color: var(--lav-dark);
     }
     .banner-danger {
-      background: var(--rose);
-      color: #FFFFFF;
+      background: var(--rose-lt);
+      border-left: 4px solid var(--rose);
+      color: var(--rose-dark);
     }
     .banner-icon {
       font-size: 20px;
@@ -461,17 +487,19 @@
     /* IN-APP ALERT BANNER */
     .in-app-alert {
       position: fixed;
-      top: -150px;
+      top: -100px;
       left: 50%;
       transform: translateX(-50%);
       width: 90%;
       max-width: 460px;
-      background: var(--gold);
-      color: #121212;
+      background: var(--card-bg);
+      color: var(--text);
       padding: 16px;
-      border-radius: 0px;
-      box-shadow: var(--shadow-card);
-      border: var(--border-width) solid var(--card-border);
+      border-radius: 20px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       z-index: 1000;
       display: flex;
       gap: 12px;
@@ -487,14 +515,14 @@
       }
     }
     .in-app-alert-details { flex: 1; }
-    .in-app-alert-title { font-weight: 900; font-size: 14px; margin-bottom: 2px; text-transform: uppercase; letter-spacing: -0.5px; }
-    .in-app-alert-body { font-size: 12px; color: #121212; font-weight: 500; }
-    .in-app-alert-close { background: none; border: none; color: inherit; font-weight: 900; cursor: pointer; padding: 4px; font-size: 20px; }
+    .in-app-alert-title { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+    .in-app-alert-body { font-size: 12px; color: var(--text-muted); }
+    .in-app-alert-close { background: none; border: none; color: var(--text); font-weight: bold; cursor: pointer; padding: 4px; font-size: 16px; }
 
     /* SECTION LABEL */
     .section-label {
       font-size: 11px;
-      font-weight: 900;
+      font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--text-muted);
@@ -514,26 +542,23 @@
     }
     .progress-top span:first-child {
       font-size: 13px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      font-weight: 700;
     }
     .progress-count {
       font-size: 13px;
-      color: var(--rose);
-      font-weight: 900;
+      color: var(--sage-dark);
+      font-weight: 700;
     }
     .progress-bar-bg {
-      background: var(--card-bg);
-      border: var(--border-width) solid var(--border);
-      border-radius: 0px;
-      height: 14px;
+      background: var(--border);
+      border-radius: 99px;
+      height: 10px;
       overflow: hidden;
     }
     .progress-bar-fill {
       height: 100%;
-      background: var(--rose);
-      border-radius: 0px;
+      background: linear-gradient(90deg, var(--sage), var(--rose));
+      border-radius: 99px;
       transition: width 0.4s cubic-bezier(0.1, 0.8, 0.25, 1);
       width: 0%;
     }
@@ -547,12 +572,10 @@
     .utility-btn {
       flex: 1;
       padding: 12px 8px;
-      border-radius: 0px;
+      border-radius: 16px;
       font-size: 12px;
       font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border: var(--border-width) solid var(--card-border);
+      border: 1px solid var(--card-border);
       background: var(--card-bg);
       color: var(--text);
       cursor: pointer;
@@ -560,21 +583,15 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
-      box-shadow: 3px 3px 0px 0px var(--text);
+      transition: all 0.2s;
+      box-shadow: var(--shadow-card);
     }
-    .utility-btn:hover {
-      background: var(--gold);
-      color: #121212;
-    }
-    .utility-btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: none !important;
-    }
+    .utility-btn:hover { background: var(--border); }
+    .utility-btn:active { transform: scale(0.96); }
     .utility-btn.active-notif {
-      background: var(--rose);
-      color: var(--white);
-      border-color: var(--card-border);
+      background: var(--lav-lt);
+      color: var(--lav-dark);
+      border-color: var(--lavender);
     }
 
     /* TIME BLOCKS */
@@ -587,79 +604,70 @@
       align-items: center;
       gap: 12px;
       padding: 16px;
-      border-bottom: var(--border-width) solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
     .time-icon {
       width: 42px; height: 42px;
-      border-radius: 0px;
-      border: var(--border-width) solid var(--border);
+      border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
       font-size: 22px;
       flex-shrink: 0;
-      box-shadow: 3px 3px 0px 0px var(--text);
+      box-shadow: var(--shadow-card);
     }
     .time-info h2 {
       font-size: 15px;
-      font-weight: 900;
+      font-weight: 700;
       line-height: 1.2;
-      text-transform: uppercase;
-      letter-spacing: -0.5px;
     }
     .time-info span {
       font-size: 11px;
       color: var(--text-muted);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
-    /* ITEMS LIST */
+    /* ITEMS LIST (Satisfying Apple Bouncy Rows) */
     .item-row {
       display: flex;
       align-items: flex-start;
       gap: 14px;
       padding: 14px 16px;
-      border-bottom: var(--border-width) solid var(--border);
-      transition: background-color 0.15s ease-out;
-      cursor: default;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
     }
     .item-row:last-child { border-bottom: none; }
+    .item-row:hover { background: var(--border); }
+    .item-row:active {
+      transform: scale(0.97);
+    }
 
     .checkbox-btn {
       width: 26px; height: 26px;
-      border-radius: 0px;
-      border: var(--border-width) solid var(--border);
+      border-radius: 8px;
+      border: 2px solid var(--border);
       flex-shrink: 0;
       margin-top: 2px;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      transition: transform 0.1s ease-out, background-color 0.15s ease-out;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       background: var(--white);
     }
-    .checkbox-btn:hover {
-      background: var(--gold);
-    }
-    .checkbox-btn:active {
-      transform: scale(0.92);
-    }
     .checkbox-btn.checked {
-      background: var(--rose);
-      border-color: var(--border);
+      background: var(--sage);
+      border-color: var(--sage);
+      transform: scale(1.1);
     }
     .checkbox-btn.checked::after {
       content: '✓';
-      color: var(--white);
-      font-size: 16px;
-      font-weight: 900;
+      color: white;
+      font-size: 15px;
+      font-weight: 800;
     }
 
     .item-content { flex: 1; }
     .item-name {
       font-size: 15px;
-      font-weight: 900;
+      font-weight: 700;
       margin-bottom: 3px;
-      text-transform: uppercase;
-      letter-spacing: -0.5px;
       transition: color 0.3s ease;
     }
     .item-row.checked .item-name {
@@ -667,10 +675,9 @@
       text-decoration: line-through;
     }
     .item-desc {
-      font-size: 12.5px;
+      font-size: 12px;
       color: var(--text-muted);
       line-height: 1.45;
-      font-weight: 500;
     }
     .badge-row {
       display: flex;
@@ -681,64 +688,70 @@
     .badge {
       display: inline-block;
       font-size: 10px;
-      font-weight: 900;
+      font-weight: 700;
       padding: 2px 8px;
-      border-radius: 0px;
-      border: 1.5px solid var(--border);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
     }
     .tag-critical { background: var(--badge-critical-bg); color: var(--badge-critical-text); }
     .tag-progesterone { background: var(--badge-progesterone-bg); color: var(--badge-progesterone-text); }
     .tag-nutrition { background: var(--badge-nutrition-bg); color: var(--badge-nutrition-text); }
     .tag-calcium { background: var(--badge-calcium-bg); color: var(--badge-calcium-text); }
-    .tag-topical { background: var(--card-bg); color: var(--text); }
-    .tag-overdue { background: var(--badge-critical-bg); color: var(--badge-critical-text); font-weight: 900; }
+    .tag-topical { background: var(--border); color: var(--text-muted); }
+    .tag-overdue { background: var(--badge-critical-bg); color: var(--badge-critical-text); font-weight: 800; }
     .tag-upcoming { background: var(--badge-calcium-bg); color: var(--badge-calcium-text); }
-    .tag-future { background: var(--sky); color: #121212; }
+    .tag-future { background: var(--sky-lt); color: #00838F; }
     .tag-before-food {
       background: var(--badge-before-food-bg);
       color: var(--badge-before-food-text);
-      border: 1.5px solid var(--badge-before-food-border);
-      font-weight: 900;
+      border: 1px solid var(--badge-before-food-border);
+      box-shadow: 0 0 8px var(--badge-before-food-shadow);
+      font-weight: 700;
     }
     .tag-after-food {
       background: var(--badge-after-food-bg);
       color: var(--badge-after-food-text);
-      border: 1.5px solid var(--badge-after-food-border);
-      font-weight: 900;
+      border: 1px solid var(--badge-after-food-border);
+      box-shadow: 0 0 8px var(--badge-after-food-shadow);
+      font-weight: 700;
     }
 
     /* ACTIVE TIME BLOCK HIGHLIGHT */
     .time-block.active-time-block {
-      border: calc(var(--border-width) * 1.5) solid var(--rose) !important;
-      box-shadow: 6px 6px 0px 0px var(--rose) !important;
+      border: 1.5px solid var(--rose) !important;
+      box-shadow: 0 0 20px rgba(232, 146, 124, 0.25), var(--shadow-blur) !important;
+    }
+    [data-theme="dark"] .time-block.active-time-block {
+      border: 1.5px solid var(--rose-dark) !important;
+      box-shadow: 0 0 25px rgba(255, 158, 138, 0.3), var(--shadow-blur) !important;
     }
 
     /* INJECTION ALERT CARD */
     .injection-alert-card {
       margin: 16px 16px 8px;
       padding: 16px 20px;
-      background: var(--rose);
-      color: #FFFFFF !important;
-      border: var(--border-width) solid var(--text);
-      border-radius: 0px;
-      box-shadow: var(--shadow-card);
+      background: linear-gradient(135deg, rgba(155, 137, 196, 0.15) 0%, rgba(232, 146, 124, 0.15) 100%);
+      border: 1.5px solid rgba(155, 137, 196, 0.4);
+      border-radius: 24px;
+      box-shadow: 0 0 20px rgba(155, 137, 196, 0.25), var(--shadow-blur);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       display: flex;
       flex-direction: column;
       gap: 10px;
       position: relative;
       overflow: hidden;
-      animation: alert-pulse 1.5s infinite alternate ease-in-out;
+      animation: alert-pulse 3s infinite alternate ease-in-out;
     }
     
     @keyframes alert-pulse {
       0% {
-        transform: translateY(0);
+        border-color: rgba(155, 137, 196, 0.4);
+        box-shadow: 0 0 16px rgba(155, 137, 196, 0.15), var(--shadow-blur);
       }
       100% {
-        transform: translateY(-2px);
-        box-shadow: 8px 8px 0px 0px var(--text);
+        border-color: rgba(232, 146, 124, 0.65);
+        box-shadow: 0 0 24px rgba(232, 146, 124, 0.3), var(--shadow-blur);
       }
     }
 
@@ -750,16 +763,14 @@
 
     .injection-alert-icon {
       font-size: 24px;
-      background: rgba(255, 255, 255, 0.2);
-      color: #FFFFFF;
+      background: rgba(155, 137, 196, 0.2);
       width: 44px;
       height: 44px;
-      border-radius: 0px;
-      border: var(--border-width) solid #FFFFFF;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 3px 3px 0px 0px var(--text);
+      box-shadow: var(--shadow-card);
     }
 
     .injection-alert-title-wrap {
@@ -770,47 +781,44 @@
 
     .injection-alert-title {
       font-size: 15px;
-      font-weight: 900;
-      color: #FFFFFF !important;
-      text-transform: uppercase;
-      letter-spacing: -0.5px;
+      font-weight: 700;
+      color: var(--text);
     }
 
     .injection-alert-due-date {
       font-size: 11px;
-      color: rgba(255, 255, 255, 0.8) !important;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      font-weight: 500;
     }
 
     .injection-alert-description {
       font-size: 12.5px;
       line-height: 1.45;
-      color: #FFFFFF !important;
-      font-weight: 500;
+      color: var(--text);
+      opacity: 0.9;
     }
 
     .injection-alert-badge {
       align-self: flex-start;
       font-size: 10px;
-      font-weight: 900;
+      font-weight: 700;
       padding: 4px 10px;
-      border-radius: 0px;
-      border: var(--border-width) solid var(--text);
+      border-radius: 12px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
     .injection-badge-upcoming {
-      background: var(--gold);
-      color: #121212;
+      background: var(--badge-calcium-bg);
+      color: var(--badge-calcium-text);
+      border: 1px solid var(--badge-before-food-border);
     }
 
     .injection-badge-due {
-      background: var(--gold);
-      color: #121212;
-      animation: badge-pulse 0.4s infinite alternate steps(2);
+      background: var(--badge-critical-bg);
+      color: var(--badge-critical-text);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      animation: badge-pulse 1s infinite alternate ease-in-out;
     }
 
     @keyframes badge-pulse {
@@ -825,42 +833,33 @@
       margin: 16px auto 0;
       padding: 14px;
       background: var(--rose);
-      color: var(--white);
-      border: var(--border-width) solid var(--text);
-      border-radius: 0px;
-      font-family: 'Outfit', sans-serif;
+      color: white;
+      border: none;
+      border-radius: 16px;
+      font-family: 'DM Sans', sans-serif;
       font-size: 15px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      font-weight: 700;
       cursor: pointer;
       text-align: center;
-      box-shadow: var(--shadow-card);
-      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 4px 15px rgba(232, 146, 124, 0.2);
     }
     .action-btn:hover {
       background: var(--rose-dark);
-      transform: translateY(-2px);
-      box-shadow: 8px 8px 0px 0px var(--text);
+      transform: translateY(-1px);
     }
     .action-btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: none !important;
+      transform: translateY(1px) scale(0.98);
     }
     
     .secondary-btn {
       background: var(--card-bg);
       color: var(--text);
-      border: var(--border-width) solid var(--card-border);
-      border-radius: 0px;
+      border: 1px solid var(--card-border);
       box-shadow: var(--shadow-card);
     }
     .secondary-btn:hover {
       background: var(--border);
-    }
-    .secondary-btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: none !important;
     }
 
     /* MAGIC BENTO GRID FOR REMINDERS */
@@ -883,22 +882,26 @@
       width: 100%;
       max-width: 100%;
       padding: 20px;
-      border-radius: 0px;
-      border: var(--border-width) solid var(--card-border);
-      box-shadow: var(--shadow-card);
-      overflow: hidden;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .magic-bento-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 8px 8px 0px 0px var(--text);
+      border-radius: 20px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      font-weight: 300;
+      overflow: visible;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+
+      --glow-x: 50%;
+      --glow-y: 50%;
+      --glow-intensity: 0;
+      --glow-radius: 250px;
     }
 
     .magic-bento-card__header,
     .magic-bento-card__content {
       display: flex;
       position: relative;
-      color: inherit;
+      color: var(--text);
       z-index: 2;
     }
 
@@ -914,91 +917,29 @@
 
     .magic-bento-card__label {
       font-size: 11px;
-      font-weight: 900;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      color: inherit;
-      opacity: 0.9;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
     }
 
     .magic-bento-card__title {
-      font-weight: 900;
-      font-size: 16px;
-      margin: 0 0 6px;
-      text-transform: uppercase;
-      letter-spacing: -0.5px;
-      color: inherit;
+      font-weight: 700;
+      font-size: 15px;
+      margin: 0 0 4px;
+      color: var(--text);
     }
 
     .magic-bento-card__description {
       font-size: 12.5px;
-      line-height: 1.45;
-      font-weight: 500;
-      color: inherit;
+      line-height: 1.4;
+      opacity: 0.85;
+      color: var(--text);
     }
 
     .magic-bento-card__description strong {
-      font-weight: 900;
-      color: inherit;
-    }
-    
-    /* Bento Colors & Decorators */
-    /* Card 1 & 4: Red */
-    .magic-bento-card:nth-child(3n+1) {
-      background: var(--rose);
-      color: #FFFFFF !important;
-    }
-    .magic-bento-card:nth-child(3n+1)::before {
-      content: '';
-      position: absolute;
-      top: -20px;
-      right: -20px;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.15);
-      border: 3px solid rgba(255, 255, 255, 0.25);
-      pointer-events: none;
-      z-index: 1;
-    }
-    
-    /* Card 2 & 5: Blue */
-    .magic-bento-card:nth-child(3n+2) {
-      background: var(--sage);
-      color: #FFFFFF !important;
-    }
-    .magic-bento-card:nth-child(3n+2)::before {
-      content: '';
-      position: absolute;
-      top: -15px;
-      right: -15px;
-      width: 0;
-      height: 0;
-      border-left: 50px solid transparent;
-      border-right: 50px solid transparent;
-      border-bottom: 86.6px solid rgba(255, 255, 255, 0.12);
-      transform: rotate(45deg);
-      pointer-events: none;
-      z-index: 1;
-    }
-    
-    /* Card 3 & 6: Yellow */
-    .magic-bento-card:nth-child(3n) {
-      background: var(--gold);
-      color: #121212 !important;
-    }
-    .magic-bento-card:nth-child(3n)::before {
-      content: '';
-      position: absolute;
-      top: -20px;
-      right: -20px;
-      width: 70px;
-      height: 70px;
-      background: rgba(18, 18, 18, 0.08);
-      border: 3px solid rgba(18, 18, 18, 0.15);
-      transform: rotate(15deg);
-      pointer-events: none;
-      z-index: 1;
+      font-weight: 700;
+      color: var(--text);
     }
 
     /* SHINY TEXT EFFECT */
@@ -1058,6 +999,39 @@
       }
     }
 
+
+    /* Border glow effect */
+    .magic-bento-card--border-glow::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      padding: 1px;
+      background: radial-gradient(
+        var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+        rgba(var(--glow-color), calc(var(--glow-intensity) * 0.85)) 0%,
+        rgba(var(--glow-color), calc(var(--glow-intensity) * 0.3)) 40%,
+        transparent 70%
+      );
+      border-radius: inherit;
+      -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+
+    .magic-bento-card--border-glow:hover::after {
+      opacity: 1;
+    }
+
     .particle-container {
       position: relative;
       overflow: hidden;
@@ -1095,29 +1069,25 @@
     .completion-msg {
       display: none;
       margin: 16px;
-      background: var(--gold);
-      color: #121212;
-      border-radius: 0px;
+      background: linear-gradient(135deg, var(--sage-lt), var(--rose-lt));
+      border-radius: 24px;
       padding: 24px;
       text-align: center;
-      box-shadow: var(--shadow-card);
-      border: var(--border-width) solid var(--card-border);
-      animation: popIn 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 8px 25px rgba(123, 174, 142, 0.12);
+      border: 1px solid var(--card-border);
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .completion-msg.show { display: block; }
     .completion-msg h3 {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: -0.5px;
+      font-family: 'DM Serif Display', serif;
       font-size: 22px;
       margin: 10px 0 6px;
-      color: #121212;
+      color: var(--text);
     }
-    .completion-msg p { font-size: 14px; color: #121212; font-weight: 500; }
- 
+    .completion-msg p { font-size: 14px; color: var(--text-muted); }
+
     @keyframes popIn {
-      0% { transform: scale(0.95); opacity: 0; }
+      0% { transform: scale(0.9); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
     }
 
@@ -1147,8 +1117,6 @@
       font-size: 12px;
       font-weight: 700;
       color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
     .date-input-wrap {
       display: flex;
@@ -1157,19 +1125,20 @@
     .date-input {
       flex: 1;
       padding: 12px;
-      border-radius: 0px;
-      border: var(--border-width) solid var(--border);
-      font-family: 'Outfit', sans-serif;
+      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      font-family: 'DM Sans', sans-serif;
       font-size: 14px;
       color: var(--text);
-      font-weight: 700;
-      background: var(--card-bg);
-      transition: all 0.15s ease-out;
+      font-weight: 500;
+      background: var(--border);
+      transition: all 0.2s;
     }
     .date-input:focus {
       outline: none;
       border-color: var(--rose);
-      box-shadow: 4px 4px 0px 0px var(--rose);
+      background: var(--white);
+      box-shadow: 0 0 0 3px var(--rose-lt);
     }
     
     /* FILTERS */
@@ -1180,20 +1149,14 @@
     }
     .filter-chip {
       padding: 6px 14px;
-      border-radius: 0px;
-      border: var(--border-width) solid var(--border);
+      border-radius: 20px;
+      border: 1px solid var(--border);
       background: var(--card-bg);
       font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text);
+      font-weight: 600;
+      color: var(--text-muted);
       cursor: pointer;
-      transition: transform 0.1s ease-out;
-    }
-    .filter-chip:hover {
-      background: var(--gold);
-      color: #121212;
+      transition: all 0.2s;
     }
     .filter-chip.active {
       background: var(--text);
@@ -1208,29 +1171,28 @@
     }
     .accordion-header {
       padding: 16px;
-      font-weight: 900;
+      font-weight: 700;
       font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: -0.5px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-      background: var(--card-bg);
-      border-bottom: var(--border-width) solid var(--border);
+      background: var(--border);
       user-select: none;
-      transition: background-color 0.15s ease-out;
+      transition: background-color 0.4s ease;
     }
     .accordion-header:hover {
-      background: var(--dot-color);
+      background: var(--border);
+      opacity: 0.9;
     }
     .accordion-content {
       display: none;
       padding: 16px;
+      border-top: 1px solid var(--border);
       font-size: 13px;
       color: var(--text);
+      opacity: 0.9;
       line-height: 1.6;
-      font-weight: 500;
     }
     .accordion-content.show {
       display: block;
@@ -1244,17 +1206,16 @@
       margin-bottom: 8px;
     }
     .accordion-content code {
-      background: var(--rose-lt);
-      color: var(--rose-dark);
+      background: var(--lav-lt);
+      color: var(--lav-dark);
       padding: 2px 6px;
-      border-radius: 0px;
-      border: 1px solid var(--border);
+      border-radius: 4px;
       font-family: monospace;
       font-size: 12px;
       font-weight: bold;
     }
     .accordion-arrow {
-      transition: transform 0.2s ease-out;
+      transition: transform 0.3s;
       font-size: 12px;
     }
     .accordion-header.active .accordion-arrow {
@@ -1270,13 +1231,14 @@
       line-height: 1.5;
     }
 
+
+
     /* GESTATION TIMELINE STYLES */
     .timeline-bar-container {
       position: relative;
-      height: 10px;
-      background: var(--card-bg);
-      border: 1.5px solid var(--border);
-      border-radius: 0px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
       margin: 12px 0 6px 0;
     }
     .timeline-progress-fill {
@@ -1284,8 +1246,9 @@
       left: 0;
       top: 0;
       height: 100%;
-      background: var(--rose);
-      border-radius: 0px;
+      background: linear-gradient(90deg, #ff8da1, #ff5e7e);
+      border-radius: 4px;
+      box-shadow: 0 0 8px rgba(255,94,126,0.6);
       transition: width 0.5s ease;
     }
     .timeline-current-marker {
@@ -1294,18 +1257,19 @@
       transform: translate(-50%, -50%);
       width: 14px;
       height: 14px;
-      background: var(--gold);
-      border: 2px solid var(--text);
+      background: #ffffff;
+      border: 3px solid #ff5e7e;
       border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255,255,255,0.8);
       z-index: 2;
       transition: left 0.5s ease;
     }
     .timeline-tick {
       position: absolute;
-      top: -6px;
+      top: -8px;
       width: 2px;
-      height: 20px;
-      background: var(--text);
+      height: 24px;
+      background: rgba(255,255,255,0.25);
       z-index: 1;
     }
   </style>
@@ -1336,22 +1300,6 @@
         </svg>
       </button>
 
-      <!-- Bauhaus Geometric Logo -->
-      <div class="bauhaus-logo" aria-hidden="true" style="display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 16px;">
-        <!-- Red Square -->
-        <svg width="22" height="22" viewBox="0 0 22 22">
-          <rect x="2" y="2" width="18" height="18" fill="var(--rose)" stroke="#FFFFFF" stroke-width="2.5" />
-        </svg>
-        <!-- Yellow Triangle -->
-        <svg width="22" height="22" viewBox="0 0 22 22">
-          <polygon points="11,2 20,18 2,18" fill="var(--gold)" stroke="#FFFFFF" stroke-width="2.5" stroke-linejoin="round" />
-        </svg>
-        <!-- Blue Circle -->
-        <svg width="22" height="22" viewBox="0 0 22 22">
-          <circle cx="11" cy="11" r="8" fill="var(--sage)" stroke="#FFFFFF" stroke-width="2.5" />
-        </svg>
-      </div>
-
       <div class="animated-gradient-text with-border greeting-text">
         <div class="gradient-overlay"></div>
         <div class="text-content" id="greetingText">Good Morning, Mouni</div>
@@ -1380,49 +1328,49 @@
         </div>
 
         <!-- Baby Countdown Card -->
-        <div class="info-card">
+        <div class="info-card" style="background: rgba(255, 255, 255, 0.25);">
           <div class="info-card-title">🍼 Tentative Due Date</div>
           <div class="info-card-value" id="countdownTimerText">21 Nov 2026 • -- Days Left</div>
           <div class="info-card-sub" id="countdownSubtext">Trimester 2 in progress. Keep glowing! 🌟</div>
         </div>
 
         <!-- Baby Size Visualizer Card (Option E) -->
-        <div class="info-card" id="babySizeCard" style="display: none;">
+        <div class="info-card" id="babySizeCard" style="display: none; background: rgba(255, 255, 255, 0.22); border-color: rgba(255,255,255,0.3); padding: 16px;">
           <div class="info-card-title" style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
             <span>🌱 Baby Size & Development</span>
-            <span id="weeksProgressBadge" style="background: var(--gold); border: 1.5px solid var(--text); color: #121212; padding: 3px 8px; border-radius: 0px; font-size: 11px; font-weight: bold; text-transform: uppercase;">Week --</span>
+            <span id="weeksProgressBadge" style="background: rgba(255, 255, 255, 0.25); padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold;">Week --</span>
           </div>
           
           <!-- Size & Stats Bento Row -->
           <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px;">
-            <div id="babySizeEmoji" style="font-size: 42px; background: var(--card-bg); border: 2px solid var(--text); padding: 10px; border-radius: 0px; display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; flex-shrink: 0; box-shadow: 3px 3px 0px 0px var(--text);">👶</div>
+            <div id="babySizeEmoji" style="font-size: 42px; background: rgba(255,255,255,0.15); padding: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; flex-shrink: 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">👶</div>
             <div style="flex-grow: 1;">
-              <div id="babySizeComparison" style="font-size: 16px; font-weight: 900; color: var(--text); text-transform: uppercase; letter-spacing: -0.5px;">Calculating size...</div>
+              <div id="babySizeComparison" style="font-size: 16px; font-weight: 700; color: white;">Calculating size...</div>
               <div style="display: flex; gap: 12px; margin-top: 4px; flex-wrap: wrap;">
-                <span id="babySizeLength" style="font-size: 12px; background: var(--card-bg); border: 1.5px solid var(--text); color: var(--text); padding: 2px 8px; border-radius: 0px; font-weight: 700; display: flex; align-items: center; gap: 4px;">📏 --</span>
-                <span id="babySizeWeight" style="font-size: 12px; background: var(--card-bg); border: 1.5px solid var(--text); color: var(--text); padding: 2px 8px; border-radius: 0px; font-weight: 700; display: flex; align-items: center; gap: 4px;">⚖️ --</span>
+                <span id="babySizeLength" style="font-size: 12px; background: rgba(255,255,255,0.12); padding: 2px 6px; border-radius: 6px; display: flex; align-items: center; gap: 4px;">📏 --</span>
+                <span id="babySizeWeight" style="font-size: 12px; background: rgba(255,255,255,0.12); padding: 2px 6px; border-radius: 6px; display: flex; align-items: center; gap: 4px;">⚖️ --</span>
               </div>
             </div>
           </div>
           
           <!-- Milestones & Organ Progress Grid -->
-          <div style="display: grid; grid-template-columns: 1fr; gap: 10px; border-top: var(--border-width) solid var(--border); padding-top: 10px; margin-bottom: 14px;">
+          <div style="display: grid; grid-template-columns: 1fr; gap: 10px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px; margin-bottom: 14px;">
             <div>
-              <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.8; font-weight: 900; color: var(--text); margin-bottom: 2px;">🌟 Key Milestone</div>
-              <div id="babySizeMilestone" style="font-size: 12px; color: var(--text); line-height: 1.4; font-weight: 500;">
+              <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; font-weight: bold; margin-bottom: 2px;">🌟 Key Milestone</div>
+              <div id="babySizeMilestone" style="font-size: 12px; color: rgba(255, 255, 255, 0.95); line-height: 1.4;">
                 --
               </div>
             </div>
             <div>
-              <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.8; font-weight: 900; color: var(--text); margin-bottom: 2px;">🫁 Organ Development</div>
-              <div id="babySizeOrgan" style="font-size: 12px; color: var(--text); line-height: 1.4; font-style: italic; font-weight: 500;">
+              <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; font-weight: bold; margin-bottom: 2px;">🫁 Organ Development</div>
+              <div id="babySizeOrgan" style="font-size: 12px; color: rgba(255, 255, 255, 0.9); line-height: 1.4; font-style: italic;">
                 --
               </div>
             </div>
           </div>
           
           <!-- Timeline Section -->
-          <div style="border-top: var(--border-width) solid var(--border); padding-top: 10px;">
+          <div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px;">
             <div style="display: flex; justify-content: space-between; font-size: 11px; opacity: 0.8; margin-bottom: 6px;">
               <span id="timelineWeeksCompleted">-- Weeks Completed</span>
               <span id="timelineWeeksRemaining">-- Weeks Remaining</span>
@@ -1550,8 +1498,8 @@
               </div>
             </div>
             
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-7" onclick="toggleTablet(7, event)"></div>
+            <div class="item-row" onclick="toggleTablet(7, event)">
+              <div class="checkbox-btn" id="tab-chk-7"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Thyronorm 50mcg</div>
                 <div class="item-desc">Thyroid support. Take first thing in the morning on an empty stomach (30 mins before food).</div>
@@ -1562,8 +1510,8 @@
               </div>
             </div>
 
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-8" onclick="toggleTablet(8, event)"></div>
+            <div class="item-row" onclick="toggleTablet(8, event)">
+              <div class="checkbox-btn" id="tab-chk-8"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Pan 40mg</div>
                 <div class="item-desc">Acid prevention. Take 1 tablet on empty stomach (30 mins before breakfast).</div>
@@ -1575,8 +1523,8 @@
               </div>
             </div>
 
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-0" onclick="toggleTablet(0, event)"></div>
+            <div class="item-row" onclick="toggleTablet(0, event)">
+              <div class="checkbox-btn" id="tab-chk-0"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Dydrogest 10 (Dydrogesterone)</div>
                 <div class="item-desc">Progesterone support — prevents preterm birth. Take 1 tablet after breakfast.</div>
@@ -1587,8 +1535,8 @@
               </div>
             </div>
 
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-9" onclick="toggleTablet(9, event)"></div>
+            <div class="item-row" onclick="toggleTablet(9, event)">
+              <div class="checkbox-btn" id="tab-chk-9"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Ceftum 500mg</div>
                 <div class="item-desc">Antibiotic. Take 1 tablet after breakfast.</div>
@@ -1600,8 +1548,8 @@
               </div>
             </div>
 
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-10" onclick="toggleTablet(10, event)"></div>
+            <div class="item-row" onclick="toggleTablet(10, event)">
+              <div class="checkbox-btn" id="tab-chk-10"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Duvadilan 10mg</div>
                 <div class="item-desc">Uterine relaxant — prevents preterm contractions. Take 1 tablet after breakfast.</div>
@@ -1613,8 +1561,8 @@
               </div>
             </div>
             <!-- Deriphyllin Retard 500mg Morning (3 Days Course) -->
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-14" onclick="toggleTablet(14, event)"></div>
+            <div class="item-row" onclick="toggleTablet(14, event)">
+              <div class="checkbox-btn" id="tab-chk-14"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Deriphyllin Retard 500mg</div>
                 <div class="item-desc">Bronchodilator (helps breathing / muscle relaxant). Take 1 tablet after breakfast.</div>
@@ -1627,8 +1575,8 @@
             </div>
 
             <!-- Dolo 650mg Morning (3 Days Course) -->
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-16" onclick="toggleTablet(16, event)"></div>
+            <div class="item-row" onclick="toggleTablet(16, event)">
+              <div class="checkbox-btn" id="tab-chk-16"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Dolo 650mg</div>
                 <div class="item-desc">Pain relief and fever prevention. Take 1 tablet after breakfast.</div>
@@ -1641,8 +1589,8 @@
             </div>
 
             <!-- Synced morning Pro Case -->
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-3" onclick="toggleTablet(3, event)"></div>
+            <div class="item-row" onclick="toggleTablet(3, event)">
+              <div class="checkbox-btn" id="tab-chk-3"></div>
               <div class="item-content">
                 <div class="item-name">Pro Case DF powder</div>
                 <div class="item-desc">Protein supplement. Mix with milk/water after breakfast. (Optional: take at night instead).</div>
@@ -1667,8 +1615,8 @@
               </div>
             </div>
 
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-1" onclick="toggleTablet(1, event)"></div>
+            <div class="item-row" onclick="toggleTablet(1, event)">
+              <div class="checkbox-btn" id="tab-chk-1"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Magnocal</div>
                 <div class="item-desc">Calcium + Magnesium supplement. Keep away from Womiron. Take 1 tablet.</div>
@@ -1678,8 +1626,8 @@
               </div>
             </div>
 
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-2" onclick="toggleTablet(2, event)"></div>
+            <div class="item-row" onclick="toggleTablet(2, event)">
+              <div class="checkbox-btn" id="tab-chk-2"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Sustener 200 Progesterone</div>
                 <div class="item-desc">Additional progesterone support. Take 1 tablet. Afternoon timing avoids sleepiness.</div>
@@ -1703,8 +1651,8 @@
               </div>
             </div>
 
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-4" onclick="toggleTablet(4, event)"></div>
+            <div class="item-row" onclick="toggleTablet(4, event)">
+              <div class="checkbox-btn" id="tab-chk-4"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Womiron (Iron + Folic)</div>
                 <div class="item-desc">Iron deficiency plus folic acid. Take 1 tablet. Keep away from Calcium. May cause dark stools.</div>
@@ -1714,8 +1662,8 @@
               </div>
             </div>
 
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-5" onclick="toggleTablet(5, event)"></div>
+            <div class="item-row" onclick="toggleTablet(5, event)">
+              <div class="checkbox-btn" id="tab-chk-5"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Dydrogest 10 (Dydrogesterone)</div>
                 <div class="item-desc">Second dose of progesterone. Take 1 tablet after dinner.</div>
@@ -1726,8 +1674,8 @@
               </div>
             </div>
 
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-11" onclick="toggleTablet(11, event)"></div>
+            <div class="item-row" onclick="toggleTablet(11, event)">
+              <div class="checkbox-btn" id="tab-chk-11"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Ceftum 500mg</div>
                 <div class="item-desc">Antibiotic. Take 1 tablet after dinner.</div>
@@ -1739,8 +1687,8 @@
               </div>
             </div>
 
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-12" onclick="toggleTablet(12, event)"></div>
+            <div class="item-row" onclick="toggleTablet(12, event)">
+              <div class="checkbox-btn" id="tab-chk-12"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Duvadilan 10mg</div>
                 <div class="item-desc">Second dose of uterine relaxant. Take 1 tablet after dinner.</div>
@@ -1752,8 +1700,8 @@
               </div>
             </div>
             <!-- Deriphyllin Retard 500mg Night (3 Days Course) -->
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-15" onclick="toggleTablet(15, event)"></div>
+            <div class="item-row" onclick="toggleTablet(15, event)">
+              <div class="checkbox-btn" id="tab-chk-15"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Deriphyllin Retard 500mg</div>
                 <div class="item-desc">Bronchodilator (helps breathing / muscle relaxant). Take 1 tablet after dinner.</div>
@@ -1766,8 +1714,8 @@
             </div>
 
             <!-- Dolo 650mg Night (3 Days Course) -->
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-17" onclick="toggleTablet(17, event)"></div>
+            <div class="item-row" onclick="toggleTablet(17, event)">
+              <div class="checkbox-btn" id="tab-chk-17"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Dolo 650mg</div>
                 <div class="item-desc">Pain relief and fever prevention. Take 1 tablet after dinner.</div>
@@ -1780,8 +1728,8 @@
             </div>
 
             <!-- Synced Optional Pro Case night -->
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-3-night" onclick="toggleTablet(3, event)"></div>
+            <div class="item-row" onclick="toggleTablet(3, event)">
+              <div class="checkbox-btn" id="tab-chk-3-night"></div>
               <div class="item-content">
                 <div class="item-name">Pro Case DF powder (Optional)</div>
                 <div class="item-desc">Protein supplement. Take with milk/water after dinner if not taken in morning.</div>
@@ -1806,8 +1754,8 @@
               </div>
             </div>
 
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-6" onclick="toggleTablet(6, event)"></div>
+            <div class="item-row" onclick="toggleTablet(6, event)">
+              <div class="checkbox-btn" id="tab-chk-6"></div>
               <div class="item-content">
                 <div class="item-name">Stovient Cream</div>
                 <div class="item-desc">Apply gently on belly, hips, and thighs for stretch mark prevention. 1 application.</div>
@@ -1817,8 +1765,8 @@
               </div>
             </div>
 
-            <div class="item-row">
-              <div class="checkbox-btn" id="tab-chk-13" onclick="toggleTablet(13, event)"></div>
+            <div class="item-row" onclick="toggleTablet(13, event)">
+              <div class="checkbox-btn" id="tab-chk-13"></div>
               <div class="item-content">
                 <div class="item-name">Syp. Duphalac 15ml</div>
                 <div class="item-desc">Laxative. Take 15ml at bedtime for constipation support, as needed (SOS).</div>
@@ -2879,8 +2827,8 @@
           visibleCountInGroup++;
 
           groupHTML += `
-            <div class="item-row ${isChecked ? 'checked' : ''}">
-              <div class="checkbox-btn ${isChecked ? 'checked' : ''}" onclick="toggleVaccine('${v.id}', event)"></div>
+            <div class="item-row ${isChecked ? 'checked' : ''}" onclick="toggleVaccine('${v.id}', event)">
+              <div class="checkbox-btn ${isChecked ? 'checked' : ''}"></div>
               <div class="item-content">
                 <div class="item-name">${v.name}</div>
                 <div class="item-desc">${v.desc}</div>
