@@ -18,36 +18,36 @@
   <meta name="theme-color" content="#E8927C">
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
     :root {
       /* Theme light variables */
-      --bg:             #F2F0EB;
-      --bg-app:         #F2F0EB;
-      --text:           #1C1C1E;
-      --text-muted:     #6E6E73;
-      --card-bg:        rgba(255, 255, 255, 0.7);
-      --card-border:    rgba(255, 255, 255, 0.45);
-      --border:         rgba(0, 0, 0, 0.05);
-      --header-grad:    linear-gradient(135deg, #E8927C 0%, #C9A84C 100%);
-      --header-shadow:  0 8px 25px rgba(232, 146, 124, 0.12);
-      --shadow-blur:    0 12px 30px 0 rgba(0, 0, 0, 0.03);
-      --shadow-card:    0 8px 24px rgba(0, 0, 0, 0.02);
+      --bg:             #F4F2EC;
+      --bg-app:         #F4F2EC;
+      --text:           #1E1E24;
+      --text-muted:     #6C6C75;
+      --card-bg:        rgba(255, 255, 255, 0.78);
+      --card-border:    rgba(255, 255, 255, 0.6);
+      --border:         rgba(0, 0, 0, 0.06);
+      --header-grad:    linear-gradient(135deg, #E88D77 0%, #D49B4B 50%, #8C78B9 100%);
+      --header-shadow:  0 12px 32px rgba(232, 141, 119, 0.18);
+      --shadow-blur:    0 16px 36px 0 rgba(0, 0, 0, 0.04);
+      --shadow-card:    0 10px 28px rgba(0, 0, 0, 0.03);
       
-      --rose:           #E8927C;
-      --rose-lt:        #FBF0ED;
-      --rose-dark:      #C26B57;
-      --sage:           #7BAE8E;
-      --sage-lt:        #EDF5F1;
-      --sage-dark:      #508A65;
-      --gold:           #C9A84C;
-      --gold-lt:        #FAF6E9;
-      --gold-dark:      #8E712C;
-      --lavender:       #9B89C4;
-      --lav-lt:         #F3F1FA;
-      --lav-dark:       #6E5B99;
-      --sky:            #87CEEB;
-      --sky-lt:         #EBF7FD;
+      --rose:           #E88D77;
+      --rose-lt:        #FDF2EF;
+      --rose-dark:      #C85B43;
+      --sage:           #6BA881;
+      --sage-lt:        #EEF7F2;
+      --sage-dark:      #437A56;
+      --gold:           #D49B4B;
+      --gold-lt:        #FAF3E6;
+      --gold-dark:      #9C6A21;
+      --lavender:       #8C78B9;
+      --lav-lt:         #F4F1FB;
+      --lav-dark:       #5C4988;
+      --sky:            #59B5E6;
+      --sky-lt:         #EBF6FD;
       --white:          #FFFFFF;
 
       /* Badge Colors Light */
@@ -67,50 +67,64 @@
       --badge-after-food-text: #0D47A1;
       --badge-after-food-border: #64B5F6;
       --badge-after-food-shadow: rgba(100, 181, 246, 0.25);
+
+      --badge-bloodtest-bg: #E0F2FE;
+      --badge-bloodtest-text: #0369A1;
+      --badge-consultation-bg: #FEF3C7;
+      --badge-consultation-text: #92400E;
+      --badge-td-bg: #ECE9FE;
+      --badge-td-text: #5B21B6;
     }
 
     [data-theme="dark"] {
-      /* Theme dark variables (Apple-style Midnight) */
-      --bg:             #09090D;
-      --bg-app:         #09090D;
-      --text:           #F5F5F7;
-      --text-muted:     #8E8E93;
-      --card-bg:        rgba(22, 22, 30, 0.55);
-      --card-border:    rgba(255, 255, 255, 0.05);
-      --border:         rgba(255, 255, 255, 0.08);
-      --header-grad:    linear-gradient(135deg, #2d161c 0%, #0c0507 100%);
-      --header-shadow:  0 8px 25px rgba(0, 0, 0, 0.55);
-      --shadow-blur:    0 12px 30px 0 rgba(0, 0, 0, 0.3);
-      --shadow-card:    0 8px 24px rgba(0, 0, 0, 0.2);
+      /* Theme dark variables (Rich Midnight Obsidian) */
+      --bg:             #0B0C10;
+      --bg-app:         #0B0C10;
+      --text:           #F7F8FA;
+      --text-muted:     #9A9BA4;
+      --card-bg:        rgba(20, 22, 32, 0.65);
+      --card-border:    rgba(255, 255, 255, 0.08);
+      --border:         rgba(255, 255, 255, 0.1);
+      --header-grad:    linear-gradient(135deg, #361A22 0%, #291C0E 50%, #1E172F 100%);
+      --header-shadow:  0 12px 32px rgba(0, 0, 0, 0.65);
+      --shadow-blur:    0 16px 36px 0 rgba(0, 0, 0, 0.4);
+      --shadow-card:    0 10px 28px rgba(0, 0, 0, 0.28);
       
-      --rose-lt:        rgba(232, 146, 124, 0.12);
-      --rose-dark:      #FF9E8A;
-      --sage-lt:        rgba(123, 174, 142, 0.12);
-      --sage-dark:      #9BCCA9;
-      --gold-lt:        rgba(201, 168, 76, 0.12);
-      --gold-dark:      #ECCB6E;
-      --lav-lt:         rgba(155, 137, 196, 0.12);
-      --lav-dark:       #BCAFE0;
-      --sky-lt:         rgba(135, 206, 235, 0.12);
-      --white:          #1C1C1E;
+      --rose-lt:        rgba(232, 141, 119, 0.15);
+      --rose-dark:      #FFAA99;
+      --sage-lt:        rgba(107, 168, 129, 0.15);
+      --sage-dark:      #A3DEC1;
+      --gold-lt:        rgba(212, 155, 75, 0.15);
+      --gold-dark:      #F5D180;
+      --lav-lt:         rgba(140, 120, 185, 0.15);
+      --lav-dark:       #CEC4F2;
+      --sky-lt:         rgba(89, 181, 230, 0.15);
+      --white:          #181A24;
 
       /* Badge Colors Dark */
-      --badge-critical-bg: rgba(248, 113, 113, 0.15);
+      --badge-critical-bg: rgba(248, 113, 113, 0.18);
       --badge-critical-text: #FCA5A5;
-      --badge-progesterone-bg: rgba(192, 132, 252, 0.15);
+      --badge-progesterone-bg: rgba(192, 132, 252, 0.18);
       --badge-progesterone-text: #E9D5FF;
-      --badge-nutrition-bg: rgba(52, 211, 153, 0.15);
+      --badge-nutrition-bg: rgba(52, 211, 153, 0.18);
       --badge-nutrition-text: #A7F3D0;
-      --badge-calcium-bg: rgba(253, 224, 71, 0.15);
+      --badge-calcium-bg: rgba(253, 224, 71, 0.18);
       --badge-calcium-text: #FEF08A;
-      --badge-before-food-bg: rgba(255, 183, 77, 0.12);
-      --badge-before-food-text: #FFB74D;
-      --badge-before-food-border: rgba(255, 183, 77, 0.35);
-      --badge-before-food-shadow: rgba(255, 183, 77, 0.2);
-      --badge-after-food-bg: rgba(100, 181, 246, 0.12);
+      --badge-before-food-bg: rgba(255, 183, 77, 0.15);
+      --badge-before-food-text: #FFC107;
+      --badge-before-food-border: rgba(255, 183, 77, 0.4);
+      --badge-before-food-shadow: rgba(255, 183, 77, 0.25);
+      --badge-after-food-bg: rgba(100, 181, 246, 0.15);
       --badge-after-food-text: #90CAF9;
-      --badge-after-food-border: rgba(100, 181, 246, 0.35);
-      --badge-after-food-shadow: rgba(100, 181, 246, 0.2);
+      --badge-after-food-border: rgba(100, 181, 246, 0.4);
+      --badge-after-food-shadow: rgba(100, 181, 246, 0.25);
+
+      --badge-bloodtest-bg: rgba(56, 189, 248, 0.18);
+      --badge-bloodtest-text: #BAE6FD;
+      --badge-consultation-bg: rgba(251, 191, 36, 0.18);
+      --badge-consultation-text: #FDE68A;
+      --badge-td-bg: rgba(167, 139, 250, 0.18);
+      --badge-td-text: #DDD6FE;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -701,6 +715,9 @@
     .tag-overdue { background: var(--badge-critical-bg); color: var(--badge-critical-text); font-weight: 800; }
     .tag-upcoming { background: var(--badge-calcium-bg); color: var(--badge-calcium-text); }
     .tag-future { background: var(--sky-lt); color: #00838F; }
+    .tag-bloodtest { background: var(--badge-bloodtest-bg); color: var(--badge-bloodtest-text); font-weight: 700; }
+    .tag-consultation { background: var(--badge-consultation-bg); color: var(--badge-consultation-text); font-weight: 700; }
+    .tag-td-vaccine { background: var(--badge-td-bg); color: var(--badge-td-text); font-weight: 700; }
     .tag-before-food {
       background: var(--badge-before-food-bg);
       color: var(--badge-before-food-text);
@@ -1859,33 +1876,35 @@
           </div>
         </div>
 
-        <!-- Card 4: Bed Rest & Injection -->
+        <!-- Card 4: Injections & Care History -->
         <div class="magic-bento-card magic-bento-card--border-glow" style="--glow-color: 180, 151, 207;">
           <div class="magic-bento-card__header">
-            <span class="magic-bento-card__label">🛏️ Activity Limit & Care</span>
-            <span style="font-size: 18px;">💤</span>
+            <span class="magic-bento-card__label">💉 Injections & Care Log</span>
+            <span style="font-size: 18px;">🩺</span>
           </div>
           <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">Post-Cerclage Care & Injection</h3>
+            <h3 class="magic-bento-card__title">Injection Schedule (3 Left)</h3>
             <p class="magic-bento-card__description">
-              • <strong>Cervical Cerclage Completed:</strong> Stitch surgery was successfully completed (15/16 June 2026).<br>
-              • <strong>Strict Bed Rest & Hydration:</strong> 3 weeks active (15 June to 6 July 2026). Limit movement. Ensure adequate hydration (regular water intake) and plenty of rest.<br>
-              • <strong>Inj. Proluton Depot 500mg IM:</strong> Administer once every 15 days until 34 weeks of pregnancy.
+              • <strong>TD & Proluton Received:</strong> Given on 14 Aug 2026 ✅<br>
+              • <strong>Next Proluton Injection:</strong> 28 Aug 2026 (1st of 3 remaining)<br>
+              • <strong>Remaining Injections (15-day gap):</strong> 12 Sept & 27 Sept 2026<br>
+              • <strong>Post-Cerclage:</strong> Maintain hydration and rest well.
             </p>
           </div>
         </div>
 
-        <!-- Card 5: Next Appointment -->
+        <!-- Card 5: Next Consultation & Retests -->
         <div class="magic-bento-card magic-bento-card--border-glow" style="--glow-color: 212, 175, 55;">
           <div class="magic-bento-card__header">
-            <span class="magic-bento-card__label">📅 Calendar</span>
+            <span class="magic-bento-card__label">📅 2-Week Checkup</span>
             <span style="font-size: 18px;">🩺</span>
           </div>
           <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">Next Appointment & Retest</h3>
+            <h3 class="magic-bento-card__title">Next Consult: 28th Aug 2026</h3>
             <p class="magic-bento-card__description">
-              • <strong>TIFFA Level 2 Scan:</strong> Scheduled for 14 July 2026 (~21 weeks).<br>
-              • <strong>TSH Retest:</strong> Due late July 2026.
+              • <strong>Bi-Weekly Doctor Consult:</strong> 28 August 2026 (~27 Weeks)<br>
+              • <strong>Comprehensive Blood Checkup:</strong> Blood Sugar (Glucose), Lipid Profile (Cholesterol), and TSH (Thyroid)<br>
+              • <strong>Follow-up Schedule:</strong> Consult every 2 weeks going forward.
             </p>
           </div>
         </div>
@@ -2581,10 +2600,8 @@
       const today = new Date();
       const options = { day: 'numeric', month: 'short', year: 'numeric' };
       const dateStr = today.toLocaleDateString('en-US', options);
-      const isCourseActive = checkIsCourseActive();
-      const isPostSurgeryActive = checkIsPostSurgeryActive();
       
-      const statusText = `📅 App Date: ${dateStr} | 💊 5-Day Course: ${isCourseActive ? 'Active' : 'Expired'} | 🏥 Post-Surgery Course: ${isPostSurgeryActive ? 'Active' : 'Expired'}`;
+      const statusText = `📅 App Date: ${dateStr} | 💉 TD Vaccine: Received (14 Aug) | 🩺 Next Consult & Lab Tests: 28 Aug 2026`;
       const elem = document.getElementById('appStatusIndicator');
       if (elem) {
         elem.textContent = statusText;
@@ -2652,31 +2669,24 @@
       const today = new Date();
       const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
-      // Generate the schedule of injection dates starting June 30, 2026 every 15 days
-      const injectionDates = [];
-      let currentDue = new Date(2026, 5, 30); // June 30, 2026 (Month is 0-indexed: 5 is June)
+      // Exact remaining 3 Progesterone injection dates (0-indexed months: 7 = Aug, 8 = Sept)
+      const injectionDates = [
+        new Date(2026, 7, 28), // 28th August 2026 (Dose 1 of 3)
+        new Date(2026, 8, 12), // 12th September 2026 (Dose 2 of 3)
+        new Date(2026, 8, 27)  // 27th September 2026 (Dose 3 of 3)
+      ];
 
-      // Calculate 34 weeks of pregnancy as exactly 42 days (6 weeks) before EDD
-      const dateParts = babyBirthDate.split('-');
-      const edd = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-      const date34Weeks = new Date(edd.getTime() - 42 * 24 * 60 * 60 * 1000); // 42 days before EDD
-
-      while (currentDue <= date34Weeks) {
-        injectionDates.push(new Date(currentDue));
-        currentDue.setDate(currentDue.getDate() + 15);
-      }
-
-      // Check window for each due date: due - 3 days to due + 2 days (i.e. due day + 2 days after)
+      // Find closest upcoming due date or currently active window
       let activeDue = null;
       let activeDiff = null;
 
       for (let due of injectionDates) {
         const diffTime = due.getTime() - todayStart.getTime();
         const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-        if (diffDays >= -2 && diffDays <= 3) {
+        if (diffDays >= -2) {
           activeDue = due;
           activeDiff = diffDays;
-          break; // Show the closest due date
+          break; // Next upcoming or current due date
         }
       }
 
@@ -2695,11 +2705,11 @@
         if (activeDiff > 0) {
           badge.textContent = `Due in ${activeDiff} ${activeDiff === 1 ? 'day' : 'days'}`;
           badge.classList.add('injection-badge-upcoming');
-          document.getElementById('injectionAlertDesc').innerHTML = `Inj. Proluton Depot 500mg IM is scheduled. <strong>Next dose is due in ${activeDiff} ${activeDiff === 1 ? 'day' : 'days'}</strong> (on ${formattedDate}).`;
+          document.getElementById('injectionAlertDesc').innerHTML = `💉 <strong>TD & Proluton Received (14 Aug):</strong> Done ✅<br>💉 <strong>Next Proluton Injection:</strong> Scheduled for <strong>${formattedDate}</strong> (in ${activeDiff} ${activeDiff === 1 ? 'day' : 'days'}). 3 doses remaining in total.`;
         } else if (activeDiff === 0) {
           badge.textContent = `⚠️ Due Today`;
           badge.classList.add('injection-badge-due');
-          document.getElementById('injectionAlertDesc').innerHTML = `🚨 <strong>Injection is due today!</strong> Please administer Inj. Proluton Depot 500mg IM and check this off when completed.`;
+          document.getElementById('injectionAlertDesc').innerHTML = `🚨 <strong>Inj. Proluton Depot 500mg IM is due today!</strong> Please administer today (${formattedDate}) and check this off when completed.`;
         } else {
           const daysAgo = Math.abs(activeDiff);
           badge.textContent = `⚠️ Stays Highlighted`;
@@ -3152,18 +3162,10 @@
           "Apply Stovient Cream. Take Syp. Duphalac 15ml if needed for constipation."
         );
       } else if (block === 'injection') {
-        const dateParts = babyBirthDate.split('-');
-        const edd = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-        const date34Weeks = new Date(edd.getTime() - 42 * 24 * 60 * 60 * 1000);
-        const untilYr = date34Weeks.getFullYear();
-        const untilMt = String(date34Weeks.getMonth() + 1).padStart(2, '0');
-        const untilDy = String(date34Weeks.getDate()).padStart(2, '0');
-        const untilStr = `${untilYr}${untilMt}${untilDy}T235959`;
-
-        const startDateStr = "20260630T100000";
-        const endDateStr = "20260630T103000";
-
-        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("💉 Inj. Proluton Depot 500mg IM Due")}&dates=${startDateStr}/${endDateStr}&recur=RRULE:FREQ=DAILY;INTERVAL=15;UNTIL=${untilStr}&details=${encodeURIComponent("Administer Inj. Proluton Depot 500mg IM today. Scheduled once every 15 days until 34 weeks of pregnancy to prevent preterm contractions.")}`;
+        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("💉 Inj. Proluton Depot 500mg IM (Dose 1 of 3)")}&dates=20260828T100000/20260828T103000&details=${encodeURIComponent("Administer Inj. Proluton Depot 500mg IM. Remaining doses: 28 Aug, 12 Sept, 27 Sept 2026.")}`;
+        window.open(url, '_blank');
+      } else if (block === 'consultation') {
+        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("🩺 Doctor Consultation & Blood Tests (Sugar, Cholesterol, TSH)")}&dates=20260828T093000/20260828T110000&details=${encodeURIComponent("Doctor Consultation with Dr. Bharathi Ramesh + Blood Tests (Blood Sugar/Glucose, Lipid Profile/Cholesterol, TSH Retest) + 1st Remaining Progesterone Injection.")}`;
         window.open(url, '_blank');
       }
     }
@@ -3254,29 +3256,19 @@
         icsContent += "END:VEVENT\n";
       });
 
-      // Add Injection dates to ICS
-      const injectionDates = [];
-      let currentDue = new Date(2026, 5, 30); // June 30, 2026 (Month is 0-indexed: 5 is June)
-      const dateParts = babyBirthDate.split('-');
-      const edd = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-      const date34Weeks = new Date(edd.getTime() - 42 * 24 * 60 * 60 * 1000); // 34 weeks (42 days before EDD)
+      // 3 Remaining Progesterone Injection dates
+      const remainingInjectionDates = [
+        { date: "20260828", num: "1 of 3" },
+        { date: "20260912", num: "2 of 3" },
+        { date: "20260927", num: "3 of 3" }
+      ];
 
-      while (currentDue <= date34Weeks) {
-        injectionDates.push(new Date(currentDue));
-        currentDue.setDate(currentDue.getDate() + 15);
-      }
-
-      injectionDates.forEach(date => {
-        const iYr = date.getFullYear();
-        const iMt = String(date.getMonth() + 1).padStart(2, '0');
-        const iDy = String(date.getDate()).padStart(2, '0');
-        const iDateStr = `${iYr}${iMt}${iDy}`;
-        
+      remainingInjectionDates.forEach(item => {
         icsContent += "BEGIN:VEVENT\n";
-        icsContent += "SUMMARY:💉 Inj. Proluton Depot 500mg IM Due\n";
-        icsContent += `DTSTART:${iDateStr}T100000\n`; // At 10:00 AM
-        icsContent += `DTEND:${iDateStr}T103000\n`;
-        icsContent += "DESCRIPTION:Administer Inj. Proluton Depot 500mg IM today. Scheduled once every 15 days until 34 weeks of pregnancy to prevent preterm contractions.\n";
+        icsContent += `SUMMARY:💉 Inj. Proluton Depot 500mg IM (${item.num})\n`;
+        icsContent += `DTSTART:${item.date}T100000\n`;
+        icsContent += `DTEND:${item.date}T103000\n`;
+        icsContent += "DESCRIPTION:Administer Inj. Proluton Depot 500mg IM today. 3 doses remaining in total.\n";
         icsContent += "BEGIN:VALARM\n";
         icsContent += "TRIGGER:-PT0M\n";
         icsContent += "ACTION:DISPLAY\n";
@@ -3284,6 +3276,19 @@
         icsContent += "END:VALARM\n";
         icsContent += "END:VEVENT\n";
       });
+
+      // Doctor Consultation & Blood Tests Event
+      icsContent += "BEGIN:VEVENT\n";
+      icsContent += "SUMMARY:🩺 Doctor Consultation & Blood Tests (Sugar, Cholesterol, TSH)\n";
+      icsContent += "DTSTART:20260828T093000\n";
+      icsContent += "DTSTART:20260828T110000\n";
+      icsContent += "DESCRIPTION:Bi-weekly doctor consultation with Dr. Bharathi Ramesh + Blood Tests for Glucose/Sugar, Lipid Profile/Cholesterol, and TSH Retest.\n";
+      icsContent += "BEGIN:VALARM\n";
+      icsContent += "TRIGGER:-PT0M\n";
+      icsContent += "ACTION:DISPLAY\n";
+      icsContent += "DESCRIPTION:Reminder\n";
+      icsContent += "END:VALARM\n";
+      icsContent += "END:VEVENT\n";
 
       icsContent += "END:VCALENDAR";
 

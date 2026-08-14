@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mouni-baby-hub-v3';
+const CACHE_NAME = 'mouni-baby-hub-v4';
 const ASSETS = [
   './index.html',
   './manifest.json',
