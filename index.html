@@ -1500,6 +1500,21 @@
         <div class="injection-alert-badge" id="injectionAlertBadge">3 Days Left</div>
       </div>
 
+      <!-- 7TH MONTH GROWTH SCAN ALERT WIDGET -->
+      <div id="growthScanAlertBanner" class="injection-alert-card" style="display: none; border-left-color: #D49B4B;">
+        <div class="injection-alert-header">
+          <div class="injection-alert-icon">👶</div>
+          <div class="injection-alert-title-wrap">
+            <h4 class="injection-alert-title">7th Month Growth Scan</h4>
+            <span class="injection-alert-due-date">Scheduled: 11th September 2026</span>
+          </div>
+        </div>
+        <p class="injection-alert-description" id="growthScanAlertDesc">
+          👶 <strong>7th Month Growth Scan is scheduled for 11th September 2026</strong> (~29-30 Weeks). Please consult Dr. Bharathi Ramesh.
+        </p>
+        <div class="injection-alert-badge" id="growthScanAlertBadge">🗓️ Reminder Active</div>
+      </div>
+
       <!-- MEDICATIONS CONTAINER FOR DYNAMIC ORDERING -->
       <div id="medications-container" style="display:flex; flex-direction:column; gap:0px; width:100%;">
 
@@ -1531,11 +1546,11 @@
               <div class="checkbox-btn" id="tab-chk-8"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Pan 40mg</div>
-                <div class="item-desc">Acid prevention. Take 1 tablet on empty stomach (30 mins before breakfast).</div>
+                <div class="item-desc">Acid & UTI prevention. Take 1 tablet on empty stomach (30 mins before breakfast).</div>
                 <div class="badge-row">
-                  <span class="badge tag-critical">🔴 Gastric Support</span>
+                  <span class="badge tag-critical">🔴 UTI & Gastric</span>
                   <span class="badge tag-before-food">🕒 Before Food</span>
-                  <span class="badge tag-nutrition">📅 5 Days Course</span>
+                  <span class="badge tag-nutrition">📅 5 Days (28 Aug - 1 Sep)</span>
                 </div>
               </div>
             </div>
@@ -1548,6 +1563,21 @@
                 <div class="badge-row">
                   <span class="badge tag-progesterone">💜 Preterm Prevention</span>
                   <span class="badge tag-after-food">🕒 After Food</span>
+                  <span class="badge tag-nutrition">📅 Till 10 Sep</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Niftal 100mg Morning (5 Days UTI Course) -->
+            <div class="item-row" onclick="toggleTablet(18, event)">
+              <div class="checkbox-btn" id="tab-chk-18"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Niftal 100mg (Nitrofurantoin)</div>
+                <div class="item-desc">Antibiotic for Urinary Tract Infection. Take 1 tablet after breakfast.</div>
+                <div class="badge-row">
+                  <span class="badge tag-critical">🔴 UTI Antibiotic</span>
+                  <span class="badge tag-after-food">🕒 After Food</span>
+                  <span class="badge tag-nutrition">📅 5 Days (28 Aug - 1 Sep)</span>
                 </div>
               </div>
             </div>
@@ -1650,6 +1680,7 @@
                 <div class="item-desc">Additional progesterone support. Take 1 tablet. Afternoon timing avoids sleepiness.</div>
                 <div class="badge-row">
                   <span class="badge tag-progesterone">💜 Additional Progesterone</span>
+                  <span class="badge tag-nutrition">📅 Till 14 Oct</span>
                 </div>
               </div>
             </div>
@@ -1687,6 +1718,21 @@
                 <div class="badge-row">
                   <span class="badge tag-progesterone">💜 Preterm Prevention</span>
                   <span class="badge tag-after-food">🕒 After Food</span>
+                  <span class="badge tag-nutrition">📅 Till 10 Sep</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Niftal 100mg Night (5 Days UTI Course) -->
+            <div class="item-row" onclick="toggleTablet(19, event)">
+              <div class="checkbox-btn" id="tab-chk-19"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Niftal 100mg (Nitrofurantoin)</div>
+                <div class="item-desc">Second dose of UTI antibiotic. Take 1 tablet after dinner.</div>
+                <div class="badge-row">
+                  <span class="badge tag-critical">🔴 UTI Antibiotic</span>
+                  <span class="badge tag-after-food">🕒 After Food</span>
+                  <span class="badge tag-nutrition">📅 5 Days (28 Aug - 1 Sep)</span>
                 </div>
               </div>
             </div>
@@ -1893,18 +1939,18 @@
           </div>
         </div>
 
-        <!-- Card 5: Next Consultation & Retests -->
+        <!-- Card 5: Next Consultation & Growth Scan -->
         <div class="magic-bento-card magic-bento-card--border-glow" style="--glow-color: 212, 175, 55;">
           <div class="magic-bento-card__header">
-            <span class="magic-bento-card__label">📅 2-Week Checkup</span>
+            <span class="magic-bento-card__label">📅 Scans & Checkups</span>
             <span style="font-size: 18px;">🩺</span>
           </div>
           <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">Next Consult: 28th Aug 2026</h3>
+            <h3 class="magic-bento-card__title">Upcoming Appointments</h3>
             <p class="magic-bento-card__description">
-              • <strong>Bi-Weekly Doctor Consult:</strong> 28 August 2026 (~27 Weeks)<br>
-              • <strong>Comprehensive Blood Checkup:</strong> Blood Sugar (Glucose), Lipid Profile (Cholesterol), and TSH (Thyroid)<br>
-              • <strong>Follow-up Schedule:</strong> Consult every 2 weeks going forward.
+              • <strong>Bi-Weekly Consult & Blood Tests:</strong> 28 Aug 2026 (Sugar, Cholesterol, TSH)<br>
+              • <strong>👶 7th Month Growth Scan:</strong> Scheduled for <strong>11th September 2026</strong> (~29-30 Weeks).<br>
+              • <strong>Scan Reminders:</strong> Active on 9th, 10th & 11th September.
             </p>
           </div>
         </div>
@@ -2203,6 +2249,7 @@
       updateAppStatusIndicator();
       updateTimeBlockOrdering();
       checkInjectionAlert();
+      checkGrowthScanAlert();
       updateDynamicHeader();
       updateTabletsProgress();
       document.getElementById('birthDateInput').value = babyBirthDate;
@@ -2531,35 +2578,80 @@
       }
     }
 
+    function checkIsDydrogestActive() {
+      const today = new Date();
+      const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const dydrogestEndDate = new Date(2026, 8, 11); // Active till 10 Sept 2026 (expires 11 Sept)
+      return todayMidnight < dydrogestEndDate;
+    }
+
+    function checkIsSustenerActive() {
+      const today = new Date();
+      const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const sustenerEndDate = new Date(2026, 9, 15); // Active till 14 Oct 2026 (expires 15 Oct)
+      return todayMidnight < sustenerEndDate;
+    }
+
+    function checkIsUtiCourseActive() {
+      const today = new Date();
+      const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const utiEndDate = new Date(2026, 8, 2); // 5 Days: 28 Aug to 1 Sep (expires 2 Sept)
+      return todayMidnight < utiEndDate;
+    }
+
     function checkIsCourseActive() {
       const today = new Date();
       const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-      const courseEndDate = new Date(2026, 5, 21); // June 21, 2026 (Month is 0-indexed: 5 is June)
+      const courseEndDate = new Date(2026, 5, 21);
       return todayMidnight < courseEndDate;
     }
 
     function checkIsPostSurgeryActive() {
       const today = new Date();
       const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-      const postSurgeryEndDate = new Date(2026, 5, 21); // June 21, 2026 (expires on this date)
+      const postSurgeryEndDate = new Date(2026, 5, 21);
       return todayMidnight < postSurgeryEndDate;
     }
 
     function checkCourseExpiration() {
-      const courseIds = [8, 9, 10, 11, 12];
+      // Dydrogest (IDs 0 and 5)
+      const isDydrogestActive = checkIsDydrogestActive();
+      [0, 5].forEach(id => {
+        const chk = document.getElementById(`tab-chk-${id}`);
+        if (chk) {
+          const row = chk.closest('.item-row');
+          if (row) row.style.display = isDydrogestActive ? 'flex' : 'none';
+        }
+      });
+
+      // Sustener (ID 2)
+      const isSustenerActive = checkIsSustenerActive();
+      [2].forEach(id => {
+        const chk = document.getElementById(`tab-chk-${id}`);
+        if (chk) {
+          const row = chk.closest('.item-row');
+          if (row) row.style.display = isSustenerActive ? 'flex' : 'none';
+        }
+      });
+
+      // UTI Course (IDs 8, 18, 19)
+      const isUtiActive = checkIsUtiCourseActive();
+      [8, 18, 19].forEach(id => {
+        const chk = document.getElementById(`tab-chk-${id}`);
+        if (chk) {
+          const row = chk.closest('.item-row');
+          if (row) row.style.display = isUtiActive ? 'flex' : 'none';
+        }
+      });
+
+      const courseIds = [9, 10, 11, 12];
       const isCourseActive = checkIsCourseActive();
 
       courseIds.forEach(id => {
         const chk = document.getElementById(`tab-chk-${id}`);
         if (chk) {
           const row = chk.closest('.item-row');
-          if (row) {
-            if (isCourseActive) {
-              row.style.display = 'flex';
-            } else {
-              row.style.display = 'none';
-            }
-          }
+          if (row) row.style.display = isCourseActive ? 'flex' : 'none';
         }
       });
 
@@ -2570,25 +2662,24 @@
         const chk = document.getElementById(`tab-chk-${id}`);
         if (chk) {
           const row = chk.closest('.item-row');
-          if (row) {
-            if (isPostSurgeryActive) {
-              row.style.display = 'flex';
-            } else {
-              row.style.display = 'none';
-            }
-          }
+          if (row) row.style.display = isPostSurgeryActive ? 'flex' : 'none';
         }
       });
 
       let changed = false;
-      if (!isCourseActive) {
+      if (!isDydrogestActive) {
         const oldLen = checkedTablets.length;
-        checkedTablets = checkedTablets.filter(tId => !courseIds.includes(tId));
+        checkedTablets = checkedTablets.filter(tId => tId !== 0 && tId !== 5);
         if (checkedTablets.length !== oldLen) changed = true;
       }
-      if (!isPostSurgeryActive) {
+      if (!isSustenerActive) {
         const oldLen = checkedTablets.length;
-        checkedTablets = checkedTablets.filter(tId => !postSurgeryIds.includes(tId));
+        checkedTablets = checkedTablets.filter(tId => tId !== 2);
+        if (checkedTablets.length !== oldLen) changed = true;
+      }
+      if (!isUtiActive) {
+        const oldLen = checkedTablets.length;
+        checkedTablets = checkedTablets.filter(tId => ![8, 18, 19].includes(tId));
         if (checkedTablets.length !== oldLen) changed = true;
       }
       if (changed) {
@@ -2596,12 +2687,43 @@
       }
     }
 
+    function checkGrowthScanAlert() {
+      const today = new Date();
+      const yr = today.getFullYear();
+      const mt = today.getMonth();
+      const dy = today.getDate();
+
+      // Active on 9th, 10th, and 11th September 2026 (Month 8 is Sept)
+      const isScanWindow = (yr === 2026 && mt === 8 && (dy === 9 || dy === 10 || dy === 11));
+      
+      const banner = document.getElementById('growthScanAlertBanner');
+      if (banner) {
+        if (isScanWindow) {
+          banner.style.display = 'flex';
+          const scanBadge = document.getElementById('growthScanAlertBadge');
+          const scanDesc = document.getElementById('growthScanAlertDesc');
+
+          if (dy === 11) {
+            if (scanBadge) scanBadge.textContent = '🚨 TODAY!';
+            if (scanDesc) scanDesc.innerHTML = '👶 <strong>7th Month Growth Scan is TODAY (11th September 2026)!</strong> Please consult Dr. Bharathi Ramesh for the ultrasound growth scan.';
+          } else {
+            const daysLeft = 11 - dy;
+            if (scanBadge) scanBadge.textContent = `🗓️ In ${daysLeft} ${daysLeft === 1 ? 'day' : 'days'}`;
+            if (scanDesc) scanDesc.innerHTML = `👶 <strong>Reminder: 7th Month Growth Scan is scheduled for 11th September 2026</strong> (in ${daysLeft} ${daysLeft === 1 ? 'day' : 'days'}). Please prepare all medical reports for the appointment.`;
+          }
+        } else {
+          banner.style.display = 'none';
+        }
+      }
+    }
+
     function updateAppStatusIndicator() {
       const today = new Date();
       const options = { day: 'numeric', month: 'short', year: 'numeric' };
       const dateStr = today.toLocaleDateString('en-US', options);
+      const isUtiActive = checkIsUtiCourseActive();
       
-      const statusText = `📅 App Date: ${dateStr} | 💉 TD Vaccine: Received (14 Aug) | 🩺 Next Consult & Lab Tests: 28 Aug 2026`;
+      const statusText = `📅 App Date: ${dateStr} | 💊 UTI Course: ${isUtiActive ? 'Active (5 Days)' : 'Completed'} | 👶 7th Month Growth Scan: 11 Sep 2026`;
       const elem = document.getElementById('appStatusIndicator');
       if (elem) {
         elem.textContent = statusText;
@@ -2722,18 +2844,21 @@
     }
 
     function updateTabletsProgress() {
-      const courseIds = [8, 9, 10, 11, 12];
-      const isCourseActive = checkIsCourseActive();
-
-      const postSurgeryIds = [14, 15, 16, 17];
-      const isPostSurgeryActive = checkIsPostSurgeryActive();
-      
-      let activeIds = [0, 1, 2, 3, 4, 5, 6, 7];
-      if (isCourseActive) {
-        activeIds = activeIds.concat(courseIds);
+      let activeIds = [1, 3, 4, 6, 7]; // Always active supplements & care
+      if (checkIsDydrogestActive()) {
+        activeIds = activeIds.concat([0, 5]);
       }
-      if (isPostSurgeryActive) {
-        activeIds = activeIds.concat(postSurgeryIds);
+      if (checkIsSustenerActive()) {
+        activeIds = activeIds.concat([2]);
+      }
+      if (checkIsUtiCourseActive()) {
+        activeIds = activeIds.concat([8, 18, 19]);
+      }
+      if (checkIsCourseActive()) {
+        activeIds = activeIds.concat([9, 10, 11, 12]);
+      }
+      if (checkIsPostSurgeryActive()) {
+        activeIds = activeIds.concat([14, 15, 16, 17]);
       }
       
       TOTAL_TABLETS = activeIds.length;
@@ -3167,6 +3292,9 @@
       } else if (block === 'consultation') {
         const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("🩺 Doctor Consultation & Blood Tests (Sugar, Cholesterol, TSH)")}&dates=20260828T093000/20260828T110000&details=${encodeURIComponent("Doctor Consultation with Dr. Bharathi Ramesh + Blood Tests (Blood Sugar/Glucose, Lipid Profile/Cholesterol, TSH Retest) + 1st Remaining Progesterone Injection.")}`;
         window.open(url, '_blank');
+      } else if (block === 'scan') {
+        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("👶 7th Month Growth Scan")}&dates=20260911T100000/20260911T113000&details=${encodeURIComponent("7th Month Growth Ultrasound Scan with Dr. Bharathi Ramesh (~29-30 Weeks).")}`;
+        window.open(url, '_blank');
       }
     }
 
@@ -3281,8 +3409,27 @@
       icsContent += "BEGIN:VEVENT\n";
       icsContent += "SUMMARY:🩺 Doctor Consultation & Blood Tests (Sugar, Cholesterol, TSH)\n";
       icsContent += "DTSTART:20260828T093000\n";
-      icsContent += "DTSTART:20260828T110000\n";
+      icsContent += "DTEND:20260828T110000\n";
       icsContent += "DESCRIPTION:Bi-weekly doctor consultation with Dr. Bharathi Ramesh + Blood Tests for Glucose/Sugar, Lipid Profile/Cholesterol, and TSH Retest.\n";
+      icsContent += "BEGIN:VALARM\n";
+      icsContent += "TRIGGER:-PT0M\n";
+      icsContent += "ACTION:DISPLAY\n";
+      icsContent += "DESCRIPTION:Reminder\n";
+      icsContent += "END:VALARM\n";
+      icsContent += "END:VEVENT\n";
+
+      // 7th Month Growth Scan Event
+      icsContent += "BEGIN:VEVENT\n";
+      icsContent += "SUMMARY:👶 7th Month Growth Scan (~30 Weeks)\n";
+      icsContent += "DTSTART:20260911T100000\n";
+      icsContent += "DTEND:20260911T113000\n";
+      icsContent += "DESCRIPTION:7th Month Ultrasound Growth Scan with Dr. Bharathi Ramesh.\n";
+      icsContent += "BEGIN:VALARM\n";
+      icsContent += "TRIGGER:-PT0M\n";
+      icsContent += "ACTION:DISPLAY\n";
+      icsContent += "DESCRIPTION:Reminder\n";
+      icsContent += "END:VALARM\n";
+      icsContent += "END:VEVENT\n";
       icsContent += "BEGIN:VALARM\n";
       icsContent += "TRIGGER:-PT0M\n";
       icsContent += "ACTION:DISPLAY\n";
