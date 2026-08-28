@@ -3325,63 +3325,83 @@
     }
 
     function downloadICS() {
-      const events = [
+      const now = new Date();
+      const yr = now.getFullYear();
+      const mt = String(now.getMonth() + 1).padStart(2, '0');
+      const dy = String(now.getDate()).padStart(2, '0');
+      const dateStr = `${yr}${mt}${dy}`;
+      
+      const stampYr = now.getUTCFullYear();
+      const stampMt = String(now.getUTCMonth() + 1).padStart(2, '0');
+      const stampDy = String(now.getUTCDate()).padStart(2, '0');
+      const stampHr = String(now.getUTCHours()).padStart(2, '0');
+      const stampMn = String(now.getUTCMinutes()).padStart(2, '0');
+      const stampSc = String(now.getUTCSeconds()).padStart(2, '0');
+      const dtstamp = `${stampYr}${stampMt}${stampDy}T${stampHr}${stampMn}${stampSc}Z`;
+
+      // Calculate end date (3 months from today) for iCalendar daily repeat limit
+      const untilDate = new Date(now.getFullYear(), now.getMonth() + 3, now.getDate());
+      const untilYr = untilDate.getFullYear();
+      const untilMt = String(untilDate.getMonth() + 1).padStart(2, '0');
+      const untilDy = String(untilDate.getDate()).padStart(2, '0');
+      const untilStr = `${untilYr}${untilMt}${untilDy}T235959`;
+
+      const lines = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Mouni Baby Hub//Medication Schedule//EN",
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH"
+      ];
+
+      const dailyEvents = [
         {
-          title: "💊 Morning Meds (Thyronorm, Pan, Dydrogest, Duvadilan, Ceftum)",
+          id: "morning-meds",
+          title: "💊 Morning Meds (Thyronorm, Pan, Dydrogest, Duvadilan, Ceftum, Niftal)",
           time: "07:30",
-          desc: "Take empty-stomach meds (Thyronorm 50mcg, Pan 40mg). Take morning meds (Dydrogest 10, Duvadilan 10mg, Ceftum 500mg after breakfast). Pro Case DF powder optional."
+          desc: "Take empty-stomach meds (Thyronorm 50mcg, Pan 40mg). Take morning meds (Dydrogest 10, Duvadilan 10mg, Ceftum 500mg, Niftal 100mg after breakfast). Pro Case DF powder optional."
         },
         {
+          id: "afternoon-meds",
           title: "☀️ Afternoon Meds (Magnocal & Sustener)",
           time: "13:30",
           desc: "Take Tab. Magnocal (Calcium + Magnesium) and Tab. Sustener 200 (Additional progesterone support) after lunch."
         },
         {
-          title: "🌙 Night Meds (Womiron, Dydrogest, Duvadilan, Ceftum)",
+          id: "night-meds",
+          title: "🌙 Night Meds (Womiron, Dydrogest, Duvadilan, Ceftum, Niftal)",
           time: "21:00",
-          desc: "Take night meds: Tab. Womiron, Tab. Dydrogest 10, Tab. Duvadilan 10mg, and Tab. Ceftum 500mg after dinner."
+          desc: "Take night meds: Tab. Womiron, Tab. Dydrogest 10, Tab. Duvadilan 10mg, Tab. Ceftum 500mg, and Tab. Niftal 100mg after dinner."
         },
         {
+          id: "bedtime-meds",
           title: "🌛 Bedtime Meds (Stovient Cream & Duphalac)",
           time: "22:00",
           desc: "Apply Stovient Cream. Take Syp. Duphalac 15ml if needed for constipation."
         }
       ];
 
-      let icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Mouni Baby Hub//Medication Schedule//EN\nCALSCALE:GREGORIAN\n";
-      
-      const today = new Date();
-      const yr = today.getFullYear();
-      const mt = String(today.getMonth() + 1).padStart(2, '0');
-      const dy = String(today.getDate()).padStart(2, '0');
-      const dateStr = `${yr}${mt}${dy}`;
-
-      // Calculate end date (3 months from today) for iCalendar daily repeat limit
-      const untilDate = new Date(today.getFullYear(), today.getMonth() + 3, today.getDate());
-      const untilYr = untilDate.getFullYear();
-      const untilMt = String(untilDate.getMonth() + 1).padStart(2, '0');
-      const untilDy = String(untilDate.getDate()).padStart(2, '0');
-      const untilStr = `${untilYr}${untilMt}${untilDy}T235959`;
-
-      events.forEach(e => {
+      dailyEvents.forEach(e => {
         const [hrs, mins] = e.time.split(':');
         const start = `${dateStr}T${hrs}${mins}00`;
         const endHrs = String(parseInt(hrs) + (mins === '30' ? 1 : 0) + (mins === '00' ? 1 : 0)).padStart(2, '0');
         const endMins = mins;
         const end = `${dateStr}T${endHrs}${endMins}00`;
 
-        icsContent += "BEGIN:VEVENT\n";
-        icsContent += `SUMMARY:${e.title}\n`;
-        icsContent += `DTSTART:${start}\n`;
-        icsContent += `DTEND:${end}\n`;
-        icsContent += `RRULE:FREQ=DAILY;UNTIL=${untilStr}\n`;
-        icsContent += `DESCRIPTION:${e.desc}\n`;
-        icsContent += "BEGIN:VALARM\n";
-        icsContent += "TRIGGER:-PT0M\n";
-        icsContent += "ACTION:DISPLAY\n";
-        icsContent += "DESCRIPTION:Reminder\n";
-        icsContent += "END:VALARM\n";
-        icsContent += "END:VEVENT\n";
+        lines.push("BEGIN:VEVENT");
+        lines.push(`UID:${e.id}-${dateStr}@mounibaby.app`);
+        lines.push(`DTSTAMP:${dtstamp}`);
+        lines.push(`SUMMARY:${e.title}`);
+        lines.push(`DTSTART:${start}`);
+        lines.push(`DTEND:${end}`);
+        lines.push(`RRULE:FREQ=DAILY;UNTIL=${untilStr}`);
+        lines.push(`DESCRIPTION:${e.desc}`);
+        lines.push("BEGIN:VALARM");
+        lines.push("TRIGGER:-PT0M");
+        lines.push("ACTION:DISPLAY");
+        lines.push("DESCRIPTION:Reminder");
+        lines.push("END:VALARM");
+        lines.push("END:VEVENT");
       });
 
       // 3 Remaining Progesterone Injection dates
@@ -3392,52 +3412,55 @@
       ];
 
       remainingInjectionDates.forEach(item => {
-        icsContent += "BEGIN:VEVENT\n";
-        icsContent += `SUMMARY:💉 Inj. Proluton Depot 500mg IM (${item.num})\n`;
-        icsContent += `DTSTART:${item.date}T100000\n`;
-        icsContent += `DTEND:${item.date}T103000\n`;
-        icsContent += "DESCRIPTION:Administer Inj. Proluton Depot 500mg IM today. 3 doses remaining in total.\n";
-        icsContent += "BEGIN:VALARM\n";
-        icsContent += "TRIGGER:-PT0M\n";
-        icsContent += "ACTION:DISPLAY\n";
-        icsContent += "DESCRIPTION:Reminder\n";
-        icsContent += "END:VALARM\n";
-        icsContent += "END:VEVENT\n";
+        lines.push("BEGIN:VEVENT");
+        lines.push(`UID:proluton-injection-${item.date}@mounibaby.app`);
+        lines.push(`DTSTAMP:${dtstamp}`);
+        lines.push(`SUMMARY:💉 Inj. Proluton Depot 500mg IM (${item.num})`);
+        lines.push(`DTSTART:${item.date}T100000`);
+        lines.push(`DTEND:${item.date}T103000`);
+        lines.push("DESCRIPTION:Administer Inj. Proluton Depot 500mg IM today. 3 doses remaining in total.");
+        lines.push("BEGIN:VALARM");
+        lines.push("TRIGGER:-PT0M");
+        lines.push("ACTION:DISPLAY");
+        lines.push("DESCRIPTION:Reminder");
+        lines.push("END:VALARM");
+        lines.push("END:VEVENT");
       });
 
       // Doctor Consultation & Blood Tests Event
-      icsContent += "BEGIN:VEVENT\n";
-      icsContent += "SUMMARY:🩺 Doctor Consultation & Blood Tests (Sugar, Cholesterol, TSH)\n";
-      icsContent += "DTSTART:20260828T093000\n";
-      icsContent += "DTEND:20260828T110000\n";
-      icsContent += "DESCRIPTION:Bi-weekly doctor consultation with Dr. Bharathi Ramesh + Blood Tests for Glucose/Sugar, Lipid Profile/Cholesterol, and TSH Retest.\n";
-      icsContent += "BEGIN:VALARM\n";
-      icsContent += "TRIGGER:-PT0M\n";
-      icsContent += "ACTION:DISPLAY\n";
-      icsContent += "DESCRIPTION:Reminder\n";
-      icsContent += "END:VALARM\n";
-      icsContent += "END:VEVENT\n";
+      lines.push("BEGIN:VEVENT");
+      lines.push(`UID:doctor-consultation-20260828@mounibaby.app`);
+      lines.push(`DTSTAMP:${dtstamp}`);
+      lines.push("SUMMARY:🩺 Doctor Consultation & Blood Tests (Sugar, Cholesterol, TSH)");
+      lines.push("DTSTART:20260828T093000");
+      lines.push("DTEND:20260828T110000");
+      lines.push("DESCRIPTION:Bi-weekly doctor consultation with Dr. Bharathi Ramesh + Blood Tests for Glucose/Sugar, Lipid Profile/Cholesterol, and TSH Retest.");
+      lines.push("BEGIN:VALARM");
+      lines.push("TRIGGER:-PT0M");
+      lines.push("ACTION:DISPLAY");
+      lines.push("DESCRIPTION:Reminder");
+      lines.push("END:VALARM");
+      lines.push("END:VEVENT");
 
       // 7th Month Growth Scan Event
-      icsContent += "BEGIN:VEVENT\n";
-      icsContent += "SUMMARY:👶 7th Month Growth Scan (~30 Weeks)\n";
-      icsContent += "DTSTART:20260911T100000\n";
-      icsContent += "DTEND:20260911T113000\n";
-      icsContent += "DESCRIPTION:7th Month Ultrasound Growth Scan with Dr. Bharathi Ramesh.\n";
-      icsContent += "BEGIN:VALARM\n";
-      icsContent += "TRIGGER:-PT0M\n";
-      icsContent += "ACTION:DISPLAY\n";
-      icsContent += "DESCRIPTION:Reminder\n";
-      icsContent += "END:VALARM\n";
-      icsContent += "END:VEVENT\n";
-      icsContent += "BEGIN:VALARM\n";
-      icsContent += "TRIGGER:-PT0M\n";
-      icsContent += "ACTION:DISPLAY\n";
-      icsContent += "DESCRIPTION:Reminder\n";
-      icsContent += "END:VALARM\n";
-      icsContent += "END:VEVENT\n";
+      lines.push("BEGIN:VEVENT");
+      lines.push(`UID:growth-scan-20260911@mounibaby.app`);
+      lines.push(`DTSTAMP:${dtstamp}`);
+      lines.push("SUMMARY:👶 7th Month Growth Scan (~30 Weeks)");
+      lines.push("DTSTART:20260911T100000");
+      lines.push("DTEND:20260911T113000");
+      lines.push("DESCRIPTION:7th Month Ultrasound Growth Scan with Dr. Bharathi Ramesh.");
+      lines.push("BEGIN:VALARM");
+      lines.push("TRIGGER:-PT0M");
+      lines.push("ACTION:DISPLAY");
+      lines.push("DESCRIPTION:Reminder");
+      lines.push("END:VALARM");
+      lines.push("END:VEVENT");
 
-      icsContent += "END:VCALENDAR";
+      lines.push("END:VCALENDAR");
+
+      // Join lines with standard CRLF (\r\n) required by RFC 5545
+      const icsContent = lines.join("\r\n") + "\r\n";
 
       const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
       const link = document.createElement('a');
