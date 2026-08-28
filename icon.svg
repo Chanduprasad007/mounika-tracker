@@ -1,17 +1,146 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#E8927C" />
-      <stop offset="100%" stop-color="#C9A84C" />
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF9680" />
+      <stop offset="50%" stop-color="#F7AD71" />
+      <stop offset="100%" stop-color="#E28E9E" />
     </linearGradient>
+
+    <!-- Face Skin Tone Gradient -->
+    <radialGradient id="skinGrad" cx="45%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#FFF5EE" />
+      <stop offset="60%" stop-color="#FFE0D1" />
+      <stop offset="100%" stop-color="#FCD2BF" />
+    </radialGradient>
+
+    <!-- Ear Shading Gradient -->
+    <radialGradient id="earGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFE0D1" />
+      <stop offset="75%" stop-color="#F8B9A5" />
+      <stop offset="100%" stop-color="#EAA18B" />
+    </radialGradient>
+
+    <!-- Rosy Cheek Blush Gradient -->
+    <radialGradient id="blushGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF6B81" stop-opacity="0.65" />
+      <stop offset="55%" stop-color="#FF8E9E" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#FFA8B6" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Beanie / Hat / Bib Warm Pastel Gradient -->
+    <linearGradient id="bibGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#FFF0EB" />
+    </linearGradient>
+
+    <!-- Soft Glow Filter -->
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Drop Shadow Filter -->
+    <filter id="shadowFilter" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.12" />
+    </filter>
   </defs>
-  <rect width="512" height="512" rx="128" fill="url(#roseGrad)" />
-  <!-- Heart shape representation of care -->
-  <path d="M256,140 C285,80 395,80 395,190 C395,300 256,415 256,445 C256,415 117,300 117,190 C117,80 227,80 256,140 Z" fill="#FFFFFF" opacity="0.95"/>
-  <!-- Cute little baby carriage silhouette in the center -->
-  <path d="M220,220 A35,35 0 0,0 290,220 L290,195 A10,10 0 0,0 280,185 L230,185 A10,10 0 0,0 220,195 Z" fill="#E8927C"/>
-  <rect x="250" y="220" width="10" height="40" fill="#E8927C"/>
-  <circle cx="235" cy="270" r="15" fill="#E8927C"/>
-  <circle cx="275" cy="270" r="15" fill="#E8927C"/>
-  <path d="M200,200 L215,225" stroke="#E8927C" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- App Icon Squircle Background -->
+  <rect width="512" height="512" rx="124" fill="url(#bgGrad)" />
+
+  <!-- Background Decorative Glowing Circles -->
+  <circle cx="90" cy="90" r="100" fill="#FFFFFF" opacity="0.12" />
+  <circle cx="430" cy="430" r="120" fill="#FFFFFF" opacity="0.1" />
+
+  <!-- Sparkles & Magic Stars -->
+  <path d="M 100 190 Q 100 210 80 210 Q 100 210 100 230 Q 100 210 120 210 Q 100 210 100 190 Z" fill="#FFEAA7" opacity="0.9" filter="url(#softGlow)"/>
+  <path d="M 405 130 Q 405 155 380 155 Q 405 155 405 180 Q 405 155 430 155 Q 405 155 405 130 Z" fill="#FFEAA7" opacity="0.9" filter="url(#softGlow)"/>
+  <circle cx="130" cy="130" r="7" fill="#FFFFFF" opacity="0.75" />
+  <circle cx="380" cy="235" r="8" fill="#FFFFFF" opacity="0.7" />
+
+  <!-- MAIN CHARACTER GROUP -->
+  <g filter="url(#shadowFilter)">
+
+    <!-- Ears -->
+    <!-- Left Ear -->
+    <g>
+      <circle cx="120" cy="265" r="34" fill="url(#skinGrad)" stroke="#F2BCA7" stroke-width="3"/>
+      <circle cx="120" cy="265" r="19" fill="url(#earGrad)" />
+    </g>
+    <!-- Right Ear -->
+    <g>
+      <circle cx="392" cy="265" r="34" fill="url(#skinGrad)" stroke="#F2BCA7" stroke-width="3"/>
+      <circle cx="392" cy="265" r="19" fill="url(#earGrad)" />
+    </g>
+
+    <!-- Baby Cute Bib / Collared Shirt -->
+    <path d="M 175 390 C 175 450, 337 450, 337 390 C 375 425, 410 475, 410 475 L 102 475 C 102 475, 137 425, 175 390 Z" fill="url(#bibGrad)" stroke="#F8D4C8" stroke-width="4"/>
+    <circle cx="256" cy="425" r="9" fill="#FF8D77" />
+    <circle cx="256" cy="450" r="7" fill="#FF8D77" />
+
+    <!-- Cute Little Heart on Bib -->
+    <path d="M 256 405 C 253 400, 246 400, 244 405 C 241 411, 256 418, 256 422 C 256 418, 271 411, 268 405 C 266 400, 259 400, 256 405 Z" fill="#FF6B81" />
+
+    <!-- Head / Face Base Shape (Round & Chubby) -->
+    <circle cx="256" cy="256" r="142" fill="url(#skinGrad)" stroke="#F0B7A1" stroke-width="3.5" />
+
+    <!-- Chubby Baby Cheeks Lower Softening -->
+    <path d="M 140 280 C 120 340, 210 395, 256 395 C 302 395, 392 340, 372 280 C 392 230, 360 170, 256 170 C 152 170, 120 230, 140 280 Z" fill="url(#skinGrad)" opacity="0.6"/>
+
+    <!-- Cute Brown Hair Swirl / Tuft on top -->
+    <!-- Shadow under hair -->
+    <path d="M 250 114 C 235 90, 280 65, 266 114 Z" fill="#6A3B2C" opacity="0.3"/>
+    <!-- Main Hair Swirl -->
+    <path d="M 256 122 C 230 102, 240 68, 270 76 C 290 82, 282 108, 265 116 C 275 106, 274 92, 262 90 C 248 88, 245 104, 256 122 Z" fill="#7A4433"/>
+
+    <!-- Eyebrows (Soft, expressive & happy) -->
+    <path d="M 178 198 Q 198 184 220 196" fill="none" stroke="#7A4433" stroke-width="4.5" stroke-linecap="round" />
+    <path d="M 292 196 Q 314 184 334 198" fill="none" stroke="#7A4433" stroke-width="4.5" stroke-linecap="round" />
+
+    <!-- Sparkling Happy Eyes (Big, joyful and expressive) -->
+    <!-- Left Eye -->
+    <g>
+      <circle cx="198" cy="235" r="23" fill="#2C1B18" />
+      <!-- Specular Eye Highlights (Twinkle) -->
+      <circle cx="190" cy="227" r="8.5" fill="#FFFFFF" />
+      <circle cx="208" cy="243" r="4.5" fill="#FFFFFF" />
+      <circle cx="204" cy="226" r="3" fill="#FFFFFF" />
+      <!-- Cute curved upper eyelash -->
+      <path d="M 174 225 Q 198 206 222 225" fill="none" stroke="#2C1B18" stroke-width="3" stroke-linecap="round"/>
+    </g>
+
+    <!-- Right Eye -->
+    <g>
+      <circle cx="314" cy="235" r="23" fill="#2C1B18" />
+      <!-- Specular Eye Highlights (Twinkle) -->
+      <circle cx="306" cy="227" r="8.5" fill="#FFFFFF" />
+      <circle cx="324" cy="243" r="4.5" fill="#FFFFFF" />
+      <circle cx="320" cy="226" r="3" fill="#FFFFFF" />
+      <!-- Cute curved upper eyelash -->
+      <path d="M 290 225 Q 314 206 338 225" fill="none" stroke="#2C1B18" stroke-width="3" stroke-linecap="round"/>
+    </g>
+
+    <!-- Rosy Glowing Blush Cheeks -->
+    <circle cx="160" cy="275" r="28" fill="url(#blushGrad)" />
+    <circle cx="352" cy="275" r="28" fill="url(#blushGrad)" />
+
+    <!-- Cute Little Button Nose -->
+    <ellipse cx="256" cy="254" rx="6.5" ry="4.5" fill="#E89680" />
+
+    <!-- Happy Big Smile with Tongue -->
+    <g>
+      <!-- Mouth Cavity -->
+      <path d="M 215 282 Q 256 348 297 282 Q 256 295 215 282 Z" fill="#881B2C" />
+      <!-- Little Pink Tongue -->
+      <path d="M 233 306 Q 256 300 279 306 Q 275 328 256 330 Q 237 328 233 306 Z" fill="#FF8298" />
+      <!-- Upper Smile Outline -->
+      <path d="M 210 282 Q 256 298 302 282" fill="none" stroke="#681522" stroke-width="4.5" stroke-linecap="round" />
+      <!-- Left Smile Dimple -->
+      <path d="M 207 279 Q 204 286 211 290" fill="none" stroke="#681522" stroke-width="3.5" stroke-linecap="round" />
+      <!-- Right Smile Dimple -->
+      <path d="M 305 279 Q 308 286 301 290" fill="none" stroke="#681522" stroke-width="3.5" stroke-linecap="round" />
+    </g>
+
+  </g>
 </svg>
