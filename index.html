@@ -743,6 +743,105 @@
       box-shadow: 0 0 25px rgba(255, 158, 138, 0.3), var(--shadow-blur) !important;
     }
 
+    /* HOURLY HYDRATION TRACKER WIDGET */
+    .hydration-card {
+      margin: 16px 16px 12px;
+      padding: 18px 20px;
+      background: linear-gradient(135deg, rgba(89, 181, 230, 0.14) 0%, rgba(56, 189, 248, 0.08) 100%);
+      border: 1.5px solid rgba(89, 181, 230, 0.35);
+      border-radius: 24px;
+      box-shadow: 0 8px 24px rgba(89, 181, 230, 0.15), var(--shadow-blur);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .hydration-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hydration-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hydration-icon {
+      font-size: 26px;
+      animation: waterBob 2s infinite ease-in-out;
+    }
+    @keyframes waterBob {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-3px) scale(1.08); }
+    }
+    .hydration-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .hydration-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .water-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+    .water-glass-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 2px;
+      border-radius: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      user-select: none;
+    }
+    .water-glass-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--sky);
+    }
+    .water-glass-btn.drank {
+      background: linear-gradient(135deg, #38BDF8 0%, #0284C7 100%);
+      color: #FFFFFF;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+      transform: scale(1.04);
+    }
+    .water-glass-icon {
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+    .water-progress-bar-bg {
+      height: 6px;
+      background: rgba(0, 0, 0, 0.06);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    [data-theme="dark"] .water-progress-bar-bg {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .water-progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #38BDF8 0%, #0284C7 100%);
+      border-radius: 10px;
+      transition: width 0.4s ease;
+    }
+
     /* INJECTION ALERT CARD */
     .injection-alert-card {
       margin: 16px 16px 8px;
@@ -1442,6 +1541,46 @@
 
     <!-- TAB CONTENT: TABLET TRACKER -->
     <div id="tablets-tab" class="tab-content active">
+
+      <!-- STANDALONE HOURLY HYDRATION TRACKER (8 AM to 9 PM daily till 14 Nov) -->
+      <div id="hydrationTrackerWidget" class="hydration-card">
+        <div class="hydration-header">
+          <div class="hydration-title-wrap">
+            <span class="hydration-icon">💧</span>
+            <div>
+              <div class="hydration-title">Hourly Hydration Reminder</div>
+              <div class="hydration-subtitle" id="waterSubtitle">Daily 8:00 AM – 9:00 PM • Goal: 3.5 Litres (14 glasses)</div>
+            </div>
+          </div>
+          <button class="utility-btn" style="padding: 4px 8px; font-size: 11px;" onclick="resetWater()">🔄 Reset</button>
+        </div>
+
+        <div class="water-grid" id="waterGrid">
+          <!-- 14 Hourly Glass Buttons -->
+          <div class="water-glass-btn" id="water-btn-8" onclick="toggleWaterHour(8)"><span class="water-glass-icon">🥛</span>8 AM</div>
+          <div class="water-glass-btn" id="water-btn-9" onclick="toggleWaterHour(9)"><span class="water-glass-icon">🥛</span>9 AM</div>
+          <div class="water-glass-btn" id="water-btn-10" onclick="toggleWaterHour(10)"><span class="water-glass-icon">🥛</span>10 AM</div>
+          <div class="water-glass-btn" id="water-btn-11" onclick="toggleWaterHour(11)"><span class="water-glass-icon">🥛</span>11 AM</div>
+          <div class="water-glass-btn" id="water-btn-12" onclick="toggleWaterHour(12)"><span class="water-glass-icon">🥛</span>12 PM</div>
+          <div class="water-glass-btn" id="water-btn-13" onclick="toggleWaterHour(13)"><span class="water-glass-icon">🥛</span>1 PM</div>
+          <div class="water-glass-btn" id="water-btn-14" onclick="toggleWaterHour(14)"><span class="water-glass-icon">🥛</span>2 PM</div>
+          <div class="water-glass-btn" id="water-btn-15" onclick="toggleWaterHour(15)"><span class="water-glass-icon">🥛</span>3 PM</div>
+          <div class="water-glass-btn" id="water-btn-16" onclick="toggleWaterHour(16)"><span class="water-glass-icon">🥛</span>4 PM</div>
+          <div class="water-glass-btn" id="water-btn-17" onclick="toggleWaterHour(17)"><span class="water-glass-icon">🥛</span>5 PM</div>
+          <div class="water-glass-btn" id="water-btn-18" onclick="toggleWaterHour(18)"><span class="water-glass-icon">🥛</span>6 PM</div>
+          <div class="water-glass-btn" id="water-btn-19" onclick="toggleWaterHour(19)"><span class="water-glass-icon">🥛</span>7 PM</div>
+          <div class="water-glass-btn" id="water-btn-20" onclick="toggleWaterHour(20)"><span class="water-glass-icon">🥛</span>8 PM</div>
+          <div class="water-glass-btn" id="water-btn-21" onclick="toggleWaterHour(21)"><span class="water-glass-icon">🥛</span>9 PM</div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 600; color: var(--text-muted);">
+          <span id="waterProgressCount">💧 0 / 14 glasses drank (0.0 L)</span>
+          <span id="waterProgressPct">0%</span>
+        </div>
+        <div class="water-progress-bar-bg">
+          <div class="water-progress-bar-fill" id="waterProgressFill"></div>
+        </div>
+      </div>
       
       <!-- Bed Rest Active Warning (June 15 to July 6) -->
       <div class="banner banner-danger" id="bedRestBanner" style="display: none;">
@@ -2245,6 +2384,7 @@
       updateThemeIcon();
 
       loadState();
+      loadWaterState();
       checkCourseExpiration();
       updateAppStatusIndicator();
       updateTimeBlockOrdering();
@@ -2893,6 +3033,86 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    /* ==========================================
+       HOURLY HYDRATION TRACKER CONTROLLER
+       ========================================== */
+    let drankWaterHours = [];
+
+    function checkIsWaterReminderActive() {
+      const today = new Date();
+      const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const eddEndDate = new Date(2026, 10, 15); // Active till 14 Nov 2026 (Month 10 is Nov)
+      return todayMidnight < eddEndDate;
+    }
+
+    function getWaterKey() {
+      const today = new Date();
+      return `mouni_water_${today.getFullYear()}_${today.getMonth() + 1}_${today.getDate()}`;
+    }
+
+    function loadWaterState() {
+      const widget = document.getElementById('hydrationTrackerWidget');
+      if (!checkIsWaterReminderActive()) {
+        if (widget) widget.style.display = 'none';
+        return;
+      }
+      if (widget) widget.style.display = 'flex';
+      
+      const key = getWaterKey();
+      const saved = localStorage.getItem(key);
+      drankWaterHours = saved ? JSON.parse(saved) : [];
+      renderWaterState();
+    }
+
+    function saveWaterState() {
+      const key = getWaterKey();
+      localStorage.setItem(key, JSON.stringify(drankWaterHours));
+    }
+
+    function toggleWaterHour(hour) {
+      if (drankWaterHours.includes(hour)) {
+        drankWaterHours = drankWaterHours.filter(h => h !== hour);
+      } else {
+        drankWaterHours.push(hour);
+        playChime();
+      }
+      saveWaterState();
+      renderWaterState();
+    }
+
+    function resetWater() {
+      if (!confirm("Reset today's water glasses?")) return;
+      drankWaterHours = [];
+      saveWaterState();
+      renderWaterState();
+    }
+
+    function renderWaterState() {
+      const allHours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+      allHours.forEach(hour => {
+        const btn = document.getElementById(`water-btn-${hour}`);
+        if (btn) {
+          const isDrank = drankWaterHours.includes(hour);
+          btn.classList.toggle('drank', isDrank);
+          const timeLabel = hour > 12 ? (hour - 12) + ' PM' : (hour === 12 ? '12 PM' : hour + ' AM');
+          btn.innerHTML = `<span class="water-glass-icon">${isDrank ? '💧' : '🥛'}</span>${timeLabel}`;
+        }
+      });
+
+      const count = drankWaterHours.length;
+      const total = 14;
+      const litres = (count * 0.25).toFixed(1);
+      const pct = Math.round((count / total) * 100);
+
+      const countElem = document.getElementById('waterProgressCount');
+      const pctElem = document.getElementById('waterProgressPct');
+      const fillElem = document.getElementById('waterProgressFill');
+
+      if (countElem) countElem.textContent = `💧 ${count} / ${total} glasses drank (${litres} L / 3.5 L)`;
+      if (pctElem) pctElem.textContent = `${pct}%`;
+      if (fillElem) fillElem.style.width = `${pct}%`;
+    }
+
 
 
     /* ==========================================
@@ -3122,14 +3342,21 @@
 
         const reminders = {
           "07:30": { title: "Morning Tablets (7:30 AM) 🌅", body: morningMedsText },
-          "09:30": { title: "💧 Hydration Time!", body: "Time to drink a glass of water to keep Mouni and Baby healthy and hydrated!" },
-          "11:30": { title: "💧 Hydration Time!", body: "Keep up the water intake! Drink a glass of water now." },
-          "13:30": { title: "Afternoon Tablets (1:30 PM) ☀️ & Water Reminder 💧", body: "Take Tab. Magnocal and Tab. Sustener 200 after lunch. Also, drink a glass of water!" },
-          "15:30": { title: "💧 Hydration Time!", body: "Mid-afternoon check. Drink a glass of water to stay fresh and hydrated." },
-          "17:30": { title: "💧 Hydration Time!", body: "Time for another glass of water. Keep going, you're doing great!" },
-          "19:30": { title: "💧 Hydration Time!", body: "Evening hydration reminder. Take a glass of water now." },
-          "21:00": { title: "Night Tablets (9:00 PM) 🌙", body: nightMedsText },
-          "21:30": { title: "💧 Hydration Time!", body: "Last water reminder for the day! Have a glass of water before winding down." },
+          "08:00": { title: "💧 Morning Hydration Time! (8:00 AM)", body: "Start the day refreshed! Drink a fresh glass of water for Mouni and Baby. 🍼" },
+          "09:00": { title: "💧 Hourly Hydration (9:00 AM)", body: "Time for your 9 AM glass of water. Keep hydrated!" },
+          "10:00": { title: "💧 Hourly Hydration (10:00 AM)", body: "10 AM water check-in! Drink a glass of water." },
+          "11:00": { title: "💧 Hourly Hydration (11:00 AM)", body: "Mid-morning hydration. Drink a glass of water." },
+          "12:00": { title: "💧 Noon Hydration (12:00 PM)", body: "Noon check! Drink a glass of water before lunch." },
+          "13:00": { title: "💧 Hourly Hydration (1:00 PM)", body: "1 PM hydration check-in. Drink a glass of water." },
+          "13:30": { title: "Afternoon Tablets (1:30 PM) ☀️", body: "Take Tab. Magnocal and Tab. Sustener 200 after lunch." },
+          "14:00": { title: "💧 Post-Lunch Hydration (2:00 PM)", body: "Afternoon water reminder. Stay hydrated and rest well!" },
+          "15:00": { title: "💧 Hourly Hydration (3:00 PM)", body: "3 PM check! Time for another refreshing glass of water." },
+          "16:00": { title: "💧 Hourly Hydration (4:00 PM)", body: "4 PM hydration. Keep up the great routine!" },
+          "17:00": { title: "💧 Evening Hydration (5:00 PM)", body: "5 PM check! Drink a glass of water to stay energized." },
+          "18:00": { title: "💧 Hourly Hydration (6:00 PM)", body: "6 PM evening water reminder. Drink a glass of water." },
+          "19:00": { title: "💧 Pre-Dinner Hydration (7:00 PM)", body: "7 PM check-in! Have a glass of water before dinner." },
+          "20:00": { title: "💧 Hourly Hydration (8:00 PM)", body: "8 PM hydration check. Drink a glass of water." },
+          "21:00": { title: "Night Tablets (9:00 PM) 🌙 & Night Hydration 💧", body: `${nightMedsText} Also, drink your 9 PM glass of water!` },
           "22:00": { title: "Bedtime Application (10:00 PM) 🌛", body: "Apply Stovient Cream. Take Syp. Duphalac 15ml if needed for constipation." }
         };
 
@@ -3295,6 +3522,9 @@
       } else if (block === 'scan') {
         const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("👶 7th Month Growth Scan")}&dates=20260911T100000/20260911T113000&details=${encodeURIComponent("7th Month Growth Ultrasound Scan with Dr. Bharathi Ramesh (~29-30 Weeks).")}`;
         window.open(url, '_blank');
+      } else if (block === 'water') {
+        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("💧 Hourly Water Reminder (8 AM – 9 PM)")}&dates=20260828T080000/20260828T210000&recur=RRULE:FREQ=DAILY;UNTIL=20261114T235959&details=${encodeURIComponent("Daily hourly water reminder from 8:00 AM to 9:00 PM until delivery (14 Nov 2026). Drink 1 glass of water every hour to stay hydrated (Target: 3.5L / 14 glasses).")}`;
+        window.open(url, '_blank');
       }
     }
 
@@ -3450,6 +3680,22 @@
       lines.push("DTSTART:20260911T100000");
       lines.push("DTEND:20260911T113000");
       lines.push("DESCRIPTION:7th Month Ultrasound Growth Scan with Dr. Bharathi Ramesh.");
+      lines.push("BEGIN:VALARM");
+      lines.push("TRIGGER:-PT0M");
+      lines.push("ACTION:DISPLAY");
+      lines.push("DESCRIPTION:Reminder");
+      lines.push("END:VALARM");
+      lines.push("END:VEVENT");
+
+      // Hourly Water Hydration Event (Daily 8 AM to 9 PM till 14 Nov)
+      lines.push("BEGIN:VEVENT");
+      lines.push(`UID:hourly-hydration-${dateStr}@mounibaby.app`);
+      lines.push(`DTSTAMP:${dtstamp}`);
+      lines.push("SUMMARY:💧 Hourly Water Reminder (8 AM – 9 PM)");
+      lines.push(`DTSTART:${dateStr}T080000`);
+      lines.push(`DTEND:${dateStr}T210000`);
+      lines.push("RRULE:FREQ=DAILY;UNTIL=20261114T235959");
+      lines.push("DESCRIPTION:Daily hourly water reminder from 8:00 AM to 9:00 PM until 14 November 2026. Drink 1 glass of water every hour to keep Mouni & Baby hydrated (Target: 3.5L / 14 glasses).");
       lines.push("BEGIN:VALARM");
       lines.push("TRIGGER:-PT0M");
       lines.push("ACTION:DISPLAY");
