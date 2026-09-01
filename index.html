@@ -1552,7 +1552,10 @@
               <div class="hydration-subtitle" id="waterSubtitle">Daily 8:00 AM – 9:00 PM • Goal: 3.5 Litres (14 glasses)</div>
             </div>
           </div>
-          <button class="utility-btn" style="padding: 4px 8px; font-size: 11px;" onclick="resetWater()">🔄 Reset</button>
+          <div style="display: flex; gap: 6px;">
+            <button class="utility-btn" style="padding: 4px 8px; font-size: 11px;" onclick="downloadWaterICS()" title="Download hourly calendar alarms">📅 Add to Calendar</button>
+            <button class="utility-btn" style="padding: 4px 8px; font-size: 11px;" onclick="resetWater()">🔄 Reset</button>
+          </div>
         </div>
 
         <div class="water-grid" id="waterGrid">
@@ -3687,21 +3690,9 @@
       lines.push("END:VALARM");
       lines.push("END:VEVENT");
 
-      // Hourly Water Hydration Event (Daily 8 AM to 9 PM till 14 Nov)
-      lines.push("BEGIN:VEVENT");
-      lines.push(`UID:hourly-hydration-${dateStr}@mounibaby.app`);
-      lines.push(`DTSTAMP:${dtstamp}`);
-      lines.push("SUMMARY:💧 Hourly Water Reminder (8 AM – 9 PM)");
-      lines.push(`DTSTART:${dateStr}T080000`);
-      lines.push(`DTEND:${dateStr}T210000`);
-      lines.push("RRULE:FREQ=DAILY;UNTIL=20261114T235959");
-      lines.push("DESCRIPTION:Daily hourly water reminder from 8:00 AM to 9:00 PM until 14 November 2026. Drink 1 glass of water every hour to keep Mouni & Baby hydrated (Target: 3.5L / 14 glasses).");
-      lines.push("BEGIN:VALARM");
-      lines.push("TRIGGER:-PT0M");
-      lines.push("ACTION:DISPLAY");
-      lines.push("DESCRIPTION:Reminder");
-      lines.push("END:VALARM");
-      lines.push("END:VEVENT");
+      // 14 Discrete Hourly Water Reminders (Daily 8:00 AM to 9:00 PM till 14 Nov 2026)
+      const waterLines = getWaterICSEvents(dateStr, dtstamp, '20261114T235959');
+      waterLines.forEach(l => lines.push(l));
 
       lines.push("END:VCALENDAR");
 
@@ -3712,6 +3703,82 @@
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
       link.download = 'mouni_medication_schedule.ics';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function getWaterICSEvents(dateStr, dtstamp, untilStr) {
+      const lines = [];
+      const waterHours = [
+        { hr: "08", label: "8:00 AM" },
+        { hr: "09", label: "9:00 AM" },
+        { hr: "10", label: "10:00 AM" },
+        { hr: "11", label: "11:00 AM" },
+        { hr: "12", label: "12:00 PM" },
+        { hr: "13", label: "1:00 PM" },
+        { hr: "14", label: "2:00 PM" },
+        { hr: "15", label: "3:00 PM" },
+        { hr: "16", label: "4:00 PM" },
+        { hr: "17", label: "5:00 PM" },
+        { hr: "18", label: "6:00 PM" },
+        { hr: "19", label: "7:00 PM" },
+        { hr: "20", label: "8:00 PM" },
+        { hr: "21", label: "9:00 PM" }
+      ];
+
+      waterHours.forEach(w => {
+        lines.push("BEGIN:VEVENT");
+        lines.push(`UID:hourly-water-${w.hr}-${dateStr}@mounibaby.app`);
+        lines.push(`DTSTAMP:${dtstamp}`);
+        lines.push(`SUMMARY:💧 Drink 1 Glass Water (${w.label})`);
+        lines.push(`DTSTART:${dateStr}T${w.hr}0000`);
+        lines.push(`DTEND:${dateStr}T${w.hr}0500`);
+        lines.push(`RRULE:FREQ=DAILY;UNTIL=${untilStr}`);
+        lines.push(`DESCRIPTION:Hourly hydration reminder (${w.label}). Drink 1 glass of water to keep Mouni & Baby healthy (Target: 14 glasses / 3.5L daily).`);
+        lines.push("BEGIN:VALARM");
+        lines.push("TRIGGER:-PT0M");
+        lines.push("ACTION:DISPLAY");
+        lines.push(`DESCRIPTION:💧 Drink 1 Glass of Water (${w.label})`);
+        lines.push("END:VALARM");
+        lines.push("END:VEVENT");
+      });
+      return lines;
+    }
+
+    function downloadWaterICS() {
+      const now = new Date();
+      const yr = now.getFullYear();
+      const mt = String(now.getMonth() + 1).padStart(2, '0');
+      const dy = String(now.getDate()).padStart(2, '0');
+      const dateStr = `${yr}${mt}${dy}`;
+      
+      const stampYr = now.getUTCFullYear();
+      const stampMt = String(now.getUTCMonth() + 1).padStart(2, '0');
+      const stampDy = String(now.getUTCDate()).padStart(2, '0');
+      const stampHr = String(now.getUTCHours()).padStart(2, '0');
+      const stampMn = String(now.getUTCMinutes()).padStart(2, '0');
+      const stampSc = String(now.getUTCSeconds()).padStart(2, '0');
+      const dtstamp = `${stampYr}${stampMt}${stampDy}T${stampHr}${stampMn}${stampSc}Z`;
+
+      const lines = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Mouni Baby Hub//Hourly Water Reminders//EN",
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH"
+      ];
+
+      const waterLines = getWaterICSEvents(dateStr, dtstamp, '20261114T235959');
+      waterLines.forEach(l => lines.push(l));
+
+      lines.push("END:VCALENDAR");
+
+      const icsContent = lines.join("\r\n") + "\r\n";
+      const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'mouni_water_reminders.ics';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
