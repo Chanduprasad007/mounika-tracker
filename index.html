@@ -1449,9 +1449,21 @@
 
         <!-- Baby Countdown Card -->
         <div class="info-card" style="background: rgba(255, 255, 255, 0.25);">
-          <div class="info-card-title">🍼 Tentative Due Date</div>
+          <div class="info-card-title">🍼 Estimated Due Date (Scan Report)</div>
           <div class="info-card-value" id="countdownTimerText">21 Nov 2026 • -- Days Left</div>
-          <div class="info-card-sub" id="countdownSubtext">Trimester 2 in progress. Keep glowing! 🌟</div>
+          <div class="info-card-sub" id="countdownSubtext">EDD Window: 21st – 23rd November 2026. Keep glowing! 🌟</div>
+        </div>
+
+        <!-- Planned C-Section & Breech Baby Position Card -->
+        <div class="info-card" style="background: linear-gradient(135deg, rgba(232, 146, 124, 0.35) 0%, rgba(155, 137, 196, 0.3) 100%); border: 1.5px solid rgba(255, 255, 255, 0.45);">
+          <div class="info-card-title" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>🏥 Planned Safe Delivery Window</span>
+            <span style="background: rgba(255, 255, 255, 0.35); padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700;">15 – 20 Oct 2026</span>
+          </div>
+          <div class="info-card-value" id="cSectionCountdownText" style="font-size: 15px; margin-top: 4px;">👶 Planned C-Section (15–20 Oct)</div>
+          <div class="info-card-sub" style="margin-top: 6px; font-size: 11.5px; line-height: 1.4;">
+            <strong>👶 Baby Presentation:</strong> Breech position (Head up, legs down) • Doctor suggested safe C-section between 15th – 20th October to ensure baby & mother safety!
+          </div>
         </div>
 
         <!-- Baby Size Visualizer Card (Option E) -->
@@ -2008,7 +2020,8 @@
             <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('afternoon')">☀️ Add Afternoon Meds (1:30 PM)</button>
             <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('night')">🌙 Add Night Meds (9:00 PM)</button>
             <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('bedtime')">🌛 Add Bedtime Cream (10:00 PM)</button>
-            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('injection')">💉 Add Injection Alarms (Every 15 Days)</button>
+            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('injection')">💉 Add Final Proluton Injection (30 Oct)</button>
+            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('csection')">🏥 Add Planned C-Section Window (15–20 Oct)</button>
           </div>
         </div>
 
@@ -2068,16 +2081,15 @@
         <!-- Card 4: Injections & Care History -->
         <div class="magic-bento-card magic-bento-card--border-glow" style="--glow-color: 180, 151, 207;">
           <div class="magic-bento-card__header">
-            <span class="magic-bento-card__label">💉 Injections & Care Log</span>
+            <span class="magic-bento-card__label">💉 Injection Schedule</span>
             <span style="font-size: 18px;">🩺</span>
           </div>
           <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">Injection Schedule (3 Left)</h3>
+            <h3 class="magic-bento-card__title">Final Proluton Injection</h3>
             <p class="magic-bento-card__description">
-              • <strong>TD & Proluton Received:</strong> Given on 14 Aug 2026 ✅<br>
-              • <strong>Next Proluton Injection:</strong> 28 Aug 2026 (1st of 3 remaining)<br>
-              • <strong>Remaining Injections (15-day gap):</strong> 12 Sept & 27 Sept 2026<br>
-              • <strong>Post-Cerclage:</strong> Maintain hydration and rest well.
+              • <strong>Final Dose:</strong> Scheduled on <strong>30th October 2026</strong>.<br>
+              • <strong>Purpose:</strong> Inj. Proluton Depot 500mg IM to support pregnancy stability.<br>
+              • <strong>Status:</strong> Final injection dose of the third trimester.
             </p>
           </div>
         </div>
@@ -2085,15 +2097,15 @@
         <!-- Card 5: Next Consultation & Growth Scan -->
         <div class="magic-bento-card magic-bento-card--border-glow" style="--glow-color: 212, 175, 55;">
           <div class="magic-bento-card__header">
-            <span class="magic-bento-card__label">📅 Scans & Checkups</span>
-            <span style="font-size: 18px;">🩺</span>
+            <span class="magic-bento-card__label">👶 Delivery & Scan Report</span>
+            <span style="font-size: 18px;">🏥</span>
           </div>
           <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">Upcoming Appointments</h3>
+            <h3 class="magic-bento-card__title">Planned C-Section (15–20 Oct)</h3>
             <p class="magic-bento-card__description">
-              • <strong>Bi-Weekly Consult & Blood Tests:</strong> 28 Aug 2026 (Sugar, Cholesterol, TSH)<br>
-              • <strong>👶 7th Month Growth Scan:</strong> Scheduled for <strong>11th September 2026</strong> (~29-30 Weeks).<br>
-              • <strong>Scan Reminders:</strong> Active on 9th, 10th & 11th September.
+              • <strong>Baby Presentation:</strong> Breech position (head up, legs down).<br>
+              • <strong>Doctor's Recommendation:</strong> Planned safe C-Section between <strong>15th – 20th October 2026</strong> for baby & mother's safety.<br>
+              • <strong>Estimated Due Date (EDD):</strong> 21st – 23rd November 2026.
             </p>
           </div>
         </div>
@@ -2161,7 +2173,7 @@
     <!-- FOOTER -->
     <footer>
       <p style="font-size: 13px; font-weight: 600; color: var(--text);">Made with love for Mounika & Baby 💖</p>
-      <p style="margin-top: 4px; font-size: 11.5px; color: var(--text-muted);">Due Date: 14th November 2026 🍼 • Growing healthy & strong every day ✨</p>
+      <p style="margin-top: 4px; font-size: 11.5px; color: var(--text-muted);">EDD: 21st – 23rd November 2026 🍼 • Planned C-Section: 15th – 20th October 🏥</p>
       <p style="margin-top: 6px; font-size: 11px; opacity: 0.75;" id="appStatusIndicator">All records saved locally</p>
     </footer>
 
@@ -2169,7 +2181,7 @@
 
   <script>
     // Constants
-    const TENTATIVE_EDD = new Date('2026-11-14');
+    const TENTATIVE_EDD = new Date('2026-11-21');
     let TOTAL_TABLETS = 13; 
 
     // Baby Size comparison and milestones database (Weeks 13 to 40)
@@ -2423,11 +2435,12 @@
       const savedDate = localStorage.getItem('babyBirthDate');
       if (savedDate) {
         babyBirthDate = savedDate;
-        if (babyBirthDate === '2026-11-21') {
-          babyBirthDate = '2026-11-14';
-          localStorage.setItem('babyBirthDate', '2026-11-14');
+        if (babyBirthDate === '2026-11-14' || babyBirthDate === '2026-11-28') {
+          babyBirthDate = '2026-11-21';
+          localStorage.setItem('babyBirthDate', '2026-11-21');
         }
       } else {
+        babyBirthDate = '2026-11-21';
         localStorage.setItem('babyBirthDate', babyBirthDate);
       }
 
@@ -2522,7 +2535,22 @@
         }
         
         const dateStr = formatDate(edd);
-        document.getElementById('countdownSubtext').innerHTML = `EDD: <strong>${dateStr}</strong>. You are doing amazing! 🌸`;
+        document.getElementById('countdownSubtext').innerHTML = `EDD: <strong>21st – 23rd Nov 2026</strong> • Planned C-Section: <strong>15th – 20th Oct</strong> 🌸`;
+
+        // Calculate C-Section window (Oct 15 - 20)
+        const cSectionStart = new Date(2026, 9, 15); // Month 9 = Oct
+        const cDiffTime = cSectionStart - today;
+        const cDaysLeft = Math.ceil(cDiffTime / (1000 * 60 * 60 * 24));
+        const cSectionCountdown = document.getElementById('cSectionCountdownText');
+        if (cSectionCountdown) {
+          if (cDaysLeft > 0) {
+            cSectionCountdown.innerHTML = `🏥 <strong>${cDaysLeft} Days</strong> Until Planned C-Section Window (15–20 Oct)`;
+          } else if (cDaysLeft >= -5) {
+            cSectionCountdown.innerHTML = `🏥 <strong>Safe Delivery Window Active (15–20 Oct)!</strong> 🎉`;
+          } else {
+            cSectionCountdown.innerHTML = `🏥 Safe C-Section Window (15–20 Oct 2026)`;
+          }
+        }
 
         // Update Baby Size Visualizer Card (Option E)
         const sizeData = BABY_SIZE_DATA[weeks];
@@ -2885,11 +2913,9 @@
       const today = new Date();
       const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
-      // Exact remaining 3 Progesterone injection dates (0-indexed months: 7 = Aug, 8 = Sept)
+      // Final Proluton injection date (Month 9 = Oct)
       const injectionDates = [
-        new Date(2026, 7, 28), // 28th August 2026 (Dose 1 of 3)
-        new Date(2026, 8, 12), // 12th September 2026 (Dose 2 of 3)
-        new Date(2026, 8, 27)  // 27th September 2026 (Dose 3 of 3)
+        new Date(2026, 9, 30) // 30th October 2026 (Final Proluton Dose)
       ];
 
       // Find closest upcoming due date or currently active window
@@ -2913,7 +2939,7 @@
         // Format date elegantly
         const options = { day: 'numeric', month: 'long', year: 'numeric' };
         const formattedDate = activeDue.toLocaleDateString('en-US', options);
-        document.getElementById('injectionAlertDueDate').textContent = `Next Due: ${formattedDate}`;
+        document.getElementById('injectionAlertDueDate').textContent = `Final Due: ${formattedDate}`;
 
         const badge = document.getElementById('injectionAlertBadge');
         badge.className = 'injection-alert-badge';
@@ -2921,16 +2947,16 @@
         if (activeDiff > 0) {
           badge.textContent = `Due in ${activeDiff} ${activeDiff === 1 ? 'day' : 'days'}`;
           badge.classList.add('injection-badge-upcoming');
-          document.getElementById('injectionAlertDesc').innerHTML = `💉 <strong>TD & Proluton Received (14 Aug):</strong> Done ✅<br>💉 <strong>Next Proluton Injection:</strong> Scheduled for <strong>${formattedDate}</strong> (in ${activeDiff} ${activeDiff === 1 ? 'day' : 'days'}). 3 doses remaining in total.`;
+          document.getElementById('injectionAlertDesc').innerHTML = `💉 <strong>Final Proluton Depot 500mg IM Injection:</strong> Scheduled for <strong>${formattedDate}</strong> (in ${activeDiff} ${activeDiff === 1 ? 'day' : 'days'}). Final pregnancy support dose.`;
         } else if (activeDiff === 0) {
           badge.textContent = `⚠️ Due Today`;
           badge.classList.add('injection-badge-due');
-          document.getElementById('injectionAlertDesc').innerHTML = `🚨 <strong>Inj. Proluton Depot 500mg IM is due today!</strong> Please administer today (${formattedDate}) and check this off when completed.`;
+          document.getElementById('injectionAlertDesc').innerHTML = `🚨 <strong>Final Inj. Proluton Depot 500mg IM is due today!</strong> Please administer today (${formattedDate}) and check this off when completed.`;
         } else {
           const daysAgo = Math.abs(activeDiff);
           badge.textContent = `⚠️ Stays Highlighted`;
           badge.classList.add('injection-badge-due');
-          document.getElementById('injectionAlertDesc').innerHTML = `💉 <strong>Injection was scheduled on ${formattedDate}</strong> (${daysAgo} ${daysAgo === 1 ? 'day' : 'days'} ago). Stays highlighted for tracking.`;
+          document.getElementById('injectionAlertDesc').innerHTML = `💉 <strong>Final Proluton Injection was scheduled on ${formattedDate}</strong> (${daysAgo} ${daysAgo === 1 ? 'day' : 'days'} ago). Stays highlighted for tracking.`;
         }
       } else if (widget) {
         widget.style.display = 'none';
@@ -3468,7 +3494,10 @@
           "Apply Stovient Cream. Take Syp. Duphalac 15ml if needed for constipation."
         );
       } else if (block === 'injection') {
-        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("💉 Inj. Proluton Depot 500mg IM (Dose 1 of 3)")}&dates=20260828T100000/20260828T103000&details=${encodeURIComponent("Administer Inj. Proluton Depot 500mg IM. Remaining doses: 28 Aug, 12 Sept, 27 Sept 2026.")}`;
+        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("💉 Final Inj. Proluton Depot 500mg IM")}&dates=20261030T100000/20261030T103000&details=${encodeURIComponent("Administer Final Inj. Proluton Depot 500mg IM dose on 30th October 2026.")}`;
+        window.open(url, '_blank');
+      } else if (block === 'csection') {
+        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("🏥 Planned Safe C-Section Window (Baby & Mother)")}&dates=20261015T090000/20261020T180000&details=${encodeURIComponent("Planned safe C-Section delivery window (15th to 20th October 2026) recommended by doctor due to breech baby position. EDD scan range: 21–23 Nov 2026.")}`;
         window.open(url, '_blank');
       } else if (block === 'consultation') {
         const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("🩺 Doctor Consultation & Blood Tests (Sugar, Cholesterol, TSH)")}&dates=20260828T093000/20260828T110000&details=${encodeURIComponent("Doctor Consultation with Dr. Bharathi Ramesh + Blood Tests (Blood Sugar/Glucose, Lipid Profile/Cholesterol, TSH Retest) + 1st Remaining Progesterone Injection.")}`;
@@ -3588,28 +3617,35 @@
         lines.push("END:VEVENT");
       });
 
-      // 3 Remaining Progesterone Injection dates
-      const remainingInjectionDates = [
-        { date: "20260828", num: "1 of 3" },
-        { date: "20260912", num: "2 of 3" },
-        { date: "20260927", num: "3 of 3" }
-      ];
+      // Final Proluton Depot Injection (30th October 2026)
+      lines.push("BEGIN:VEVENT");
+      lines.push(`UID:proluton-injection-20261030@mounibaby.app`);
+      lines.push(`DTSTAMP:${dtstamp}`);
+      lines.push("SUMMARY:💉 Final Inj. Proluton Depot 500mg IM");
+      lines.push("DTSTART:20261030T100000");
+      lines.push("DTEND:20261030T103000");
+      lines.push("DESCRIPTION:Administer final Inj. Proluton Depot 500mg IM today.");
+      lines.push("BEGIN:VALARM");
+      lines.push("TRIGGER:-PT0M");
+      lines.push("ACTION:DISPLAY");
+      lines.push("DESCRIPTION:Reminder");
+      lines.push("END:VALARM");
+      lines.push("END:VEVENT");
 
-      remainingInjectionDates.forEach(item => {
-        lines.push("BEGIN:VEVENT");
-        lines.push(`UID:proluton-injection-${item.date}@mounibaby.app`);
-        lines.push(`DTSTAMP:${dtstamp}`);
-        lines.push(`SUMMARY:💉 Inj. Proluton Depot 500mg IM (${item.num})`);
-        lines.push(`DTSTART:${item.date}T100000`);
-        lines.push(`DTEND:${item.date}T103000`);
-        lines.push("DESCRIPTION:Administer Inj. Proluton Depot 500mg IM today. 3 doses remaining in total.");
-        lines.push("BEGIN:VALARM");
-        lines.push("TRIGGER:-PT0M");
-        lines.push("ACTION:DISPLAY");
-        lines.push("DESCRIPTION:Reminder");
-        lines.push("END:VALARM");
-        lines.push("END:VEVENT");
-      });
+      // Planned Safe C-Section Delivery Window (15th - 20th October 2026)
+      lines.push("BEGIN:VEVENT");
+      lines.push(`UID:planned-csection-20261015@mounibaby.app`);
+      lines.push(`DTSTAMP:${dtstamp}`);
+      lines.push("SUMMARY:🏥 Planned Safe C-Section Delivery Window (15–20 Oct)");
+      lines.push("DTSTART:20261015T090000");
+      lines.push("DTEND:20261020T180000");
+      lines.push("DESCRIPTION:Planned safe C-Section delivery window recommended by doctor due to breech baby position (head up, legs down). EDD scan range: 21–23 Nov 2026.");
+      lines.push("BEGIN:VALARM");
+      lines.push("TRIGGER:-PT0M");
+      lines.push("ACTION:DISPLAY");
+      lines.push("DESCRIPTION:Reminder");
+      lines.push("END:VALARM");
+      lines.push("END:VEVENT");
 
       // Doctor Consultation & Blood Tests Event
       lines.push("BEGIN:VEVENT");
