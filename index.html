@@ -842,73 +842,114 @@
       transition: width 0.4s ease;
     }
 
-    /* POSITIVE MATERNITY AFFIRMATION CARD */
+    /* POSITIVE MATERNITY AFFIRMATION CARD - BIGGER HERO BANNER */
     .affirmation-card {
-      margin: 14px 0 6px;
-      padding: 16px 18px;
-      background: linear-gradient(135deg, rgba(255, 182, 193, 0.22) 0%, rgba(221, 160, 221, 0.18) 100%);
-      border: 1.5px solid rgba(255, 182, 193, 0.45);
-      border-radius: 20px;
-      box-shadow: 0 6px 20px rgba(255, 182, 193, 0.18), var(--shadow-blur);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
+      margin: 10px 0 6px;
+      padding: 22px 22px 18px;
+      background: linear-gradient(135deg, rgba(255, 192, 203, 0.32) 0%, rgba(243, 232, 255, 0.28) 50%, rgba(254, 215, 226, 0.3) 100%);
+      border: 1.8px solid rgba(255, 182, 193, 0.65);
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(244, 114, 182, 0.22), var(--shadow-blur);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 12px;
       position: relative;
-      transition: all 0.3s ease;
+      transition: all 0.35s ease;
+      overflow: hidden;
+    }
+    .affirmation-card::before {
+      content: '“';
+      position: absolute;
+      top: -12px;
+      right: 18px;
+      font-size: 96px;
+      font-family: Georgia, serif;
+      color: rgba(244, 114, 182, 0.16);
+      line-height: 1;
+      pointer-events: none;
     }
     .affirmation-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      z-index: 1;
     }
     .affirmation-badge {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
-      color: #D946EF;
-      background: rgba(255, 255, 255, 0.7);
-      padding: 2px 8px;
-      border-radius: 12px;
+      color: #C026D3;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 3px 12px;
+      border-radius: 16px;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
+      box-shadow: 0 2px 8px rgba(192, 38, 211, 0.15);
+      letter-spacing: 0.3px;
     }
     [data-theme="dark"] .affirmation-badge {
-      background: rgba(0, 0, 0, 0.35);
+      background: rgba(0, 0, 0, 0.45);
       color: #F472B6;
+      box-shadow: 0 2px 8px rgba(244, 114, 182, 0.2);
     }
     .affirmation-quote {
-      font-family: 'Outfit', sans-serif;
-      font-size: 13.5px;
-      line-height: 1.5;
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
       font-weight: 600;
       color: var(--text);
       font-style: italic;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      z-index: 1;
+      padding: 4px 2px;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+    }
+    [data-theme="dark"] .affirmation-quote {
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+    .affirmation-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2px;
+      z-index: 1;
+    }
+    .affirmation-sublabel {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+      opacity: 0.85;
     }
     .affirmation-btn {
-      align-self: flex-end;
-      background: rgba(255, 255, 255, 0.85);
-      border: 1px solid rgba(255, 182, 193, 0.6);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1.5px solid rgba(244, 114, 182, 0.5);
       color: var(--text);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 14px;
+      padding: 6px 14px;
+      border-radius: 16px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      transition: all 0.2s ease;
+      gap: 5px;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 2px 8px rgba(244, 114, 182, 0.15);
+      margin-left: auto;
     }
     [data-theme="dark"] .affirmation-btn {
-      background: rgba(30, 20, 35, 0.7);
-      border-color: rgba(244, 114, 182, 0.4);
+      background: rgba(35, 22, 40, 0.8);
+      border-color: rgba(244, 114, 182, 0.5);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
     .affirmation-btn:hover {
-      transform: scale(1.04);
+      transform: scale(1.05) translateY(-1px);
       background: #FFF;
+      box-shadow: 0 4px 14px rgba(244, 114, 182, 0.3);
+    }
+    .affirmation-btn:active {
+      transform: scale(0.97);
     }
 
     /* INJECTION ALERT CARD */
@@ -1516,35 +1557,32 @@
           </div>
         </div>
 
-        <!-- Baby Arrival Countdown Card -->
-        <div class="info-card" style="background: rgba(255, 255, 255, 0.25);">
-          <div class="info-card-title">🍼 Expected Delivery (Planned C-Section)</div>
-          <div class="info-card-value" id="countdownTimerText">15 Oct 2026 • -- Days Left</div>
-          <div class="info-card-sub" id="countdownSubtext">Planned Delivery: <strong>15th – 20th Oct 2026</strong> • Scan 40W EDD: 21st – 23rd Nov 🌸</div>
-        </div>
-
-        <!-- Planned C-Section & Breech Baby Position Card -->
+        <!-- Unified Planned C-Section Delivery & Baby Presentation Card -->
         <div class="info-card" style="background: linear-gradient(135deg, rgba(232, 146, 124, 0.35) 0%, rgba(155, 137, 196, 0.3) 100%); border: 1.5px solid rgba(255, 255, 255, 0.45);">
           <div class="info-card-title" style="display: flex; justify-content: space-between; align-items: center;">
-            <span>🏥 Delivery Plan & Baby Presentation</span>
+            <span>🏥 Planned Safe Delivery (C-Section)</span>
             <span style="background: rgba(255, 255, 255, 0.35); padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700;">15 – 20 Oct 2026</span>
           </div>
-          <div class="info-card-value" id="cSectionCountdownText" style="font-size: 15px; margin-top: 4px;">👶 Planned C-Section (15–20 Oct)</div>
-          <div class="info-card-sub" style="margin-top: 6px; font-size: 11.5px; line-height: 1.4;">
-            <strong>👶 Baby Presentation:</strong> Breech position (Head up, legs down) • Doctor scheduled planned safe C-section between 15th – 20th October to ensure baby & Mounika are safe and happy! 💖
+          <div class="info-card-value" id="countdownTimerText" style="font-size: 16.5px; margin-top: 4px;">🍼 24 Days Until Baby Arrives (15–20 Oct)</div>
+          <div class="info-card-sub" id="countdownSubtext" style="margin-top: 6px; font-size: 11.5px; line-height: 1.45;">
+            <strong>👶 Baby Presentation:</strong> Breech position (Head up, legs down) • Doctor scheduled planned safe C-section between <strong>15th – 20th Oct 2026</strong> for baby & Mouni's safety! 💖<br>
+            <span style="opacity: 0.85; font-size: 11px; display: inline-block; margin-top: 3px;">(40-Week Scan Reference EDD: 21st – 23rd Nov 2026)</span>
           </div>
         </div>
 
-        <!-- Positive Maternity Affirmation Card -->
+        <!-- Big Positive Maternity Affirmation Banner for Mounika -->
         <div class="affirmation-card" id="maternityAffirmationCard">
           <div class="affirmation-header">
             <span class="affirmation-badge">🌸 Daily Affirmation for Mounika</span>
-            <span style="font-size: 16px;">💖</span>
+            <span style="font-size: 17px;">✨💖</span>
           </div>
           <div class="affirmation-quote" id="affirmationQuoteText">
             "You are doing an incredible job growing a miracle, Mouni. Every single day brings you closer to holding your beautiful baby in your arms. ✨"
           </div>
-          <button class="affirmation-btn" onclick="nextAffirmation()">✨ Next Affirmation</button>
+          <div class="affirmation-footer">
+            <span class="affirmation-sublabel">With lots of love & care 💕</span>
+            <button class="affirmation-btn" onclick="nextAffirmation()">✨ Next Affirmation</button>
+          </div>
         </div>
 
         <!-- Baby Size Visualizer Card (Option E) -->
@@ -2663,18 +2701,10 @@
           tri3Fill.style.width = "0%";
         }
         
-        document.getElementById('countdownSubtext').innerHTML = `Planned Delivery: <strong>15th – 20th Oct 2026</strong> • Scan 40W EDD: 21st – 23rd Nov 🌸`;
-
-        const cSectionCountdown = document.getElementById('cSectionCountdownText');
-        if (cSectionCountdown) {
-          if (cDaysLeft > 0) {
-            cSectionCountdown.innerHTML = `🏥 <strong>${cDaysLeft} Days</strong> Until Planned C-Section Window (15–20 Oct)`;
-          } else if (cDaysLeft >= -5) {
-            cSectionCountdown.innerHTML = `🏥 <strong>Safe Delivery Window Active (15–20 Oct)!</strong> 🎉`;
-          } else {
-            cSectionCountdown.innerHTML = `🏥 Safe C-Section Window (15–20 Oct 2026)`;
-          }
-        }
+        document.getElementById('countdownSubtext').innerHTML = `
+          <strong>👶 Baby Presentation:</strong> Breech position (Head up, legs down) • Doctor scheduled planned safe C-section between <strong>15th – 20th Oct 2026</strong> for baby & Mouni's safety! 💖<br>
+          <span style="opacity: 0.85; font-size: 11px; display: inline-block; margin-top: 3px;">(40-Week Scan Reference EDD: 21st – 23rd Nov 2026)</span>
+        `;
 
         // Update Baby Size Visualizer Card (Option E)
         const sizeData = BABY_SIZE_DATA[weeks];
