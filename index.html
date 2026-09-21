@@ -842,6 +842,75 @@
       transition: width 0.4s ease;
     }
 
+    /* POSITIVE MATERNITY AFFIRMATION CARD */
+    .affirmation-card {
+      margin: 14px 0 6px;
+      padding: 16px 18px;
+      background: linear-gradient(135deg, rgba(255, 182, 193, 0.22) 0%, rgba(221, 160, 221, 0.18) 100%);
+      border: 1.5px solid rgba(255, 182, 193, 0.45);
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(255, 182, 193, 0.18), var(--shadow-blur);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .affirmation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .affirmation-badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: #D946EF;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 2px 8px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    [data-theme="dark"] .affirmation-badge {
+      background: rgba(0, 0, 0, 0.35);
+      color: #F472B6;
+    }
+    .affirmation-quote {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13.5px;
+      line-height: 1.5;
+      font-weight: 600;
+      color: var(--text);
+      font-style: italic;
+      transition: opacity 0.3s ease;
+    }
+    .affirmation-btn {
+      align-self: flex-end;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 182, 193, 0.6);
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+    }
+    [data-theme="dark"] .affirmation-btn {
+      background: rgba(30, 20, 35, 0.7);
+      border-color: rgba(244, 114, 182, 0.4);
+    }
+    .affirmation-btn:hover {
+      transform: scale(1.04);
+      background: #FFF;
+    }
+
     /* INJECTION ALERT CARD */
     .injection-alert-card {
       margin: 16px 16px 8px;
@@ -1447,23 +1516,35 @@
           </div>
         </div>
 
-        <!-- Baby Countdown Card -->
+        <!-- Baby Arrival Countdown Card -->
         <div class="info-card" style="background: rgba(255, 255, 255, 0.25);">
-          <div class="info-card-title">🍼 Estimated Due Date (Scan Report)</div>
-          <div class="info-card-value" id="countdownTimerText">21 Nov 2026 • -- Days Left</div>
-          <div class="info-card-sub" id="countdownSubtext">EDD Window: 21st – 23rd November 2026. Keep glowing! 🌟</div>
+          <div class="info-card-title">🍼 Expected Delivery (Planned C-Section)</div>
+          <div class="info-card-value" id="countdownTimerText">15 Oct 2026 • -- Days Left</div>
+          <div class="info-card-sub" id="countdownSubtext">Planned Delivery: <strong>15th – 20th Oct 2026</strong> • Scan 40W EDD: 21st – 23rd Nov 🌸</div>
         </div>
 
         <!-- Planned C-Section & Breech Baby Position Card -->
         <div class="info-card" style="background: linear-gradient(135deg, rgba(232, 146, 124, 0.35) 0%, rgba(155, 137, 196, 0.3) 100%); border: 1.5px solid rgba(255, 255, 255, 0.45);">
           <div class="info-card-title" style="display: flex; justify-content: space-between; align-items: center;">
-            <span>🏥 Planned Safe Delivery Window</span>
+            <span>🏥 Delivery Plan & Baby Presentation</span>
             <span style="background: rgba(255, 255, 255, 0.35); padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700;">15 – 20 Oct 2026</span>
           </div>
           <div class="info-card-value" id="cSectionCountdownText" style="font-size: 15px; margin-top: 4px;">👶 Planned C-Section (15–20 Oct)</div>
           <div class="info-card-sub" style="margin-top: 6px; font-size: 11.5px; line-height: 1.4;">
-            <strong>👶 Baby Presentation:</strong> Breech position (Head up, legs down) • Doctor suggested safe C-section between 15th – 20th October to ensure baby & mother safety!
+            <strong>👶 Baby Presentation:</strong> Breech position (Head up, legs down) • Doctor scheduled planned safe C-section between 15th – 20th October to ensure baby & Mounika are safe and happy! 💖
           </div>
+        </div>
+
+        <!-- Positive Maternity Affirmation Card -->
+        <div class="affirmation-card" id="maternityAffirmationCard">
+          <div class="affirmation-header">
+            <span class="affirmation-badge">🌸 Daily Affirmation for Mounika</span>
+            <span style="font-size: 16px;">💖</span>
+          </div>
+          <div class="affirmation-quote" id="affirmationQuoteText">
+            "You are doing an incredible job growing a miracle, Mouni. Every single day brings you closer to holding your beautiful baby in your arms. ✨"
+          </div>
+          <button class="affirmation-btn" onclick="nextAffirmation()">✨ Next Affirmation</button>
         </div>
 
         <!-- Baby Size Visualizer Card (Option E) -->
@@ -2020,7 +2101,7 @@
             <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('afternoon')">☀️ Add Afternoon Meds (1:30 PM)</button>
             <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('night')">🌙 Add Night Meds (9:00 PM)</button>
             <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('bedtime')">🌛 Add Bedtime Cream (10:00 PM)</button>
-            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('injection')">💉 Add Final Proluton Injection (30 Oct)</button>
+            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('injection')">💉 Add Final Proluton Injection (30 Sep)</button>
             <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('csection')">🏥 Add Planned C-Section Window (15–20 Oct)</button>
           </div>
         </div>
@@ -2087,7 +2168,7 @@
           <div class="magic-bento-card__content">
             <h3 class="magic-bento-card__title">Final Proluton Injection</h3>
             <p class="magic-bento-card__description">
-              • <strong>Final Dose:</strong> Scheduled on <strong>30th October 2026</strong>.<br>
+              • <strong>Final Dose:</strong> Scheduled on <strong>30th September 2026</strong>.<br>
               • <strong>Purpose:</strong> Inj. Proluton Depot 500mg IM to support pregnancy stability.<br>
               • <strong>Status:</strong> Final injection dose of the third trimester.
             </p>
@@ -2119,6 +2200,42 @@
           <div class="magic-bento-card__content">
             <h3 class="magic-bento-card__title">Doctor Confirmation</h3>
             <p class="magic-bento-card__description">Confirm with <strong>Dr. Bharathi Ramesh</strong> (90367 86686) whether to continue Zuviston alongside Womiron.</p>
+          </div>
+        </div>
+
+        <!-- Card 7: Third Trimester Do's -->
+        <div class="magic-bento-card magic-bento-card--border-glow" style="--glow-color: 74, 222, 128;">
+          <div class="magic-bento-card__header">
+            <span class="magic-bento-card__label">✨ Third Trimester Do's</span>
+            <span style="font-size: 18px;">🌸</span>
+          </div>
+          <div class="magic-bento-card__content">
+            <h3 class="magic-bento-card__title">Daily Habits for Mouni & Baby</h3>
+            <p class="magic-bento-card__description">
+              • <strong>Hydrate Hourly:</strong> Drink 3.5L+ water daily (track with hourly reminder).<br>
+              • <strong>Sleep on Left Side:</strong> Enhances oxygen & blood flow to baby & placenta.<br>
+              • <strong>Daily Kick Counts:</strong> Feel and celebrate baby's gentle kicks after meals.<br>
+              • <strong>Nourishing Meals:</strong> Small, frequent protein & fiber rich snacks.<br>
+              • <strong>Hospital Bag:</strong> Keep maternity essentials packed by early October!
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 8: Third Trimester Don'ts -->
+        <div class="magic-bento-card magic-bento-card--border-glow" style="--glow-color: 248, 113, 113;">
+          <div class="magic-bento-card__header">
+            <span class="magic-bento-card__label">🛡️ Third Trimester Don'ts</span>
+            <span style="font-size: 18px;">⚠️</span>
+          </div>
+          <div class="magic-bento-card__content">
+            <h3 class="magic-bento-card__title">Care & Safety Precautions</h3>
+            <p class="magic-bento-card__description">
+              • <strong>No Heavy Lifting:</strong> Avoid bending fast, strenuous chores, or lifting weights.<br>
+              • <strong>Never Mix Iron & Calcium:</strong> Keep minimum 4-6 hr gap between Magnocal & Womiron.<br>
+              • <strong>Avoid Sleeping Flat on Back:</strong> Prevents pressure on the vena cava.<br>
+              • <strong>Don't Worry About Breech:</strong> Planned C-section ensures a calm, safe birth.<br>
+              • <strong>Report Warning Signs:</strong> Contact Dr. Bharathi immediately for severe pain, bleeding, or reduced movement.
+            </p>
           </div>
         </div>
 
@@ -2366,6 +2483,7 @@
       // Initialize backgrounds and interactive sections
       initPrismSimulation();
       initMagicBento();
+      initAffirmation();
 
       // Fluid tab indicator resize listeners
       window.addEventListener('resize', updateTabIndicator);
@@ -2476,19 +2594,30 @@
       else if (hour >= 22 || hour < 5) greeting = "Sweet Dreams";
       document.getElementById('greetingText').textContent = greeting + ", Mouni";
 
-      // Calculate gestational age and countdown using dynamic birth date
+      // Calculate gestational age using scan 40-week milestone
       const dateParts = babyBirthDate.split('-');
       const edd = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
       const diffTime = edd - today;
-      const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const daysTillEdd = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      // Calculate Planned C-Section delivery countdown (15 Oct 2026)
+      const cSectionStart = new Date(2026, 9, 15); // Month 9 = Oct
+      const cDiffTime = cSectionStart - today;
+      const cDaysLeft = Math.ceil(cDiffTime / (1000 * 60 * 60 * 24));
 
       const babySizeCard = document.getElementById('babySizeCard');
 
-      if (daysLeft > 0) {
-        document.getElementById('countdownTimerText').innerHTML = `🍼 <strong>${daysLeft} Days</strong> Until Baby Arrives`;
+      if (cDaysLeft > 0 || daysTillEdd > 0) {
+        if (cDaysLeft > 0) {
+          document.getElementById('countdownTimerText').innerHTML = `🍼 <strong>${cDaysLeft} Days</strong> Until Baby Arrives (15–20 Oct)`;
+        } else if (cDaysLeft >= -5) {
+          document.getElementById('countdownTimerText').innerHTML = `🍼 <strong>Delivery Window Active (15–20 Oct)!</strong> 🎉`;
+        } else {
+          document.getElementById('countdownTimerText').innerHTML = `🍼 <strong>Welcome Baby!</strong> 💖`;
+        }
         
         const totalPregnancyDays = 280;
-        const daysCompleted = Math.max(0, Math.min(totalPregnancyDays, totalPregnancyDays - daysLeft));
+        const daysCompleted = Math.max(0, Math.min(totalPregnancyDays, totalPregnancyDays - daysTillEdd));
         const weeks = Math.floor(daysCompleted / 7);
         const days = Math.floor(daysCompleted % 7);
         
@@ -2534,13 +2663,8 @@
           tri3Fill.style.width = "0%";
         }
         
-        const dateStr = formatDate(edd);
-        document.getElementById('countdownSubtext').innerHTML = `EDD: <strong>21st – 23rd Nov 2026</strong> • Planned C-Section: <strong>15th – 20th Oct</strong> 🌸`;
+        document.getElementById('countdownSubtext').innerHTML = `Planned Delivery: <strong>15th – 20th Oct 2026</strong> • Scan 40W EDD: 21st – 23rd Nov 🌸`;
 
-        // Calculate C-Section window (Oct 15 - 20)
-        const cSectionStart = new Date(2026, 9, 15); // Month 9 = Oct
-        const cDiffTime = cSectionStart - today;
-        const cDaysLeft = Math.ceil(cDiffTime / (1000 * 60 * 60 * 24));
         const cSectionCountdown = document.getElementById('cSectionCountdownText');
         if (cSectionCountdown) {
           if (cDaysLeft > 0) {
@@ -2913,9 +3037,9 @@
       const today = new Date();
       const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
-      // Final Proluton injection date (Month 9 = Oct)
+      // Final Proluton injection date (Month 8 = Sept)
       const injectionDates = [
-        new Date(2026, 9, 30) // 30th October 2026 (Final Proluton Dose)
+        new Date(2026, 8, 30) // 30th September 2026 (Final Proluton Dose)
       ];
 
       // Find closest upcoming due date or currently active window
@@ -3494,7 +3618,7 @@
           "Apply Stovient Cream. Take Syp. Duphalac 15ml if needed for constipation."
         );
       } else if (block === 'injection') {
-        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("💉 Final Inj. Proluton Depot 500mg IM")}&dates=20261030T100000/20261030T103000&details=${encodeURIComponent("Administer Final Inj. Proluton Depot 500mg IM dose on 30th October 2026.")}`;
+        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("💉 Final Inj. Proluton Depot 500mg IM")}&dates=20260930T100000/20260930T103000&details=${encodeURIComponent("Administer Final Inj. Proluton Depot 500mg IM dose on 30th September 2026.")}`;
         window.open(url, '_blank');
       } else if (block === 'csection') {
         const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("🏥 Planned Safe C-Section Window (Baby & Mother)")}&dates=20261015T090000/20261020T180000&details=${encodeURIComponent("Planned safe C-Section delivery window (15th to 20th October 2026) recommended by doctor due to breech baby position. EDD scan range: 21–23 Nov 2026.")}`;
@@ -3617,13 +3741,13 @@
         lines.push("END:VEVENT");
       });
 
-      // Final Proluton Depot Injection (30th October 2026)
+      // Final Proluton Depot Injection (30th September 2026)
       lines.push("BEGIN:VEVENT");
-      lines.push(`UID:proluton-injection-20261030@mounibaby.app`);
+      lines.push(`UID:proluton-injection-20260930@mounibaby.app`);
       lines.push(`DTSTAMP:${dtstamp}`);
       lines.push("SUMMARY:💉 Final Inj. Proluton Depot 500mg IM");
-      lines.push("DTSTART:20261030T100000");
-      lines.push("DTEND:20261030T103000");
+      lines.push("DTSTART:20260930T100000");
+      lines.push("DTEND:20260930T103000");
       lines.push("DESCRIPTION:Administer final Inj. Proluton Depot 500mg IM today.");
       lines.push("BEGIN:VALARM");
       lines.push("TRIGGER:-PT0M");
@@ -4477,6 +4601,57 @@
           });
         });
       });
+    }
+
+    /* ==========================================
+       POSITIVE MATERNITY AFFIRMATIONS
+       ========================================== */
+    const MATERNITY_QUOTES = [
+      "You are doing an incredible job growing a miracle, Mouni. Every single day brings you closer to holding your beautiful baby in your arms. ✨💖",
+      "Your body is strong, wise, and creating the sweetest little life with love and grace. 🌸👶",
+      "A planned C-section is a calm, gentle, and beautiful path to bringing our baby safely into this world. 🍼💫",
+      "Every flutter and kick is baby's little way of saying 'I love you, Mommy!' 💕👣",
+      "You are surrounded by love, care, and warmth every step of this precious journey. 🌺🕊️",
+      "Take a deep breath and rest easy today — you and our baby are safe, healthy, and deeply cherished. 🌟🧘‍♀️",
+      "Trust your strength, Mounika. Soon you will hear that first sweet cry and hold your tiny treasure. 👶💖",
+      "Motherhood begins with the courage and love you show every single day right now. You are amazing! 👑✨",
+      "Breech baby or head down — what matters most is the immense love waiting to welcome this angel. 🌈👼",
+      "Each glass of water, each healthy meal, and each resting moment is pure love given to your baby. 💧🍎",
+      "The countdown to October is on! The greatest adventure and deepest joy of our lives is about to begin. 🗓️🎈",
+      "You are creating a heartbeat that will forever belong in our family. Be proud of yourself, Mommy! 💓🤱"
+    ];
+
+    let currentAffirmationIndex = 0;
+
+    function initAffirmation() {
+      const quoteEl = document.getElementById('affirmationQuoteText');
+      if (!quoteEl) return;
+      // Pick quote based on day of the year so it naturally rotates daily
+      const today = new Date();
+      const startOfYear = new Date(today.getFullYear(), 0, 0);
+      const diff = today - startOfYear;
+      const oneDay = 1000 * 60 * 60 * 24;
+      const dayOfYear = Math.floor(diff / oneDay);
+      currentAffirmationIndex = dayOfYear % MATERNITY_QUOTES.length;
+      quoteEl.textContent = `"${MATERNITY_QUOTES[currentAffirmationIndex]}"`;
+    }
+
+    function nextAffirmation() {
+      const quoteEl = document.getElementById('affirmationQuoteText');
+      if (!quoteEl) return;
+      
+      currentAffirmationIndex = (currentAffirmationIndex + 1) % MATERNITY_QUOTES.length;
+      
+      // Smooth fade transition
+      quoteEl.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+      quoteEl.style.opacity = '0';
+      quoteEl.style.transform = 'translateY(4px)';
+      
+      setTimeout(() => {
+        quoteEl.textContent = `"${MATERNITY_QUOTES[currentAffirmationIndex]}"`;
+        quoteEl.style.opacity = '1';
+        quoteEl.style.transform = 'translateY(0)';
+      }, 250);
     }
 </script>
 </body>
