@@ -1557,16 +1557,16 @@
           </div>
         </div>
 
-        <!-- Unified Planned C-Section Delivery & Baby Presentation Card -->
+        <!-- Unified Planned Delivery & Care Plan Card -->
         <div class="info-card" style="background: linear-gradient(135deg, rgba(232, 146, 124, 0.35) 0%, rgba(155, 137, 196, 0.3) 100%); border: 1.5px solid rgba(255, 255, 255, 0.45);">
           <div class="info-card-title" style="display: flex; justify-content: space-between; align-items: center;">
-            <span>🏥 Planned Safe Delivery (C-Section)</span>
-            <span style="background: rgba(255, 255, 255, 0.35); padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700;">15 – 20 Oct 2026</span>
+            <span>🏥 Planned Baby Delivery Window</span>
+            <span style="background: rgba(255, 255, 255, 0.35); padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700;">1 – 5 Nov 2026</span>
           </div>
-          <div class="info-card-value" id="countdownTimerText" style="font-size: 16.5px; margin-top: 4px;">🍼 24 Days Until Baby Arrives (15–20 Oct)</div>
+          <div class="info-card-value" id="countdownTimerText" style="font-size: 16.5px; margin-top: 4px;">🍼 -- Days Until Baby Arrives (1–5 Nov)</div>
           <div class="info-card-sub" id="countdownSubtext" style="margin-top: 6px; font-size: 11.5px; line-height: 1.45;">
-            <strong>👶 Baby Presentation:</strong> Breech position (Head up, legs down) • Doctor scheduled planned safe C-section between <strong>15th – 20th Oct 2026</strong> for baby & Mouni's safety! 💖<br>
-            <span style="opacity: 0.85; font-size: 11px; display: inline-block; margin-top: 3px;">(40-Week Scan Reference EDD: 21st – 23rd Nov 2026)</span>
+            <strong>👶 Delivery Window:</strong> Planned Delivery between <strong>1st – 5th November 2026</strong>. 💖<br>
+            <strong>🩺 Last Checkup:</strong> Scheduled on <strong>14th October 2026</strong> (Doctor will suggest 1 scan before 28th Oct).
           </div>
         </div>
 
@@ -1777,17 +1777,17 @@
         <div class="injection-alert-badge" id="injectionAlertBadge">3 Days Left</div>
       </div>
 
-      <!-- 7TH MONTH GROWTH SCAN ALERT WIDGET -->
+      <!-- LAST CHECKUP & FINAL SCAN ALERT WIDGET -->
       <div id="growthScanAlertBanner" class="injection-alert-card" style="display: none; border-left-color: #D49B4B;">
         <div class="injection-alert-header">
-          <div class="injection-alert-icon">👶</div>
+          <div class="injection-alert-icon">🩺</div>
           <div class="injection-alert-title-wrap">
-            <h4 class="injection-alert-title">7th Month Growth Scan</h4>
-            <span class="injection-alert-due-date">Scheduled: 11th September 2026</span>
+            <h4 class="injection-alert-title">Last Doctor Checkup</h4>
+            <span class="injection-alert-due-date">Scheduled: 14th October 2026</span>
           </div>
         </div>
         <p class="injection-alert-description" id="growthScanAlertDesc">
-          👶 <strong>7th Month Growth Scan is scheduled for 11th September 2026</strong> (~29-30 Weeks). Please consult Dr. Bharathi Ramesh.
+          🩺 <strong>Last checkup with Dr. Bharathi Ramesh is on 14th October 2026</strong>. Doctor will suggest 1 final scan before 28th October in preparation for delivery (Nov 1–5).
         </p>
         <div class="injection-alert-badge" id="growthScanAlertBadge">🗓️ Reminder Active</div>
       </div>
@@ -1954,10 +1954,10 @@
               <div class="checkbox-btn" id="tab-chk-2"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Sustener 200 Progesterone</div>
-                <div class="item-desc">Additional progesterone support. Take 1 tablet. Afternoon timing avoids sleepiness.</div>
+                <div class="item-desc">Progesterone support. Take 1 tablet after lunch (1 week course from 30 Sep, stop after 7 Oct).</div>
                 <div class="badge-row">
-                  <span class="badge tag-progesterone">💜 Additional Progesterone</span>
-                  <span class="badge tag-nutrition">📅 Till 14 Oct</span>
+                  <span class="badge tag-progesterone">💜 1 Week Course</span>
+                  <span class="badge tag-nutrition">📅 Till 7 Oct</span>
                 </div>
               </div>
             </div>
@@ -2139,8 +2139,9 @@
             <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('afternoon')">☀️ Add Afternoon Meds (1:30 PM)</button>
             <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('night')">🌙 Add Night Meds (9:00 PM)</button>
             <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('bedtime')">🌛 Add Bedtime Cream (10:00 PM)</button>
-            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('injection')">💉 Add Final Proluton Injection (30 Sep)</button>
-            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('csection')">🏥 Add Planned C-Section Window (15–20 Oct)</button>
+            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('delivery')">🏥 Add Planned Delivery Window (1–5 Nov)</button>
+            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('consultation')">🩺 Add Last Doctor Checkup (14 Oct)</button>
+            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('scan')">👶 Add Final Scan (by 28 Oct)</button>
           </div>
         </div>
 
@@ -2168,8 +2169,8 @@
             <span style="font-size: 18px;">⏰</span>
           </div>
           <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">Dydrogest morning timing</h3>
-            <p class="magic-bento-card__description">Take first thing in the morning at 7:30 AM. Pro Case powder can be taken with milk after breakfast.</p>
+            <h3 class="magic-bento-card__title">Thyronorm Morning Routine</h3>
+            <p class="magic-bento-card__description">Take <strong>Thyronorm 50mcg</strong> first thing at 7:30 AM on empty stomach. Pro Case powder can be taken with milk after breakfast.</p>
           </div>
         </div>
 
@@ -2180,8 +2181,8 @@
             <span style="font-size: 18px;">💊</span>
           </div>
           <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">Thyronorm & Pan 40mg</h3>
-            <p class="magic-bento-card__description">Take <strong>Thyronorm 50mcg</strong> and <strong>Tab. Pan 40mg</strong> first thing on empty stomach (30 mins before tea/breakfast).</p>
+            <h3 class="magic-bento-card__title">Thyronorm 50mcg</h3>
+            <p class="magic-bento-card__description">Take <strong>Thyronorm 50mcg</strong> first thing on empty stomach with plain water (30 mins before tea/breakfast) continued till delivery.</p>
           </div>
         </div>
 
@@ -2197,34 +2198,34 @@
           </div>
         </div>
 
-        <!-- Card 4: Injections & Care History -->
+        <!-- Card 4: Last Checkup & Final Scan -->
         <div class="magic-bento-card magic-bento-card--border-glow" style="--glow-color: 180, 151, 207;">
           <div class="magic-bento-card__header">
-            <span class="magic-bento-card__label">💉 Injection Schedule</span>
-            <span style="font-size: 18px;">🩺</span>
+            <span class="magic-bento-card__label">🩺 Last Checkup & Final Scan</span>
+            <span style="font-size: 18px;">📋</span>
           </div>
           <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">Final Proluton Injection</h3>
+            <h3 class="magic-bento-card__title">14th Oct Checkup & Final Scan</h3>
             <p class="magic-bento-card__description">
-              • <strong>Final Dose:</strong> Scheduled on <strong>30th September 2026</strong>.<br>
-              • <strong>Purpose:</strong> Inj. Proluton Depot 500mg IM to support pregnancy stability.<br>
-              • <strong>Status:</strong> Final injection dose of the third trimester.
+              • <strong>Last Doctor Checkup:</strong> Scheduled on <strong>14th October 2026</strong> with Dr. Bharathi Ramesh.<br>
+              • <strong>Final Scan:</strong> Doctor will prescribe 1 ultrasound scan before <strong>28th October 2026</strong>.<br>
+              • <strong>Injections Status:</strong> Proluton Depot 500mg IM completed on 30th Sept.
             </p>
           </div>
         </div>
 
-        <!-- Card 5: Next Consultation & Growth Scan -->
+        <!-- Card 5: Planned Delivery Window (Nov 1st - 5th) -->
         <div class="magic-bento-card magic-bento-card--border-glow" style="--glow-color: 212, 175, 55;">
           <div class="magic-bento-card__header">
-            <span class="magic-bento-card__label">👶 Delivery & Scan Report</span>
+            <span class="magic-bento-card__label">👶 Planned Delivery Window</span>
             <span style="font-size: 18px;">🏥</span>
           </div>
           <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">Planned C-Section (15–20 Oct)</h3>
+            <h3 class="magic-bento-card__title">Delivery between Nov 1st – 5th</h3>
             <p class="magic-bento-card__description">
-              • <strong>Baby Presentation:</strong> Breech position (head up, legs down).<br>
-              • <strong>Doctor's Recommendation:</strong> Planned safe C-Section between <strong>15th – 20th October 2026</strong> for baby & mother's safety.<br>
-              • <strong>Estimated Due Date (EDD):</strong> 21st – 23rd November 2026.
+              • <strong>Delivery Schedule:</strong> Dr. Bharathi Ramesh suggested delivery between <strong>1st – 5th November 2026</strong> for baby & Mouni's safety.<br>
+              • <strong>Ongoing Meds till Delivery:</strong> Tab. Thyronorm (morning), Tab. Magnocal (afternoon), Tab. Womiron (night).<br>
+              • <strong>Susten Tablet:</strong> 1 week from 30 Sep, then stop (last day: 7th Oct).
             </p>
           </div>
         </div>
@@ -2328,7 +2329,7 @@
     <!-- FOOTER -->
     <footer>
       <p style="font-size: 13px; font-weight: 600; color: var(--text);">Made with love for Mounika & Baby 💖</p>
-      <p style="margin-top: 4px; font-size: 11.5px; color: var(--text-muted);">EDD: 21st – 23rd November 2026 🍼 • Planned C-Section: 15th – 20th October 🏥</p>
+      <p style="margin-top: 4px; font-size: 11.5px; color: var(--text-muted);">Planned Delivery: 1st – 5th November 2026 🍼 • Last Checkup: 14th October 🏥</p>
       <p style="margin-top: 6px; font-size: 11px; opacity: 0.75;" id="appStatusIndicator">All records saved locally</p>
     </footer>
 
@@ -2638,18 +2639,18 @@
       const diffTime = edd - today;
       const daysTillEdd = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-      // Calculate Planned C-Section delivery countdown (15 Oct 2026)
-      const cSectionStart = new Date(2026, 9, 15); // Month 9 = Oct
-      const cDiffTime = cSectionStart - today;
-      const cDaysLeft = Math.ceil(cDiffTime / (1000 * 60 * 60 * 24));
+      // Calculate Planned Delivery countdown (1st Nov 2026)
+      const deliveryStart = new Date(2026, 10, 1); // Month 10 = Nov
+      const diffTime = deliveryStart - today;
+      const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
       const babySizeCard = document.getElementById('babySizeCard');
 
-      if (cDaysLeft > 0 || daysTillEdd > 0) {
-        if (cDaysLeft > 0) {
-          document.getElementById('countdownTimerText').innerHTML = `🍼 <strong>${cDaysLeft} Days</strong> Until Baby Arrives (15–20 Oct)`;
-        } else if (cDaysLeft >= -5) {
-          document.getElementById('countdownTimerText').innerHTML = `🍼 <strong>Delivery Window Active (15–20 Oct)!</strong> 🎉`;
+      if (daysLeft > 0 || daysTillEdd > 0) {
+        if (daysLeft > 0) {
+          document.getElementById('countdownTimerText').innerHTML = `🍼 <strong>${daysLeft} Days</strong> Until Baby Arrives (1–5 Nov)`;
+        } else if (daysLeft >= -4) {
+          document.getElementById('countdownTimerText').innerHTML = `🍼 <strong>Delivery Window Active (1–5 Nov)!</strong> 🎉`;
         } else {
           document.getElementById('countdownTimerText').innerHTML = `🍼 <strong>Welcome Baby!</strong> 💖`;
         }
@@ -2702,8 +2703,8 @@
         }
         
         document.getElementById('countdownSubtext').innerHTML = `
-          <strong>👶 Baby Presentation:</strong> Breech position (Head up, legs down) • Doctor scheduled planned safe C-section between <strong>15th – 20th Oct 2026</strong> for baby & Mouni's safety! 💖<br>
-          <span style="opacity: 0.85; font-size: 11px; display: inline-block; margin-top: 3px;">(40-Week Scan Reference EDD: 21st – 23rd Nov 2026)</span>
+          <strong>👶 Delivery Window:</strong> Planned Delivery between <strong>1st – 5th November 2026</strong>. 💖<br>
+          <strong>🩺 Last Checkup:</strong> Scheduled on <strong>14th October 2026</strong> (Doctor will suggest 1 scan before 28th Oct).
         `;
 
         // Update Baby Size Visualizer Card (Option E)
@@ -2864,7 +2865,7 @@
     function checkIsSustenerActive() {
       const today = new Date();
       const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-      const sustenerEndDate = new Date(2026, 9, 15); // Active till 14 Oct 2026 (expires 15 Oct)
+      const sustenerEndDate = new Date(2026, 9, 8); // 1 Week from 30 Sep (Active till 7 Oct, expires 8 Oct)
       return todayMidnight < sustenerEndDate;
     }
 
@@ -2965,27 +2966,31 @@
 
     function checkGrowthScanAlert() {
       const today = new Date();
-      const yr = today.getFullYear();
-      const mt = today.getMonth();
-      const dy = today.getDate();
+      const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const checkupDate = new Date(2026, 9, 14); // 14th October 2026
+      const scanDeadline = new Date(2026, 9, 29); // Active through 28th October
 
-      // Active on 9th, 10th, and 11th September 2026 (Month 8 is Sept)
-      const isScanWindow = (yr === 2026 && mt === 8 && (dy === 9 || dy === 10 || dy === 11));
-      
+      const diffTime = checkupDate.getTime() - todayMidnight.getTime();
+      const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
       const banner = document.getElementById('growthScanAlertBanner');
       if (banner) {
-        if (isScanWindow) {
+        if (todayMidnight < scanDeadline) {
           banner.style.display = 'flex';
           const scanBadge = document.getElementById('growthScanAlertBadge');
           const scanDesc = document.getElementById('growthScanAlertDesc');
 
-          if (dy === 11) {
+          if (diffDays > 0) {
+            if (scanBadge) scanBadge.textContent = `🗓️ In ${diffDays} ${diffDays === 1 ? 'day' : 'days'}`;
+            if (scanDesc) scanDesc.innerHTML = `🩺 <strong>Reminder: Last Doctor Checkup is on 14th October 2026</strong> (in ${diffDays} ${diffDays === 1 ? 'day' : 'days'}). Dr. Bharathi Ramesh will advise 1 final ultrasound scan before 28th October.`;
+          } else if (diffDays === 0) {
             if (scanBadge) scanBadge.textContent = '🚨 TODAY!';
-            if (scanDesc) scanDesc.innerHTML = '👶 <strong>7th Month Growth Scan is TODAY (11th September 2026)!</strong> Please consult Dr. Bharathi Ramesh for the ultrasound growth scan.';
+            if (scanDesc) scanDesc.innerHTML = '🩺 <strong>Last Doctor Checkup is TODAY (14th October 2026)!</strong> Please consult Dr. Bharathi Ramesh for the final checkup and scan prescription.';
           } else {
-            const daysLeft = 11 - dy;
-            if (scanBadge) scanBadge.textContent = `🗓️ In ${daysLeft} ${daysLeft === 1 ? 'day' : 'days'}`;
-            if (scanDesc) scanDesc.innerHTML = `👶 <strong>Reminder: 7th Month Growth Scan is scheduled for 11th September 2026</strong> (in ${daysLeft} ${daysLeft === 1 ? 'day' : 'days'}). Please prepare all medical reports for the appointment.`;
+            const scanDiffTime = new Date(2026, 9, 28).getTime() - todayMidnight.getTime();
+            const scanDaysLeft = Math.round(scanDiffTime / (1000 * 60 * 60 * 24));
+            if (scanBadge) scanBadge.textContent = scanDaysLeft >= 0 ? `👶 Scan Window (${scanDaysLeft}d left)` : '📋 Final Scan Stage';
+            if (scanDesc) scanDesc.innerHTML = '👶 <strong>Final Ultrasound Scan Stage:</strong> Complete the final scan before <strong>28th October 2026</strong> in preparation for baby delivery (1st – 5th November).';
           }
         } else {
           banner.style.display = 'none';
@@ -2997,9 +3002,9 @@
       const today = new Date();
       const options = { day: 'numeric', month: 'short', year: 'numeric' };
       const dateStr = today.toLocaleDateString('en-US', options);
-      const isUtiActive = checkIsUtiCourseActive();
+      const isSustenActive = checkIsSustenerActive();
       
-      const statusText = `📅 App Date: ${dateStr} | 💊 UTI Course: ${isUtiActive ? 'Active (5 Days)' : 'Completed'} | 👶 7th Month Growth Scan: 11 Sep 2026`;
+      const statusText = `📅 Date: ${dateStr} | 💊 Susten: ${isSustenActive ? 'Active (Till 7 Oct)' : 'Stopped'} | 🩺 Last Checkup: 14 Oct | 👶 Delivery: 1–5 Nov 2026`;
       const elem = document.getElementById('appStatusIndicator');
       if (elem) {
         elem.textContent = statusText;
@@ -3625,21 +3630,21 @@
     function quickAddCalendar(block) {
       if (block === 'morning') {
         openGoogleCalendarLink(
-          "💊 Morning Meds (Thyronorm, Pan, Dydrogest, Duvadilan, Ceftum)",
+          "💊 Morning Meds (Thyronorm 50mcg)",
           "07:30",
-          "Take empty-stomach meds (Thyronorm 50mcg, Pan 40mg). Take morning meds (Dydrogest 10, Duvadilan 10mg, Ceftum 500mg after breakfast). Pro Case DF powder optional."
+          "Take empty-stomach Thyronorm 50mcg with plain water 30 mins before breakfast. Pro Case DF powder with milk optional."
         );
       } else if (block === 'afternoon') {
         openGoogleCalendarLink(
           "☀️ Afternoon Meds (Magnocal & Sustener)",
           "13:30",
-          "Take Tab. Magnocal (Calcium + Magnesium) and Tab. Sustener 200 (Progesterone support) after lunch."
+          "Take Tab. Magnocal after lunch (continued till delivery). Take Tab. Sustener 200 (1 week course from 30 Sep, till 7 Oct)."
         );
       } else if (block === 'night') {
         openGoogleCalendarLink(
-          "🌙 Night Meds (Womiron, Dydrogest, Duvadilan, Ceftum)",
+          "🌙 Night Meds (Womiron)",
           "21:00",
-          "Take night meds: Tab. Womiron, Tab. Dydrogest 10, Tab. Duvadilan 10mg, and Tab. Ceftum 500mg after dinner."
+          "Take Tab. Womiron after dinner (continued till delivery). Keep 4-6 hr gap away from Magnocal."
         );
       } else if (block === 'bedtime') {
         openGoogleCalendarLink(
@@ -3647,17 +3652,14 @@
           "22:00",
           "Apply Stovient Cream. Take Syp. Duphalac 15ml if needed for constipation."
         );
-      } else if (block === 'injection') {
-        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("💉 Final Inj. Proluton Depot 500mg IM")}&dates=20260930T100000/20260930T103000&details=${encodeURIComponent("Administer Final Inj. Proluton Depot 500mg IM dose on 30th September 2026.")}`;
-        window.open(url, '_blank');
-      } else if (block === 'csection') {
-        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("🏥 Planned Safe C-Section Window (Baby & Mother)")}&dates=20261015T090000/20261020T180000&details=${encodeURIComponent("Planned safe C-Section delivery window (15th to 20th October 2026) recommended by doctor due to breech baby position. EDD scan range: 21–23 Nov 2026.")}`;
+      } else if (block === 'delivery') {
+        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("🏥 Planned Baby Delivery Window (1st – 5th Nov 2026)")}&dates=20261101T090000/20261105T180000&details=${encodeURIComponent("Planned delivery window (1st to 5th November 2026) suggested by Dr. Bharathi Ramesh.")}`;
         window.open(url, '_blank');
       } else if (block === 'consultation') {
-        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("🩺 Doctor Consultation & Blood Tests (Sugar, Cholesterol, TSH)")}&dates=20260828T093000/20260828T110000&details=${encodeURIComponent("Doctor Consultation with Dr. Bharathi Ramesh + Blood Tests (Blood Sugar/Glucose, Lipid Profile/Cholesterol, TSH Retest) + 1st Remaining Progesterone Injection.")}`;
+        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("🩺 Last Doctor Checkup with Dr. Bharathi Ramesh")}&dates=20261014T100000/20261014T113000&details=${encodeURIComponent("Last antenatal checkup with Dr. Bharathi Ramesh before delivery. Doctor will suggest 1 scan before 28th October 2026.")}`;
         window.open(url, '_blank');
       } else if (block === 'scan') {
-        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("👶 7th Month Growth Scan")}&dates=20260911T100000/20260911T113000&details=${encodeURIComponent("7th Month Growth Ultrasound Scan with Dr. Bharathi Ramesh (~29-30 Weeks).")}`;
+        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("👶 Final Ultrasound Scan before Delivery (by 28 Oct)")}&dates=20261025T100000/20261025T113000&details=${encodeURIComponent("Final ultrasound scan suggested by Dr. Bharathi Ramesh before 28th October in preparation for delivery (Nov 1-5).")}`;
         window.open(url, '_blank');
       } else if (block === 'water') {
         const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("💧 Hourly Water Reminder (8 AM – 9 PM)")}&dates=20260828T080000/20260828T210000&recur=RRULE:FREQ=DAILY;UNTIL=20261114T235959&details=${encodeURIComponent("Daily hourly water reminder from 8:00 AM to 9:00 PM until delivery (14 Nov 2026). Drink 1 glass of water every hour to stay hydrated (Target: 3.5L / 14 glasses).")}`;
@@ -3724,21 +3726,21 @@
       const dailyEvents = [
         {
           id: "morning-meds",
-          title: "💊 Morning Meds (Thyronorm, Pan, Dydrogest, Duvadilan, Ceftum, Niftal)",
+          title: "💊 Morning Meds (Thyronorm 50mcg)",
           time: "07:30",
-          desc: "Take empty-stomach meds (Thyronorm 50mcg, Pan 40mg). Take morning meds (Dydrogest 10, Duvadilan 10mg, Ceftum 500mg, Niftal 100mg after breakfast). Pro Case DF powder optional."
+          desc: "Take empty-stomach Thyronorm 50mcg (30 mins before breakfast). Pro Case DF powder with milk optional."
         },
         {
           id: "afternoon-meds",
           title: "☀️ Afternoon Meds (Magnocal & Sustener)",
           time: "13:30",
-          desc: "Take Tab. Magnocal (Calcium + Magnesium) and Tab. Sustener 200 (Additional progesterone support) after lunch."
+          desc: "Take Tab. Magnocal (Calcium + Magnesium) after lunch (till delivery). Tab. Sustener 200 (1 week course from 30 Sep, till 7 Oct)."
         },
         {
           id: "night-meds",
-          title: "🌙 Night Meds (Womiron, Dydrogest, Duvadilan, Ceftum, Niftal)",
+          title: "🌙 Night Meds (Womiron)",
           time: "21:00",
-          desc: "Take night meds: Tab. Womiron, Tab. Dydrogest 10, Tab. Duvadilan 10mg, Tab. Ceftum 500mg, and Tab. Niftal 100mg after dinner."
+          desc: "Take Tab. Womiron after dinner (till delivery). Keep 4-6 hr gap away from Magnocal."
         },
         {
           id: "bedtime-meds",
@@ -3771,14 +3773,14 @@
         lines.push("END:VEVENT");
       });
 
-      // Final Proluton Depot Injection (30th September 2026)
+      // Planned Delivery Window (1st - 5th November 2026)
       lines.push("BEGIN:VEVENT");
-      lines.push(`UID:proluton-injection-20260930@mounibaby.app`);
+      lines.push(`UID:planned-delivery-20261101@mounibaby.app`);
       lines.push(`DTSTAMP:${dtstamp}`);
-      lines.push("SUMMARY:💉 Final Inj. Proluton Depot 500mg IM");
-      lines.push("DTSTART:20260930T100000");
-      lines.push("DTEND:20260930T103000");
-      lines.push("DESCRIPTION:Administer final Inj. Proluton Depot 500mg IM today.");
+      lines.push("SUMMARY:🏥 Planned Baby Delivery Window (1–5 Nov)");
+      lines.push("DTSTART:20261101T090000");
+      lines.push("DTEND:20261105T180000");
+      lines.push("DESCRIPTION:Planned delivery window suggested by Dr. Bharathi Ramesh (1st to 5th November 2026).");
       lines.push("BEGIN:VALARM");
       lines.push("TRIGGER:-PT0M");
       lines.push("ACTION:DISPLAY");
@@ -3786,14 +3788,14 @@
       lines.push("END:VALARM");
       lines.push("END:VEVENT");
 
-      // Planned Safe C-Section Delivery Window (15th - 20th October 2026)
+      // Last Doctor Consultation (14th October 2026)
       lines.push("BEGIN:VEVENT");
-      lines.push(`UID:planned-csection-20261015@mounibaby.app`);
+      lines.push(`UID:doctor-last-checkup-20261014@mounibaby.app`);
       lines.push(`DTSTAMP:${dtstamp}`);
-      lines.push("SUMMARY:🏥 Planned Safe C-Section Delivery Window (15–20 Oct)");
-      lines.push("DTSTART:20261015T090000");
-      lines.push("DTEND:20261020T180000");
-      lines.push("DESCRIPTION:Planned safe C-Section delivery window recommended by doctor due to breech baby position (head up, legs down). EDD scan range: 21–23 Nov 2026.");
+      lines.push("SUMMARY:🩺 Last Doctor Checkup with Dr. Bharathi Ramesh");
+      lines.push("DTSTART:20261014T100000");
+      lines.push("DTEND:20261014T113000");
+      lines.push("DESCRIPTION:Last antenatal checkup with Dr. Bharathi Ramesh before delivery. Doctor will suggest 1 scan before 28th October 2026.");
       lines.push("BEGIN:VALARM");
       lines.push("TRIGGER:-PT0M");
       lines.push("ACTION:DISPLAY");
@@ -3801,29 +3803,14 @@
       lines.push("END:VALARM");
       lines.push("END:VEVENT");
 
-      // Doctor Consultation & Blood Tests Event
+      // Final Scan (Before 28th October 2026)
       lines.push("BEGIN:VEVENT");
-      lines.push(`UID:doctor-consultation-20260828@mounibaby.app`);
+      lines.push(`UID:final-scan-20261028@mounibaby.app`);
       lines.push(`DTSTAMP:${dtstamp}`);
-      lines.push("SUMMARY:🩺 Doctor Consultation & Blood Tests (Sugar, Cholesterol, TSH)");
-      lines.push("DTSTART:20260828T093000");
-      lines.push("DTEND:20260828T110000");
-      lines.push("DESCRIPTION:Bi-weekly doctor consultation with Dr. Bharathi Ramesh + Blood Tests for Glucose/Sugar, Lipid Profile/Cholesterol, and TSH Retest.");
-      lines.push("BEGIN:VALARM");
-      lines.push("TRIGGER:-PT0M");
-      lines.push("ACTION:DISPLAY");
-      lines.push("DESCRIPTION:Reminder");
-      lines.push("END:VALARM");
-      lines.push("END:VEVENT");
-
-      // 7th Month Growth Scan Event
-      lines.push("BEGIN:VEVENT");
-      lines.push(`UID:growth-scan-20260911@mounibaby.app`);
-      lines.push(`DTSTAMP:${dtstamp}`);
-      lines.push("SUMMARY:👶 7th Month Growth Scan (~30 Weeks)");
-      lines.push("DTSTART:20260911T100000");
-      lines.push("DTEND:20260911T113000");
-      lines.push("DESCRIPTION:7th Month Ultrasound Growth Scan with Dr. Bharathi Ramesh.");
+      lines.push("SUMMARY:👶 Final Ultrasound Scan before Delivery (by 28 Oct)");
+      lines.push("DTSTART:20261025T100000");
+      lines.push("DTEND:20261025T113000");
+      lines.push("DESCRIPTION:Final ultrasound scan suggested by Dr. Bharathi Ramesh before 28th October 2026 in preparation for delivery (Nov 1-5).");
       lines.push("BEGIN:VALARM");
       lines.push("TRIGGER:-PT0M");
       lines.push("ACTION:DISPLAY");
