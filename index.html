@@ -2636,13 +2636,13 @@
       // Calculate gestational age using scan 40-week milestone
       const dateParts = babyBirthDate.split('-');
       const edd = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-      const diffTime = edd - today;
-      const daysTillEdd = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const diffEddTime = edd - today;
+      const daysTillEdd = Math.ceil(diffEddTime / (1000 * 60 * 60 * 24));
 
       // Calculate Planned Delivery countdown (1st Nov 2026)
       const deliveryStart = new Date(2026, 10, 1); // Month 10 = Nov
-      const diffTime = deliveryStart - today;
-      const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const diffDeliveryTime = deliveryStart - today;
+      const daysLeft = Math.ceil(diffDeliveryTime / (1000 * 60 * 60 * 24));
 
       const babySizeCard = document.getElementById('babySizeCard');
 
