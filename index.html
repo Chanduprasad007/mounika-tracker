@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Mouni & Baby">
-  <link rel="apple-touch-icon" href="icon-180.png?v=28">
+  <link rel="apple-touch-icon" href="icon-180.png?v=29">
   <meta name="theme-color" content="#ad496c">
 
   <style>
@@ -1494,8 +1494,8 @@
       z-index: 1;
     }
   </style>
-  <link rel="stylesheet" href="upgrade.css?v=28">
-  <link rel="icon" href="icon.svg?v=28" type="image/svg+xml">
+  <link rel="stylesheet" href="upgrade.css?v=29">
+  <link rel="icon" href="icon-192.png?v=29" type="image/png">
 </head>
 <body>
   <a class="skip-link" href="#careContent">Skip to daily care</a>
@@ -1518,7 +1518,7 @@
     <canvas id="confetti-canvas"></canvas>
 
     <div class="masthead">
-      <div class="brand"><img src="icon.svg?v=28" alt=""><div>Mouni & Baby<small>OUR LITTLE JOURNEY</small></div></div>
+      <div class="brand"><img src="icon-192.png?v=29" alt=""><div>Mouni & Baby<small>OUR LITTLE JOURNEY</small></div></div>
       <div class="masthead-actions"><span class="today-date" id="todayDate"></span>
       <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle dark theme">
         <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1540,7 +1540,7 @@
       </div>
       <h1 id="babyCountdownTitle">Mouni & Baby's Hub</h1>
       <p class="shiny-text">A little care, every day. For you and your little one.</p>
-      </div><p class="welcome-note">Every small moment of care<br>is a little act of love.</p></div>
+      </div><div class="welcome-art"><img class="sleeping-baby-art" src="icon-512.png?v=29" alt="Sleeping baby resting on a golden crescent moon above soft clouds" width="136" height="136"><p class="welcome-note">Every small moment of care<br>is a little act of love.</p></div></div>
       
       <button class="overview-toggle" id="overviewToggle" type="button" aria-expanded="true" aria-controls="journeyOverview"><span><strong id="compactPregnancyAge">Your pregnancy journey</strong><span id="overviewLabel">Hide journey details</span></span><span aria-hidden="true" id="overviewSymbol">−</span></button>
       <div class="header-info-wrap" id="journeyOverview">
@@ -3478,13 +3478,13 @@
         try {
           new Notification(title, {
             body: body,
-            icon: 'icon-192.png?v=28'
+            icon: 'icon-192.png?v=29'
           });
         } catch (e) {
           navigator.serviceWorker.ready.then(registration => {
             registration.showNotification(title, {
               body: body,
-              icon: 'icon-192.png?v=28'
+              icon: 'icon-192.png?v=29'
             });
           });
         }
@@ -4719,7 +4719,7 @@
     }
 </script>
   <div id="saveToast" class="save-toast" role="status" aria-live="polite"></div>
-  <script src="reminders.js?v=28"></script>
-  <script src="upgrade.js?v=28"></script>
+  <script src="reminders.js?v=29"></script>
+  <script src="upgrade.js?v=29"></script>
 </body>
 </html>

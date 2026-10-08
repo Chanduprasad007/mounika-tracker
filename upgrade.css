@@ -307,3 +307,9 @@ header h1 {font-weight:650}
 .music-volume {display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-muted)}
 .music-volume input {width:90px;height:44px;accent-color:var(--rose-dark)}
 @media(max-width:480px) {.music-caption {flex-basis:100%}.music-volume {margin-left:auto}}
+
+/* Keep the supplied moon-and-baby artwork whole, including its clouds. */
+.brand img {border-radius:10px;object-fit:contain;padding:2px}
+.welcome-art {display:flex;flex-direction:column;align-items:center;gap:10px;flex-shrink:0}
+.sleeping-baby-art {width:136px;height:136px;object-fit:contain;border-radius:22px;background:white}
+@media(max-width:480px) {.welcome-row {flex-wrap:wrap}.welcome-row>div:first-child {flex-basis:100%}.welcome-art {margin:auto}.sleeping-baby-art {width:112px;height:112px}}
