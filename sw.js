@@ -1,8 +1,14 @@
-const CACHE_NAME = 'mouni-baby-hub-v18';
+const CACHE_NAME = 'mouni-baby-hub-v28';
 const ASSETS = [
   './index.html',
   './manifest.json',
-  './icon.svg'
+  './icon.svg?v=28',
+  './icon-192.png?v=28',
+  './icon-512.png?v=28',
+  './icon-180.png?v=28',
+  './upgrade.css?v=28',
+  './upgrade.js?v=28',
+  './reminders.js?v=28'
 ];
 
 // Install Service Worker
@@ -70,4 +76,15 @@ self.addEventListener('fetch', event => {
         })
     );
   }
+});
+
+// A notification tap opens the current checklist, including in an installed app.
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+  const target = new URL('./index.html#careContent', self.registration.scope).href;
+  event.waitUntil(self.clients.matchAll({type:'window',includeUncontrolled:true}).then(async windows => {
+    const existing = windows.find(client => client.url.startsWith(self.registration.scope));
+    if (existing) { await existing.navigate(target); return existing.focus(); }
+    return self.clients.openWindow(target);
+  }));
 });

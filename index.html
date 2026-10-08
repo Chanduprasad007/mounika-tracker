@@ -5,20 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mouni & Baby Health Hub</title>
   
-  <!-- External Libraries for WebGL and Animations -->
-  <script src="https://cdn.jsdelivr.net/npm/ogl/dist/ogl.umd.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-  
   <!-- PWA meta tags & installability -->
   <link rel="manifest" href="manifest.json">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Mouni & Baby">
-  <link rel="apple-touch-icon" href="icon.svg">
-  <meta name="theme-color" content="#E8927C">
+  <link rel="apple-touch-icon" href="icon-180.png?v=28">
+  <meta name="theme-color" content="#ad496c">
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
     :root {
       /* Theme light variables */
@@ -1499,45 +1494,57 @@
       z-index: 1;
     }
   </style>
+  <link rel="stylesheet" href="upgrade.css?v=28">
+  <link rel="icon" href="icon.svg?v=28" type="image/svg+xml">
 </head>
 <body>
+  <a class="skip-link" href="#careContent">Skip to daily care</a>
 
   <!-- Prism Simulation Background Container -->
   <div id="prism-bg" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: -1; display: block;"></div>
 
   <!-- IN-APP REMINDER ALERT -->
-  <div class="in-app-alert" id="inAppAlert">
+  <div class="in-app-alert" id="inAppAlert" role="alert" aria-live="assertive">
     <div style="font-size: 24px;">⏰</div>
     <div class="in-app-alert-details">
       <div class="in-app-alert-title" id="alertTitle">Reminders Active</div>
       <div class="in-app-alert-body" id="alertBody">Tap to view your tablet tracker.</div>
     </div>
-    <button class="in-app-alert-close" onclick="closeInAppAlert()">×</button>
+    <button class="in-app-alert-close" onclick="closeInAppAlert()" aria-label="Dismiss reminder">×</button>
+    <div class="reminder-alert-actions"><button type="button" onclick="snoozeCareReminder()">Snooze 5 minutes</button><button type="button" onclick="closeInAppAlert()">Dismiss</button></div>
   </div>
 
   <div class="app-container">
     <canvas id="confetti-canvas"></canvas>
 
-    <!-- HEADER -->
-    <header>
+    <div class="masthead">
+      <div class="brand"><img src="icon.svg?v=28" alt=""><div>Mouni & Baby<small>OUR LITTLE JOURNEY</small></div></div>
+      <div class="masthead-actions"><span class="today-date" id="todayDate"></span>
       <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle dark theme">
         <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <!-- Icon injected dynamically -->
         </svg>
-      </button>
-
-      <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 6px;">
-        <img src="icon.svg" alt="Cute Baby" style="width: 48px; height: 48px; border-radius: 50%; box-shadow: 0 6px 16px rgba(0,0,0,0.12); border: 2.5px solid rgba(255,255,255,0.7); background: #FFF;" />
-      </div>
-
+      </button>      </div>
+    </div>
+    <div class="music-bar" role="group" aria-label="Soothing music">
+      <div class="music-caption"><span aria-hidden="true">♫</span><div><strong>A little calm</strong><small id="musicStatus" role="status">Soft melody · starts with your first tap</small></div></div>
+      <button id="musicToggle" class="music-toggle" type="button" aria-pressed="false" aria-label="Play soothing music">Play music</button>
+      <label class="music-volume">Volume <input id="musicVolume" type="range" min="0" max="100" value="25" aria-label="Music volume"></label>
+    </div>
+    <!-- HEADER -->
+    <header>
+      <div class="welcome-row"><div>
       <div class="animated-gradient-text with-border greeting-text">
         <div class="gradient-overlay"></div>
         <div class="text-content" id="greetingText">Good Morning, Mouni</div>
       </div>
       <h1 id="babyCountdownTitle">Mouni & Baby's Hub</h1>
-      <p class="shiny-text">🌸 Health & Daily Care Tracker 👶</p>
+      <p class="shiny-text">A little care, every day. For you and your little one.</p>
+      </div><p class="welcome-note">Every small moment of care<br>is a little act of love.</p></div>
       
-      <div class="header-info-wrap">
+      <button class="overview-toggle" id="overviewToggle" type="button" aria-expanded="true" aria-controls="journeyOverview"><span><strong id="compactPregnancyAge">Your pregnancy journey</strong><span id="overviewLabel">Hide journey details</span></span><span aria-hidden="true" id="overviewSymbol">−</span></button>
+      <div class="header-info-wrap" id="journeyOverview">
+        <div class="journey-card">
         <!-- Trimester / Gestational progress -->
         <div class="info-card">
           <div class="info-card-title">
@@ -1558,7 +1565,7 @@
         </div>
 
         <!-- Unified Planned Delivery & Care Plan Card -->
-        <div class="info-card" style="background: linear-gradient(135deg, rgba(232, 146, 124, 0.35) 0%, rgba(155, 137, 196, 0.3) 100%); border: 1.5px solid rgba(255, 255, 255, 0.45);">
+        <div class="info-card delivery-card" style="background: linear-gradient(135deg, rgba(232, 146, 124, 0.35) 0%, rgba(155, 137, 196, 0.3) 100%); border: 1.5px solid rgba(255, 255, 255, 0.45);">
           <div class="info-card-title" style="display: flex; justify-content: space-between; align-items: center;">
             <span>🏥 Planned Baby Delivery Window</span>
             <span style="background: rgba(255, 255, 255, 0.35); padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700;">1 – 5 Nov 2026</span>
@@ -1570,21 +1577,7 @@
           </div>
         </div>
 
-        <!-- Big Positive Maternity Affirmation Banner for Mounika -->
-        <div class="affirmation-card" id="maternityAffirmationCard">
-          <div class="affirmation-header">
-            <span class="affirmation-badge">🌸 Daily Affirmation for Mounika</span>
-            <span style="font-size: 17px;">✨💖</span>
-          </div>
-          <div class="affirmation-quote" id="affirmationQuoteText">
-            "You are doing an incredible job growing a miracle, Mouni. Every single day brings you closer to holding your beautiful baby in your arms. ✨"
-          </div>
-          <div class="affirmation-footer">
-            <span class="affirmation-sublabel">With lots of love & care 💕</span>
-            <button class="affirmation-btn" onclick="nextAffirmation()">✨ Next Affirmation</button>
-          </div>
         </div>
-
         <!-- Baby Size Visualizer Card (Option E) -->
         <div class="info-card" id="babySizeCard" style="display: none; background: rgba(255, 255, 255, 0.22); border-color: rgba(255,255,255,0.3); padding: 16px;">
           <div class="info-card-title" style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
@@ -1662,9 +1655,8 @@
         </div>
       </div>
     </header>
-
     <!-- LIQUID TABS BAR -->
-    <div class="tabs-bar">
+    <div class="tabs-bar" role="tablist" aria-label="Care trackers" id="careContent">
       <div class="tab-indicator"></div>
       <button class="tab-btn active" onclick="switchTab('tablets-tab', this)">
         <span>💊</span> Mouni's Tablets
@@ -1676,14 +1668,34 @@
 
     <!-- TAB CONTENT: TABLET TRACKER -->
     <div id="tablets-tab" class="tab-content active">
-
+      <div class="daily-heading"><div><h2>Your daily care</h2><p>One small step at a time.</p></div><span class="daily-tag">Saved on your device</span></div>
+      <div class="care-layout"><aside class="care-sidebar" aria-label="Water and appointments">
+      <section class="phone-reminders" aria-labelledby="phoneRemindersTitle">
+        <h3 id="phoneRemindersTitle">Phone reminders</h3>
+        <p>Page alerts work while this page is running. For reminders when Chrome or the installed app is closed, add the schedule to your phone's calendar.</p>
+        <button class="utility-btn" id="enablePageReminders" type="button" aria-pressed="false">Enable page alerts</button>
+        <button class="utility-btn" id="testCareReminder" type="button">Test sound & notification</button>
+        <span class="reminder-status" id="reminderPermission"></span>
+        <span class="reminder-status" id="nextPageReminder"></span>
+        <label for="reminderEndDate">Repeat daily calendar reminders until</label>
+        <input type="date" id="reminderEndDate">
+        <button class="action-btn" id="downloadPhoneReminders" type="button">Download phone-calendar reminders</button>
+        <details><summary>Set up alerts on Android</summary><ol>
+          <li>Import the downloaded file into Google Calendar using its <a href="https://calendar.google.com/calendar/u/0/r/settings/export" target="_blank" rel="noopener">Import & export settings</a> on a laptop. Import it once to avoid duplicates.</li>
+          <li>On each phone, open Google Calendar with the same account. Enable sync for the calendar you imported into.</li>
+          <li>Open a care reminder and check its notifications. Care events request alerts 10 minutes before and at the scheduled time. A separate follow-up event appears 5 minutes later. Confirm notifications on the imported events.</li>
+          <li>In Android Settings → Apps → Calendar → Notifications, allow notifications and choose an audible sound. Check Do Not Disturb and the calendar's notification settings.</li>
+          <li>For a stronger alarm that keeps ringing, set repeating alarms in the phone's Clock app for 7:30 AM, 1:30 PM, 9:00 PM, and 10:00 PM.</li>
+        </ol><p><a href="https://support.google.com/calendar/answer/37242?co=GENIE.Platform%3DAndroid&hl=en" target="_blank" rel="noopener">Google's Android notification guide</a></p></details>
+        <p id="reminderFeedback" role="status" aria-live="polite"></p>
+      </section>
       <!-- STANDALONE HOURLY HYDRATION TRACKER (8 AM to 9 PM daily till 14 Nov) -->
       <div id="hydrationTrackerWidget" class="hydration-card">
         <div class="hydration-header">
           <div class="hydration-title-wrap">
             <span class="hydration-icon">💧</span>
             <div>
-              <div class="hydration-title">Hourly Hydration Reminder</div>
+              <div class="hydration-title">Your water moments</div>
               <div class="hydration-subtitle" id="waterSubtitle">Daily 8:00 AM – 9:00 PM • Goal: 3.5 Litres (14 glasses)</div>
             </div>
           </div>
@@ -1693,6 +1705,7 @@
           </div>
         </div>
 
+        <div class="water-display"><div class="water-vessel" aria-hidden="true"><div class="water-liquid" id="waterLiquid"></div></div><div><div class="water-amount" id="waterAmount">0.0 L</div><p class="water-caption">of your existing 3.5 L daily goal</p></div></div>
         <div class="water-grid" id="waterGrid">
           <!-- 14 Hourly Glass Buttons -->
           <div class="water-glass-btn" id="water-btn-8" onclick="toggleWaterHour(8)"><span class="water-glass-icon">🥛</span>8 AM</div>
@@ -1720,6 +1733,38 @@
         </div>
       </div>
       
+      <!-- INJECTION ALERT WIDGET -->
+      <div id="injectionAlertWidget" class="injection-alert-card" style="display: none;">
+        <div class="injection-alert-header">
+          <div class="injection-alert-icon">💉</div>
+          <div class="injection-alert-title-wrap">
+            <h4 class="injection-alert-title">Proluton Depot Injection</h4>
+            <span class="injection-alert-due-date" id="injectionAlertDueDate">Next Due: 30th June 2026</span>
+          </div>
+        </div>
+        <p class="injection-alert-description" id="injectionAlertDesc">
+          Inj. Proluton Depot 500mg IM is due soon. This is administered once every 15 days to prevent preterm contractions.
+        </p>
+        <div class="injection-alert-badge" id="injectionAlertBadge">3 Days Left</div>
+      </div>
+
+      <!-- LAST CHECKUP & FINAL SCAN ALERT WIDGET -->
+      <div id="growthScanAlertBanner" class="injection-alert-card" style="display: none; border-left-color: #D49B4B;">
+        <div class="injection-alert-header">
+          <div class="injection-alert-icon">🩺</div>
+          <div class="injection-alert-title-wrap">
+            <h4 class="injection-alert-title">Last Doctor Checkup</h4>
+            <span class="injection-alert-due-date">Scheduled: 14th October 2026</span>
+          </div>
+        </div>
+        <p class="injection-alert-description" id="growthScanAlertDesc">
+          🩺 <strong>Last checkup with Dr. Bharathi Ramesh is on 14th October 2026</strong>. Doctor will suggest 1 final scan before 28th October in preparation for delivery (Nov 1–5).
+        </p>
+        <div class="injection-alert-badge" id="growthScanAlertBadge">🗓️ Reminder Active</div>
+      </div>
+
+      </aside><div class="care-main">
+
       <!-- Bed Rest Active Warning (June 15 to July 6) -->
       <div class="banner banner-danger" id="bedRestBanner" style="display: none;">
         <span class="banner-icon">🛌</span>
@@ -1762,42 +1807,12 @@
         <p>Great job Mounika. Baby is getting everything needed today. 💙</p>
       </div>
 
-      <!-- INJECTION ALERT WIDGET -->
-      <div id="injectionAlertWidget" class="injection-alert-card" style="display: none;">
-        <div class="injection-alert-header">
-          <div class="injection-alert-icon">💉</div>
-          <div class="injection-alert-title-wrap">
-            <h4 class="injection-alert-title">Proluton Depot Injection</h4>
-            <span class="injection-alert-due-date" id="injectionAlertDueDate">Next Due: 30th June 2026</span>
-          </div>
-        </div>
-        <p class="injection-alert-description" id="injectionAlertDesc">
-          Inj. Proluton Depot 500mg IM is due soon. This is administered once every 15 days to prevent preterm contractions.
-        </p>
-        <div class="injection-alert-badge" id="injectionAlertBadge">3 Days Left</div>
-      </div>
-
-      <!-- LAST CHECKUP & FINAL SCAN ALERT WIDGET -->
-      <div id="growthScanAlertBanner" class="injection-alert-card" style="display: none; border-left-color: #D49B4B;">
-        <div class="injection-alert-header">
-          <div class="injection-alert-icon">🩺</div>
-          <div class="injection-alert-title-wrap">
-            <h4 class="injection-alert-title">Last Doctor Checkup</h4>
-            <span class="injection-alert-due-date">Scheduled: 14th October 2026</span>
-          </div>
-        </div>
-        <p class="injection-alert-description" id="growthScanAlertDesc">
-          🩺 <strong>Last checkup with Dr. Bharathi Ramesh is on 14th October 2026</strong>. Doctor will suggest 1 final scan before 28th October in preparation for delivery (Nov 1–5).
-        </p>
-        <div class="injection-alert-badge" id="growthScanAlertBadge">🗓️ Reminder Active</div>
-      </div>
-
       <!-- MEDICATIONS CONTAINER FOR DYNAMIC ORDERING -->
       <div id="medications-container" style="display:flex; flex-direction:column; gap:0px; width:100%;">
 
         <!-- MORNING WRAP -->
         <div id="morning-wrap" class="time-block-wrap" style="display:flex; flex-direction:column; order:1; width:100%;">
-          <div class="section-label">Morning — (7:30 AM Wake Up)</div>
+          <div class="section-label">Morning · (7:30 AM Wake Up)</div>
           <div class="time-block" id="morning-card">
             <div class="time-header">
               <div class="time-icon" style="background:#FFF3E0;">🌅</div>
@@ -1836,7 +1851,7 @@
               <div class="checkbox-btn" id="tab-chk-0"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Dydrogest 10 (Dydrogesterone)</div>
-                <div class="item-desc">Progesterone support — prevents preterm birth. Take 1 tablet after breakfast.</div>
+                <div class="item-desc">Progesterone support · prevents preterm birth. Take 1 tablet after breakfast.</div>
                 <div class="badge-row">
                   <span class="badge tag-progesterone">💜 Preterm Prevention</span>
                   <span class="badge tag-after-food">🕒 After Food</span>
@@ -1876,7 +1891,7 @@
               <div class="checkbox-btn" id="tab-chk-10"></div>
               <div class="item-content">
                 <div class="item-name">Tab. Duvadilan 10mg</div>
-                <div class="item-desc">Uterine relaxant — prevents preterm contractions. Take 1 tablet after breakfast.</div>
+                <div class="item-desc">Uterine relaxant · prevents preterm contractions. Take 1 tablet after breakfast.</div>
                 <div class="badge-row">
                   <span class="badge tag-progesterone">💜 Preterm Prevention</span>
                   <span class="badge tag-after-food">🕒 After Food</span>
@@ -1929,7 +1944,7 @@
 
         <!-- AFTERNOON WRAP -->
         <div id="afternoon-wrap" class="time-block-wrap" style="display:flex; flex-direction:column; order:2; width:100%;">
-          <div class="section-label">Afternoon — (Lunch at 1:30 PM)</div>
+          <div class="section-label">Afternoon · (Lunch at 1:30 PM)</div>
           <div class="time-block" id="afternoon-card">
             <div class="time-header">
               <div class="time-icon" style="background:#FFF8E1;">☀️</div>
@@ -1966,7 +1981,7 @@
 
         <!-- NIGHT WRAP -->
         <div id="night-wrap" class="time-block-wrap" style="display:flex; flex-direction:column; order:3; width:100%;">
-          <div class="section-label">Night — (Dinner & After)</div>
+          <div class="section-label">Night · (Dinner & After)</div>
           <div class="time-block" id="night-card">
             <div class="time-header">
               <div class="time-icon" style="background:#EDE7F6;">🌙</div>
@@ -2121,16 +2136,35 @@
 
       </div>
 
+      </div></div>
+        <!-- Big Positive Maternity Affirmation Banner for Mounika -->
+        <div class="affirmation-card" id="maternityAffirmationCard">
+          <div class="affirmation-header">
+            <span class="affirmation-badge">🌸 Daily Affirmation for Mounika</span>
+            <span style="font-size: 17px;">✨💖</span>
+          </div>
+          <div class="affirmation-quote" id="affirmationQuoteText">
+            "You are doing an incredible job growing a miracle, Mouni. Every single day brings you closer to holding your beautiful baby in your arms. ✨"
+          </div>
+          <div class="affirmation-footer">
+            <span class="affirmation-sublabel">With lots of love & care 💕</span>
+            <button class="affirmation-btn" onclick="nextAffirmation()">✨ Next Affirmation</button>
+          </div>
+        </div>
+
+
+
+
       <!-- GOOGLE CALENDAR SYNC HUB -->
       <div class="section-label">📅 Google Calendar Sync Hub</div>
       <div class="control-card">
         <p style="font-size:13px; color:var(--text); opacity:0.9; line-height:1.5;">
-          Set up automatic daily reminders on both of your Android phones.
+          Export your reminder schedule to a calendar. Import it and check notification settings on each phone.
         </p>
         <button class="action-btn" onclick="downloadICS()" style="background:var(--text); color:var(--bg); box-shadow:none; margin:8px 0 0;">
           📅 Download Reminders (.ics file)
         </button>
-        <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Import this file on the <a href="https://calendar.google.com" target="_blank" style="color:var(--rose-dark); font-weight:700;">Google Calendar Desktop Site</a> to add all alarms in 1 click.</p>
+        <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Import this file on the <a href="https://calendar.google.com" target="_blank" style="color:var(--rose-dark); font-weight:700;">Google Calendar Desktop Site</a> to import the schedule. Check the imported event notifications before relying on alerts.</p>
         
         <div style="border-top:1px solid var(--border); margin:12px 0; padding-top:12px;">
           <label style="font-size:12px; font-weight:700; color:var(--text-muted); display:block; margin-bottom:6px;">Add Individual Daily Blocks:</label>
@@ -2153,8 +2187,8 @@
           <div class="accordion-content" style="padding: 12px 0 0; border: none; font-size: 12.5px; line-height: 1.5;">
             <p style="margin-bottom:8px;"><strong>Two easy ways to stay reminded:</strong></p>
             <ol style="margin-left:16px; margin-bottom:8px; display:flex; flex-direction:column; gap:6px;">
-              <li><strong>📅 Calendar Reminders:</strong> Tap <strong>"Download Reminders (.ics)"</strong> above to add all medication and hourly water alarms into your phone's calendar with sound alerts.</li>
-              <li><strong>📱 Add to Home Screen:</strong> Open your browser menu (Share on iPhone, or three dots on Android) and tap <strong>"Add to Home Screen"</strong> to open this tracker just like a native app.</li>
+              <li><strong>📅 Calendar Reminders:</strong> Tap <strong>"Download Reminders (.ics)"</strong> above, then import the file into a calendar. Confirm its notifications and sound settings on each phone.</li>
+              <li><strong>📱 Add to Home Screen:</strong> Open your browser menu (Share on iPhone, or three dots on Android) and tap <strong>"Add to Home Screen"</strong> to open this tracker as an app. Installing it does not enable reminders while it is closed.</li>
             </ol>
           </div>
         </div>
@@ -2194,7 +2228,7 @@
           </div>
           <div class="magic-bento-card__content">
             <h3 class="magic-bento-card__title">Iron + Calcium gap</h3>
-            <p class="magic-bento-card__description"><strong>Tab. Womiron</strong> (night) and <strong>Tab. Magnocal</strong> (afternoon) must not be taken together — they block each other's absorption. Keep a safe gap of at least 4-6 hours.</p>
+            <p class="magic-bento-card__description"><strong>Tab. Womiron</strong> (night) and <strong>Tab. Magnocal</strong> (afternoon) must not be taken together · they block each other's absorption. Keep a safe gap of at least 4-6 hours.</p>
           </div>
         </div>
 
@@ -2520,8 +2554,8 @@
       startReminderCheck();
 
       // Initialize backgrounds and interactive sections
-      initPrismSimulation();
-      initMagicBento();
+      // Static surfaces avoid distracting background animation.
+
       initAffirmation();
 
       // Fluid tab indicator resize listeners
@@ -3321,7 +3355,7 @@
           visibleCountInGroup++;
 
           groupHTML += `
-            <div class="item-row ${isChecked ? 'checked' : ''}" onclick="toggleVaccine('${v.id}', event)">
+            <div data-vaccine-id="${v.id}" class="item-row ${isChecked ? 'checked' : ''}" onclick="toggleVaccine('${v.id}', event)">
               <div class="checkbox-btn ${isChecked ? 'checked' : ''}"></div>
               <div class="item-content">
                 <div class="item-name">${v.name}</div>
@@ -3338,7 +3372,7 @@
 
         if (visibleCountInGroup > 0) {
           const sectionHTML = `
-            <div class="section-label">${group.ageGroup} &mdash; Approx. ${dateStr}</div>
+            <div class="section-label">${group.ageGroup} &middot; Approx. ${dateStr}</div>
             <div class="time-block">
               <div class="time-header">
                 <div class="time-icon" style="background:var(--border);">👶</div>
@@ -3354,12 +3388,19 @@
         }
       });
 
+      if (!container.children.length) {
+        const empty = document.createElement('div');
+        empty.className = 'vaccine-empty';
+        empty.textContent = currentFilter === 'completed' ? 'No vaccines marked complete yet. Your saved records will appear here.' : 'All vaccines in this view are complete.';
+        container.append(empty);
+      }
       const pct = totalVaccinesCount > 0 ? Math.round((completedVaccinesCount / totalVaccinesCount) * 100) : 0;
       document.getElementById('vaccineProgressFill').style.width = pct + '%';
       document.getElementById('vaccineProgressCount').textContent = `${completedVaccinesCount} / ${totalVaccinesCount} completed`;
     }
 
     function toggleVaccine(id, event) {
+      const retainFocus = event.currentTarget === document.activeElement;
       event.stopPropagation();
       const idx = checkedVaccines.indexOf(id);
       if (idx > -1) {
@@ -3370,6 +3411,11 @@
 
       saveVaccinesState();
       renderVaccines();
+      if (retainFocus) {
+        const row = Array.from(document.querySelectorAll('[data-vaccine-id]')).find(row => row.dataset.vaccineId === id);
+        const next = row || document.querySelector('#vaccineListContainer .item-row') || document.querySelector('.filter-chip.active');
+        if (next) { next.tabIndex = 0; next.focus({preventScroll: true}); }
+      }
     }
 
     function resetVaccines() {
@@ -3432,13 +3478,13 @@
         try {
           new Notification(title, {
             body: body,
-            icon: 'icon.svg'
+            icon: 'icon-192.png?v=28'
           });
         } catch (e) {
           navigator.serviceWorker.ready.then(registration => {
             registration.showNotification(title, {
               body: body,
-              icon: 'icon.svg'
+              icon: 'icon-192.png?v=28'
             });
           });
         }
@@ -3636,9 +3682,9 @@
         );
       } else if (block === 'afternoon') {
         openGoogleCalendarLink(
-          "☀️ Afternoon Meds (Magnocal & Sustener)",
+          "Afternoon care checklist",
           "13:30",
-          "Take Tab. Magnocal after lunch (continued till delivery). Take Tab. Sustener 200 (1 week course from 30 Sep, till 7 Oct)."
+          "Open your current afternoon checklist and follow your current prescription."
         );
       } else if (block === 'night') {
         openGoogleCalendarLink(
@@ -3732,7 +3778,7 @@
         },
         {
           id: "afternoon-meds",
-          title: "☀️ Afternoon Meds (Magnocal & Sustener)",
+          title: "Afternoon care checklist",
           time: "13:30",
           desc: "Take Tab. Magnocal (Calcium + Magnesium) after lunch (till delivery). Tab. Sustener 200 (1 week course from 30 Sep, till 7 Oct)."
         },
@@ -3916,6 +3962,7 @@
        CONFETTI SYSTEM
        ========================================== */
     function triggerConfetti() {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       const canvas = document.getElementById('confetti-canvas');
       const ctx = canvas.getContext('2d');
       canvas.width = window.innerWidth;
@@ -4629,10 +4676,10 @@
       "A planned C-section is a calm, gentle, and beautiful path to bringing our baby safely into this world. 🍼💫",
       "Every flutter and kick is baby's little way of saying 'I love you, Mommy!' 💕👣",
       "You are surrounded by love, care, and warmth every step of this precious journey. 🌺🕊️",
-      "Take a deep breath and rest easy today — you and our baby are safe, healthy, and deeply cherished. 🌟🧘‍♀️",
+      "Take a deep breath and rest easy today · you and our baby are safe, healthy, and deeply cherished. 🌟🧘‍♀️",
       "Trust your strength, Mounika. Soon you will hear that first sweet cry and hold your tiny treasure. 👶💖",
       "Motherhood begins with the courage and love you show every single day right now. You are amazing! 👑✨",
-      "Breech baby or head down — what matters most is the immense love waiting to welcome this angel. 🌈👼",
+      "Breech baby or head down · what matters most is the immense love waiting to welcome this angel. 🌈👼",
       "Each glass of water, each healthy meal, and each resting moment is pure love given to your baby. 💧🍎",
       "The countdown to October is on! The greatest adventure and deepest joy of our lives is about to begin. 🗓️🎈",
       "You are creating a heartbeat that will forever belong in our family. Be proud of yourself, Mommy! 💓🤱"
@@ -4671,5 +4718,8 @@
       }, 250);
     }
 </script>
+  <div id="saveToast" class="save-toast" role="status" aria-live="polite"></div>
+  <script src="reminders.js?v=28"></script>
+  <script src="upgrade.js?v=28"></script>
 </body>
 </html>

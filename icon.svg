@@ -1,146 +1,223 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Sleeping baby in a rose cradle</title>
   <defs>
-    <!-- Background Gradient -->
+    <!-- Background Gradient: Warm Dreamy Maternity / Womb Sky -->
     <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FF9680" />
-      <stop offset="50%" stop-color="#F7AD71" />
-      <stop offset="100%" stop-color="#E28E9E" />
+      <stop offset="0%" stop-color="#FF9A9E" />
+      <stop offset="50%" stop-color="#FECFEF" />
+      <stop offset="100%" stop-color="#A18CD1" />
     </linearGradient>
 
-    <!-- Face Skin Tone Gradient -->
-    <radialGradient id="skinGrad" cx="45%" cy="40%" r="60%">
-      <stop offset="0%" stop-color="#FFF5EE" />
-      <stop offset="60%" stop-color="#FFE0D1" />
-      <stop offset="100%" stop-color="#FCD2BF" />
+    <!-- Mother's Belly / Womb Outer Halo -->
+    <radialGradient id="wombHalo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.45" />
+      <stop offset="70%" stop-color="#FFB6C1" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#FF8DA1" stop-opacity="0" />
     </radialGradient>
 
-    <!-- Ear Shading Gradient -->
-    <radialGradient id="earGrad" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FFE0D1" />
-      <stop offset="75%" stop-color="#F8B9A5" />
-      <stop offset="100%" stop-color="#EAA18B" />
+    <!-- Womb Chamber Inner Gradient (Warm Amniotic Glow) -->
+    <linearGradient id="wombInner" x1="20%" y1="10%" x2="80%" y2="90%">
+      <stop offset="0%" stop-color="#FFF0F5" stop-opacity="0.95" />
+      <stop offset="50%" stop-color="#FFE4E1" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#FFD1DC" stop-opacity="0.9" />
+    </linearGradient>
+
+    <!-- Baby Skin Tone Gradient -->
+    <radialGradient id="babySkin" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#FFF8F4" />
+      <stop offset="60%" stop-color="#FFE3D6" />
+      <stop offset="100%" stop-color="#F7C4B2" />
     </radialGradient>
 
-    <!-- Rosy Cheek Blush Gradient -->
-    <radialGradient id="blushGrad" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FF6B81" stop-opacity="0.65" />
-      <stop offset="55%" stop-color="#FF8E9E" stop-opacity="0.35" />
+    <!-- Baby Body Shading Gradient -->
+    <linearGradient id="babyBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF4EE" />
+      <stop offset="70%" stop-color="#FEDACD" />
+      <stop offset="100%" stop-color="#F5BCA7" />
+    </linearGradient>
+
+    <!-- Rosy Cheek Blush -->
+    <radialGradient id="cheekBlush" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF6B8B" stop-opacity="0.6" />
+      <stop offset="60%" stop-color="#FF8FA3" stop-opacity="0.3" />
       <stop offset="100%" stop-color="#FFA8B6" stop-opacity="0" />
     </radialGradient>
 
-    <!-- Beanie / Hat / Bib Warm Pastel Gradient -->
-    <linearGradient id="bibGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFFFFF" />
-      <stop offset="100%" stop-color="#FFF0EB" />
+    <!-- Umbilical Cord Gradient -->
+    <linearGradient id="cordGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFB2C3" />
+      <stop offset="50%" stop-color="#FF809B" />
+      <stop offset="100%" stop-color="#FFA8BC" />
     </linearGradient>
-
-    <!-- Soft Glow Filter -->
-    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="8" result="blur" />
-      <feComposite in="SourceGraphic" in2="blur" operator="over" />
-    </filter>
 
     <!-- Drop Shadow Filter -->
     <filter id="shadowFilter" x="-15%" y="-15%" width="130%" height="130%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.12" />
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#5A2A42" flood-opacity="0.2" />
+    </filter>
+
+    <!-- Soft Glow Filter -->
+    <filter id="glowFilter" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
     </filter>
   </defs>
 
-  <!-- App Icon Squircle Background -->
+  <!-- App Icon Squircle Base -->
   <rect width="512" height="512" rx="124" fill="url(#bgGrad)" />
 
-  <!-- Background Decorative Glowing Circles -->
-  <circle cx="90" cy="90" r="100" fill="#FFFFFF" opacity="0.12" />
-  <circle cx="430" cy="430" r="120" fill="#FFFFFF" opacity="0.1" />
+  <!-- Background Decorative Glowing Stars & Sparkles -->
+  <g opacity="0.6">
+    <circle cx="80" cy="90" r="40" fill="#FFFFFF" opacity="0.2" />
+    <circle cx="430" cy="110" r="50" fill="#FFFFFF" opacity="0.15" />
+    <circle cx="420" cy="420" r="60" fill="#FFFFFF" opacity="0.2" />
+    <circle cx="90" cy="410" r="35" fill="#FFFFFF" opacity="0.18" />
 
-  <!-- Sparkles & Magic Stars -->
-  <path d="M 100 190 Q 100 210 80 210 Q 100 210 100 230 Q 100 210 120 210 Q 100 210 100 190 Z" fill="#FFEAA7" opacity="0.9" filter="url(#softGlow)"/>
-  <path d="M 405 130 Q 405 155 380 155 Q 405 155 405 180 Q 405 155 430 155 Q 405 155 405 130 Z" fill="#FFEAA7" opacity="0.9" filter="url(#softGlow)"/>
-  <circle cx="130" cy="130" r="7" fill="#FFFFFF" opacity="0.75" />
-  <circle cx="380" cy="235" r="8" fill="#FFFFFF" opacity="0.7" />
+    <!-- Sparkles -->
+    <path d="M 110 140 Q 110 155 95 155 Q 110 155 110 170 Q 110 155 125 155 Q 110 155 110 140 Z" fill="#FFF275" opacity="0.85" filter="url(#glowFilter)" />
+    <path d="M 400 200 Q 400 215 385 215 Q 400 215 400 230 Q 400 215 415 215 Q 400 215 400 200 Z" fill="#FFF275" opacity="0.85" filter="url(#glowFilter)" />
+    <path d="M 370 80 Q 370 92 358 92 Q 370 92 370 104 Q 370 92 382 92 Q 370 92 370 80 Z" fill="#FFF275" opacity="0.75" />
+    <circle cx="150" cy="85" r="4" fill="#FFFFFF" opacity="0.8" />
+    <circle cx="340" cy="430" r="5" fill="#FFFFFF" opacity="0.7" />
+  </g>
 
-  <!-- MAIN CHARACTER GROUP -->
+  <!-- Cradle bedding behind the original sleeping baby illustration. -->
+  <ellipse cx="256" cy="303" rx="165" ry="75" fill="#fff7f1" stroke="#d99aab" stroke-width="7"/>
+  <!-- SLEEPING BABY (Horizontal / Semi-Horizontal Fetal Position) -->
   <g filter="url(#shadowFilter)">
+    
+    <!-- Baby Body / Curved Back & Bottom -->
+    <path d="M 180 230 C 190 190, 280 185, 335 215 C 375 238, 385 285, 360 320 C 330 355, 260 350, 225 320 C 200 298, 175 270, 180 230 Z" 
+          fill="url(#babyBodyGrad)" 
+          stroke="#F2B8A3" 
+          stroke-width="3" />
 
-    <!-- Ears -->
-    <!-- Left Ear -->
-    <g>
-      <circle cx="120" cy="265" r="34" fill="url(#skinGrad)" stroke="#F2BCA7" stroke-width="3"/>
-      <circle cx="120" cy="265" r="19" fill="url(#earGrad)" />
-    </g>
-    <!-- Right Ear -->
-    <g>
-      <circle cx="392" cy="265" r="34" fill="url(#skinGrad)" stroke="#F2BCA7" stroke-width="3"/>
-      <circle cx="392" cy="265" r="19" fill="url(#earGrad)" />
-    </g>
+    <!-- Cute Diaper / Baby Wrap (Pastel White/Cream with soft fold) -->
+    <path d="M 305 210 C 345 225, 378 260, 370 305 C 362 335, 325 348, 290 342 C 310 315, 320 280, 305 240 Z" 
+          fill="#FFFFFF" 
+          stroke="#F0D0C5" 
+          stroke-width="3" 
+          opacity="0.95" />
+    <circle cx="340" cy="275" r="4.5" fill="#FFB2C3" />
 
-    <!-- Baby Cute Bib / Collared Shirt -->
-    <path d="M 175 390 C 175 450, 337 450, 337 390 C 375 425, 410 475, 410 475 L 102 475 C 102 475, 137 425, 175 390 Z" fill="url(#bibGrad)" stroke="#F8D4C8" stroke-width="4"/>
-    <circle cx="256" cy="425" r="9" fill="#FF8D77" />
-    <circle cx="256" cy="450" r="7" fill="#FF8D77" />
-
-    <!-- Cute Little Heart on Bib -->
-    <path d="M 256 405 C 253 400, 246 400, 244 405 C 241 411, 256 418, 256 422 C 256 418, 271 411, 268 405 C 266 400, 259 400, 256 405 Z" fill="#FF6B81" />
-
-    <!-- Head / Face Base Shape (Round & Chubby) -->
-    <circle cx="256" cy="256" r="142" fill="url(#skinGrad)" stroke="#F0B7A1" stroke-width="3.5" />
-
-    <!-- Chubby Baby Cheeks Lower Softening -->
-    <path d="M 140 280 C 120 340, 210 395, 256 395 C 302 395, 392 340, 372 280 C 392 230, 360 170, 256 170 C 152 170, 120 230, 140 280 Z" fill="url(#skinGrad)" opacity="0.6"/>
-
-    <!-- Cute Brown Hair Swirl / Tuft on top -->
-    <!-- Shadow under hair -->
-    <path d="M 250 114 C 235 90, 280 65, 266 114 Z" fill="#6A3B2C" opacity="0.3"/>
-    <!-- Main Hair Swirl -->
-    <path d="M 256 122 C 230 102, 240 68, 270 76 C 290 82, 282 108, 265 116 C 275 106, 274 92, 262 90 C 248 88, 245 104, 256 122 Z" fill="#7A4433"/>
-
-    <!-- Eyebrows (Soft, expressive & happy) -->
-    <path d="M 178 198 Q 198 184 220 196" fill="none" stroke="#7A4433" stroke-width="4.5" stroke-linecap="round" />
-    <path d="M 292 196 Q 314 184 334 198" fill="none" stroke="#7A4433" stroke-width="4.5" stroke-linecap="round" />
-
-    <!-- Sparkling Happy Eyes (Big, joyful and expressive) -->
-    <!-- Left Eye -->
-    <g>
-      <circle cx="198" cy="235" r="23" fill="#2C1B18" />
-      <!-- Specular Eye Highlights (Twinkle) -->
-      <circle cx="190" cy="227" r="8.5" fill="#FFFFFF" />
-      <circle cx="208" cy="243" r="4.5" fill="#FFFFFF" />
-      <circle cx="204" cy="226" r="3" fill="#FFFFFF" />
-      <!-- Cute curved upper eyelash -->
-      <path d="M 174 225 Q 198 206 222 225" fill="none" stroke="#2C1B18" stroke-width="3" stroke-linecap="round"/>
+    <!-- Baby Curled Legs & Cute Feet -->
+    <path d="M 320 285 C 340 315, 325 355, 290 355 C 265 355, 255 330, 275 305 C 290 285, 305 270, 320 285 Z" 
+          fill="url(#babySkin)" 
+          stroke="#EEB19C" 
+          stroke-width="2.5" />
+    
+    <!-- Tiny Curled Foot & Toes -->
+    <g transform="translate(255, 330) rotate(-20)">
+      <ellipse cx="18" cy="12" rx="15" ry="10" fill="url(#babySkin)" stroke="#EEB19C" stroke-width="2" />
+      <circle cx="6" cy="7" r="3.2" fill="#FAD1C2" />
+      <circle cx="11" cy="4" r="2.8" fill="#FAD1C2" />
+      <circle cx="17" cy="3" r="2.5" fill="#FAD1C2" />
+      <circle cx="23" cy="4" r="2.2" fill="#FAD1C2" />
+      <circle cx="28" cy="7" r="2" fill="#FAD1C2" />
+      <circle cx="24" cy="14" r="5" fill="url(#cheekBlush)" />
     </g>
 
-    <!-- Right Eye -->
-    <g>
-      <circle cx="314" cy="235" r="23" fill="#2C1B18" />
-      <!-- Specular Eye Highlights (Twinkle) -->
-      <circle cx="306" cy="227" r="8.5" fill="#FFFFFF" />
-      <circle cx="324" cy="243" r="4.5" fill="#FFFFFF" />
-      <circle cx="320" cy="226" r="3" fill="#FFFFFF" />
-      <!-- Cute curved upper eyelash -->
-      <path d="M 290 225 Q 314 206 338 225" fill="none" stroke="#2C1B18" stroke-width="3" stroke-linecap="round"/>
+    <!-- Baby Chubby Head (Resting on left, semi-horizontal) -->
+    <circle cx="170" cy="235" r="62" fill="url(#babySkin)" stroke="#EEB19C" stroke-width="3" />
+    
+    <!-- Chubby Baby Cheek Puff -->
+    <path d="M 130 250 C 130 290, 185 305, 215 275 C 225 255, 220 220, 195 200 C 160 190, 130 210, 130 250 Z" 
+          fill="url(#babySkin)" 
+          opacity="0.7" />
+
+    <!-- Cute Baby Brown Hair Swirl -->
+    <path d="M 145 180 C 135 155, 170 145, 185 160 C 172 162, 160 170, 162 178 Z" fill="#7A4433" />
+    <path d="M 175 174 C 185 158, 205 162, 200 176 C 192 174, 182 175, 175 174 Z" fill="#7A4433" />
+
+    <!-- Sleeping Peacefully Closed Eye -->
+    <path d="M 142 232 Q 156 244 170 232" 
+          fill="none" 
+          stroke="#4A2820" 
+          stroke-width="3.5" 
+          stroke-linecap="round" />
+    <path d="M 147 236 L 143 242" stroke="#4A2820" stroke-width="2.2" stroke-linecap="round" />
+    <path d="M 156 238 L 156 245" stroke="#4A2820" stroke-width="2.2" stroke-linecap="round" />
+    <path d="M 165 236 L 169 242" stroke="#4A2820" stroke-width="2.2" stroke-linecap="round" />
+
+    <!-- Peaceful Soft Eyebrow -->
+    <path d="M 140 216 Q 155 208 170 215" 
+          fill="none" 
+          stroke="#8A5243" 
+          stroke-width="2.8" 
+          stroke-linecap="round" />
+
+    <!-- Cute Button Nose -->
+    <ellipse cx="138" cy="242" rx="4.5" ry="3.5" fill="#EFA28D" />
+
+    <!-- Sweet Sleeping Smile -->
+    <path d="M 148 260 Q 160 270 172 261" 
+          fill="none" 
+          stroke="#7A2D23" 
+          stroke-width="3" 
+          stroke-linecap="round" />
+    <path d="M 174 259 Q 177 263 174 266" stroke="#7A2D23" stroke-width="2" stroke-linecap="round" />
+
+    <!-- Rosy Glowing Baby Cheeks -->
+    <circle cx="152" cy="250" r="16" fill="url(#cheekBlush)" />
+
+    <!-- Cute Baby Ear -->
+    <g transform="translate(195, 230)">
+      <ellipse cx="8" cy="8" rx="12" ry="15" fill="url(#babySkin)" stroke="#EEB19C" stroke-width="2.5" />
+      <ellipse cx="8" cy="8" rx="6" ry="8" fill="#F7BFAE" />
     </g>
 
-    <!-- Rosy Glowing Blush Cheeks -->
-    <circle cx="160" cy="275" r="28" fill="url(#blushGrad)" />
-    <circle cx="352" cy="275" r="28" fill="url(#blushGrad)" />
-
-    <!-- Cute Little Button Nose -->
-    <ellipse cx="256" cy="254" rx="6.5" ry="4.5" fill="#E89680" />
-
-    <!-- Happy Big Smile with Tongue -->
-    <g>
-      <!-- Mouth Cavity -->
-      <path d="M 215 282 Q 256 348 297 282 Q 256 295 215 282 Z" fill="#881B2C" />
-      <!-- Little Pink Tongue -->
-      <path d="M 233 306 Q 256 300 279 306 Q 275 328 256 330 Q 237 328 233 306 Z" fill="#FF8298" />
-      <!-- Upper Smile Outline -->
-      <path d="M 210 282 Q 256 298 302 282" fill="none" stroke="#681522" stroke-width="4.5" stroke-linecap="round" />
-      <!-- Left Smile Dimple -->
-      <path d="M 207 279 Q 204 286 211 290" fill="none" stroke="#681522" stroke-width="3.5" stroke-linecap="round" />
-      <!-- Right Smile Dimple -->
-      <path d="M 305 279 Q 308 286 301 290" fill="none" stroke="#681522" stroke-width="3.5" stroke-linecap="round" />
+    <!-- Baby Arm & Tiny Sleeping Hand -->
+    <path d="M 195 260 C 185 295, 155 305, 140 285 C 135 275, 145 260, 165 265 Z" 
+          fill="url(#babySkin)" 
+          stroke="#EEB19C" 
+          stroke-width="2.5" />
+    
+    <g transform="translate(136, 268)">
+      <circle cx="8" cy="8" r="8" fill="url(#babySkin)" stroke="#EEB19C" stroke-width="2" />
+      <path d="M 4 5 Q 7 3 10 5" stroke="#E59F89" stroke-width="1.8" stroke-linecap="round" />
+      <path d="M 4 8 Q 8 6 11 8" stroke="#E59F89" stroke-width="1.8" stroke-linecap="round" />
+      <path d="M 5 11 Q 8 9 11 11" stroke="#E59F89" stroke-width="1.8" stroke-linecap="round" />
     </g>
 
   </g>
+
+  <!-- Rose cradle, rounded posts and curved rocking base. -->
+  <g stroke="#ad496c" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M100 305 Q256 348 412 305 L397 358 Q256 406 115 358 Z" fill="#eab6c8" stroke-width="8"/>
+    <path d="M108 307 Q256 352 404 307" fill="none" stroke="#fff4f6" stroke-width="10"/>
+    <path d="M153 351 L161 378 M202 363 L207 388 M256 368 L256 394 M310 363 L305 388 M359 351 L351 378" fill="none" stroke-width="6" opacity=".65"/>
+    <path d="M159 385 L150 414 M353 385 L362 414 M121 409 Q256 461 391 409" fill="none" stroke-width="13"/>
+    <path d="M99 306 L99 284 M413 306 L413 284" fill="none" stroke-width="10"/>
+    <circle cx="99" cy="280" r="10" fill="#ad496c" stroke="none"/>
+    <circle cx="413" cy="280" r="10" fill="#ad496c" stroke="none"/>
+  </g>
+
+  <!-- DREAMY SLEEPING "Z z z" & HEARTS -->
+  <g fill="#FFFFFF" opacity="0.9" filter="url(#glowFilter)">
+    <path d="M 125 155 L 140 155 L 126 172 L 142 172" 
+          fill="none" 
+          stroke="#FFFFFF" 
+          stroke-width="3.5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+    <path d="M 102 128 L 114 128 L 103 141 L 115 141" 
+          fill="none" 
+          stroke="#FFFFFF" 
+          stroke-width="3" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+    <path d="M 85 108 L 94 108 L 86 118 L 95 118" 
+          fill="none" 
+          stroke="#FFFFFF" 
+          stroke-width="2.5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+    
+    <path d="M 285 160 C 282 154, 272 154, 269 161 C 264 170, 285 182, 285 187 C 285 182, 306 170, 301 161 C 298 154, 288 154, 285 160 Z" 
+          fill="#FF7597" 
+          opacity="0.85" />
+    <path d="M 330 140 C 328 135, 320 135, 318 140 C 314 148, 330 156, 330 160 C 330 156, 346 148, 342 140 C 340 135, 332 135, 330 140 Z" 
+          fill="#FF9EBA" 
+          opacity="0.75" />
+  </g>
+
 </svg>
