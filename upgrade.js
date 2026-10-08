@@ -192,7 +192,7 @@
   });
 })();
 
-// Original, slow pentatonic melody: soft bells above warm sustained chords.
+// Original Krishna-inspired pentatonic bansuri melody, above a soft tonic drone.
 // Synthesized locally so music also works offline, without streaming requests.
 (() => {
   document.addEventListener('DOMContentLoaded', () => {
@@ -204,44 +204,69 @@
     let wanted = read('mouniMusicEnabled', 'true') === 'true';
     const savedVolume = Number(read('mouniMusicVolume', '25'));
     slider.value = Number.isFinite(savedVolume) ? Math.max(0, Math.min(100, savedVolume)) : 25;
-    let context, master, timer, nextNote = 0, step = 0, starting = false;
-    const melody = [72,76,79,null,81,79,76,null,74,76,79,null,76,74,72,null,
-      69,72,76,null,79,76,72,null,67,69,72,null,74,72,67,null];
-    const chords = [[48,55,64],[45,52,60],[53,60,69],[43,50,62]];
+    let context, master, reverb, fluteWave, breathBuffer, timer, nextNote = 0, nextDrone = 0, step = 0, starting = false;
+    // Slow, spacious phrases with breaths and an unhurried return to the tonic.
+    const beat = 60 / 46;
+    const melody = [[74,2],[76,1],[78,2],[81,2],[78,1],[76,2],[74,3],[null,1],
+      [78,2],[81,1],[83,2],[81,2],[78,2],[76,1],[74,3],[null,2],
+      [76,2],[78,1],[81,2],[78,1],[76,2],[74,2],[71,2],[69,3],[null,1],
+      [69,2],[71,1],[74,2],[76,2],[78,2],[76,1],[74,4],[null,2]];
     const frequency = midi => 440 * Math.pow(2, (midi - 69) / 12);
     function paint() {
       const playing = wanted && context?.state === 'running' && !document.hidden;
       button.setAttribute('aria-pressed', String(Boolean(playing)));
       button.textContent = playing ? 'Pause music' : 'Play music';
-      button.setAttribute('aria-label', playing ? 'Pause soothing music' : 'Play soothing music');
-      status.textContent = playing ? 'Soft melody · playing gently' : !wanted ? 'Music paused' : document.hidden ? 'Paused while you’re away' : 'Soft melody · tap to begin';
+      button.setAttribute('aria-label', playing ? 'Pause Krishna-inspired flute music' : 'Play Krishna-inspired flute music');
+      status.textContent = playing ? 'Gentle bansuri · playing softly' : !wanted ? 'Music paused' : document.hidden ? 'Paused while you’re away' : 'Gentle bansuri · tap to begin';
     }
-    function voice(midi, time, duration, level, bell) {
+    function voice(midi, time, duration, level, flute) {
       const oscillator = context.createOscillator();
       const envelope = context.createGain();
-      oscillator.type = 'sine';
-      oscillator.frequency.value = frequency(midi);
+      if (flute) oscillator.setPeriodicWave(fluteWave); else oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(frequency(midi) * (flute ? .995 : 1), time);
+      oscillator.frequency.exponentialRampToValueAtTime(frequency(midi), time + .14);
       envelope.gain.setValueAtTime(0, time);
-      envelope.gain.linearRampToValueAtTime(level, time + (bell ? .08 : 1.8));
+      envelope.gain.linearRampToValueAtTime(level, time + (flute ? .22 : 2));
+      envelope.gain.linearRampToValueAtTime(level * .85, time + duration * .65);
       envelope.gain.exponentialRampToValueAtTime(.0001, time + duration);
       oscillator.connect(envelope);
       envelope.connect(master);
-      oscillator.start(time);
-      oscillator.stop(time + duration + .1);
-      oscillator.onended = () => {oscillator.disconnect(); envelope.disconnect();};
+      envelope.connect(reverb);
+      const nodes = [oscillator, envelope];
+      const sources = [oscillator];
+      if (flute) {
+        const vibrato = context.createOscillator();
+        const depth = context.createGain();
+        vibrato.frequency.value = 4.6;
+        depth.gain.setValueAtTime(0, time);
+        depth.gain.linearRampToValueAtTime(7, time + Math.min(.8, duration / 2));
+        vibrato.connect(depth);depth.connect(oscillator.detune);
+        const breath = context.createBufferSource();
+        breath.buffer = breathBuffer;breath.loop = true;
+        const breathFilter = context.createBiquadFilter();
+        breathFilter.type = 'bandpass';breathFilter.frequency.value = 1300;breathFilter.Q.value = .7;
+        const breathGain = context.createGain();breathGain.gain.value = .045;
+        breath.connect(breathFilter);breathFilter.connect(breathGain);breathGain.connect(envelope);
+        nodes.push(vibrato, depth, breath, breathFilter, breathGain);
+        sources.push(vibrato, breath);
+      }
+      sources.forEach(source => {source.start(time);source.stop(time + duration + .1);});
+      oscillator.onended = () => nodes.forEach(node => node.disconnect());
     }
     function schedule() {
       if (!wanted || document.hidden || context.state !== 'running') return;
-      // Skip elapsed beats after a suspended device; never burst queued notes.
       if (nextNote < context.currentTime) nextNote = context.currentTime + .1;
+      if (nextDrone < context.currentTime) nextDrone = context.currentTime + .1;
+      while (nextDrone < context.currentTime + 4) {
+        voice(50, nextDrone, 17, .05, false);
+        voice(57, nextDrone, 17, .025, false);
+        nextDrone += 14;
+      }
       while (nextNote < context.currentTime + 4) {
-        const note = melody[step % melody.length];
-        if (note !== null) {
-          voice(note, nextNote, 5, .16, true);
-          voice(note + 12, nextNote, 3.5, .025, true);
-        }
-        if (step % 8 === 0) chords[Math.floor(step / 8) % chords.length].forEach(midi => voice(midi, nextNote, 17, .075, false));
-        nextNote += 2;
+        const [note, beats] = melody[step % melody.length];
+        const duration = beats * beat;
+        if (note !== null) voice(note, nextNote, duration * .94, .26, true);
+        nextNote += duration;
         step++;
       }
     }
@@ -257,7 +282,21 @@
           master = context.createGain();
           master.gain.value = Number(slider.value) / 100 * .6;
           master.connect(context.destination);
-          nextNote = context.currentTime + .15;
+          // Airy flute harmonics and a short, quiet room reverb.
+          fluteWave = context.createPeriodicWave(new Float32Array(5), new Float32Array([0,1,.2,.07,.015]));
+          breathBuffer = context.createBuffer(1, context.sampleRate, context.sampleRate);
+          const breathSamples = breathBuffer.getChannelData(0);
+          for (let i = 0; i < breathSamples.length; i++) breathSamples[i] = Math.random() * 2 - 1;
+          reverb = context.createConvolver();
+          const impulse = context.createBuffer(2, context.sampleRate * 2, context.sampleRate);
+          for (let channel = 0; channel < 2; channel++) {
+            const samples = impulse.getChannelData(channel);
+            for (let i = 0; i < samples.length; i++) samples[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / samples.length, 3);
+          }
+          reverb.buffer = impulse;
+          const wet = context.createGain();wet.gain.value = .16;
+          reverb.connect(wet);wet.connect(master);
+          nextNote = nextDrone = context.currentTime + .15;
           context.addEventListener('statechange', paint);
         }
         await context.resume();

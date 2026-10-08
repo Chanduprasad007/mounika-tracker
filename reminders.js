@@ -143,7 +143,7 @@
     if('Notification' in root && Notification.permission==='granted') {
       try {
         const worker=await registration();
-        await worker.showNotification(title,{body,icon:'icon-192.png?v=29',tag:slot?slot.id:'mouni-test-reminder',renotify:true,requireInteraction:true,vibrate:[300,150,300,150,300],data:{url:new URL('./index.html#careContent',location.href).href},actions:[{action:'open',title:'Open checklist'}]});
+        await worker.showNotification(title,{body,icon:'icon-192.png?v=30',tag:slot?slot.id:'mouni-test-reminder',renotify:true,requireInteraction:true,vibrate:[300,150,300,150,300],data:{url:new URL('./index.html#careContent',location.href).href},actions:[{action:'open',title:'Open checklist'}]});
         feedback('Notification sent to Android/Chrome. Sound and vibration depend on your phone settings.');
       }catch(error) {feedback(`The page alert is visible, but the phone notification failed: ${error.message}`);}
     }

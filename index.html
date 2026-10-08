@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mouni & Baby Health Hub</title>
+  <title>Mouni &amp; Chandu’s Baby</title>
   
   <!-- PWA meta tags & installability -->
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="manifest.json?v=30">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Mouni & Baby">
-  <link rel="apple-touch-icon" href="icon-180.png?v=29">
+  <meta name="apple-mobile-web-app-title" content="Mouni &amp; Chandu">
+  <link rel="apple-touch-icon" href="icon-180.png?v=30">
   <meta name="theme-color" content="#ad496c">
 
   <style>
@@ -1494,8 +1494,8 @@
       z-index: 1;
     }
   </style>
-  <link rel="stylesheet" href="upgrade.css?v=29">
-  <link rel="icon" href="icon-192.png?v=29" type="image/png">
+  <link rel="stylesheet" href="upgrade.css?v=30">
+  <link rel="icon" href="icon-192.png?v=30" type="image/png">
 </head>
 <body>
   <a class="skip-link" href="#careContent">Skip to daily care</a>
@@ -1518,7 +1518,7 @@
     <canvas id="confetti-canvas"></canvas>
 
     <div class="masthead">
-      <div class="brand"><img src="icon-192.png?v=29" alt=""><div>Mouni & Baby<small>OUR LITTLE JOURNEY</small></div></div>
+      <div class="brand"><img src="icon-192.png?v=30" alt=""><div>Mouni &amp; Chandu<small>OUR BABY · OUR LITTLE JOURNEY</small></div></div>
       <div class="masthead-actions"><span class="today-date" id="todayDate"></span>
       <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle dark theme">
         <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1526,9 +1526,9 @@
         </svg>
       </button>      </div>
     </div>
-    <div class="music-bar" role="group" aria-label="Soothing music">
-      <div class="music-caption"><span aria-hidden="true">♫</span><div><strong>A little calm</strong><small id="musicStatus" role="status">Soft melody · starts with your first tap</small></div></div>
-      <button id="musicToggle" class="music-toggle" type="button" aria-pressed="false" aria-label="Play soothing music">Play music</button>
+    <div class="music-bar" role="group" aria-label="Krishna-inspired flute music">
+      <div class="music-caption"><span aria-hidden="true">♫</span><div><strong>Krishna-inspired flute</strong><small id="musicStatus" role="status">Gentle bansuri · starts with your first tap</small></div></div>
+      <button id="musicToggle" class="music-toggle" type="button" aria-pressed="false" aria-label="Play Krishna-inspired flute music">Play music</button>
       <label class="music-volume">Volume <input id="musicVolume" type="range" min="0" max="100" value="25" aria-label="Music volume"></label>
     </div>
     <!-- HEADER -->
@@ -1538,9 +1538,9 @@
         <div class="gradient-overlay"></div>
         <div class="text-content" id="greetingText">Good Morning, Mouni</div>
       </div>
-      <h1 id="babyCountdownTitle">Mouni & Baby's Hub</h1>
-      <p class="shiny-text">A little care, every day. For you and your little one.</p>
-      </div><div class="welcome-art"><img class="sleeping-baby-art" src="icon-512.png?v=29" alt="Sleeping baby resting on a golden crescent moon above soft clouds" width="136" height="136"><p class="welcome-note">Every small moment of care<br>is a little act of love.</p></div></div>
+      <h1 id="babyCountdownTitle">Mouni & Chandu’s Baby</h1>
+      <p class="shiny-text">A little care, every day. For our growing family.</p>
+      </div><div class="welcome-art"><img class="sleeping-baby-art" src="icon-512.png?v=30" alt="Sleeping baby resting on a golden crescent moon above soft clouds" width="136" height="136"><p class="welcome-note">Mouni · Mum-to-be<br>Chandu · Dad-to-be</p></div></div>
       
       <button class="overview-toggle" id="overviewToggle" type="button" aria-expanded="true" aria-controls="journeyOverview"><span><strong id="compactPregnancyAge">Your pregnancy journey</strong><span id="overviewLabel">Hide journey details</span></span><span aria-hidden="true" id="overviewSymbol">−</span></button>
       <div class="header-info-wrap" id="journeyOverview">
@@ -2362,7 +2362,7 @@
 
     <!-- FOOTER -->
     <footer>
-      <p style="font-size: 13px; font-weight: 600; color: var(--text);">Made with love for Mounika & Baby 💖</p>
+      <p style="font-size: 13px; font-weight: 600; color: var(--text);">Made with love for Mouni, Chandu &amp; Baby 💖</p>
       <p style="margin-top: 4px; font-size: 11.5px; color: var(--text-muted);">Planned Delivery: 1st – 5th November 2026 🍼 • Last Checkup: 14th October 🏥</p>
       <p style="margin-top: 6px; font-size: 11px; opacity: 0.75;" id="appStatusIndicator">All records saved locally</p>
     </footer>
@@ -2699,7 +2699,7 @@
         else if (weeks >= 28) triText = "3rd Trimester";
         
         document.getElementById('gestationalAgeText').textContent = `${weeks} Weeks, ${days} Days Pregnant • ${triText}`;
-        document.getElementById('babyCountdownTitle').textContent = "Mouni & Baby's Hub";
+        document.getElementById('babyCountdownTitle').textContent = "Mouni & Chandu’s Baby";
 
         // Draw Trimester Bars
         const tri1 = document.getElementById('tri1');
@@ -3478,13 +3478,13 @@
         try {
           new Notification(title, {
             body: body,
-            icon: 'icon-192.png?v=29'
+            icon: 'icon-192.png?v=30'
           });
         } catch (e) {
           navigator.serviceWorker.ready.then(registration => {
             registration.showNotification(title, {
               body: body,
-              icon: 'icon-192.png?v=29'
+              icon: 'icon-192.png?v=30'
             });
           });
         }
@@ -3628,7 +3628,7 @@
       const isDoloAMDone = checkedTablets.includes(16) ? "✅ Done" : "❌ Pending";
       const isDoloPMDone = checkedTablets.includes(17) ? "✅ Done" : "❌ Pending";
 
-      let text = `🌸 *Mouni & Baby Health Update*\nDate: ${today}\n\n• Tablet Progress: *${statusText}*\n• Thyronorm (AM): ${isThyronormDone}\n`;
+      let text = `🌸 *Mouni & Chandu’s Baby · Health Update*\nDate: ${today}\n\n• Tablet Progress: *${statusText}*\n• Thyronorm (AM): ${isThyronormDone}\n`;
       if (isCourseActive) {
         text += `• Pan 40mg (AM): ${isPanDone}\n`;
         text += `• Ceftum 500mg (AM): ${isCeftumAMDone}\n`;
@@ -3654,7 +3654,7 @@
 
       if (navigator.share) {
         navigator.share({
-          title: "Mouni & Baby Health Update",
+          title: "Mouni & Chandu’s Baby · Health Update",
           text: text
         }).catch(err => {
           console.log("Web Share error", err);
@@ -4719,7 +4719,7 @@
     }
 </script>
   <div id="saveToast" class="save-toast" role="status" aria-live="polite"></div>
-  <script src="reminders.js?v=29"></script>
-  <script src="upgrade.js?v=29"></script>
+  <script src="reminders.js?v=30"></script>
+  <script src="upgrade.js?v=30"></script>
 </body>
 </html>

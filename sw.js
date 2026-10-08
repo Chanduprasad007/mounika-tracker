@@ -1,14 +1,14 @@
-const CACHE_NAME = 'mouni-baby-hub-v29';
+const CACHE_NAME = 'mouni-baby-hub-v30';
 const ASSETS = [
   './index.html',
-  './manifest.json',
-  './icon.svg?v=29',
-  './icon-192.png?v=29',
-  './icon-512.png?v=29',
-  './icon-180.png?v=29',
-  './upgrade.css?v=29',
-  './upgrade.js?v=29',
-  './reminders.js?v=29'
+  './manifest.json?v=30',
+  './icon.svg?v=30',
+  './icon-192.png?v=30',
+  './icon-512.png?v=30',
+  './icon-180.png?v=30',
+  './upgrade.css?v=30',
+  './upgrade.js?v=30',
+  './reminders.js?v=30'
 ];
 
 // Install Service Worker
