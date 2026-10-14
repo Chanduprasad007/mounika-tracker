@@ -313,3 +313,12 @@ header h1 {font-weight:650}
 .welcome-art {display:flex;flex-direction:column;align-items:center;gap:10px;flex-shrink:0}
 .sleeping-baby-art {width:136px;height:136px;object-fit:contain;border-radius:22px;background:white}
 @media(max-width:480px) {.welcome-row {flex-wrap:wrap}.welcome-row>div:first-child {flex-basis:100%}.welcome-art {margin:auto}.sleeping-baby-art {width:112px;height:112px}}
+
+.prescription-update {padding:22px;margin-bottom:22px;border:1px solid var(--border);border-radius:20px;background:var(--rose-lt)}
+.prescription-update-heading>span {font-size:12px;letter-spacing:.3px;color:var(--rose-dark)}
+.prescription-update h3 {font-size:20px;margin:6px 0 18px;color:var(--text)}
+.prescription-course {padding:12px 0;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:5px}
+.prescription-course strong {font-size:15px;color:var(--text)}
+.prescription-course span {font-size:13px;color:var(--text-muted);line-height:1.5}
+.prescription-course small {font-size:12px;color:var(--rose-dark);line-height:1.5}
+.prescription-course b {font-weight:600}

@@ -6,11 +6,11 @@
   <title>Mouni &amp; Chandu’s Baby</title>
   
   <!-- PWA meta tags & installability -->
-  <link rel="manifest" href="manifest.json?v=30">
+  <link rel="manifest" href="manifest.json?v=31">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Mouni &amp; Chandu">
-  <link rel="apple-touch-icon" href="icon-180.png?v=30">
+  <link rel="apple-touch-icon" href="icon-180.png?v=31">
   <meta name="theme-color" content="#ad496c">
 
   <style>
@@ -1494,8 +1494,8 @@
       z-index: 1;
     }
   </style>
-  <link rel="stylesheet" href="upgrade.css?v=30">
-  <link rel="icon" href="icon-192.png?v=30" type="image/png">
+  <link rel="stylesheet" href="upgrade.css?v=31">
+  <link rel="icon" href="icon-192.png?v=31" type="image/png">
 </head>
 <body>
   <a class="skip-link" href="#careContent">Skip to daily care</a>
@@ -1518,7 +1518,7 @@
     <canvas id="confetti-canvas"></canvas>
 
     <div class="masthead">
-      <div class="brand"><img src="icon-192.png?v=30" alt=""><div>Mouni &amp; Chandu<small>OUR BABY · OUR LITTLE JOURNEY</small></div></div>
+      <div class="brand"><img src="icon-192.png?v=31" alt=""><div>Mouni &amp; Chandu<small>OUR BABY · OUR LITTLE JOURNEY</small></div></div>
       <div class="masthead-actions"><span class="today-date" id="todayDate"></span>
       <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle dark theme">
         <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1540,7 +1540,7 @@
       </div>
       <h1 id="babyCountdownTitle">Mouni & Chandu’s Baby</h1>
       <p class="shiny-text">A little care, every day. For our growing family.</p>
-      </div><div class="welcome-art"><img class="sleeping-baby-art" src="icon-512.png?v=30" alt="Sleeping baby resting on a golden crescent moon above soft clouds" width="136" height="136"><p class="welcome-note">Mouni · Mum-to-be<br>Chandu · Dad-to-be</p></div></div>
+      </div><div class="welcome-art"><img class="sleeping-baby-art" src="icon-512.png?v=31" alt="Sleeping baby resting on a golden crescent moon above soft clouds" width="136" height="136"><p class="welcome-note">Mouni · Mum-to-be<br>Chandu · Dad-to-be</p></div></div>
       
       <button class="overview-toggle" id="overviewToggle" type="button" aria-expanded="true" aria-controls="journeyOverview"><span><strong id="compactPregnancyAge">Your pregnancy journey</strong><span id="overviewLabel">Hide journey details</span></span><span aria-hidden="true" id="overviewSymbol">−</span></button>
       <div class="header-info-wrap" id="journeyOverview">
@@ -1765,6 +1765,13 @@
 
       </aside><div class="care-main">
 
+      <section class="prescription-update" aria-labelledby="prescriptionUpdateTitle">
+        <div class="prescription-update-heading"><span>Doctor’s update · 14 October 2026</span><h3 id="prescriptionUpdateTitle">Your new tablet courses</h3></div>
+        <div class="prescription-course"><strong>Duvadilon 10mg</strong><span>Morning &amp; night · after food</span><small>14–19 October · 6 days <b id="duvadilonCourseStatus"></b></small></div>
+        <div class="prescription-course"><strong>Pan 40</strong><span>Morning · food timing not specified</span><small>14–19 October · 6 days <b id="panCourseStatus"></b></small></div>
+        <div class="prescription-course"><strong>Susten SR 200</strong><span>Night · food timing not specified</span><small>14–24 October · 11 days <b id="sustenCourseStatus"></b></small></div>
+      </section>
+
       <!-- Bed Rest Active Warning (June 15 to July 6) -->
       <div class="banner banner-danger" id="bedRestBanner" style="display: none;">
         <span class="banner-icon">🛌</span>
@@ -1834,6 +1841,24 @@
               </div>
             </div>
 
+
+            <div class="item-row" onclick="toggleTablet(20, event)" data-prescription="2026-10-14" style="display:none">
+              <div class="checkbox-btn" id="tab-chk-20"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Pan 40</div>
+                <div class="item-desc">Daily morning through 19 October. Food timing was not specified in this prescription update.</div>
+                <div class="badge-row"><span class="badge tag-nutrition">📅 14–19 Oct · 6 days</span></div>
+              </div>
+            </div>
+
+            <div class="item-row" onclick="toggleTablet(21, event)" data-prescription="2026-10-14" style="display:none">
+              <div class="checkbox-btn" id="tab-chk-21"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Duvadilon 10mg</div>
+                <div class="item-desc">Daily morning after food through 19 October.</div>
+                <div class="badge-row"><span class="badge tag-after-food">🕒 After Food</span><span class="badge tag-nutrition">📅 14–19 Oct · 6 days</span></div>
+              </div>
+            </div>
             <div class="item-row" onclick="toggleTablet(8, event)">
               <div class="checkbox-btn" id="tab-chk-8"></div>
               <div class="item-content">
@@ -1987,10 +2012,28 @@
               <div class="time-icon" style="background:#EDE7F6;">🌙</div>
               <div class="time-info">
                 <h2>9:00 – 10:00 PM</h2>
-                <span>Take after dinner</span>
+                <span>Your evening routine</span>
               </div>
             </div>
 
+
+            <div class="item-row" onclick="toggleTablet(22, event)" data-prescription="2026-10-14" style="display:none">
+              <div class="checkbox-btn" id="tab-chk-22"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Duvadilon 10mg</div>
+                <div class="item-desc">Daily night after food through 19 October.</div>
+                <div class="badge-row"><span class="badge tag-after-food">🕒 After Food</span><span class="badge tag-nutrition">📅 14–19 Oct · 6 days</span></div>
+              </div>
+            </div>
+
+            <div class="item-row" onclick="toggleTablet(23, event)" data-prescription="2026-10-14" style="display:none">
+              <div class="checkbox-btn" id="tab-chk-23"></div>
+              <div class="item-content">
+                <div class="item-name">Tab. Susten SR 200</div>
+                <div class="item-desc">Daily night through 24 October. Food timing was not specified in this prescription update.</div>
+                <div class="badge-row"><span class="badge tag-nutrition">📅 14–24 Oct · 11 days</span></div>
+              </div>
+            </div>
             <div class="item-row" onclick="toggleTablet(4, event)">
               <div class="checkbox-btn" id="tab-chk-4"></div>
               <div class="item-content">
@@ -2259,7 +2302,7 @@
             <p class="magic-bento-card__description">
               • <strong>Delivery Schedule:</strong> Dr. Bharathi Ramesh suggested delivery between <strong>1st – 5th November 2026</strong> for baby & Mouni's safety.<br>
               • <strong>Ongoing Meds till Delivery:</strong> Tab. Thyronorm (morning), Tab. Magnocal (afternoon), Tab. Womiron (night).<br>
-              • <strong>Susten Tablet:</strong> 1 week from 30 Sep, then stop (last day: 7th Oct).
+              • <strong>New prescription from 14 Oct:</strong> Duvadilon 10mg morning &amp; night after food and Pan 40 morning through 19 Oct; Susten SR 200 nightly through 24 Oct.
             </p>
           </div>
         </div>
@@ -2924,7 +2967,29 @@
       return todayMidnight < postSurgeryEndDate;
     }
 
+    // Separate IDs preserve the earlier prescription and its saved checkboxes.
+    // Count 14 October as day 1; use the family's India calendar date.
+    function getOctoberPrescription(now = new Date()) {
+      const date = new Intl.DateTimeFormat('sv-SE', {timeZone:'Asia/Kolkata',year:'numeric',month:'2-digit',day:'2-digit'}).format(now);
+      return {date, shortCourse:date >= '2026-10-14' && date <= '2026-10-19', longCourse:date >= '2026-10-14' && date <= '2026-10-24'};
+    }
+    function updateOctoberPrescription() {
+      const course = getOctoberPrescription();
+      const setRows = (ids, active) => ids.forEach(id => {
+        const row = document.getElementById(`tab-chk-${id}`)?.closest('.item-row');
+        if (row) row.style.display = active ? 'flex' : 'none';
+      });
+      setRows([20,21,22], course.shortCourse);
+      setRows([23], course.longCourse);
+      const day = Math.round((Date.parse(course.date + 'T00:00:00+05:30') - Date.parse('2026-10-14T00:00:00+05:30')) / 86400000) + 1;
+      const label = (active, days) => active ? `· Day ${day} of ${days}` : day < 1 ? '· Starts 14 October' : '· Course ended';
+      document.getElementById('duvadilonCourseStatus').textContent = label(course.shortCourse,6);
+      document.getElementById('panCourseStatus').textContent = label(course.shortCourse,6);
+      document.getElementById('sustenCourseStatus').textContent = label(course.longCourse,11);
+    }
+
     function checkCourseExpiration() {
+      updateOctoberPrescription();
       // Dydrogest (IDs 0 and 5)
       const isDydrogestActive = checkIsDydrogestActive();
       [0, 5].forEach(id => {
@@ -3036,9 +3101,9 @@
       const today = new Date();
       const options = { day: 'numeric', month: 'short', year: 'numeric' };
       const dateStr = today.toLocaleDateString('en-US', options);
-      const isSustenActive = checkIsSustenerActive();
+      const isSustenActive = getOctoberPrescription().longCourse;
       
-      const statusText = `📅 Date: ${dateStr} | 💊 Susten: ${isSustenActive ? 'Active (Till 7 Oct)' : 'Stopped'} | 🩺 Last Checkup: 14 Oct | 👶 Delivery: 1–5 Nov 2026`;
+      const statusText = `📅 Date: ${dateStr} | 💊 Susten: ${isSustenActive ? 'SR 200 active (through 24 Oct)' : 'Course ended'} | 🩺 Last Checkup: 14 Oct | 👶 Delivery: 1–5 Nov 2026`;
       const elem = document.getElementById('appStatusIndicator');
       if (elem) {
         elem.textContent = statusText;
@@ -3156,7 +3221,7 @@
       }
     }
 
-    function updateTabletsProgress() {
+    function getActiveTabletIds() {
       let activeIds = [1, 3, 4, 6, 7]; // Always active supplements & care
       if (checkIsDydrogestActive()) {
         activeIds = activeIds.concat([0, 5]);
@@ -3174,6 +3239,14 @@
         activeIds = activeIds.concat([14, 15, 16, 17]);
       }
       
+      const course = getOctoberPrescription();
+      if (course.shortCourse) activeIds = activeIds.concat([20,21,22]);
+      if (course.longCourse) activeIds.push(23);
+      return activeIds;
+    }
+
+    function updateTabletsProgress() {
+      const activeIds = getActiveTabletIds();
       TOTAL_TABLETS = activeIds.length;
 
       // Exclude Duphalac (ID 13) from daily progress calculations since it is SOS (optional)
@@ -3478,13 +3551,13 @@
         try {
           new Notification(title, {
             body: body,
-            icon: 'icon-192.png?v=30'
+            icon: 'icon-192.png?v=31'
           });
         } catch (e) {
           navigator.serviceWorker.ready.then(registration => {
             registration.showNotification(title, {
               body: body,
-              icon: 'icon-192.png?v=30'
+              icon: 'icon-192.png?v=31'
             });
           });
         }
@@ -3594,13 +3667,9 @@
       const isPostSurgeryActive = checkIsPostSurgeryActive();
       const postSurgeryIds = [14, 15, 16, 17];
       
-      const doneCount = checkedTablets.filter(id => {
-        if (id === 13) return false; // Exclude Duphalac
-        if (courseIds.includes(id) && !isCourseActive) return false;
-        if (postSurgeryIds.includes(id) && !isPostSurgeryActive) return false;
-        return true;
-      }).length;
-      const total = TOTAL_TABLETS;
+      const activeIds = getActiveTabletIds();
+      const doneCount = checkedTablets.filter(id => activeIds.includes(id)).length;
+      const total = activeIds.length;
       const pct = Math.round((doneCount / total) * 100) || 0;
       
       let statusText = "";
@@ -3629,6 +3698,14 @@
       const isDoloPMDone = checkedTablets.includes(17) ? "✅ Done" : "❌ Pending";
 
       let text = `🌸 *Mouni & Chandu’s Baby · Health Update*\nDate: ${today}\n\n• Tablet Progress: *${statusText}*\n• Thyronorm (AM): ${isThyronormDone}\n`;
+      const newCourse = getOctoberPrescription();
+      const state = id => checkedTablets.includes(id) ? '✅ Done' : '❌ Pending';
+      if (newCourse.shortCourse) {
+        text += `• Pan 40 (AM, through 19 Oct): ${state(20)}\n`;
+        text += `• Duvadilon 10mg (AM after food): ${state(21)}\n`;
+        text += `• Duvadilon 10mg (Night after food, through 19 Oct): ${state(22)}\n`;
+      }
+      if (newCourse.longCourse) text += `• Susten SR 200 (Night, through 24 Oct): ${state(23)}\n`;
       if (isCourseActive) {
         text += `• Pan 40mg (AM): ${isPanDone}\n`;
         text += `• Ceftum 500mg (AM): ${isCeftumAMDone}\n`;
@@ -4719,7 +4796,7 @@
     }
 </script>
   <div id="saveToast" class="save-toast" role="status" aria-live="polite"></div>
-  <script src="reminders.js?v=30"></script>
-  <script src="upgrade.js?v=30"></script>
+  <script src="reminders.js?v=31"></script>
+  <script src="upgrade.js?v=31"></script>
 </body>
 </html>
