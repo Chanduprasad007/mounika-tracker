@@ -6,11 +6,11 @@
   <title>Mouni &amp; Chandu’s Baby</title>
   
   <!-- PWA meta tags & installability -->
-  <link rel="manifest" href="manifest.json?v=31">
+  <link rel="manifest" href="manifest.json?v=32">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Mouni &amp; Chandu">
-  <link rel="apple-touch-icon" href="icon-180.png?v=31">
+  <link rel="apple-touch-icon" href="icon-180.png?v=32">
   <meta name="theme-color" content="#ad496c">
 
   <style>
@@ -1494,8 +1494,8 @@
       z-index: 1;
     }
   </style>
-  <link rel="stylesheet" href="upgrade.css?v=31">
-  <link rel="icon" href="icon-192.png?v=31" type="image/png">
+  <link rel="stylesheet" href="upgrade.css?v=32">
+  <link rel="icon" href="icon-192.png?v=32" type="image/png">
 </head>
 <body>
   <a class="skip-link" href="#careContent">Skip to daily care</a>
@@ -1518,7 +1518,7 @@
     <canvas id="confetti-canvas"></canvas>
 
     <div class="masthead">
-      <div class="brand"><img src="icon-192.png?v=31" alt=""><div>Mouni &amp; Chandu<small>OUR BABY · OUR LITTLE JOURNEY</small></div></div>
+      <div class="brand"><img src="icon-192.png?v=32" alt=""><div>Mouni &amp; Chandu<small>OUR BABY · OUR LITTLE JOURNEY</small></div></div>
       <div class="masthead-actions"><span class="today-date" id="todayDate"></span>
       <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle dark theme">
         <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1540,7 +1540,7 @@
       </div>
       <h1 id="babyCountdownTitle">Mouni & Chandu’s Baby</h1>
       <p class="shiny-text">A little care, every day. For our growing family.</p>
-      </div><div class="welcome-art"><img class="sleeping-baby-art" src="icon-512.png?v=31" alt="Sleeping baby resting on a golden crescent moon above soft clouds" width="136" height="136"><p class="welcome-note">Mouni · Mum-to-be<br>Chandu · Dad-to-be</p></div></div>
+      </div><div class="welcome-art"><img class="sleeping-baby-art" src="icon-512.png?v=32" alt="Sleeping baby resting on a golden crescent moon above soft clouds" width="136" height="136"><p class="welcome-note">Mouni · Mum-to-be<br>Chandu · Dad-to-be</p></div></div>
       
       <button class="overview-toggle" id="overviewToggle" type="button" aria-expanded="true" aria-controls="journeyOverview"><span><strong id="compactPregnancyAge">Your pregnancy journey</strong><span id="overviewLabel">Hide journey details</span></span><span aria-hidden="true" id="overviewSymbol">−</span></button>
       <div class="header-info-wrap" id="journeyOverview">
@@ -1764,13 +1764,6 @@
       </div>
 
       </aside><div class="care-main">
-
-      <section class="prescription-update" aria-labelledby="prescriptionUpdateTitle">
-        <div class="prescription-update-heading"><span>Doctor’s update · 14 October 2026</span><h3 id="prescriptionUpdateTitle">Your new tablet courses</h3></div>
-        <div class="prescription-course"><strong>Duvadilon 10mg</strong><span>Morning &amp; night · after food</span><small>14–19 October · 6 days <b id="duvadilonCourseStatus"></b></small></div>
-        <div class="prescription-course"><strong>Pan 40</strong><span>Morning · food timing not specified</span><small>14–19 October · 6 days <b id="panCourseStatus"></b></small></div>
-        <div class="prescription-course"><strong>Susten SR 200</strong><span>Night · food timing not specified</span><small>14–24 October · 11 days <b id="sustenCourseStatus"></b></small></div>
-      </section>
 
       <!-- Bed Rest Active Warning (June 15 to July 6) -->
       <div class="banner banner-danger" id="bedRestBanner" style="display: none;">
@@ -2981,11 +2974,6 @@
       });
       setRows([20,21,22], course.shortCourse);
       setRows([23], course.longCourse);
-      const day = Math.round((Date.parse(course.date + 'T00:00:00+05:30') - Date.parse('2026-10-14T00:00:00+05:30')) / 86400000) + 1;
-      const label = (active, days) => active ? `· Day ${day} of ${days}` : day < 1 ? '· Starts 14 October' : '· Course ended';
-      document.getElementById('duvadilonCourseStatus').textContent = label(course.shortCourse,6);
-      document.getElementById('panCourseStatus').textContent = label(course.shortCourse,6);
-      document.getElementById('sustenCourseStatus').textContent = label(course.longCourse,11);
     }
 
     function checkCourseExpiration() {
@@ -3551,13 +3539,13 @@
         try {
           new Notification(title, {
             body: body,
-            icon: 'icon-192.png?v=31'
+            icon: 'icon-192.png?v=32'
           });
         } catch (e) {
           navigator.serviceWorker.ready.then(registration => {
             registration.showNotification(title, {
               body: body,
-              icon: 'icon-192.png?v=31'
+              icon: 'icon-192.png?v=32'
             });
           });
         }
@@ -4796,7 +4784,7 @@
     }
 </script>
   <div id="saveToast" class="save-toast" role="status" aria-live="polite"></div>
-  <script src="reminders.js?v=31"></script>
-  <script src="upgrade.js?v=31"></script>
+  <script src="reminders.js?v=32"></script>
+  <script src="upgrade.js?v=32"></script>
 </body>
 </html>
