@@ -6,11 +6,11 @@
   <title>Mouni &amp; Chandu’s Baby</title>
   
   <!-- PWA meta tags & installability -->
-  <link rel="manifest" href="manifest.json?v=32">
+  <link rel="manifest" href="manifest.json?v=33">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Mouni &amp; Chandu">
-  <link rel="apple-touch-icon" href="icon-180.png?v=32">
+  <link rel="apple-touch-icon" href="icon-180.png?v=33">
   <meta name="theme-color" content="#ad496c">
 
   <style>
@@ -1494,8 +1494,8 @@
       z-index: 1;
     }
   </style>
-  <link rel="stylesheet" href="upgrade.css?v=32">
-  <link rel="icon" href="icon-192.png?v=32" type="image/png">
+  <link rel="stylesheet" href="upgrade.css?v=33">
+  <link rel="icon" href="icon-192.png?v=33" type="image/png">
 </head>
 <body>
   <a class="skip-link" href="#careContent">Skip to daily care</a>
@@ -1518,7 +1518,7 @@
     <canvas id="confetti-canvas"></canvas>
 
     <div class="masthead">
-      <div class="brand"><img src="icon-192.png?v=32" alt=""><div>Mouni &amp; Chandu<small>OUR BABY · OUR LITTLE JOURNEY</small></div></div>
+      <div class="brand"><img src="icon-192.png?v=33" alt=""><div>Mouni &amp; Chandu<small>OUR BABY · OUR LITTLE JOURNEY</small></div></div>
       <div class="masthead-actions"><span class="today-date" id="todayDate"></span>
       <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle dark theme">
         <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1526,133 +1526,12 @@
         </svg>
       </button>      </div>
     </div>
-    <div class="music-bar" role="group" aria-label="Krishna-inspired flute music">
-      <div class="music-caption"><span aria-hidden="true">♫</span><div><strong>Krishna-inspired flute</strong><small id="musicStatus" role="status">Gentle bansuri · starts with your first tap</small></div></div>
-      <button id="musicToggle" class="music-toggle" type="button" aria-pressed="false" aria-label="Play Krishna-inspired flute music">Play music</button>
-      <label class="music-volume">Volume <input id="musicVolume" type="range" min="0" max="100" value="25" aria-label="Music volume"></label>
-    </div>
     <!-- HEADER -->
-    <header>
-      <div class="welcome-row"><div>
-      <div class="animated-gradient-text with-border greeting-text">
-        <div class="gradient-overlay"></div>
-        <div class="text-content" id="greetingText">Good Morning, Mouni</div>
-      </div>
-      <h1 id="babyCountdownTitle">Mouni & Chandu’s Baby</h1>
-      <p class="shiny-text">A little care, every day. For our growing family.</p>
-      </div><div class="welcome-art"><img class="sleeping-baby-art" src="icon-512.png?v=32" alt="Sleeping baby resting on a golden crescent moon above soft clouds" width="136" height="136"><p class="welcome-note">Mouni · Mum-to-be<br>Chandu · Dad-to-be</p></div></div>
-      
-      <button class="overview-toggle" id="overviewToggle" type="button" aria-expanded="true" aria-controls="journeyOverview"><span><strong id="compactPregnancyAge">Your pregnancy journey</strong><span id="overviewLabel">Hide journey details</span></span><span aria-hidden="true" id="overviewSymbol">−</span></button>
-      <div class="header-info-wrap" id="journeyOverview">
-        <div class="journey-card">
-        <!-- Trimester / Gestational progress -->
-        <div class="info-card">
-          <div class="info-card-title">
-            <span>🤰 Pregnancy Progress</span>
-            <span id="gestationalAgeText">17 Weeks • 2nd Trimester</span>
-          </div>
-          <!-- Visual Trimester Gauge -->
-          <div class="trimester-container">
-            <div class="trimester-seg completed" id="tri1"></div>
-            <div class="trimester-seg" id="tri2"><div class="trimester-fill" id="tri2Fill" style="width: 0%;"></div></div>
-            <div class="trimester-seg" id="tri3"><div class="trimester-fill" id="tri3Fill" style="width: 0%;"></div></div>
-          </div>
-          <div class="trimester-label-row">
-            <span>TRI 1 (W1-12)</span>
-            <span>TRI 2 (W13-27)</span>
-            <span>TRI 3 (W28-40)</span>
-          </div>
-        </div>
-
-        <!-- Unified Planned Delivery & Care Plan Card -->
-        <div class="info-card delivery-card" style="background: linear-gradient(135deg, rgba(232, 146, 124, 0.35) 0%, rgba(155, 137, 196, 0.3) 100%); border: 1.5px solid rgba(255, 255, 255, 0.45);">
-          <div class="info-card-title" style="display: flex; justify-content: space-between; align-items: center;">
-            <span>🏥 Planned Baby Delivery Window</span>
-            <span style="background: rgba(255, 255, 255, 0.35); padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700;">1 – 5 Nov 2026</span>
-          </div>
-          <div class="info-card-value" id="countdownTimerText" style="font-size: 16.5px; margin-top: 4px;">🍼 -- Days Until Baby Arrives (1–5 Nov)</div>
-          <div class="info-card-sub" id="countdownSubtext" style="margin-top: 6px; font-size: 11.5px; line-height: 1.45;">
-            <strong>👶 Delivery Window:</strong> Planned Delivery between <strong>1st – 5th November 2026</strong>. 💖<br>
-            <strong>🩺 Last Checkup:</strong> Scheduled on <strong>14th October 2026</strong> (Doctor will suggest 1 scan before 28th Oct).
-          </div>
-        </div>
-
-        </div>
-        <!-- Baby Size Visualizer Card (Option E) -->
-        <div class="info-card" id="babySizeCard" style="display: none; background: rgba(255, 255, 255, 0.22); border-color: rgba(255,255,255,0.3); padding: 16px;">
-          <div class="info-card-title" style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
-            <span>🌱 Baby Size & Development</span>
-            <span id="weeksProgressBadge" style="background: rgba(255, 255, 255, 0.25); padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold;">Week --</span>
-          </div>
-          
-          <!-- Size & Stats Bento Row -->
-          <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px;">
-            <div id="babySizeEmoji" style="font-size: 42px; background: rgba(255,255,255,0.15); padding: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; flex-shrink: 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">👶</div>
-            <div style="flex-grow: 1;">
-              <div id="babySizeComparison" style="font-size: 16px; font-weight: 700; color: white;">Calculating size...</div>
-              <div style="display: flex; gap: 12px; margin-top: 4px; flex-wrap: wrap;">
-                <span id="babySizeLength" style="font-size: 12px; background: rgba(255,255,255,0.12); padding: 2px 6px; border-radius: 6px; display: flex; align-items: center; gap: 4px;">📏 --</span>
-                <span id="babySizeWeight" style="font-size: 12px; background: rgba(255,255,255,0.12); padding: 2px 6px; border-radius: 6px; display: flex; align-items: center; gap: 4px;">⚖️ --</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Milestones & Organ Progress Grid -->
-          <div style="display: grid; grid-template-columns: 1fr; gap: 10px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px; margin-bottom: 14px;">
-            <div>
-              <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; font-weight: bold; margin-bottom: 2px;">🌟 Key Milestone</div>
-              <div id="babySizeMilestone" style="font-size: 12px; color: rgba(255, 255, 255, 0.95); line-height: 1.4;">
-                --
-              </div>
-            </div>
-            <div>
-              <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; font-weight: bold; margin-bottom: 2px;">🫁 Organ Development</div>
-              <div id="babySizeOrgan" style="font-size: 12px; color: rgba(255, 255, 255, 0.9); line-height: 1.4; font-style: italic;">
-                --
-              </div>
-            </div>
-          </div>
-          
-          <!-- Timeline Section -->
-          <div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px;">
-            <div style="display: flex; justify-content: space-between; font-size: 11px; opacity: 0.8; margin-bottom: 6px;">
-              <span id="timelineWeeksCompleted">-- Weeks Completed</span>
-              <span id="timelineWeeksRemaining">-- Weeks Remaining</span>
-            </div>
-            
-            <!-- Timeline Visual Bar -->
-            <div class="timeline-bar-container">
-              <!-- Filled segment -->
-              <div id="timelineProgressFill" class="timeline-progress-fill" style="width: 0%;"></div>
-              <!-- Current Week Pin/Marker -->
-              <div id="timelineCurrentMarker" class="timeline-current-marker" style="left: 0%;"></div>
-              
-              <!-- Milestone Flags/Ticks on Timeline -->
-              <!-- 13 Weeks Tick: 13 / 40 = 32.5% -->
-              <div class="timeline-tick" style="left: 32.5%;" title="W13: Trimester 2 Starts"></div>
-              <!-- 20 Weeks Tick: 20 / 40 = 50.0% -->
-              <div class="timeline-tick" style="left: 50.0%;" title="W20: Halfway (Banana)"></div>
-              <!-- 28 Weeks Tick: 28 / 40 = 70.0% -->
-              <div class="timeline-tick" style="left: 70.0%;" title="W28: Trimester 3 Starts"></div>
-              <!-- 34 Weeks Tick: 34 / 40 = 85.0% -->
-              <div class="timeline-tick" style="left: 85.0%;" title="W34: 15-Day Injection Limit"></div>
-              <!-- 37 Weeks Tick: 37 / 40 = 92.5% -->
-              <div class="timeline-tick" style="left: 92.5%;" title="W37: Early Term"></div>
-              <!-- 40 Weeks Tick: 100% -->
-              <div class="timeline-tick" style="left: 100%;" title="W40: Due Date"></div>
-            </div>
-            
-            <!-- Labels for the Milestone Flags -->
-            <div style="position: relative; height: 16px; margin-top: 4px; font-size: 8px; opacity: 0.6;">
-              <span style="position: absolute; left: 32.5%; transform: translateX(-50%); white-space: nowrap;">W13 (Tri 2)</span>
-              <span style="position: absolute; left: 50.0%; transform: translateX(-50%); white-space: nowrap;">W20 (Half)</span>
-              <span style="position: absolute; left: 70.0%; transform: translateX(-50%); white-space: nowrap;">W28 (Tri 3)</span>
-              <span style="position: absolute; left: 85.0%; transform: translateX(-50%); white-space: nowrap;">W34 (Goal)</span>
-              <span style="position: absolute; left: 92.5%; transform: translateX(-50%); white-space: nowrap;">W37 (Term)</span>
-              <span style="position: absolute; left: 100%; transform: translateX(-100%); white-space: nowrap;">W40 (Due)</span>
-            </div>
-          </div>
-        </div>
+    <header class="compact-header">
+      <h1 id="babyCountdownTitle">Care schedule</h1>
+      <div class="upcoming-plan" aria-label="Upcoming appointments">
+        <p><strong>23 Oct</strong><span>Morning scan · Evening checkup</span></p>
+        <p><strong>1 Nov · 5:20 AM</strong><span>Scheduled delivery · India time</span></p>
       </div>
     </header>
     <!-- LIQUID TABS BAR -->
@@ -1671,7 +1550,7 @@
       <div class="daily-heading"><div><h2>Your daily care</h2><p>One small step at a time.</p></div><span class="daily-tag">Saved on your device</span></div>
       <div class="care-layout"><aside class="care-sidebar" aria-label="Water and appointments">
       <section class="phone-reminders" aria-labelledby="phoneRemindersTitle">
-        <h3 id="phoneRemindersTitle">Phone reminders</h3>
+        <h3 id="phoneRemindersTitle">Reminders &amp; calendar</h3>
         <p>Page alerts work while this page is running. For reminders when Chrome or the installed app is closed, add the schedule to your phone's calendar.</p>
         <button class="utility-btn" id="enablePageReminders" type="button" aria-pressed="false">Enable page alerts</button>
         <button class="utility-btn" id="testCareReminder" type="button">Test sound & notification</button>
@@ -1679,9 +1558,9 @@
         <span class="reminder-status" id="nextPageReminder"></span>
         <label for="reminderEndDate">Repeat daily calendar reminders until</label>
         <input type="date" id="reminderEndDate">
-        <button class="action-btn" id="downloadPhoneReminders" type="button">Download phone-calendar reminders</button>
+        <button class="action-btn" id="downloadPhoneReminders" type="button">Download all calendar events (.ics)</button>
         <details><summary>Set up alerts on Android</summary><ol>
-          <li>Import the downloaded file into Google Calendar using its <a href="https://calendar.google.com/calendar/u/0/r/settings/export" target="_blank" rel="noopener">Import & export settings</a> on a laptop. Import it once to avoid duplicates.</li>
+          <li>Import the downloaded file into Google Calendar using its <a href="https://calendar.google.com/calendar/u/0/r/settings/export" target="_blank" rel="noopener">Import & export settings</a> on a laptop. Use a separate calendar for these events. If you imported an older file, remove its old events before importing this replacement; imports may not update existing events.</li>
           <li>On each phone, open Google Calendar with the same account. Enable sync for the calendar you imported into.</li>
           <li>Open a care reminder and check its notifications. Care events request alerts 10 minutes before and at the scheduled time. A separate follow-up event appears 5 minutes later. Confirm notifications on the imported events.</li>
           <li>In Android Settings → Apps → Calendar → Notifications, allow notifications and choose an audible sound. Check Do Not Disturb and the calendar's notification settings.</li>
@@ -1700,7 +1579,6 @@
             </div>
           </div>
           <div style="display: flex; gap: 6px;">
-            <button class="utility-btn" style="padding: 4px 8px; font-size: 11px;" onclick="downloadWaterICS()" title="Download hourly calendar alarms">📅 Add to Calendar</button>
             <button class="utility-btn" style="padding: 4px 8px; font-size: 11px;" onclick="resetWater()">🔄 Reset</button>
           </div>
         </div>
@@ -1754,11 +1632,11 @@
           <div class="injection-alert-icon">🩺</div>
           <div class="injection-alert-title-wrap">
             <h4 class="injection-alert-title">Last Doctor Checkup</h4>
-            <span class="injection-alert-due-date">Scheduled: 14th October 2026</span>
+            <span class="injection-alert-due-date">23 October · Morning scan, evening checkup</span>
           </div>
         </div>
         <p class="injection-alert-description" id="growthScanAlertDesc">
-          🩺 <strong>Last checkup with Dr. Bharathi Ramesh is on 14th October 2026</strong>. Doctor will suggest 1 final scan before 28th October in preparation for delivery (Nov 1–5).
+          🩺 <strong>Checkup with Dr. Bharathi Ramesh is on 23 October 2026, evening</strong>. Scan is on 23 October in the morning in preparation for delivery on 1 November at 5:20 AM IST.
         </p>
         <div class="injection-alert-badge" id="growthScanAlertBadge">🗓️ Reminder Active</div>
       </div>
@@ -2173,6 +2051,127 @@
       </div>
 
       </div></div>
+      <section class="journey-details" aria-label="Pregnancy journey details">
+      <button class="overview-toggle" id="overviewToggle" type="button" aria-expanded="true" aria-controls="journeyOverview"><span><strong id="compactPregnancyAge">Your pregnancy journey</strong><span id="overviewLabel">Hide journey details</span></span><span aria-hidden="true" id="overviewSymbol">−</span></button>
+      <div class="header-info-wrap" id="journeyOverview">
+        <div class="journey-card">
+        <!-- Trimester / Gestational progress -->
+        <div class="info-card">
+          <div class="info-card-title">
+            <span>🤰 Pregnancy Progress</span>
+            <span id="gestationalAgeText">17 Weeks • 2nd Trimester</span>
+          </div>
+          <!-- Visual Trimester Gauge -->
+          <div class="trimester-container">
+            <div class="trimester-seg completed" id="tri1"></div>
+            <div class="trimester-seg" id="tri2"><div class="trimester-fill" id="tri2Fill" style="width: 0%;"></div></div>
+            <div class="trimester-seg" id="tri3"><div class="trimester-fill" id="tri3Fill" style="width: 0%;"></div></div>
+          </div>
+          <div class="trimester-label-row">
+            <span>TRI 1 (W1-12)</span>
+            <span>TRI 2 (W13-27)</span>
+            <span>TRI 3 (W28-40)</span>
+          </div>
+        </div>
+
+        <!-- Unified Planned Delivery & Care Plan Card -->
+        <div class="info-card delivery-card" style="background: linear-gradient(135deg, rgba(232, 146, 124, 0.35) 0%, rgba(155, 137, 196, 0.3) 100%); border: 1.5px solid rgba(255, 255, 255, 0.45);">
+          <div class="info-card-title" style="display: flex; justify-content: space-between; align-items: center;">
+            <span>🏥 Scheduled delivery</span>
+            <span style="background: rgba(255, 255, 255, 0.35); padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700;">1 Nov · 5:20 AM IST</span>
+          </div>
+          <div class="info-card-value" id="countdownTimerText" style="font-size: 16.5px; margin-top: 4px;">🍼 -- Days Until Baby Arrives (1 Nov · 5:20 AM IST)</div>
+          <div class="info-card-sub" id="countdownSubtext" style="margin-top: 6px; font-size: 11.5px; line-height: 1.45;">
+            <strong>👶 Scheduled delivery:</strong> Scheduled delivery on <strong>1 November 2026 at 5:20 AM IST</strong>. 💖<br>
+            <strong>🩺 Last Checkup:</strong> Scheduled on <strong>23 October 2026, evening</strong>. Scan: <strong>23 October, morning</strong>.
+          </div>
+        </div>
+
+        </div>
+        <!-- Baby Size Visualizer Card (Option E) -->
+        <div class="info-card" id="babySizeCard" style="display: none; background: rgba(255, 255, 255, 0.22); border-color: rgba(255,255,255,0.3); padding: 16px;">
+          <div class="info-card-title" style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+            <span>🌱 Baby Size & Development</span>
+            <span id="weeksProgressBadge" style="background: rgba(255, 255, 255, 0.25); padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold;">Week --</span>
+          </div>
+          
+          <!-- Size & Stats Bento Row -->
+          <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px;">
+            <div id="babySizeEmoji" style="font-size: 42px; background: rgba(255,255,255,0.15); padding: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; flex-shrink: 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">👶</div>
+            <div style="flex-grow: 1;">
+              <div id="babySizeComparison" style="font-size: 16px; font-weight: 700; color: white;">Calculating size...</div>
+              <div style="display: flex; gap: 12px; margin-top: 4px; flex-wrap: wrap;">
+                <span id="babySizeLength" style="font-size: 12px; background: rgba(255,255,255,0.12); padding: 2px 6px; border-radius: 6px; display: flex; align-items: center; gap: 4px;">📏 --</span>
+                <span id="babySizeWeight" style="font-size: 12px; background: rgba(255,255,255,0.12); padding: 2px 6px; border-radius: 6px; display: flex; align-items: center; gap: 4px;">⚖️ --</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Milestones & Organ Progress Grid -->
+          <div style="display: grid; grid-template-columns: 1fr; gap: 10px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px; margin-bottom: 14px;">
+            <div>
+              <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; font-weight: bold; margin-bottom: 2px;">🌟 Key Milestone</div>
+              <div id="babySizeMilestone" style="font-size: 12px; color: rgba(255, 255, 255, 0.95); line-height: 1.4;">
+                --
+              </div>
+            </div>
+            <div>
+              <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; font-weight: bold; margin-bottom: 2px;">🫁 Organ Development</div>
+              <div id="babySizeOrgan" style="font-size: 12px; color: rgba(255, 255, 255, 0.9); line-height: 1.4; font-style: italic;">
+                --
+              </div>
+            </div>
+          </div>
+          
+          <!-- Timeline Section -->
+          <div style="border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px;">
+            <div style="display: flex; justify-content: space-between; font-size: 11px; opacity: 0.8; margin-bottom: 6px;">
+              <span id="timelineWeeksCompleted">-- Weeks Completed</span>
+              <span id="timelineWeeksRemaining">-- Weeks Remaining</span>
+            </div>
+            
+            <!-- Timeline Visual Bar -->
+            <div class="timeline-bar-container">
+              <!-- Filled segment -->
+              <div id="timelineProgressFill" class="timeline-progress-fill" style="width: 0%;"></div>
+              <!-- Current Week Pin/Marker -->
+              <div id="timelineCurrentMarker" class="timeline-current-marker" style="left: 0%;"></div>
+              
+              <!-- Milestone Flags/Ticks on Timeline -->
+              <!-- 13 Weeks Tick: 13 / 40 = 32.5% -->
+              <div class="timeline-tick" style="left: 32.5%;" title="W13: Trimester 2 Starts"></div>
+              <!-- 20 Weeks Tick: 20 / 40 = 50.0% -->
+              <div class="timeline-tick" style="left: 50.0%;" title="W20: Halfway (Banana)"></div>
+              <!-- 28 Weeks Tick: 28 / 40 = 70.0% -->
+              <div class="timeline-tick" style="left: 70.0%;" title="W28: Trimester 3 Starts"></div>
+              <!-- 34 Weeks Tick: 34 / 40 = 85.0% -->
+              <div class="timeline-tick" style="left: 85.0%;" title="W34: 15-Day Injection Limit"></div>
+              <!-- 37 Weeks Tick: 37 / 40 = 92.5% -->
+              <div class="timeline-tick" style="left: 92.5%;" title="W37: Early Term"></div>
+              <!-- 40 Weeks Tick: 100% -->
+              <div class="timeline-tick" style="left: 100%;" title="W40: Due Date"></div>
+            </div>
+            
+            <!-- Labels for the Milestone Flags -->
+            <div style="position: relative; height: 16px; margin-top: 4px; font-size: 8px; opacity: 0.6;">
+              <span style="position: absolute; left: 32.5%; transform: translateX(-50%); white-space: nowrap;">W13 (Tri 2)</span>
+              <span style="position: absolute; left: 50.0%; transform: translateX(-50%); white-space: nowrap;">W20 (Half)</span>
+              <span style="position: absolute; left: 70.0%; transform: translateX(-50%); white-space: nowrap;">W28 (Tri 3)</span>
+              <span style="position: absolute; left: 85.0%; transform: translateX(-50%); white-space: nowrap;">W34 (Goal)</span>
+              <span style="position: absolute; left: 92.5%; transform: translateX(-50%); white-space: nowrap;">W37 (Term)</span>
+              <span style="position: absolute; left: 100%; transform: translateX(-100%); white-space: nowrap;">W40 (Due)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+      <details class="relaxation-settings"><summary>Music &amp; relaxation</summary>
+<div class="music-bar" role="group" aria-label="Krishna-inspired flute music">
+      <div class="music-caption"><span aria-hidden="true">♫</span><div><strong>Krishna-inspired flute</strong><small id="musicStatus" role="status">Gentle bansuri · optional</small></div></div>
+      <button id="musicToggle" class="music-toggle" type="button" aria-pressed="false" aria-label="Play Krishna-inspired flute music">Play music</button>
+      <label class="music-volume">Volume <input id="musicVolume" type="range" min="0" max="100" value="25" aria-label="Music volume"></label>
+    </div>
+      </details>
         <!-- Big Positive Maternity Affirmation Banner for Mounika -->
         <div class="affirmation-card" id="maternityAffirmationCard">
           <div class="affirmation-header">
@@ -2191,45 +2190,6 @@
 
 
 
-      <!-- GOOGLE CALENDAR SYNC HUB -->
-      <div class="section-label">📅 Google Calendar Sync Hub</div>
-      <div class="control-card">
-        <p style="font-size:13px; color:var(--text); opacity:0.9; line-height:1.5;">
-          Export your reminder schedule to a calendar. Import it and check notification settings on each phone.
-        </p>
-        <button class="action-btn" onclick="downloadICS()" style="background:var(--text); color:var(--bg); box-shadow:none; margin:8px 0 0;">
-          📅 Download Reminders (.ics file)
-        </button>
-        <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Import this file on the <a href="https://calendar.google.com" target="_blank" style="color:var(--rose-dark); font-weight:700;">Google Calendar Desktop Site</a> to import the schedule. Check the imported event notifications before relying on alerts.</p>
-        
-        <div style="border-top:1px solid var(--border); margin:12px 0; padding-top:12px;">
-          <label style="font-size:12px; font-weight:700; color:var(--text-muted); display:block; margin-bottom:6px;">Add Individual Daily Blocks:</label>
-          <div style="display:flex; flex-direction:column; gap:6px;">
-            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('morning')">🌅 Add Morning Meds (7:30 AM)</button>
-            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('afternoon')">☀️ Add Afternoon Meds (1:30 PM)</button>
-            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('night')">🌙 Add Night Meds (9:00 PM)</button>
-            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('bedtime')">🌛 Add Bedtime Cream (10:00 PM)</button>
-            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('delivery')">🏥 Add Planned Delivery Window (1–5 Nov)</button>
-            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('consultation')">🩺 Add Last Doctor Checkup (14 Oct)</button>
-            <button class="utility-btn" style="text-align:left; justify-content:flex-start;" onclick="quickAddCalendar('scan')">👶 Add Final Scan (by 28 Oct)</button>
-          </div>
-        </div>
-
-        <div style="border-top:1px solid var(--border); margin:12px 0; padding-top:12px;">
-          <div class="accordion-header" onclick="toggleAccordion(this)" style="display:flex; justify-content:space-between; align-items:center; width:100%; background:none; border:none; padding:8px 0; font-family:inherit; font-size:12px; font-weight:700; color:var(--text); cursor:pointer;">
-            <span>💡 How to get alerts on your phone</span>
-            <span class="accordion-arrow">▼</span>
-          </div>
-          <div class="accordion-content" style="padding: 12px 0 0; border: none; font-size: 12.5px; line-height: 1.5;">
-            <p style="margin-bottom:8px;"><strong>Two easy ways to stay reminded:</strong></p>
-            <ol style="margin-left:16px; margin-bottom:8px; display:flex; flex-direction:column; gap:6px;">
-              <li><strong>📅 Calendar Reminders:</strong> Tap <strong>"Download Reminders (.ics)"</strong> above, then import the file into a calendar. Confirm its notifications and sound settings on each phone.</li>
-              <li><strong>📱 Add to Home Screen:</strong> Open your browser menu (Share on iPhone, or three dots on Android) and tap <strong>"Add to Home Screen"</strong> to open this tracker as an app. Installing it does not enable reminders while it is closed.</li>
-            </ol>
-          </div>
-        </div>
-      </div>
-      
       <div class="card-grid bento-section" id="bentoGrid">
         
         <!-- Card 1: Morning Timing -->
@@ -2275,25 +2235,25 @@
             <span style="font-size: 18px;">📋</span>
           </div>
           <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">14th Oct Checkup & Final Scan</h3>
+            <h3 class="magic-bento-card__title">23 Oct · Scan & Checkup</h3>
             <p class="magic-bento-card__description">
-              • <strong>Last Doctor Checkup:</strong> Scheduled on <strong>14th October 2026</strong> with Dr. Bharathi Ramesh.<br>
-              • <strong>Final Scan:</strong> Doctor will prescribe 1 ultrasound scan before <strong>28th October 2026</strong>.<br>
+              • <strong>Last Doctor Checkup:</strong> Scheduled on <strong>23 October 2026, evening</strong> with Dr. Bharathi Ramesh.<br>
+              • <strong>Final Scan:</strong> Scheduled for <strong>23 October 2026, morning</strong>.<br>
               • <strong>Injections Status:</strong> Proluton Depot 500mg IM completed on 30th Sept.
             </p>
           </div>
         </div>
 
-        <!-- Card 5: Planned Delivery Window (Nov 1st - 5th) -->
+        <!-- Card 5: Scheduled Delivery (1 November, 5:20 AM IST) -->
         <div class="magic-bento-card magic-bento-card--border-glow" style="--glow-color: 212, 175, 55;">
           <div class="magic-bento-card__header">
-            <span class="magic-bento-card__label">👶 Planned Delivery Window</span>
+            <span class="magic-bento-card__label">👶 Scheduled Delivery</span>
             <span style="font-size: 18px;">🏥</span>
           </div>
           <div class="magic-bento-card__content">
-            <h3 class="magic-bento-card__title">Delivery between Nov 1st – 5th</h3>
+            <h3 class="magic-bento-card__title">Delivery · 1 Nov, 5:20 AM</h3>
             <p class="magic-bento-card__description">
-              • <strong>Delivery Schedule:</strong> Dr. Bharathi Ramesh suggested delivery between <strong>1st – 5th November 2026</strong> for baby & Mouni's safety.<br>
+              • <strong>Delivery Schedule:</strong> Scheduled for <strong>1 November 2026 at 5:20 AM IST</strong>.<br>
               • <strong>Ongoing Meds till Delivery:</strong> Tab. Thyronorm (morning), Tab. Magnocal (afternoon), Tab. Womiron (night).<br>
               • <strong>New prescription from 14 Oct:</strong> Duvadilon 10mg morning &amp; night after food and Pan 40 morning through 19 Oct; Susten SR 200 nightly through 24 Oct.
             </p>
@@ -2399,7 +2359,7 @@
     <!-- FOOTER -->
     <footer>
       <p style="font-size: 13px; font-weight: 600; color: var(--text);">Made with love for Mouni, Chandu &amp; Baby 💖</p>
-      <p style="margin-top: 4px; font-size: 11.5px; color: var(--text-muted);">Planned Delivery: 1st – 5th November 2026 🍼 • Last Checkup: 14th October 🏥</p>
+      <p style="margin-top: 4px; font-size: 11.5px; color: var(--text-muted);">Planned Delivery: 1 November 2026 at 5:20 AM IST 🍼 • Checkup: 23 October evening · Scan: 23 October morning 🏥</p>
       <p style="margin-top: 6px; font-size: 11px; opacity: 0.75;" id="appStatusIndicator">All records saved locally</p>
     </footer>
 
@@ -2695,14 +2655,6 @@
     function updateDynamicHeader() {
       const today = new Date();
       
-      // Greetings
-      const hour = today.getHours();
-      let greeting = "Good Morning";
-      if (hour >= 12 && hour < 17) greeting = "Good Afternoon";
-      else if (hour >= 17 && hour < 22) greeting = "Good Evening";
-      else if (hour >= 22 || hour < 5) greeting = "Sweet Dreams";
-      document.getElementById('greetingText').textContent = greeting + ", Mouni";
-
       // Calculate gestational age using scan 40-week milestone
       const dateParts = babyBirthDate.split('-');
       const edd = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
@@ -2710,7 +2662,7 @@
       const daysTillEdd = Math.ceil(diffEddTime / (1000 * 60 * 60 * 24));
 
       // Calculate Planned Delivery countdown (1st Nov 2026)
-      const deliveryStart = new Date(2026, 10, 1); // Month 10 = Nov
+      const deliveryStart = new Date('2026-11-01T05:20:00+05:30'); // Month 10 = Nov
       const diffDeliveryTime = deliveryStart - today;
       const daysLeft = Math.ceil(diffDeliveryTime / (1000 * 60 * 60 * 24));
 
@@ -2718,11 +2670,11 @@
 
       if (daysLeft > 0 || daysTillEdd > 0) {
         if (daysLeft > 0) {
-          document.getElementById('countdownTimerText').innerHTML = `🍼 <strong>${daysLeft} Days</strong> Until Baby Arrives (1–5 Nov)`;
-        } else if (daysLeft >= -4) {
-          document.getElementById('countdownTimerText').innerHTML = `🍼 <strong>Delivery Window Active (1–5 Nov)!</strong> 🎉`;
+          document.getElementById('countdownTimerText').innerHTML = `🍼 <strong>${daysLeft} Days</strong> Until Baby Arrives (1 Nov · 5:20 AM IST)`;
+        } else if (diffDeliveryTime > -86400000) {
+          document.getElementById('countdownTimerText').innerHTML = `🍼 <strong>Scheduled delivery day · 1 November</strong> 🎉`;
         } else {
-          document.getElementById('countdownTimerText').innerHTML = `🍼 <strong>Welcome Baby!</strong> 💖`;
+          document.getElementById('countdownTimerText').innerHTML = `Scheduled delivery: 1 November · 5:20 AM IST`;
         }
         
         const totalPregnancyDays = 280;
@@ -2735,7 +2687,7 @@
         else if (weeks >= 28) triText = "3rd Trimester";
         
         document.getElementById('gestationalAgeText').textContent = `${weeks} Weeks, ${days} Days Pregnant • ${triText}`;
-        document.getElementById('babyCountdownTitle').textContent = "Mouni & Chandu’s Baby";
+        document.getElementById('babyCountdownTitle').textContent = "Care schedule";
 
         // Draw Trimester Bars
         const tri1 = document.getElementById('tri1');
@@ -2773,8 +2725,8 @@
         }
         
         document.getElementById('countdownSubtext').innerHTML = `
-          <strong>👶 Delivery Window:</strong> Planned Delivery between <strong>1st – 5th November 2026</strong>. 💖<br>
-          <strong>🩺 Last Checkup:</strong> Scheduled on <strong>14th October 2026</strong> (Doctor will suggest 1 scan before 28th Oct).
+          <strong>👶 Scheduled delivery:</strong> Scheduled delivery on <strong>1 November 2026 at 5:20 AM IST</strong>. 💖<br>
+          <strong>🩺 Last Checkup:</strong> Scheduled on <strong>23 October 2026, evening</strong>. Scan: <strong>23 October, morning</strong>.
         `;
 
         // Update Baby Size Visualizer Card (Option E)
@@ -3052,37 +3004,8 @@
     }
 
     function checkGrowthScanAlert() {
-      const today = new Date();
-      const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-      const checkupDate = new Date(2026, 9, 14); // 14th October 2026
-      const scanDeadline = new Date(2026, 9, 29); // Active through 28th October
-
-      const diffTime = checkupDate.getTime() - todayMidnight.getTime();
-      const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-
       const banner = document.getElementById('growthScanAlertBanner');
-      if (banner) {
-        if (todayMidnight < scanDeadline) {
-          banner.style.display = 'flex';
-          const scanBadge = document.getElementById('growthScanAlertBadge');
-          const scanDesc = document.getElementById('growthScanAlertDesc');
-
-          if (diffDays > 0) {
-            if (scanBadge) scanBadge.textContent = `🗓️ In ${diffDays} ${diffDays === 1 ? 'day' : 'days'}`;
-            if (scanDesc) scanDesc.innerHTML = `🩺 <strong>Reminder: Last Doctor Checkup is on 14th October 2026</strong> (in ${diffDays} ${diffDays === 1 ? 'day' : 'days'}). Dr. Bharathi Ramesh will advise 1 final ultrasound scan before 28th October.`;
-          } else if (diffDays === 0) {
-            if (scanBadge) scanBadge.textContent = '🚨 TODAY!';
-            if (scanDesc) scanDesc.innerHTML = '🩺 <strong>Last Doctor Checkup is TODAY (14th October 2026)!</strong> Please consult Dr. Bharathi Ramesh for the final checkup and scan prescription.';
-          } else {
-            const scanDiffTime = new Date(2026, 9, 28).getTime() - todayMidnight.getTime();
-            const scanDaysLeft = Math.round(scanDiffTime / (1000 * 60 * 60 * 24));
-            if (scanBadge) scanBadge.textContent = scanDaysLeft >= 0 ? `👶 Scan Window (${scanDaysLeft}d left)` : '📋 Final Scan Stage';
-            if (scanDesc) scanDesc.innerHTML = '👶 <strong>Final Ultrasound Scan Stage:</strong> Complete the final scan before <strong>28th October 2026</strong> in preparation for baby delivery (1st – 5th November).';
-          }
-        } else {
-          banner.style.display = 'none';
-        }
-      }
+      if (banner) banner.style.display = 'none';
     }
 
     function updateAppStatusIndicator() {
@@ -3091,7 +3014,7 @@
       const dateStr = today.toLocaleDateString('en-US', options);
       const isSustenActive = getOctoberPrescription().longCourse;
       
-      const statusText = `📅 Date: ${dateStr} | 💊 Susten: ${isSustenActive ? 'SR 200 active (through 24 Oct)' : 'Course ended'} | 🩺 Last Checkup: 14 Oct | 👶 Delivery: 1–5 Nov 2026`;
+      const statusText = `📅 Date: ${dateStr} | 💊 Susten: ${isSustenActive ? 'SR 200 active (through 24 Oct)' : 'Course ended'} | 🩺 Scan & checkup: 23 Oct | 👶 Delivery: 1 Nov 2026 · 5:20 AM IST`;
       const elem = document.getElementById('appStatusIndicator');
       if (elem) {
         elem.textContent = statusText;
@@ -3539,13 +3462,13 @@
         try {
           new Notification(title, {
             body: body,
-            icon: 'icon-192.png?v=32'
+            icon: 'icon-192.png?v=33'
           });
         } catch (e) {
           navigator.serviceWorker.ready.then(registration => {
             registration.showNotification(title, {
               body: body,
-              icon: 'icon-192.png?v=32'
+              icon: 'icon-192.png?v=33'
             });
           });
         }
@@ -3737,294 +3660,6 @@
 
     /* ==========================================
        GOOGLE CALENDAR SYNC SYSTEM
-       ========================================== */
-    function quickAddCalendar(block) {
-      if (block === 'morning') {
-        openGoogleCalendarLink(
-          "💊 Morning Meds (Thyronorm 50mcg)",
-          "07:30",
-          "Take empty-stomach Thyronorm 50mcg with plain water 30 mins before breakfast. Pro Case DF powder with milk optional."
-        );
-      } else if (block === 'afternoon') {
-        openGoogleCalendarLink(
-          "Afternoon care checklist",
-          "13:30",
-          "Open your current afternoon checklist and follow your current prescription."
-        );
-      } else if (block === 'night') {
-        openGoogleCalendarLink(
-          "🌙 Night Meds (Womiron)",
-          "21:00",
-          "Take Tab. Womiron after dinner (continued till delivery). Keep 4-6 hr gap away from Magnocal."
-        );
-      } else if (block === 'bedtime') {
-        openGoogleCalendarLink(
-          "🌛 Bedtime Meds (Stovient & Duphalac)",
-          "22:00",
-          "Apply Stovient Cream. Take Syp. Duphalac 15ml if needed for constipation."
-        );
-      } else if (block === 'delivery') {
-        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("🏥 Planned Baby Delivery Window (1st – 5th Nov 2026)")}&dates=20261101T090000/20261105T180000&details=${encodeURIComponent("Planned delivery window (1st to 5th November 2026) suggested by Dr. Bharathi Ramesh.")}`;
-        window.open(url, '_blank');
-      } else if (block === 'consultation') {
-        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("🩺 Last Doctor Checkup with Dr. Bharathi Ramesh")}&dates=20261014T100000/20261014T113000&details=${encodeURIComponent("Last antenatal checkup with Dr. Bharathi Ramesh before delivery. Doctor will suggest 1 scan before 28th October 2026.")}`;
-        window.open(url, '_blank');
-      } else if (block === 'scan') {
-        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("👶 Final Ultrasound Scan before Delivery (by 28 Oct)")}&dates=20261025T100000/20261025T113000&details=${encodeURIComponent("Final ultrasound scan suggested by Dr. Bharathi Ramesh before 28th October in preparation for delivery (Nov 1-5).")}`;
-        window.open(url, '_blank');
-      } else if (block === 'water') {
-        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("💧 Hourly Water Reminder (8 AM – 9 PM)")}&dates=20260828T080000/20260828T210000&recur=RRULE:FREQ=DAILY;UNTIL=20261114T235959&details=${encodeURIComponent("Daily hourly water reminder from 8:00 AM to 9:00 PM until delivery (14 Nov 2026). Drink 1 glass of water every hour to stay hydrated (Target: 3.5L / 14 glasses).")}`;
-        window.open(url, '_blank');
-      }
-    }
-
-    function openGoogleCalendarLink(title, timeStr, desc) {
-      const today = new Date();
-      const yr = today.getFullYear();
-      const mt = String(today.getMonth() + 1).padStart(2, '0');
-      const dy = String(today.getDate()).padStart(2, '0');
-      
-      const [hrs, mins] = timeStr.split(':');
-      const startHrs = hrs;
-      const startMins = mins;
-      const endHrs = String(parseInt(hrs) + (mins === '30' ? 1 : 0)).padStart(2, '0');
-      const endMins = mins === '30' ? '00' : '30';
-      
-      const startDateStr = `${yr}${mt}${dy}T${startHrs}${startMins}00`;
-      const endDateStr = `${yr}${mt}${dy}T${endHrs}${endMins}00`;
-      
-      // Calculate end date (3 months from today) for Google Calendar daily repeat limit
-      const untilDate = new Date(today.getFullYear(), today.getMonth() + 3, today.getDate());
-      const untilYr = untilDate.getFullYear();
-      const untilMt = String(untilDate.getMonth() + 1).padStart(2, '0');
-      const untilDy = String(untilDate.getDate()).padStart(2, '0');
-      const untilStr = `${untilYr}${untilMt}${untilDy}T235959`; // ending at end of day
-      
-      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startDateStr}/${endDateStr}&recur=RRULE:FREQ=DAILY;UNTIL=${untilStr}&details=${encodeURIComponent(desc)}`;
-      window.open(url, '_blank');
-    }
-
-    function downloadICS() {
-      const now = new Date();
-      const yr = now.getFullYear();
-      const mt = String(now.getMonth() + 1).padStart(2, '0');
-      const dy = String(now.getDate()).padStart(2, '0');
-      const dateStr = `${yr}${mt}${dy}`;
-      
-      const stampYr = now.getUTCFullYear();
-      const stampMt = String(now.getUTCMonth() + 1).padStart(2, '0');
-      const stampDy = String(now.getUTCDate()).padStart(2, '0');
-      const stampHr = String(now.getUTCHours()).padStart(2, '0');
-      const stampMn = String(now.getUTCMinutes()).padStart(2, '0');
-      const stampSc = String(now.getUTCSeconds()).padStart(2, '0');
-      const dtstamp = `${stampYr}${stampMt}${stampDy}T${stampHr}${stampMn}${stampSc}Z`;
-
-      // Calculate end date (3 months from today) for iCalendar daily repeat limit
-      const untilDate = new Date(now.getFullYear(), now.getMonth() + 3, now.getDate());
-      const untilYr = untilDate.getFullYear();
-      const untilMt = String(untilDate.getMonth() + 1).padStart(2, '0');
-      const untilDy = String(untilDate.getDate()).padStart(2, '0');
-      const untilStr = `${untilYr}${untilMt}${untilDy}T235959`;
-
-      const lines = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//Mouni Baby Hub//Medication Schedule//EN",
-        "CALSCALE:GREGORIAN",
-        "METHOD:PUBLISH"
-      ];
-
-      const dailyEvents = [
-        {
-          id: "morning-meds",
-          title: "💊 Morning Meds (Thyronorm 50mcg)",
-          time: "07:30",
-          desc: "Take empty-stomach Thyronorm 50mcg (30 mins before breakfast). Pro Case DF powder with milk optional."
-        },
-        {
-          id: "afternoon-meds",
-          title: "Afternoon care checklist",
-          time: "13:30",
-          desc: "Take Tab. Magnocal (Calcium + Magnesium) after lunch (till delivery). Tab. Sustener 200 (1 week course from 30 Sep, till 7 Oct)."
-        },
-        {
-          id: "night-meds",
-          title: "🌙 Night Meds (Womiron)",
-          time: "21:00",
-          desc: "Take Tab. Womiron after dinner (till delivery). Keep 4-6 hr gap away from Magnocal."
-        },
-        {
-          id: "bedtime-meds",
-          title: "🌛 Bedtime Meds (Stovient Cream & Duphalac)",
-          time: "22:00",
-          desc: "Apply Stovient Cream. Take Syp. Duphalac 15ml if needed for constipation."
-        }
-      ];
-
-      dailyEvents.forEach(e => {
-        const [hrs, mins] = e.time.split(':');
-        const start = `${dateStr}T${hrs}${mins}00`;
-        const endHrs = String(parseInt(hrs) + (mins === '30' ? 1 : 0) + (mins === '00' ? 1 : 0)).padStart(2, '0');
-        const endMins = mins;
-        const end = `${dateStr}T${endHrs}${endMins}00`;
-
-        lines.push("BEGIN:VEVENT");
-        lines.push(`UID:${e.id}-${dateStr}@mounibaby.app`);
-        lines.push(`DTSTAMP:${dtstamp}`);
-        lines.push(`SUMMARY:${e.title}`);
-        lines.push(`DTSTART:${start}`);
-        lines.push(`DTEND:${end}`);
-        lines.push(`RRULE:FREQ=DAILY;UNTIL=${untilStr}`);
-        lines.push(`DESCRIPTION:${e.desc}`);
-        lines.push("BEGIN:VALARM");
-        lines.push("TRIGGER:-PT0M");
-        lines.push("ACTION:DISPLAY");
-        lines.push("DESCRIPTION:Reminder");
-        lines.push("END:VALARM");
-        lines.push("END:VEVENT");
-      });
-
-      // Planned Delivery Window (1st - 5th November 2026)
-      lines.push("BEGIN:VEVENT");
-      lines.push(`UID:planned-delivery-20261101@mounibaby.app`);
-      lines.push(`DTSTAMP:${dtstamp}`);
-      lines.push("SUMMARY:🏥 Planned Baby Delivery Window (1–5 Nov)");
-      lines.push("DTSTART:20261101T090000");
-      lines.push("DTEND:20261105T180000");
-      lines.push("DESCRIPTION:Planned delivery window suggested by Dr. Bharathi Ramesh (1st to 5th November 2026).");
-      lines.push("BEGIN:VALARM");
-      lines.push("TRIGGER:-PT0M");
-      lines.push("ACTION:DISPLAY");
-      lines.push("DESCRIPTION:Reminder");
-      lines.push("END:VALARM");
-      lines.push("END:VEVENT");
-
-      // Last Doctor Consultation (14th October 2026)
-      lines.push("BEGIN:VEVENT");
-      lines.push(`UID:doctor-last-checkup-20261014@mounibaby.app`);
-      lines.push(`DTSTAMP:${dtstamp}`);
-      lines.push("SUMMARY:🩺 Last Doctor Checkup with Dr. Bharathi Ramesh");
-      lines.push("DTSTART:20261014T100000");
-      lines.push("DTEND:20261014T113000");
-      lines.push("DESCRIPTION:Last antenatal checkup with Dr. Bharathi Ramesh before delivery. Doctor will suggest 1 scan before 28th October 2026.");
-      lines.push("BEGIN:VALARM");
-      lines.push("TRIGGER:-PT0M");
-      lines.push("ACTION:DISPLAY");
-      lines.push("DESCRIPTION:Reminder");
-      lines.push("END:VALARM");
-      lines.push("END:VEVENT");
-
-      // Final Scan (Before 28th October 2026)
-      lines.push("BEGIN:VEVENT");
-      lines.push(`UID:final-scan-20261028@mounibaby.app`);
-      lines.push(`DTSTAMP:${dtstamp}`);
-      lines.push("SUMMARY:👶 Final Ultrasound Scan before Delivery (by 28 Oct)");
-      lines.push("DTSTART:20261025T100000");
-      lines.push("DTEND:20261025T113000");
-      lines.push("DESCRIPTION:Final ultrasound scan suggested by Dr. Bharathi Ramesh before 28th October 2026 in preparation for delivery (Nov 1-5).");
-      lines.push("BEGIN:VALARM");
-      lines.push("TRIGGER:-PT0M");
-      lines.push("ACTION:DISPLAY");
-      lines.push("DESCRIPTION:Reminder");
-      lines.push("END:VALARM");
-      lines.push("END:VEVENT");
-
-      // 14 Discrete Hourly Water Reminders (Daily 8:00 AM to 9:00 PM till 14 Nov 2026)
-      const waterLines = getWaterICSEvents(dateStr, dtstamp, '20261114T235959');
-      waterLines.forEach(l => lines.push(l));
-
-      lines.push("END:VCALENDAR");
-
-      // Join lines with standard CRLF (\r\n) required by RFC 5545
-      const icsContent = lines.join("\r\n") + "\r\n";
-
-      const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.download = 'mouni_medication_schedule.ics';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-
-    function getWaterICSEvents(dateStr, dtstamp, untilStr) {
-      const lines = [];
-      const waterHours = [
-        { hr: "08", label: "8:00 AM" },
-        { hr: "09", label: "9:00 AM" },
-        { hr: "10", label: "10:00 AM" },
-        { hr: "11", label: "11:00 AM" },
-        { hr: "12", label: "12:00 PM" },
-        { hr: "13", label: "1:00 PM" },
-        { hr: "14", label: "2:00 PM" },
-        { hr: "15", label: "3:00 PM" },
-        { hr: "16", label: "4:00 PM" },
-        { hr: "17", label: "5:00 PM" },
-        { hr: "18", label: "6:00 PM" },
-        { hr: "19", label: "7:00 PM" },
-        { hr: "20", label: "8:00 PM" },
-        { hr: "21", label: "9:00 PM" }
-      ];
-
-      waterHours.forEach(w => {
-        lines.push("BEGIN:VEVENT");
-        lines.push(`UID:hourly-water-${w.hr}-${dateStr}@mounibaby.app`);
-        lines.push(`DTSTAMP:${dtstamp}`);
-        lines.push(`SUMMARY:💧 Drink 1 Glass Water (${w.label})`);
-        lines.push(`DTSTART:${dateStr}T${w.hr}0000`);
-        lines.push(`DTEND:${dateStr}T${w.hr}0500`);
-        lines.push(`RRULE:FREQ=DAILY;UNTIL=${untilStr}`);
-        lines.push(`DESCRIPTION:Hourly hydration reminder (${w.label}). Drink 1 glass of water to keep Mouni & Baby healthy (Target: 14 glasses / 3.5L daily).`);
-        lines.push("BEGIN:VALARM");
-        lines.push("TRIGGER:-PT0M");
-        lines.push("ACTION:DISPLAY");
-        lines.push(`DESCRIPTION:💧 Drink 1 Glass of Water (${w.label})`);
-        lines.push("END:VALARM");
-        lines.push("END:VEVENT");
-      });
-      return lines;
-    }
-
-    function downloadWaterICS() {
-      const now = new Date();
-      const yr = now.getFullYear();
-      const mt = String(now.getMonth() + 1).padStart(2, '0');
-      const dy = String(now.getDate()).padStart(2, '0');
-      const dateStr = `${yr}${mt}${dy}`;
-      
-      const stampYr = now.getUTCFullYear();
-      const stampMt = String(now.getUTCMonth() + 1).padStart(2, '0');
-      const stampDy = String(now.getUTCDate()).padStart(2, '0');
-      const stampHr = String(now.getUTCHours()).padStart(2, '0');
-      const stampMn = String(now.getUTCMinutes()).padStart(2, '0');
-      const stampSc = String(now.getUTCSeconds()).padStart(2, '0');
-      const dtstamp = `${stampYr}${stampMt}${stampDy}T${stampHr}${stampMn}${stampSc}Z`;
-
-      const lines = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "PRODID:-//Mouni Baby Hub//Hourly Water Reminders//EN",
-        "CALSCALE:GREGORIAN",
-        "METHOD:PUBLISH"
-      ];
-
-      const waterLines = getWaterICSEvents(dateStr, dtstamp, '20261114T235959');
-      waterLines.forEach(l => lines.push(l));
-
-      lines.push("END:VCALENDAR");
-
-      const icsContent = lines.join("\r\n") + "\r\n";
-      const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.download = 'mouni_water_reminders.ics';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-
-    /* ==========================================
-       CONFETTI SYSTEM
        ========================================== */
     function triggerConfetti() {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -4784,7 +4419,7 @@
     }
 </script>
   <div id="saveToast" class="save-toast" role="status" aria-live="polite"></div>
-  <script src="reminders.js?v=32"></script>
-  <script src="upgrade.js?v=32"></script>
+  <script src="reminders.js?v=33"></script>
+  <script src="upgrade.js?v=33"></script>
 </body>
 </html>

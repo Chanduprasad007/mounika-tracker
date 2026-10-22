@@ -123,75 +123,6 @@
   });
 })();
 
-// A small, optional layer of delight, independent of all care records.
-(() => {
-  document.addEventListener('DOMContentLoaded', () => {
-    const garden = document.createElement('div');
-    garden.className = 'butterfly-garden';
-    garden.setAttribute('aria-label', 'Interactive butterflies');
-    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let paused = localStorage.getItem('mouni_butterflies_paused') === 'true';
-    const toggle = document.createElement('button');
-    toggle.className = 'butterfly-toggle';
-    toggle.type = 'button';
-    toggle.textContent = '🦋';
-    function syncPause() {
-      garden.classList.toggle('paused', paused || document.hidden || motionPreference.matches);
-      toggle.setAttribute('aria-pressed', String(paused));
-      toggle.setAttribute('aria-label', paused ? 'Resume butterflies' : 'Pause butterflies');
-      toggle.title = paused ? 'Resume butterflies' : 'Pause butterflies';
-    }
-    toggle.addEventListener('click', () => {
-      paused = !paused;
-      localStorage.setItem('mouni_butterflies_paused', String(paused));
-      syncPause();
-    });
-    document.querySelector('.masthead-actions').prepend(toggle);
-    const activeSparkles = new Set();
-    function sparkle(button) {
-      // Bound active particles even when a butterfly is tapped repeatedly.
-      activeSparkles.forEach(particle => particle.remove());
-      activeSparkles.clear();
-      const rect = button.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      for (let index = 0; index < 10; index++) {
-        const angle = index * Math.PI * 2 / 10;
-        const distance = index % 2 ? 48 : 72;
-        const x = Math.cos(angle) * distance;
-        const y = Math.sin(angle) * distance;
-        const particle = document.createElement('span');
-        particle.className = 'butterfly-sparkle';
-        particle.setAttribute('aria-hidden', 'true');
-        particle.textContent = index % 2 ? '✧' : '✦';
-        particle.style.left = `${centerX - 10}px`;
-        particle.style.top = `${centerY - 10}px`;
-        garden.append(particle);
-        activeSparkles.add(particle);
-        const frames = motionPreference.matches
-          ? [{opacity:1,transform:`translate(${x * .4}px,${y * .4}px)`},{opacity:0,transform:`translate(${x * .4}px,${y * .4}px)`}]
-          : [{opacity:0,transform:'translate(0,0) scale(.7)'},{opacity:1,offset:.15,transform:`translate(${x * .25}px,${y * .25}px) scale(1)`},{opacity:0,transform:`translate(${x}px,${y}px) scale(.65)`}];
-        const animation = particle.animate(frames, {duration:motionPreference.matches ? 350 : 850,easing:'cubic-bezier(.23,1,.32,1)'});
-        animation.finished.then(() => {particle.remove(); activeSparkles.delete(particle);}).catch(() => {particle.remove(); activeSparkles.delete(particle);});
-      }
-    }
-    for (let index = 0; index < 3; index++) {
-      const butterfly = document.createElement('button');
-      butterfly.className = 'flying-butterfly';
-      butterfly.type = 'button';
-      butterfly.setAttribute('aria-label', `Sparkle butterfly ${index + 1}`);
-      butterfly.title = 'Tap for a little sparkle';
-      butterfly.innerHTML = '<span class="butterfly-shape" aria-hidden="true"><span class="butterfly-wing left"></span><span class="butterfly-wing right"></span><span class="butterfly-body"></span></span>';
-      butterfly.addEventListener('click', () => sparkle(butterfly));
-      garden.append(butterfly);
-    }
-    document.body.append(garden);
-    document.addEventListener('visibilitychange', syncPause);
-    motionPreference.addEventListener('change', syncPause);
-    syncPause();
-  });
-})();
-
 // Original Krishna-inspired pentatonic bansuri melody, above a soft tonic drone.
 // Synthesized locally so music also works offline, without streaming requests.
 (() => {
@@ -201,7 +132,7 @@
     const status = document.getElementById('musicStatus');
     const read = (key, fallback) => {try {return localStorage.getItem(key) ?? fallback;} catch {return fallback;}};
     const save = (key, value) => {try {localStorage.setItem(key, value);} catch { /* Private storage may be unavailable. */ }};
-    let wanted = read('mouniMusicEnabled', 'true') === 'true';
+    let wanted = false; // Music starts only when Play is pressed.
     const savedVolume = Number(read('mouniMusicVolume', '25'));
     slider.value = Number.isFinite(savedVolume) ? Math.max(0, Math.min(100, savedVolume)) : 25;
     let context, master, reverb, fluteWave, breathBuffer, timer, nextNote = 0, nextDrone = 0, step = 0, starting = false;
@@ -322,18 +253,11 @@
       save('mouniMusicVolume', slider.value);
       if (master) master.gain.setTargetAtTime(Number(slider.value) / 100 * .6, context.currentTime, .15);
     });
-    function firstInteraction(event) {
-      if (!event.isTrusted || event.target.closest?.('#musicToggle')) return;
-      if (event.type === 'keydown' && !['Enter', ' '].includes(event.key)) return;
-      if (wanted && context?.state !== 'running') start();
-    }
-    document.addEventListener('click', firstInteraction);
-    document.addEventListener('keydown', firstInteraction);
     document.addEventListener('visibilitychange', () => {if (document.hidden) pause();else if (context && wanted) start();});
     window.addEventListener('pagehide', pause);
     window.addEventListener('pageshow', () => {if (context && wanted) start();});
     paint();
     // Autoplay succeeds only where the browser already grants permission.
-    if (navigator.userActivation?.hasBeenActive) start();
+
   });
 })();

@@ -314,3 +314,18 @@ header h1 {font-weight:650}
 .sleeping-baby-art {width:136px;height:136px;object-fit:contain;border-radius:22px;background:white}
 @media(max-width:480px) {.welcome-row {flex-wrap:wrap}.welcome-row>div:first-child {flex-basis:100%}.welcome-art {margin:auto}.sleeping-baby-art {width:112px;height:112px}}
 
+
+/* A quiet, schedule-first entry. Details remain available below daily care. */
+.compact-header {padding:18px 0 8px!important}
+.compact-header h1 {font-size:24px!important;line-height:1.3;margin:0 0 14px;letter-spacing:-.5px}
+.upcoming-plan {display:flex;gap:24px;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.upcoming-plan p {margin:0;font-size:13px;color:var(--text-muted);line-height:1.7}
+.upcoming-plan strong {display:block;color:var(--text);font-size:14px}
+.upcoming-plan span {display:block}
+.journey-details {margin:28px 0 18px}
+.relaxation-settings {margin:18px 0 24px;border-top:1px solid var(--border);padding-top:8px}
+.relaxation-settings>summary {min-height:44px;cursor:pointer;font-size:14px;color:var(--text-muted);padding:12px 0}
+.daily-heading {display:none}
+.masthead {padding:14px 0}
+header::before,header::after {display:none!important}
+@media(max-width:680px) {.care-main {grid-row:1}.care-sidebar {grid-row:2}.upcoming-plan {gap:12px;flex-direction:column}}

@@ -34,38 +34,47 @@
     }
     return output+segment;
   }
-  function calendar(now, endDate, mode='all') {
+  function calendar(now, endDate) {
     const start=indiaDate(now);
     if(!/^\d{4}-\d{2}-\d{2}$/.test(endDate) || endDate < start) throw new Error('Choose an end date today or later.');
     const stamp=now.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
     const until=date=>new Date(`${date}T23:59:59+05:30`).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
-    const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Mouni Baby Hub//Phone Reminders//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:Mouni care reminders','X-WR-TIMEZONE:Asia/Kolkata','BEGIN:VTIMEZONE','TZID:Asia/Kolkata','BEGIN:STANDARD','DTSTART:19700101T000000','TZOFFSETFROM:+0530','TZOFFSETTO:+0530','TZNAME:IST','END:STANDARD','END:VTIMEZONE'];
-    for(const slot of schedule(now,true).filter(slot=>mode==='all'||slot.kind===mode)) {
+    const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Mouni Baby Hub//Phone Reminders//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:Mouni & Chandu — all events','X-WR-TIMEZONE:Asia/Kolkata','BEGIN:VTIMEZONE','TZID:Asia/Kolkata','BEGIN:STANDARD','DTSTART:19700101T000000','TZOFFSETFROM:+0530','TZOFFSETTO:+0530','TZNAME:IST','END:STANDARD','END:VTIMEZONE'];
+    for(const slot of schedule(now,true)) {
       const end=slot.kind==='water'&&endDate>'2026-11-14'?'2026-11-14':endDate;
       const datePart=start.replace(/-/g,'');
       const timePart=slot.time.replace(':','');
       const endTime=new Date(slot.at+15*60000).toLocaleTimeString('en-GB',{timeZone:ZONE,hour12:false}).replace(/:/g,'');
-      lines.push('BEGIN:VEVENT',`UID:mouni-${slot.kind}-${timePart}-${datePart}@mounibaby.app`,`DTSTAMP:${stamp}`,`SUMMARY:${escapeICS(slot.title)}`,`DTSTART;TZID=${ZONE}:${datePart}T${timePart}00`,`DTEND;TZID=${ZONE}:${datePart}T${endTime}`,`RRULE:FREQ=DAILY;UNTIL=${until(end)}`,`DESCRIPTION:${escapeICS(slot.kind==='care'?'Open your current care checklist. Follow your current prescription; this event does not specify a medicine or dose.':'Water check-in. Follow your current care plan.')}`);
+      lines.push('BEGIN:VEVENT',`UID:mouni-${slot.kind}-${timePart}@mounibaby.app`,`DTSTAMP:${stamp}`,`SUMMARY:${escapeICS(slot.title)}`,`DTSTART;TZID=${ZONE}:${datePart}T${timePart}00`,`DTEND;TZID=${ZONE}:${datePart}T${endTime}`,`RRULE:FREQ=DAILY;UNTIL=${until(end)}`,`DESCRIPTION:${escapeICS(slot.kind==='care'?'Open your current care checklist. Follow your current prescription; this event does not specify a medicine or dose.':'Water check-in. Follow your current care plan.')}`);
       for(const trigger of slot.kind==='care'?['-PT10M','PT0M']:['PT0M']) lines.push('BEGIN:VALARM',`TRIGGER:${trigger}`,'ACTION:DISPLAY',`DESCRIPTION:${escapeICS(slot.title)}`,'END:VALARM');
       lines.push('END:VEVENT');
       if(slot.kind==='care') {
         // A distinct event works in calendars that reject after-start VALARM triggers.
         const followStart=new Date(slot.at+5*60000).toLocaleTimeString('en-GB',{timeZone:ZONE,hour12:false}).replace(/:/g,'');
         const followEnd=new Date(slot.at+20*60000).toLocaleTimeString('en-GB',{timeZone:ZONE,hour12:false}).replace(/:/g,'');
-        lines.push('BEGIN:VEVENT',`UID:mouni-care-followup-${timePart}-${datePart}@mounibaby.app`,`DTSTAMP:${stamp}`,`SUMMARY:${escapeICS(slot.title + ': follow-up')}`,`DTSTART;TZID=${ZONE}:${datePart}T${followStart}`,`DTEND;TZID=${ZONE}:${datePart}T${followEnd}`,`RRULE:FREQ=DAILY;UNTIL=${until(end)}`,`DESCRIPTION:${escapeICS('Check your checklist if it is still pending. If it is already complete, ignore this follow-up. This reminder is not an instruction to take another dose.')}`,'BEGIN:VALARM','TRIGGER:PT0M','ACTION:DISPLAY',`DESCRIPTION:${escapeICS(slot.title + ': follow-up')}`,'END:VALARM','END:VEVENT');
+        lines.push('BEGIN:VEVENT',`UID:mouni-care-followup-${timePart}@mounibaby.app`,`DTSTAMP:${stamp}`,`SUMMARY:${escapeICS(slot.title + ': follow-up')}`,`DTSTART;TZID=${ZONE}:${datePart}T${followStart}`,`DTEND;TZID=${ZONE}:${datePart}T${followEnd}`,`RRULE:FREQ=DAILY;UNTIL=${until(end)}`,`DESCRIPTION:${escapeICS('Check your checklist if it is still pending. If it is already complete, ignore this follow-up. This reminder is not an instruction to take another dose.')}`,'BEGIN:VALARM','TRIGGER:PT0M','ACTION:DISPLAY',`DESCRIPTION:${escapeICS(slot.title + ': follow-up')}`,'END:VALARM','END:VEVENT');
       }
     }
-    if (mode === 'all') {
-      const appointments = [
-        {id:'doctor-last-checkup-20261014',start:'20261014T100000',end:'20261014T113000',title:'Last doctor checkup',desc:'Existing tracker appointment: 14 October 2026. Confirm the appointment time with the clinic.'},
-        {id:'final-scan-20261028',start:'20261025T100000',end:'20261025T113000',title:'Final scan planning reminder',desc:'Reminder to arrange the final scan before 28 October. This calendar entry is a planning reminder, not a confirmed scan appointment.'},
-        {id:'planned-delivery-20261101',start:'20261101T090000',end:'20261105T180000',title:'Planned delivery window (1–5 November)',desc:'Existing tracker delivery window: 1–5 November 2026. Confirm the current plan with the doctor.'}
-      ];
-      for (const event of appointments.filter(event => event.start.slice(0,8) >= start.replace(/-/g,''))) {
-        lines.push('BEGIN:VEVENT',`UID:${event.id}@mounibaby.app`,`DTSTAMP:${stamp}`,`SUMMARY:${escapeICS(event.title)}`,`DTSTART;TZID=${ZONE}:${event.start}`,`DTEND;TZID=${ZONE}:${event.end}`,`DESCRIPTION:${escapeICS(event.desc)}`,'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY',`DESCRIPTION:${escapeICS(event.title)}`,'END:VALARM','BEGIN:VALARM','TRIGGER:-PT30M','ACTION:DISPLAY',`DESCRIPTION:${escapeICS(event.title)}`,'END:VALARM','END:VEVENT');
+    // Keep appointment UIDs stable so clients that support updates can match them.
+    const appointments = [
+      {id:'final-scan-20261028',day:'20261023',title:'Morning scan — 23 October',desc:'Scan on 23 October 2026 in the morning. Exact appointment time has not been provided; confirm it with the clinic. Calendar reminders: 6 PM the previous day and 7 AM on the day (India time).',alarms:['20261022T123000Z','20261023T013000Z']},
+      {id:'doctor-last-checkup-20261014',day:'20261023',title:'Evening checkup — 23 October',desc:'Doctor checkup on 23 October 2026 in the evening. Exact appointment time has not been provided; confirm it with the clinic. Calendar reminders: 6 PM the previous day and 3 PM on the day (India time).',alarms:['20261022T123000Z','20261023T093000Z']},
+      {id:'planned-delivery-20261101',day:'20261101',time:'052000',title:'Scheduled delivery — 1 November, 5:20 AM',desc:'Scheduled delivery: 1 November 2026 at 5:20 AM, Asia/Kolkata (India time). Follow the hospital’s instructions for arrival and preparation.'}
+    ];
+    for (const event of appointments.filter(event => event.day >= start.replace(/-/g,''))) {
+      lines.push('BEGIN:VEVENT',`UID:${event.id}@mounibaby.app`,`DTSTAMP:${stamp}`,`SUMMARY:${escapeICS(event.title)}`);
+      if (event.time) lines.push(`DTSTART;TZID=${ZONE}:${event.day}T${event.time}`);
+      else lines.push(`DTSTART;VALUE=DATE:${event.day}`,`DTEND;VALUE=DATE:20261024`);
+      lines.push(`DESCRIPTION:${escapeICS(event.desc)}`);
+      for (const trigger of event.alarms || ['-P1D','-PT2H','-PT30M']) {
+        lines.push('BEGIN:VALARM',event.alarms?`TRIGGER;VALUE=DATE-TIME:${trigger}`:`TRIGGER:${trigger}`,'ACTION:DISPLAY',`DESCRIPTION:${escapeICS(event.title)}`,'END:VALARM');
       }
+      lines.push('END:VEVENT');
     }
-    lines.push('END:VCALENDAR');return lines.map(foldICS).join('\r\n')+'\r\n';
+    lines.push('END:VCALENDAR');
+    // Publish a newer revision without changing event identities on every export.
+    const revision = String(Math.floor(now.getTime() / 1000));
+    return lines.flatMap(line => line === 'BEGIN:VEVENT' ? [line,`SEQUENCE:${revision}`,`LAST-MODIFIED:${stamp}`] : [line]).map(foldICS).join('\r\n')+'\r\n';
   }
   const engine={indiaDate,schedule,latestDue,calendar};
   if(typeof module!=='undefined' && module.exports) module.exports=engine;
@@ -143,7 +152,7 @@
     if('Notification' in root && Notification.permission==='granted') {
       try {
         const worker=await registration();
-        await worker.showNotification(title,{body,icon:'icon-192.png?v=32',tag:slot?slot.id:'mouni-test-reminder',renotify:true,requireInteraction:true,vibrate:[300,150,300,150,300],data:{url:new URL('./index.html#careContent',location.href).href},actions:[{action:'open',title:'Open checklist'}]});
+        await worker.showNotification(title,{body,icon:'icon-192.png?v=33',tag:slot?slot.id:'mouni-test-reminder',renotify:true,requireInteraction:true,vibrate:[300,150,300,150,300],data:{url:new URL('./index.html#careContent',location.href).href},actions:[{action:'open',title:'Open checklist'}]});
         feedback('Notification sent to Android/Chrome. Sound and vibration depend on your phone settings.');
       }catch(error) {feedback(`The page alert is visible, but the phone notification failed: ${error.message}`);}
     }
@@ -204,15 +213,15 @@
     await unlockAudio();await root.sendReminderNotification('Test reminder','This is a test. No care record was changed.');
     if(!('Notification' in root)||Notification.permission!=='granted')feedback('Test sound and page alert shown. Enable page alerts and allow notifications to test Android delivery.');
   };
-  function download(mode) {
+  function download() {
     try {
-      const content=calendar(new Date(),el('reminderEndDate').value,mode);
+      const content=calendar(new Date(),el('reminderEndDate').value);
       const url=URL.createObjectURL(new Blob([content],{type:'text/calendar;charset=utf-8'}));
-      const link=document.createElement('a');link.href=url;link.download=`mouni-${mode}-phone-reminders.ics`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
-      feedback('Calendar file downloaded. Import it, then check event notification settings on each phone. Downloading alone does not turn on calendar alerts.');
+      const link=document.createElement('a');link.href=url;link.download='mouni-phone-reminders.ics';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+      feedback('All events downloaded in one file: tablets, water, scan, checkup and delivery. Replace older imported events before importing this file to avoid duplicates, then check calendar alerts on your phone.');
     }catch(error){feedback(error.message);}
   }
-  root.downloadICS=()=>download('all');root.downloadWaterICS=()=>download('water');
+  root.downloadICS=download;
   document.addEventListener('DOMContentLoaded',()=>{
     const start=indiaDate(new Date()),end=new Date(`${start}T12:00:00+05:30`);end.setUTCMonth(end.getUTCMonth()+3);
     el('reminderEndDate').min=start;el('reminderEndDate').value=indiaDate(end);
