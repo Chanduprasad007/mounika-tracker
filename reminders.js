@@ -39,7 +39,8 @@
     if(!/^\d{4}-\d{2}-\d{2}$/.test(endDate) || endDate < start) throw new Error('Choose an end date today or later.');
     const stamp=now.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
     const until=date=>new Date(`${date}T23:59:59+05:30`).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
-    const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Mouni Baby Hub//Phone Reminders//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:Mouni & Chandu — all events','X-WR-TIMEZONE:Asia/Kolkata','BEGIN:VTIMEZONE','TZID:Asia/Kolkata','BEGIN:STANDARD','DTSTART:19700101T000000','TZOFFSETFROM:+0530','TZOFFSETTO:+0530','TZNAME:IST','END:STANDARD','END:VTIMEZONE'];
+    // Plain import file: no METHOD (iTIP PUBLISH requires an ORGANIZER).
+    const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Mouni Baby Hub//Phone Reminders//EN','CALSCALE:GREGORIAN','X-WR-CALNAME:Mouni & Chandu — all events','X-WR-TIMEZONE:Asia/Kolkata','BEGIN:VTIMEZONE','TZID:Asia/Kolkata','BEGIN:STANDARD','DTSTART:19700101T000000','TZOFFSETFROM:+0530','TZOFFSETTO:+0530','TZNAME:IST','END:STANDARD','END:VTIMEZONE'];
     for(const slot of schedule(now,true)) {
       const end=slot.kind==='water'&&endDate>'2026-11-14'?'2026-11-14':endDate;
       const datePart=start.replace(/-/g,'');
@@ -152,7 +153,7 @@
     if('Notification' in root && Notification.permission==='granted') {
       try {
         const worker=await registration();
-        await worker.showNotification(title,{body,icon:'icon-192.png?v=33',tag:slot?slot.id:'mouni-test-reminder',renotify:true,requireInteraction:true,vibrate:[300,150,300,150,300],data:{url:new URL('./index.html#careContent',location.href).href},actions:[{action:'open',title:'Open checklist'}]});
+        await worker.showNotification(title,{body,icon:'icon-192.png?v=34',tag:slot?slot.id:'mouni-test-reminder',renotify:true,requireInteraction:true,vibrate:[300,150,300,150,300],data:{url:new URL('./index.html#careContent',location.href).href},actions:[{action:'open',title:'Open checklist'}]});
         feedback('Notification sent to Android/Chrome. Sound and vibration depend on your phone settings.');
       }catch(error) {feedback(`The page alert is visible, but the phone notification failed: ${error.message}`);}
     }
@@ -217,8 +218,15 @@
     try {
       const content=calendar(new Date(),el('reminderEndDate').value);
       const url=URL.createObjectURL(new Blob([content],{type:'text/calendar;charset=utf-8'}));
-      const link=document.createElement('a');link.href=url;link.download='mouni-phone-reminders.ics';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
-      feedback('All events downloaded in one file: tablets, water, scan, checkup and delivery. Replace older imported events before importing this file to avoid duplicates, then check calendar alerts on your phone.');
+      const link=document.createElement('a');
+      link.href=url;link.download='mouni-phone-reminders.ics';link.type='text/calendar';link.hidden=true;
+      document.body.appendChild(link);
+      try {link.click();} finally {
+        link.remove();
+        // Give mobile download handlers time to finish reading the blob.
+        setTimeout(()=>URL.revokeObjectURL(url),60000);
+      }
+      feedback('Calendar file saved. In Google Calendar on a computer, open Settings > Import & export and import this .ics file. It then syncs to Android. Tapping the file on Android may not import it. Replace older imported events first to avoid duplicates.');
     }catch(error){feedback(error.message);}
   }
   root.downloadICS=download;

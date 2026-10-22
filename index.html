@@ -6,11 +6,11 @@
   <title>Mouni &amp; Chandu’s Baby</title>
   
   <!-- PWA meta tags & installability -->
-  <link rel="manifest" href="manifest.json?v=33">
+  <link rel="manifest" href="manifest.json?v=34">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Mouni &amp; Chandu">
-  <link rel="apple-touch-icon" href="icon-180.png?v=33">
+  <link rel="apple-touch-icon" href="icon-180.png?v=34">
   <meta name="theme-color" content="#ad496c">
 
   <style>
@@ -1494,8 +1494,8 @@
       z-index: 1;
     }
   </style>
-  <link rel="stylesheet" href="upgrade.css?v=33">
-  <link rel="icon" href="icon-192.png?v=33" type="image/png">
+  <link rel="stylesheet" href="upgrade.css?v=34">
+  <link rel="icon" href="icon-192.png?v=34" type="image/png">
 </head>
 <body>
   <a class="skip-link" href="#careContent">Skip to daily care</a>
@@ -1518,7 +1518,7 @@
     <canvas id="confetti-canvas"></canvas>
 
     <div class="masthead">
-      <div class="brand"><img src="icon-192.png?v=33" alt=""><div>Mouni &amp; Chandu<small>OUR BABY · OUR LITTLE JOURNEY</small></div></div>
+      <div class="brand"><img src="icon-192.png?v=34" alt=""><div>Mouni &amp; Chandu<small>OUR BABY · OUR LITTLE JOURNEY</small></div></div>
       <div class="masthead-actions"><span class="today-date" id="todayDate"></span>
       <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle dark theme">
         <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1559,6 +1559,7 @@
         <label for="reminderEndDate">Repeat daily calendar reminders until</label>
         <input type="date" id="reminderEndDate">
         <button class="action-btn" id="downloadPhoneReminders" type="button">Download all calendar events (.ics)</button>
+        <p class="calendar-import-hint">For Google Calendar, import this file on a laptop using <a href="https://calendar.google.com/calendar/u/0/r/settings/export" target="_blank" rel="noopener">Settings → Import &amp; export</a>. It then syncs to Android. Tapping the file on your phone may not import it.</p>
         <details><summary>Set up alerts on Android</summary><ol>
           <li>Import the downloaded file into Google Calendar using its <a href="https://calendar.google.com/calendar/u/0/r/settings/export" target="_blank" rel="noopener">Import & export settings</a> on a laptop. Use a separate calendar for these events. If you imported an older file, remove its old events before importing this replacement; imports may not update existing events.</li>
           <li>On each phone, open Google Calendar with the same account. Enable sync for the calendar you imported into.</li>
@@ -3462,13 +3463,13 @@
         try {
           new Notification(title, {
             body: body,
-            icon: 'icon-192.png?v=33'
+            icon: 'icon-192.png?v=34'
           });
         } catch (e) {
           navigator.serviceWorker.ready.then(registration => {
             registration.showNotification(title, {
               body: body,
-              icon: 'icon-192.png?v=33'
+              icon: 'icon-192.png?v=34'
             });
           });
         }
@@ -4419,7 +4420,7 @@
     }
 </script>
   <div id="saveToast" class="save-toast" role="status" aria-live="polite"></div>
-  <script src="reminders.js?v=33"></script>
-  <script src="upgrade.js?v=33"></script>
+  <script src="reminders.js?v=34"></script>
+  <script src="upgrade.js?v=34"></script>
 </body>
 </html>
