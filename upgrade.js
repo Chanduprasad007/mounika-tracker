@@ -1,128 +1,112 @@
-// Presentation enhancements reuse the existing tracking functions and storage keys.
 (() => {
-  const el = id => document.getElementById(id);
-  let toastTimer;
-  function toast(message) {
-    const box = el('saveToast');
-    box.textContent = message;
-    box.classList.add('visible');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => box.classList.remove('visible'), 2200);
-  }
-  function syncAccessibleState() {
-    document.querySelectorAll('.item-row[onclick]').forEach(row => {
-      row.setAttribute('aria-checked', String(row.classList.contains('checked')));
+ 'use strict';
+ const E=window.BabyCare,$=id=>document.getElementById(id);
+ const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback;}catch{return fallback;}};
+ let profile=read('mouni_baby_profile_v1',{}),records=read('mouni_uip_records_v1',{}),prep=read('mouni_birth_prep_v1',[]),filter='early',toastTimer;
+ if(!profile||typeof profile!=='object'||Array.isArray(profile))profile={};
+ if(!records||typeof records!=='object'||Array.isArray(records))records={};
+ if(!Array.isArray(prep))prep=[];
+ const prepItems=[['arrival','Confirm hospital arrival time, admission and fasting instructions.'],['papers','Pack ID, scan reports, hospital notes and insurance papers.'],['transport','Arrange transport and save the hospital and care-team contacts.'],['bag','Pack comfortable clothes, maternity pads, baby clothes and a clean wrap.'],['discharge','Ask about birth-dose vaccines, feeding support and the discharge follow-up.']];
+ function notify(message){$('saveToast').textContent=message;$('saveToast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('saveToast').classList.remove('visible'),2200);}
+ function save(key,data){try{localStorage.setItem(key,JSON.stringify(data));return true;}catch{notify('Unable to save in this browser. Check storage settings.');return false;}}
+ const fmt=day=>new Intl.DateTimeFormat('en-IN',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(day+'T12:00:00Z'));
+ const confirmed=()=>Boolean(profile.confirmed&&E.validDate(profile.birthDate)&&profile.birthDate<=E.indiaDate());
+ const birth=()=>confirmed()?profile.birthDate:E.PLANNED_BIRTH;
+ function node(tag,className,text){const el=document.createElement(tag);if(className)el.className=className;if(text!==undefined)el.textContent=text;return el;}
+ function renderHeader(){
+  const left=Date.parse(E.DELIVERY)-Date.now();
+  $('deliveryStatus').textContent=confirmed()?'Birth record confirmed':left>0?`${Math.floor(left/86400000)}d ${Math.floor(left%86400000/3600000)}h to go`:'Add actual birth record';
+  $('scheduleBasis').textContent=confirmed()?`Dates use the confirmed birth date: ${fmt(birth())}. Record each dose from the hospital vaccination card.`:`Provisional dates below use the planned delivery on ${fmt(E.PLANNED_BIRTH)}. Confirm the actual birth date after delivery; you can then record vaccinations.`;
+  $('birthRecordStatus').textContent=confirmed()?`Confirmed birth date: ${fmt(profile.birthDate)}. Edit and save if needed.`:'Not yet confirmed. The scheduled delivery is not treated as the actual birth.';
+  $('editPlan').hidden=!confirmed();
+  $('jeOption').checked=Boolean(profile.je);
+  $('actualBirthDate').max=E.indiaDate();
+ }
+ function renderVaccines(){
+  const groups=E.schedule(birth(),Boolean(profile.je));
+  const allowedIds=new Set(groups.flatMap(g=>g.doses.map(d=>d[0])));
+  const count=[...allowedIds].filter(id=>records[id]&&E.validDate(records[id].date)).length;
+  $('vaccineProgress').textContent=`${count} / ${allowedIds.size} doses recorded`;
+  const list=$('vaccineList');list.replaceChildren();
+  const shown=filter==='early'?groups.slice(0,4):groups;
+  for(const group of shown){
+   const doses=filter==='given'?group.doses.filter(d=>records[d[0]]):group.doses;
+   if(!doses.length)continue;
+   const card=node('section','vaccine-group');
+   const heading=node('div','vaccine-group-heading'),title=node('div');
+   title.append(node('h3','',group.age));
+   if(group.end)title.append(node('span','group-window','Visit window through '+fmt(group.end)));
+   heading.append(title,node('span','target-date',(confirmed()?'':'Planned · ')+fmt(group.start)));card.append(heading);
+   if(group.note)card.append(node('p','group-note',group.note));
+   for(const [id,name,conditional] of doses){
+    const record=records[id];const row=node('div','dose'+(record?' given':'')),label=node('label','dose-label');
+    const check=node('input');check.type='checkbox';check.checked=Boolean(record);check.disabled=!confirmed();check.dataset.dose=id;
+    label.append(check,node('span','',name+(conditional?' · if advised':'')));row.append(label);
+    check.addEventListener('change',()=>{
+     if(!confirmed())return;
+     const next={...records};if(check.checked)next[id]={date:E.indiaDate()};else delete next[id];
+     if(save('mouni_uip_records_v1',next)){records=next;renderVaccines();notify('Vaccination record saved');}else check.checked=!check.checked;
     });
-    document.querySelectorAll('.water-glass-btn').forEach(button => {
-      button.setAttribute('aria-pressed', String(button.classList.contains('drank')));
-    });
-    document.querySelectorAll('.filter-chip').forEach(button => {
-      button.setAttribute('aria-pressed', String(button.classList.contains('active')));
-    });
-    const count = document.querySelectorAll('.water-glass-btn.drank').length;
-    el('waterAmount').textContent = `${(count * .25).toFixed(2).replace(/0$/, '')} L`;
-    el('waterLiquid').style.transform = `translateY(${100 - count / 14 * 100}%)`;
-  }
-  function enhanceRows() {
-    document.querySelectorAll('.item-row[onclick]').forEach(row => {
-      row.tabIndex = 0;
-      row.setAttribute('role','checkbox');
-      const name = row.querySelector('.item-name');
-      if (name) row.setAttribute('aria-label', name.textContent.trim());
-    });
-  }
-  document.addEventListener('DOMContentLoaded', () => {
-    el('todayDate').textContent = new Intl.DateTimeFormat('en-IN', {weekday:'short',day:'numeric',month:'long',timeZone:'Asia/Kolkata'}).format(new Date());
-    const overviewButton = el('overviewToggle');
-    function setOverview(expanded) {
-      overviewButton.setAttribute('aria-expanded', String(expanded));
-      el('journeyOverview').hidden = !expanded;
-      el('overviewLabel').textContent = expanded ? 'Hide journey details' : 'View journey details';
-      el('overviewSymbol').textContent = expanded ? '−' : '+';
+    if(record){
+     const date=node('input','dose-date');date.type='date';date.value=record.date;date.min=birth();date.max=E.indiaDate();date.required=true;date.setAttribute('aria-label',name+' date given');
+     date.addEventListener('change',()=>{
+      if(!E.validDate(date.value)||date.value<birth()||date.value>E.indiaDate()){date.value=record.date;notify('Choose a date between birth and today.');return;}
+      const next={...records,[id]:{date:date.value}};if(save('mouni_uip_records_v1',next)){records=next;notify('Date saved');}
+     });row.append(date);
     }
-    el('compactPregnancyAge').textContent = el('gestationalAgeText').textContent.split(' • ')[0];
-    setOverview(true);
-    overviewButton.addEventListener('click', () => setOverview(overviewButton.getAttribute('aria-expanded') !== 'true'));
-    enhanceRows();
-    document.querySelectorAll('.water-glass-btn').forEach(button => {
-      button.tabIndex = 0;
-      button.setAttribute('role','button');
-      button.setAttribute('aria-label', `Log water for ${button.textContent.replace(/[🥛💧]/gu,'').trim()}`);
-    });
-    document.querySelectorAll('.accordion-header').forEach(button => {
-      button.tabIndex=0;
-      button.setAttribute('role','button');
-      button.setAttribute('aria-expanded',String(button.classList.contains('active')));
-    });
-    document.querySelectorAll('.time-header').forEach(header => {
-      const block = header.closest('.time-block');
-      const button = document.createElement('button');
-      button.className='block-collapse';
-      button.type='button';
-      button.textContent='−';
-      button.setAttribute('aria-expanded','true');
-      button.setAttribute('aria-label', `Collapse ${header.querySelector('h2').textContent} checklist`);
-      button.addEventListener('click', () => {
-        const collapsed = block.classList.toggle('collapsed');
-        button.textContent=collapsed?'+':'−';
-        button.setAttribute('aria-expanded',String(!collapsed));
-        button.setAttribute('aria-label', `${collapsed?'Expand':'Collapse'} ${header.querySelector('h2').textContent} checklist`);
-      });
-      header.append(button);
-    });
-    const tabs = [...document.querySelectorAll('.tab-btn')];
-    tabs.forEach((button, index) => {
-      button.id=`care-tab-${index}`;
-      button.setAttribute('role','tab');
-      button.setAttribute('aria-controls',index===0?'tablets-tab':'vaccines-tab');
-      button.addEventListener('keydown', event => {
-        if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
-        event.preventDefault();
-        const target=event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;
-        tabs[target].click();
-        tabs[target].focus();
-      });
-    });
-    document.querySelectorAll('.tab-content').forEach((panel,index) => {
-      panel.setAttribute('role','tabpanel');
-      panel.setAttribute('aria-labelledby',`care-tab-${index}`);
-    });
-    function syncTabs() {
-      tabs.forEach(button => {
-        const active=button.classList.contains('active');
-        button.setAttribute('aria-selected',String(active));
-        button.tabIndex=active?0:-1;
-      });
-    }
-    document.addEventListener('keydown',event=>{
-      if (!['Enter',' '].includes(event.key)) return;
-      const target=event.target;
-      if (target.matches('.item-row[onclick],.water-glass-btn,.accordion-header')) {
-        event.preventDefault(); target.click();
-      }
-    });
-    // Capture before the original checklist handlers stop propagation.
-    document.addEventListener('click',event=>{
-      const target=event.target;
-      const changedRecord = target.closest('.item-row[onclick],.water-glass-btn');
-      queueMicrotask(() => {
-        if(target.closest('.tab-btn')) syncTabs();
-        if(target.closest('.accordion-header')) {
-          const button=target.closest('.accordion-header');
-          button.setAttribute('aria-expanded',String(button.classList.contains('active')));
-        }
-        syncAccessibleState();
-        if(changedRecord) toast('Saved on this device');
-      });
-    }, true);
-    new MutationObserver(() => {enhanceRows();syncAccessibleState();}).observe(el('vaccineListContainer'),{childList:true});
-    new MutationObserver(syncAccessibleState).observe(el('waterGrid'),{childList:true,subtree:true});
-    syncTabs(); syncAccessibleState();
-    el('waterProgressCount').setAttribute('aria-live','polite');
-    el('tabletsProgressCount').setAttribute('aria-live','polite');
-  });
+    card.append(row);
+   }
+   list.append(card);
+  }
+  if(!list.children.length)list.append(node('p','empty-state','No doses recorded yet. Confirm the actual birth date, then use the vaccination card to mark doses given.'));
+  document.querySelectorAll('[data-filter]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.filter===filter)));
+ }
+ function renderVisits(){
+  const list=$('careVisits');list.replaceChildren();
+  for(const visit of E.ranges(birth(),E.VISITS)){
+   const row=node('div','visit-row');row.append(node('strong','',visit.age),node('p','',(confirmed()?'':'Provisional · ')+fmt(visit.start)+(visit.end?' – '+fmt(visit.end):'')),node('p','',visit.note));list.append(row);
+  }
+ }
+ function renderPrep(){
+  const list=$('prepList');list.replaceChildren();
+  for(const [id,text] of prepItems){
+   const label=node('label','prep-item'+(prep.includes(id)?' done':'')),check=node('input');check.type='checkbox';check.checked=prep.includes(id);label.append(check,node('span','',text));list.append(label);
+   check.addEventListener('change',()=>{const next=check.checked?[...new Set([...prep,id])]:prep.filter(x=>x!==id);if(save('mouni_birth_prep_v1',next)){prep=next;renderPrep();}});
+  }
+ }
+ function render(){renderHeader();renderVaccines();renderVisits();}
+ $('birthForm').addEventListener('submit',event=>{
+  event.preventDefault();const date=$('actualBirthDate').value;
+  if(!E.validDate(date)||date>E.indiaDate()){$('birthRecordStatus').textContent='Use the actual birth date, today or earlier, after delivery.';return;}
+  // A date correction must not leave an earlier administration date before birth.
+  if(Object.values(records).some(record=>record.date<date)){$('birthRecordStatus').textContent='Some vaccine dates are earlier than this birth date. Correct those recorded dates before changing the birth date.';return;}
+  const next={...profile,birthDate:date,confirmed:true,weight:$('birthWeight').value,hospital:$('hospitalName').value.trim()};
+  if(save('mouni_baby_profile_v1',next)){profile=next;render();notify('Birth record saved; schedule updated');}
+ });
+ $('editPlan').addEventListener('click',()=>{const next={...profile,confirmed:false};if(save('mouni_baby_profile_v1',next)){profile=next;render();notify('Using provisional dates');}});
+ $('jeOption').addEventListener('change',()=>{const next={...profile,je:$('jeOption').checked};if(save('mouni_baby_profile_v1',next)){profile=next;renderVaccines();}});
+ document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{filter=button.dataset.filter;renderVaccines();}));
+ $('downloadCalendar').addEventListener('click',()=>{
+  try{
+   const data=E.calendar(new Date(),profile),url=URL.createObjectURL(new Blob([data],{type:'text/calendar;charset=utf-8'}));
+   const link=node('a');link.href=url;link.download='mouni-phone-reminders.ics';link.hidden=true;document.body.append(link);try{link.click();}finally{link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
+   $('calendarFeedback').textContent=confirmed()?'Saved delivery and baby-care calendar. Import on a laptop, then sync to Android.':'Saved with provisional baby-care dates based on 29 October. Confirm the actual birth date and replace this import after delivery.';
+  }catch(error){$('calendarFeedback').textContent='Unable to create the calendar. '+error.message;}
+ });
+ let dark=read('mouni_baby_dark',false);
+ function setTheme(){document.documentElement.dataset.theme=dark?'dark':'light';$('themeToggle').setAttribute('aria-label',dark?'Switch to light theme':'Switch to dark theme');}
+ $('themeToggle').addEventListener('click',()=>{dark=!dark;save('mouni_baby_dark',dark);setTheme();});setTheme();
+ if(E.validDate(profile.birthDate))$('actualBirthDate').value=profile.birthDate;
+ $('birthWeight').value=typeof profile.weight==='string'?profile.weight:'';
+ $('hospitalName').value=typeof profile.hospital==='string'?profile.hospital:'';
+ const legacy=read('checkedVaccines',[]);
+ if(Array.isArray(legacy)&&legacy.length){
+  $('olderRecords').hidden=false;for(const id of legacy)$('legacyVaccineList').append(node('li','',String(id)));
+ }
+ render();renderPrep();
+ let lastDay=E.indiaDate();setInterval(()=>{renderHeader();const day=E.indiaDate();if(day!==lastDay){lastDay=day;render();}},60000);
+ if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 })();
-
 // Original Krishna-inspired pentatonic bansuri melody, above a soft tonic drone.
 // Synthesized locally so music also works offline, without streaming requests.
 (() => {

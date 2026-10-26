@@ -1,241 +1,65 @@
-/* Background alarms require a push sender. This module deliberately promises
-   page-open reminders only and provides a phone-calendar alternative. */
-(function (root) {
-  'use strict';
-  const ZONE = 'Asia/Kolkata';
-  function indiaDate(now) {
-    const parts = new Intl.DateTimeFormat('en-CA', {timeZone:ZONE,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);
-    const part = type => parts.find(value => value.type === type).value;
-    return `${part('year')}-${part('month')}-${part('day')}`;
+/* India UIP vaccine planning and one plain ICS export. No medicine scheduling. */
+(function(root){
+ 'use strict';
+ const ZONE='Asia/Kolkata';
+ const DELIVERY='2026-10-29T17:30:00+05:30';
+ const PLANNED_BIRTH='2026-10-29';
+ const SOURCE='https://www.pib.gov.in/PressNoteDetails.aspx?ModuleId=3&NoteId=157836&lang=1&reg=3';
+ // UIP age groups. JE is conditional on the local programme in endemic districts.
+ const GROUPS=[
+  {id:'birth',age:'At birth',days:0,note:'Ask the hospital to record BCG, OPV-0 and the hepatitis B birth dose. Hepatitis B birth dose is due within 24 hours.',doses:[['bcg','BCG'],['opv0','OPV-0'],['hepb-birth','Hepatitis B birth dose']]},
+  {id:'6w',age:'6 weeks',days:42,doses:[['opv1','OPV-1'],['penta1','Pentavalent-1'],['rota1','Rotavirus-1'],['fipv1','fIPV-1'],['pcv1','PCV-1']]},
+  {id:'10w',age:'10 weeks',days:70,doses:[['opv2','OPV-2'],['penta2','Pentavalent-2'],['rota2','Rotavirus-2']]},
+  {id:'14w',age:'14 weeks',days:98,doses:[['opv3','OPV-3'],['penta3','Pentavalent-3'],['rota3','Rotavirus-3'],['fipv2','fIPV-2'],['pcv2','PCV-2']]},
+  {id:'9m',age:'9–12 months',months:9,endMonths:12,note:'A visit window, not a fixed appointment. JE-1 only where recommended by the local immunization programme.',doses:[['mr1','MR-1'],['pcv-booster','PCV booster'],['fipv3','fIPV-3'],['je1','JE-1',true]]},
+  {id:'16m',age:'16–24 months',months:16,endMonths:24,note:'JE-2 only where recommended by the local immunization programme.',doses:[['mr2','MR-2'],['dpt-booster1','DPT booster-1'],['opv-booster','OPV booster'],['je2','JE-2',true]]},
+  {id:'5y',age:'5–6 years',months:60,endMonths:72,doses:[['dpt-booster2','DPT booster-2']]},
+  {id:'10y',age:'10 years',months:120,doses:[['td10','Td']]},
+  {id:'16y',age:'16 years',months:192,doses:[['td16','Td']]}
+ ];
+ const VISITS=[
+  {id:'first-day',label:'Mother & baby: first-day assessment',days:0,endDays:1,age:'Within 24 hours',note:'Ask the birth team to arrange this assessment before discharge.'},
+  {id:'day3',label:'Mother & baby: early postnatal check',days:2,endDays:3,age:'48–72 hours',note:'Arrange the visit with your hospital or health worker.'},
+  {id:'week2',label:'Mother & baby: postnatal check',days:7,endDays:14,age:'7–14 days',note:'A visit window; follow the discharge appointment if it differs.'},
+  {id:'week6',label:'Mother & baby: six-week check',days:42,age:'6 weeks',note:'Confirm the appointment with the care team.'}
+ ];
+ function indiaDate(now=new Date()){
+  const parts=new Intl.DateTimeFormat('en-CA',{timeZone:ZONE,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);
+  return ['year','month','day'].map(type=>parts.find(p=>p.type===type).value).join('-');
+ }
+ function validDate(day){return /^\d{4}-\d{2}-\d{2}$/.test(day||'')&&!Number.isNaN(Date.parse(day+'T12:00:00Z'))&&new Date(day+'T12:00:00Z').toISOString().slice(0,10)===day;}
+ function addDays(day,days){if(!validDate(day))throw new Error('Choose a valid birth date.');const date=new Date(day+'T12:00:00Z');date.setUTCDate(date.getUTCDate()+days);return date.toISOString().slice(0,10);}
+ function addMonths(day,months){if(!validDate(day))throw new Error('Choose a valid birth date.');const date=new Date(day+'T12:00:00Z'),d=date.getUTCDate();date.setUTCDate(1);date.setUTCMonth(date.getUTCMonth()+months);const last=new Date(Date.UTC(date.getUTCFullYear(),date.getUTCMonth()+1,0)).getUTCDate();date.setUTCDate(Math.min(d,last));return date.toISOString().slice(0,10);}
+ function ranges(day,groups=GROUPS){return groups.map(g=>({...g,start:g.months!==undefined?addMonths(day,g.months):addDays(day,g.days),end:g.endMonths!==undefined?addMonths(day,g.endMonths):g.endDays!==undefined?addDays(day,g.endDays):null}));}
+ function schedule(day=PLANNED_BIRTH,je=false){return ranges(day).map(group=>({...group,doses:group.doses.filter(d=>je||!d[2])}));}
+ function escapeICS(text){return String(text).replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/;/g,'\\;').replace(/,/g,'\\,');}
+ function foldICS(line){let result='',part='',size=0;const encoder=new TextEncoder();for(const c of line){const n=encoder.encode(c).length;if(size+n>75){result+=part+'\r\n';part=' ';size=1;}part+=c;size+=n;}return result+part;}
+ function utc(date){return new Date(date).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');}
+ function calendar(now=new Date(),profile={}){
+  const actual=profile.confirmed&&validDate(profile.birthDate)&&profile.birthDate<=indiaDate(now);
+  const birth=actual?profile.birthDate:PLANNED_BIRTH;
+  const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Mouni and Chandu//Birth and Baby Care//EN','CALSCALE:GREGORIAN','X-WR-CALNAME:Mouni and Chandu - Baby care','X-WR-TIMEZONE:'+ZONE];
+  const stamp=utc(now);
+  function event(id,title,day,note,timed=false){
+   lines.push('BEGIN:VEVENT','UID:'+id+'@mounibaby.app','DTSTAMP:'+stamp,'LAST-MODIFIED:'+stamp,'SUMMARY:'+escapeICS(title));
+   if(timed)lines.push('DTSTART:'+utc(DELIVERY));
+   else lines.push('DTSTART;VALUE=DATE:'+day.replace(/-/g,''),'DTEND;VALUE=DATE:'+addDays(day,1).replace(/-/g,''));
+   lines.push('DESCRIPTION:'+escapeICS(note));
+   if(timed){for(const trigger of ['-P1D','-PT2H','-PT30M'])lines.push('BEGIN:VALARM','TRIGGER:'+trigger,'ACTION:DISPLAY','DESCRIPTION:'+escapeICS(title),'END:VALARM');}
+   else {
+    const alarm=Date.parse(day+'T09:00:00+05:30')-86400000;
+    if(alarm>now.getTime())lines.push('BEGIN:VALARM','TRIGGER;VALUE=DATE-TIME:'+utc(alarm),'ACTION:DISPLAY','DESCRIPTION:'+escapeICS(title),'END:VALARM');
+   }
+   lines.push('END:VEVENT');
   }
-  function schedule(now, includeWater = true) {
-    const day = indiaDate(now);
-    const slots = [
-      {time:'07:30',kind:'care',block:'morning',title:'Morning care checklist'},
-      {time:'13:30',kind:'care',block:'afternoon',title:'Afternoon care checklist'},
-      {time:'21:00',kind:'care',block:'night',title:'Night care checklist'},
-      {time:'22:00',kind:'care',block:'bedtime',title:'Bedtime care checklist'}
-    ];
-    if (includeWater && day <= '2026-11-14') {
-      for(let hour=8;hour<=21;hour++) slots.push({time:`${String(hour).padStart(2,'0')}:00`,kind:'water',hour,title:'Water check-in'});
-    }
-    return slots.map(slot => ({...slot,id:`${day}:${slot.kind}:${slot.time}`,at:Date.parse(`${day}T${slot.time}:00+05:30`)})).sort((a,b)=>a.at-b.at);
-  }
-  function latestDue(slots, now, delivered, maxAgeMs = 90 * 60000) {
-    return slots.filter(slot => slot.at <= now && now-slot.at <= maxAgeMs && !delivered.includes(slot.id)).slice(-1)[0] || null;
-  }
-  function escapeICS(value) {return String(value).replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/;/g,'\\;').replace(/,/g,'\\,');}
-  function foldICS(line) {
-    const encoder=new TextEncoder();let output='',segment='',size=0;
-    for(const char of line) {
-      const bytes=encoder.encode(char).length;
-      if(size+bytes>75) {output+=segment+'\r\n';segment=' ';size=1;}
-      segment+=char;size+=bytes;
-    }
-    return output+segment;
-  }
-  function calendar(now, endDate) {
-    const start=indiaDate(now);
-    if(!/^\d{4}-\d{2}-\d{2}$/.test(endDate) || endDate < start) throw new Error('Choose an end date today or later.');
-    const stamp=now.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
-    const until=date=>new Date(`${date}T23:59:59+05:30`).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
-    // Plain import file: no METHOD (iTIP PUBLISH requires an ORGANIZER).
-    const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Mouni Baby Hub//Phone Reminders//EN','CALSCALE:GREGORIAN','X-WR-CALNAME:Mouni & Chandu — all events','X-WR-TIMEZONE:Asia/Kolkata','BEGIN:VTIMEZONE','TZID:Asia/Kolkata','BEGIN:STANDARD','DTSTART:19700101T000000','TZOFFSETFROM:+0530','TZOFFSETTO:+0530','TZNAME:IST','END:STANDARD','END:VTIMEZONE'];
-    for(const slot of schedule(now,true)) {
-      const end=slot.kind==='water'&&endDate>'2026-11-14'?'2026-11-14':endDate;
-      const datePart=start.replace(/-/g,'');
-      const timePart=slot.time.replace(':','');
-      const endTime=new Date(slot.at+15*60000).toLocaleTimeString('en-GB',{timeZone:ZONE,hour12:false}).replace(/:/g,'');
-      lines.push('BEGIN:VEVENT',`UID:mouni-${slot.kind}-${timePart}@mounibaby.app`,`DTSTAMP:${stamp}`,`SUMMARY:${escapeICS(slot.title)}`,`DTSTART;TZID=${ZONE}:${datePart}T${timePart}00`,`DTEND;TZID=${ZONE}:${datePart}T${endTime}`,`RRULE:FREQ=DAILY;UNTIL=${until(end)}`,`DESCRIPTION:${escapeICS(slot.kind==='care'?'Open your current care checklist. Follow your current prescription; this event does not specify a medicine or dose.':'Water check-in. Follow your current care plan.')}`);
-      for(const trigger of slot.kind==='care'?['-PT10M','PT0M']:['PT0M']) lines.push('BEGIN:VALARM',`TRIGGER:${trigger}`,'ACTION:DISPLAY',`DESCRIPTION:${escapeICS(slot.title)}`,'END:VALARM');
-      lines.push('END:VEVENT');
-      if(slot.kind==='care') {
-        // A distinct event works in calendars that reject after-start VALARM triggers.
-        const followStart=new Date(slot.at+5*60000).toLocaleTimeString('en-GB',{timeZone:ZONE,hour12:false}).replace(/:/g,'');
-        const followEnd=new Date(slot.at+20*60000).toLocaleTimeString('en-GB',{timeZone:ZONE,hour12:false}).replace(/:/g,'');
-        lines.push('BEGIN:VEVENT',`UID:mouni-care-followup-${timePart}@mounibaby.app`,`DTSTAMP:${stamp}`,`SUMMARY:${escapeICS(slot.title + ': follow-up')}`,`DTSTART;TZID=${ZONE}:${datePart}T${followStart}`,`DTEND;TZID=${ZONE}:${datePart}T${followEnd}`,`RRULE:FREQ=DAILY;UNTIL=${until(end)}`,`DESCRIPTION:${escapeICS('Check your checklist if it is still pending. If it is already complete, ignore this follow-up. This reminder is not an instruction to take another dose.')}`,'BEGIN:VALARM','TRIGGER:PT0M','ACTION:DISPLAY',`DESCRIPTION:${escapeICS(slot.title + ': follow-up')}`,'END:VALARM','END:VEVENT');
-      }
-    }
-    // Keep appointment UIDs stable so clients that support updates can match them.
-    const appointments = [
-      {id:'final-scan-20261028',day:'20261023',title:'Morning scan — 23 October',desc:'Scan on 23 October 2026 in the morning. Exact appointment time has not been provided; confirm it with the clinic. Calendar reminders: 6 PM the previous day and 7 AM on the day (India time).',alarms:['20261022T123000Z','20261023T013000Z']},
-      {id:'doctor-last-checkup-20261014',day:'20261023',title:'Evening checkup — 23 October',desc:'Doctor checkup on 23 October 2026 in the evening. Exact appointment time has not been provided; confirm it with the clinic. Calendar reminders: 6 PM the previous day and 3 PM on the day (India time).',alarms:['20261022T123000Z','20261023T093000Z']},
-      {id:'planned-delivery-20261101',day:'20261101',time:'052000',title:'Scheduled delivery — 1 November, 5:20 AM',desc:'Scheduled delivery: 1 November 2026 at 5:20 AM, Asia/Kolkata (India time). Follow the hospital’s instructions for arrival and preparation.'}
-    ];
-    for (const event of appointments.filter(event => event.day >= start.replace(/-/g,''))) {
-      lines.push('BEGIN:VEVENT',`UID:${event.id}@mounibaby.app`,`DTSTAMP:${stamp}`,`SUMMARY:${escapeICS(event.title)}`);
-      if (event.time) lines.push(`DTSTART;TZID=${ZONE}:${event.day}T${event.time}`);
-      else lines.push(`DTSTART;VALUE=DATE:${event.day}`,`DTEND;VALUE=DATE:20261024`);
-      lines.push(`DESCRIPTION:${escapeICS(event.desc)}`);
-      for (const trigger of event.alarms || ['-P1D','-PT2H','-PT30M']) {
-        lines.push('BEGIN:VALARM',event.alarms?`TRIGGER;VALUE=DATE-TIME:${trigger}`:`TRIGGER:${trigger}`,'ACTION:DISPLAY',`DESCRIPTION:${escapeICS(event.title)}`,'END:VALARM');
-      }
-      lines.push('END:VEVENT');
-    }
-    lines.push('END:VCALENDAR');
-    // Publish a newer revision without changing event identities on every export.
-    const revision = String(Math.floor(now.getTime() / 1000));
-    return lines.flatMap(line => line === 'BEGIN:VEVENT' ? [line,`SEQUENCE:${revision}`,`LAST-MODIFIED:${stamp}`] : [line]).map(foldICS).join('\r\n')+'\r\n';
-  }
-  const engine={indiaDate,schedule,latestDue,calendar};
-  if(typeof module!=='undefined' && module.exports) module.exports=engine;
-  if(!root.document) return;
-  root.ReminderEngine=engine;
-  const el=id=>document.getElementById(id);
-  let interval,repeatTimer,audioContext,currentAlert=null,trackerDay=null;
-  let snoozed=readJSON('mouni_reminder_snoozes',[]);
-  let delivered=readJSON('mouni_reminder_delivered',[]);
-  function readJSON(key,fallback) {try{return JSON.parse(localStorage.getItem(key))||fallback;}catch{return fallback;}}
-  function persist() {
-    const day=indiaDate(new Date());delivered=delivered.filter(id=>id.startsWith(day)).slice(-40);
-    localStorage.setItem('mouni_reminder_delivered',JSON.stringify(delivered));
-    localStorage.setItem('mouni_reminder_snoozes',JSON.stringify(snoozed));
-  }
-  function feedback(text) {if(el('reminderFeedback')) el('reminderFeedback').textContent=text;}
-  function enabled() {return notificationsActive;}
-  async function unlockAudio() {
-    try {
-      const Audio=root.AudioContext||root.webkitAudioContext;
-      if(!Audio) return;
-      audioContext=audioContext||new Audio();
-      if(audioContext.state==='suspended') await audioContext.resume();
-    }catch {feedback('Sound is unavailable. The reminder will still appear on the page.');}
-  }
-  function ring() {
-    if(!audioContext || audioContext.state!=='running') return;
-    for(let index=0;index<4;index++) {
-      const oscillator=audioContext.createOscillator(),gain=audioContext.createGain();
-      const start=audioContext.currentTime+index*.3;
-      oscillator.type='sine';oscillator.frequency.value=index%2?1046.5:830.61;
-      gain.gain.setValueAtTime(0,start);gain.gain.linearRampToValueAtTime(.22,start+.025);gain.gain.exponentialRampToValueAtTime(.001,start+.22);
-      oscillator.connect(gain);gain.connect(audioContext.destination);oscillator.start(start);oscillator.stop(start+.24);
-    }
-  }
-  async function registration() {
-    if(!root.isSecureContext || !('serviceWorker' in navigator)) throw new Error('Phone notifications need this page to be opened over HTTPS.');
-    let timer;
-    try {return await Promise.race([navigator.serviceWorker.ready,new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('Notification setup is not ready. Refresh the page and try again.')),7000);})]);}
-    finally {clearTimeout(timer);}
-  }
-  root.updateNotificationUI=function() {
-    const supported='Notification' in root;
-    const permission=supported?Notification.permission:'unsupported';
-    const button=el('notifToggleBtn');
-    if(button) {button.textContent=enabled()?'🔔 Page alerts: On':'🔕 Page alerts: Off';button.classList.toggle('active-notif',enabled());}
-    const setup=el('enablePageReminders');
-    if(setup) {setup.textContent=enabled()?'Turn page alerts off':'Enable page alerts';setup.setAttribute('aria-pressed',String(enabled()));}
-    const status=el('reminderPermission');
-    if(status) status.textContent=!root.isSecureContext?'Use HTTPS for phone notifications':permission==='granted'?'Notification permission allowed':permission==='denied'?'Notifications blocked in browser settings':permission==='unsupported'?'In-page alerts only in this browser':'Notification permission not yet allowed';
-  };
-  root.toggleNotifications=async function() {
-    await unlockAudio();
-    if(enabled()) {notificationsActive=false;currentAlert=null;snoozed=[];persist();root.closeInAppAlert();}
-    else {
-      notificationsActive=true;
-      if(root.isSecureContext && 'Notification' in root && Notification.permission==='default') {
-        try {await Notification.requestPermission();}catch {feedback('Permission could not be requested. In-page alerts are enabled.');}
-      }
-      if('Notification' in root && Notification.permission==='denied') feedback('Page alerts are on. To allow Android notifications, open Chrome → Settings → Site settings → Notifications, then allow this website.');
-      else feedback('Page alerts are on while this page is running. Tap Test reminder to check sound and notification delivery.');
-    }
-    localStorage.setItem('notificationsActive',String(enabled()));root.updateNotificationUI();
-  };
-  root.closeInAppAlert=function() {
-    clearInterval(repeatTimer);repeatTimer=null;currentAlert=null;
-    if(el('inAppAlert')) el('inAppAlert').classList.remove('show');
-  };
-  root.sendReminderNotification=async function(title,body,slot=null) {
-    root.closeInAppAlert();currentAlert={title,body,slot};
-    el('alertTitle').textContent=title;el('alertBody').textContent=body;el('inAppAlert').classList.add('show');
-    ring();if(navigator.vibrate && !document.hidden) navigator.vibrate([250,120,250]);
-    let repeats=0;
-    repeatTimer=setInterval(()=>{if(++repeats>2){clearInterval(repeatTimer);return;}if(!document.hidden)ring();},30000);
-    if('Notification' in root && Notification.permission==='granted') {
-      try {
-        const worker=await registration();
-        await worker.showNotification(title,{body,icon:'icon-192.png?v=34',tag:slot?slot.id:'mouni-test-reminder',renotify:true,requireInteraction:true,vibrate:[300,150,300,150,300],data:{url:new URL('./index.html#careContent',location.href).href},actions:[{action:'open',title:'Open checklist'}]});
-        feedback('Notification sent to Android/Chrome. Sound and vibration depend on your phone settings.');
-      }catch(error) {feedback(`The page alert is visible, but the phone notification failed: ${error.message}`);}
-    }
-  };
-  function pending(slot) {
-    if(slot.kind==='water') return !drankWaterHours.includes(slot.hour);
-    const wrap=el(`${slot.block}-wrap`);
-    if(!wrap) return false;
-    return [...wrap.querySelectorAll('.item-row')].some(row=>row.style.display!=='none'&&!row.classList.contains('checked')&&!row.querySelector('#tab-chk-13'));
-  }
-  function message(slot) {
-    if(slot.kind==='water') return 'Time for your water check-in. Open the tracker to record it.';
-    const wrap=el(`${slot.block}-wrap`);
-    const names=wrap?[...wrap.querySelectorAll('.item-row')].filter(row=>row.style.display!=='none'&&!row.classList.contains('checked')&&!row.querySelector('#tab-chk-13')).map(row=>row.querySelector('.item-name')?.textContent.trim()).filter(Boolean):[];
-    return names.length?`Check your current care plan: ${names.join(', ')}. Follow your current prescription.`:'Open your current care checklist.';
-  }
-  function tick() {
-    const now=Date.now();
-    const day=indiaDate(new Date(now));
-    if(trackerDay && trackerDay!==day) {
-      loadState();loadWaterState();checkCourseExpiration();updateDynamicHeader();updateTabletsProgress();
-    }
-    trackerDay=day;
-    updateTimeBlockOrdering();
-    if(delivered.some(id=>!id.startsWith(day)))persist();
-    root.updateNotificationUI();
-    if(!enabled()) return;
-    const dueSnoozes=snoozed.filter(item=>item.at<=now&&now-item.at<=90*60000);
-    snoozed=snoozed.filter(item=>item.at>now);
-    if(dueSnoozes.length) {
-      const item=dueSnoozes.at(-1);persist();
-      if(!item.slot||pending(item.slot))root.sendReminderNotification(item.title,item.body,item.slot);
-      return;
-    }
-    const slots=schedule(new Date(now)).filter(pending);
-    const due=latestDue(slots,now,delivered);
-    if(due) {
-      // Don't flood the phone with every older slot after returning to the page.
-      delivered.push(...slots.filter(slot=>slot.at<=now&&!delivered.includes(slot.id)).map(slot=>slot.id));persist();
-      const late=now-due.at>=60000;
-      root.sendReminderNotification(`${late?'Earlier reminder: ':''}${due.title}`,message(due),due);
-    }
-    if(currentAlert?.slot && !pending(currentAlert.slot))root.closeInAppAlert();
-    const next=slots.find(slot=>slot.at>now);
-    if(el('nextPageReminder'))el('nextPageReminder').textContent=next?`Next: ${next.title} at ${next.time} IST`:'No more scheduled page alerts today.';
-  }
-  root.startReminderCheck=function() {
-    clearInterval(interval);interval=setInterval(tick,15000);
-    document.addEventListener('visibilitychange',()=>{if(!document.hidden){updateTimeBlockOrdering();checkCourseExpiration();tick();}});
-    root.addEventListener('focus',tick);
-    setTimeout(tick,0);
-  };
-  root.snoozeCareReminder=function() {
-    if(!currentAlert)return;
-    snoozed.push({...currentAlert,at:Date.now()+5*60000});persist();root.closeInAppAlert();feedback('Snoozed for 5 minutes while the page is running.');
-  };
-  root.testCareReminder=async function() {
-    await unlockAudio();await root.sendReminderNotification('Test reminder','This is a test. No care record was changed.');
-    if(!('Notification' in root)||Notification.permission!=='granted')feedback('Test sound and page alert shown. Enable page alerts and allow notifications to test Android delivery.');
-  };
-  function download() {
-    try {
-      const content=calendar(new Date(),el('reminderEndDate').value);
-      const url=URL.createObjectURL(new Blob([content],{type:'text/calendar;charset=utf-8'}));
-      const link=document.createElement('a');
-      link.href=url;link.download='mouni-phone-reminders.ics';link.type='text/calendar';link.hidden=true;
-      document.body.appendChild(link);
-      try {link.click();} finally {
-        link.remove();
-        // Give mobile download handlers time to finish reading the blob.
-        setTimeout(()=>URL.revokeObjectURL(url),60000);
-      }
-      feedback('Calendar file saved. In Google Calendar on a computer, open Settings > Import & export and import this .ics file. It then syncs to Android. Tapping the file on Android may not import it. Replace older imported events first to avoid duplicates.');
-    }catch(error){feedback(error.message);}
-  }
-  root.downloadICS=download;
-  document.addEventListener('DOMContentLoaded',()=>{
-    const start=indiaDate(new Date()),end=new Date(`${start}T12:00:00+05:30`);end.setUTCMonth(end.getUTCMonth()+3);
-    el('reminderEndDate').min=start;el('reminderEndDate').value=indiaDate(end);
-    el('enablePageReminders').addEventListener('click',root.toggleNotifications);
-    el('testCareReminder').addEventListener('click',root.testCareReminder);
-    el('downloadPhoneReminders').addEventListener('click',root.downloadICS);
-    root.updateNotificationUI();
-  });
+  if(!actual)event('planned-delivery-20261101','Scheduled delivery - 29 October, 5:30 PM IST',PLANNED_BIRTH,'Scheduled delivery: 29 October 2026 at 5:30 PM India time. Confirm arrival and preparation instructions with the hospital.',true);
+  const prefix=actual?'':'Provisional: ';
+  const basis=actual?'Based on the confirmed birth date '+birth+'. ':'Based on planned delivery on 29 October 2026. Confirm the actual birth date and regenerate this file. ';
+  for(const group of schedule(birth,profile.je))event('mouni-uip-'+group.id,prefix+'Vaccinations - '+group.age,group.start,basis+group.doses.map(d=>d[1]).join(', ')+'. '+(group.end?'Suggested visit window: '+group.start+' to '+group.end+'. ':'')+(group.note||'')+' Dates are planning markers, not booked appointments. Follow the pediatrician and vaccination card.');
+  for(const visit of ranges(birth,VISITS))event('mouni-postnatal-'+visit.id,prefix+visit.label,visit.start,basis+visit.age+'. '+visit.note+' This is a planning reminder, not a confirmed appointment.');
+  lines.push('END:VCALENDAR');return lines.map(foldICS).join('\r\n')+'\r\n';
+ }
+ const engine={ZONE,DELIVERY,PLANNED_BIRTH,SOURCE,GROUPS,VISITS,indiaDate,validDate,addDays,addMonths,ranges,schedule,calendar};
+ if(typeof module!=='undefined'&&module.exports)module.exports=engine;
+ root.BabyCare=engine;
 })(typeof window!=='undefined'?window:globalThis);

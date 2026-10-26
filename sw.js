@@ -1,14 +1,14 @@
-const CACHE_NAME = 'mouni-baby-hub-v34';
+const CACHE_NAME = 'mouni-baby-hub-v35';
 const ASSETS = [
   './index.html',
-  './manifest.json?v=34',
-  './icon.svg?v=34',
-  './icon-192.png?v=34',
-  './icon-512.png?v=34',
-  './icon-180.png?v=34',
-  './upgrade.css?v=34',
-  './upgrade.js?v=34',
-  './reminders.js?v=34'
+  './manifest.json?v=35',
+  './icon.svg?v=35',
+  './icon-192.png?v=35',
+  './icon-512.png?v=35',
+  './icon-180.png?v=35',
+  './upgrade.css?v=35',
+  './upgrade.js?v=35',
+  './reminders.js?v=35'
 ];
 
 // Install Service Worker
@@ -29,7 +29,7 @@ self.addEventListener('activate', event => {
     caches.keys().then(keys => {
       return Promise.all(
         keys.map(key => {
-          if (key !== CACHE_NAME) {
+          if (key.startsWith('mouni-baby-hub-') && key !== CACHE_NAME) {
             console.log('[Service Worker] Clearing old cache', key);
             return caches.delete(key);
           }
@@ -81,7 +81,7 @@ self.addEventListener('fetch', event => {
 // A notification tap opens the current checklist, including in an installed app.
 self.addEventListener('notificationclick', event => {
   event.notification.close();
-  const target = new URL('./index.html#careContent', self.registration.scope).href;
+  const target = new URL('./index.html#vaccineSchedule', self.registration.scope).href;
   event.waitUntil(self.clients.matchAll({type:'window',includeUncontrolled:true}).then(async windows => {
     const existing = windows.find(client => client.url.startsWith(self.registration.scope));
     if (existing) { await existing.navigate(target); return existing.focus(); }
