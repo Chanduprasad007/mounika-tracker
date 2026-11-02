@@ -2,7 +2,7 @@
  'use strict';
  const E=window.BabyCare,$=id=>document.getElementById(id);
  const read=(key,fallback)=>{try{return JSON.parse(localStorage.getItem(key))??fallback;}catch{return fallback;}};
- let profile=read('mouni_baby_profile_v1',{}),records=read('mouni_uip_records_v1',{}),prep=read('mouni_birth_prep_v1',[]),care=read('mouni_discharge_care_v1',{}),actions=read('mouni_care_actions_v1',{}),doseLog=read('mouni_dose_log_v1',{}),filter='early',toastTimer;
+ let profile=read('mouni_baby_profile_v1',{}),records=read('mouni_uip_records_v1',{}),prep=read('mouni_birth_prep_v1',[]),care=read('mouni_discharge_care_v1',{}),actions=read('mouni_care_actions_v1',{}),doseLog=read('mouni_dose_log_v1',{}),scheduleDay=E.indiaDate(),guideMonth=null,filter='early',toastTimer;
  if(!profile||typeof profile!=='object'||Array.isArray(profile))profile={};
  if(!records||typeof records!=='object'||Array.isArray(records))records={};
  if(!Array.isArray(prep))prep=[];
@@ -86,7 +86,7 @@
    check.addEventListener('change',()=>{const next=check.checked?[...new Set([...prep,id])]:prep.filter(x=>x!==id);if(save('mouni_birth_prep_v1',next)){prep=next;renderPrep();}});
   }
  }
- function render(){renderHeader();renderVaccines();renderVisits();renderDischarge();renderMedicines();}
+ function render(){renderHeader();renderVaccines();renderVisits();renderDischarge();renderMedicines();renderGrowth();}
  function rows(section,items){
   const list=$(section);list.replaceChildren();
   for(const item of Array.isArray(items)?items:[]){
@@ -107,21 +107,22 @@
    check.addEventListener('change',()=>{const next={...actions,[item.id]:check.checked};if(save('mouni_care_actions_v1',next)){actions=next;renderDischarge();}});
   }
   const appointments=$('documentAppointments');appointments.replaceChildren();
-  for(const item of care.appointments||[]){
-   const row=node('article','appointment-row');row.append(node('span','appointment-date',fmt(item.date)+(item.windowEnd?' – '+fmt(item.windowEnd):'')),node('h3','',item.title),node('small','appointment-kind',item.confirmed?'Date documented · book a time':'Planning target · confirm date'),node('p','',item.note),node('small','source-note','Source: '+item.source));row.append(node('small','source-note','Advance alerts at 9 AM IST: '+E.reminderDates(item.date).map(fmt).join(' · ')+'. Past dates cannot notify retroactively.'));appointments.append(row);
+  for(const item of [...(care.appointments||[])].sort((a,b)=>a.date.localeCompare(b.date))){
+   const row=node('article','appointment-row');row.append(node('span','appointment-date',fmt(item.date)+(item.windowEnd?' – '+fmt(item.windowEnd):'')),node('h3','',item.title),node('small','appointment-kind',item.confirmed?'Date documented · book a time':'Planning target · confirm date'),node('p','',item.windowEnd?'Confirm the date within this planning window.':'Book the time with the clinic.'));const detail=node('details');detail.append(node('summary','','Visit details & reminders'),node('p','',item.note),node('small','source-note','Source: '+item.source),node('small','source-note','Advance alerts at 9 AM IST: '+E.reminderDates(item.date).map(fmt).join(' · ')+'. Past dates cannot notify retroactively.'));row.append(detail);appointments.append(row);
   }
   rows('dailyDischargeCare',care.dailyCare);rows('privateFacts',care.facts);rows('privatePrescriptions',care.prescriptions);rows('privateLabs',care.labs);rows('privateUrgent',care.urgentSigns);
   const contacts=$('privateContacts');contacts.replaceChildren();
   for(const contact of care.contacts||[]){const row=node('p','contact-row');row.append(node('strong','',contact.name+' '));for(const number of [contact.phone,contact.alternate].filter(Boolean)){const link=node('a','',number);link.href='tel:'+String(number).replace(/[^+0-9]/g,'');row.append(link,document.createTextNode(' '));}contacts.append(row);}
  }
  function renderMedicines(){
-  const today=E.indiaDate();$('medicineDay').textContent=fmt(today)+' · completed doses stay on this device';
+  const today=E.indiaDate(),selected=scheduleDay;$('medicineDay').textContent=(selected===today?'Today · ':'')+fmt(selected)+' · India time';$('scheduleDate').value=selected;
   const list=$('medicineList');list.replaceChildren();
-  const slots=E.medicationSlots(care,today);
-  if(!slots.length)list.append(node('p','small-note','No active medicine reminders today. Import the updated private care record to load prescribed courses.'));
+  const slots=E.medicationSlots(care,selected);
+  $('doseProgress').textContent=slots.filter(m=>doseLog[m.key]).length+' / '+slots.length+' done';
+  if(!slots.length)list.append(node('p','small-note','No active entries for this date. Check course dates below, or import your private record if it is not loaded.'));
   for(const m of slots){
-   const label=node('label','action-item'+(doseLog[m.key]?' done':'')),check=node('input');check.type='checkbox';check.checked=!!doseLog[m.key];
-   const text=node('span');text.append(node('strong','',m.time+' · '+m.title),node('small','',m.dose+' · '+m.note));label.append(check,text);list.append(label);
+   const label=node('label','action-item'+(doseLog[m.key]?' done':'')),check=node('input');check.type='checkbox';check.checked=!!doseLog[m.key];check.disabled=selected>today;
+   const text=node('span');text.append(node('strong','',m.time+' · '+m.title),node('small','',m.dose+' · '+(m.shortNote||m.note)));label.append(check,text);list.append(label);
    check.addEventListener('change',()=>{const next={...doseLog,[m.key]:check.checked};if(save('mouni_dose_log_v1',next)){doseLog=next;renderMedicines();}});
   }
   for(const m of care.medications||[])if(!m.enabled)list.append(node('p','planning-note',m.title+' · Pending verification: '+m.note));
@@ -135,6 +136,27 @@
    settings.append(row);
   }
  }
+ function renderGrowth(){
+  const today=E.indiaDate(),age=confirmed()?E.ageAt(birth(),today):null,selector=$('guideMonth');
+  $('babyAge').textContent=age?(age.months?age.months+' months · ':'')+age.days+' days since birth · '+fmt(today):'Confirm the birth date to personalise age and dates.';
+  if(!selector.options.length)for(const g of E.DEVELOPMENT){const option=node('option','',g.month===0?'Newborn · first weeks':g.month+' month'+(g.month===1?'':'s'));option.value=g.month;selector.append(option);}
+  const month=guideMonth===null?(age?Math.min(age.months,12):0):guideMonth;selector.value=month;
+  const g=E.DEVELOPMENT[month],article=$('developmentGuide');article.replaceChildren();
+  article.append(node('h3','',g.title));
+  if(age)article.append(node('p','guide-date',month===0?'First weeks from '+fmt(birth()):(month<age.months?'Reached ':month===age.months?'Current chapter · ':'Looking ahead · ')+fmt(E.addMonths(birth(),month))));
+  article.append(node('p','',g.development));
+  if(month===0&&age){const week=age.days<7?'First week: keep feeding, warmth and the discharge follow-up plan at the centre.':age.days<14?'Second week: bring feeding, weight and recovery questions to the arranged review.':'Later newborn weeks: keep responding to his cues and follow the care team’s review plan.';article.append(node('p','newborn-focus',week));}
+  const list=node('ul','guide-tips');for(const tip of g.tips)list.append(node('li','',tip));article.append(list);
+  const links=node('p','guide-sources');for(const [label,url] of g.sources){const link=node('a','',label);link.href=url;link.target='_blank';link.rel='noopener';links.append(link,document.createTextNode(' '));}article.append(links);
+  if(age&&age.months>12)article.append(node('p','small-note','This guide covers the first year. Use the CDC source for later-age checklists and discuss development with the pediatrician.'));
+  const number=Math.floor(Date.parse(today+'T12:00:00Z')/86400000);$('dailyEncouragement').textContent=E.ENCOURAGEMENT[number%E.ENCOURAGEMENT.length];
+ }
+ $('scheduleDate').addEventListener('change',()=>{const day=$('scheduleDate').value;if(!E.validDate(day)){$('scheduleDate').value=scheduleDay;return;}scheduleDay=day;renderMedicines();});
+ $('previousDay').addEventListener('click',()=>{scheduleDay=E.addDays(scheduleDay,-1);renderMedicines();});
+ $('nextDay').addEventListener('click',()=>{scheduleDay=E.addDays(scheduleDay,1);renderMedicines();});
+ $('scheduleToday').addEventListener('click',()=>{scheduleDay=E.indiaDate();renderMedicines();});
+ $('guideMonth').addEventListener('change',()=>{guideMonth=Number($('guideMonth').value);renderGrowth();});
+ $('currentGuide').addEventListener('click',()=>{guideMonth=null;renderGrowth();});
  function importRecord(text){
   try{
    if(text.length>1000000)throw new Error('The care record is too large. Use the prepared JSON file, not a PDF.');
@@ -186,7 +208,7 @@
   $('olderRecords').hidden=false;for(const id of legacy)$('legacyVaccineList').append(node('li','',String(id)));
  }
  render();renderPrep();
- let lastDay=E.indiaDate();setInterval(()=>{renderHeader();const day=E.indiaDate();if(day!==lastDay){lastDay=day;render();}},60000);
+ let lastDay=E.indiaDate();setInterval(()=>{renderHeader();const day=E.indiaDate();if(day!==lastDay){if(scheduleDay===lastDay)scheduleDay=day;lastDay=day;render();}},60000);
  if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 })();
 // Original Krishna-inspired pentatonic bansuri melody, above a soft tonic drone.
